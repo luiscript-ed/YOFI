@@ -1,0 +1,10 @@
+É preciso descobrir um jeito de notificar.
+Fazer um arquivo para cada API, (usando a mesma porta?) 
+Definir com o grupo as funcionalidades práticas do aplicativo
+Definir o prompt inicial da MYA
+
+GET (Pega os dados)
+PUT (Altera um dado)
+POST (Cria um dado)
+DELETE (Deleta os dados)
+
