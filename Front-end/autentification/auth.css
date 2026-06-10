@@ -1,0 +1,155 @@
+
+/* auth.css */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #090b14, #111827, #1b1b2f);
+    color: white;
+    overflow: hidden;
+}
+
+.background{
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(168,85,247,0.25), transparent 70%);
+    top: -200px;
+    right: -100px;
+}
+
+.container{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+}
+
+.left{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px;
+}
+
+.left h1{
+    font-size: 5rem;
+    color: #c084fc;
+    margin-bottom: 20px;
+}
+
+.left p{
+    color: #9ca3af;
+    font-size: 1.2rem;
+    max-width: 500px;
+}
+
+.right{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container{
+    width: 420px;
+    background: rgba(17,24,39,0.85);
+    padding: 40px;
+    border-radius: 30px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.buttons{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.buttons button{
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #1f2937;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.buttons button.active{
+    background: linear-gradient(135deg, #7c3aed, #c084fc);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+form h2{
+    margin-bottom: 10px;
+}
+
+input{
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    background: #111827;
+    color: white;
+    outline: none;
+}
+
+.submit-btn{
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #7c3aed, #c084fc);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover{
+    transform: translateY(-3px);
+}
+
+.hidden{
+    display: none;
+}
+
+#mensagem{
+    margin-top: 20px;
+    color: #d8b4fe;
+    text-align: center;
+}
+
+@media(max-width: 900px){
+
+    .container{
+        flex-direction: column;
+    }
+
+    .left,
+    .right{
+        width: 100%;
+    }
+
+    .left{
+        padding: 40px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .left h1{
+        font-size: 4rem;
+    }
+
+}
