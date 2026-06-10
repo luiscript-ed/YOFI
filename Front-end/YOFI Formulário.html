@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cadastro de Transações Financeiras">
+    <title>Nova Transação - Mya Finanças</title>
+
+    <style>   
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #170f2b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        form {
+            background-color: #3e0953;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #f9f9f9;
+            font-size: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fbf7f7;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Estilização para inputs, selects e textarea ficarem padronizados */
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #f0efef;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #333333;
+            font-size: 16px;
+        }
+
+        /* Foco nos campos */
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #0078ff;
+            box-shadow: 0 0 5px rgba(0, 120, 255, 0.5);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Estilo do botão de envio */
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #0078ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #005fcc;
+        }
+
+        /* Link discreto para voltar à página inicial pós-login */
+        .btn-voltar {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #b39ddb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn-voltar:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <form action="#" method="POST">
+            <h1>Nova Transação</h1>
+
+            <label for="tipo">Tipo de Transação</label>
+            <select id="tipo" name="tipo" required>
+                <option value="" disabled selected>Selecione o tipo</option>
+                <option value="gasto">Gasto (Saída)</option>
+                <option value="ganho">Ganho (Entrada)</option>
+            </select>
+
+            <label for="categoria">Categoria</label>
+            <select id="categoria" name="categoria" required>
+                <option value="" disabled selected>Selecione uma categoria</option>
+                <optgroup label="Ganhos / Receitas">
+                    <option value="salario">Salário</option>
+                    <option value="freelance">Freelance / Investimentos</option>
+                    <option value="outros_ganhos">Outros Ganhos</option>
+                </optgroup>
+                <optgroup label="Gastos / Despesas">
+                    <option value="alimentacao">Alimentação</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="moradia">Moradia (Aluguel/Contas)</option>
+                    <option value="lazer">Lazer / Viagens</option>
+                    <option value="saude">Saúde / Educação</option>
+                    <option value="outros_gastos">Outros Gastos</option>
+                </optgroup>
+            </select>
+
+            <label for="valor">Valor (R$)</label>
+            <input type="number" id="valor" name="valor" step="0.01" min="0.01" placeholder="0,00" required>
+
+            <label for="data">Data</label>
+            <input type="date" id="data" name="data" required>
+
+            <label for="descricao">Descrição (Opcional)</label>
+            <textarea id="descricao" name="descricao" placeholder="Ex: Compras do mês no mercado X..."></textarea>
+
+            <button type="submit">Cadastrar Transação</button>
+            
+            <a href="#" class="btn-voltar">← Voltar para o Dashboard</a>
+        </form>
+    </div>
+
+</body>
+</html>
