@@ -2,10 +2,14 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
+from datetime import datetime
 
 app = FastAPI()
 
-# Permite que o front-end acesse o back-end mesmo estando em portas diferentes (CORS)
+# ==========================================
+# CORS
+# ==========================================
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -13,58 +17,260 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Modelos de dados que o front-end deve enviar
+# ==========================================
+# BANCO DE DADOS
+# ==========================================
+
+conn = sqlite3.connect("meu_banco.db", check_same_thread=False)
+cursor = conn.cursor()
+
+# Tabela de usuários
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    senha TEXT NOT NULL
+)
+""")
+
+# Tabela de transações
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS transacoes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    usuario_id INTEGER NOT NULL,
+    tipo TEXT NOT NULL,
+    categoria TEXT NOT NULL,
+    valor REAL NOT NULL,
+    descricao TEXT,
+    data TEXT NOT NULL,
+    
+    FOREIGN KEY(usuario_id) REFERENCES usuarios(id)
+)
+""")
+
+conn.commit()
+
+# ==========================================
+# MODELOS
+# ==========================================
+
 class UsuarioCadastro(BaseModel):
     nome: str
     email: str
-    senha: str  # Em produção, use criptografia (ex: bcrypt)
+    senha: str
 
 class UsuarioLogin(BaseModel):
     email: str
     senha: str
 
-# ROTA DE CADASTRO
+class Transacao(BaseModel):
+    usuario_id: int
+    tipo: str  # ganho ou gasto
+    categoria: str
+    valor: float
+    descricao: str
+
+# ==========================================
+# CADASTRO
+# ==========================================
+
 @app.post("/cadastro")
 def cadastrar_usuario(usuario: UsuarioCadastro):
-    conn = sqlite3.connect("meu_banco.db")
-    cursor = conn.cursor()
-    
-    # Cria a tabela caso não exista (agora incluindo o campo senha)
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS usuarios (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT NOT NULL,
-        email TEXT UNIQUE NOT NULL,
-        senha TEXT NOT NULL
-    )
-    """)
-    
+
     try:
         cursor.execute(
-            "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)",
+            """
+            INSERT INTO usuarios (nome, email, senha)
+            VALUES (?, ?, ?)
+            """,
             (usuario.nome, usuario.email, usuario.senha)
         )
-        conn.commit()
-        return {"mensagem": "Usuário cadastrado com sucesso!"}
-    except sqlite3.IntegrityError:
-        raise HTTPException(status_code=400, detail="Este e-mail já está cadastrado.")
-    finally:
-        conn.close()
 
-# ROTA DE LOGIN
+        conn.commit()
+
+        return {
+            "mensagem": "Usuário cadastrado com sucesso!"
+        }
+
+    except sqlite3.IntegrityError:
+        raise HTTPException(
+            status_code=400,
+            detail="Este e-mail já está cadastrado."
+        )
+
+# ==========================================
+# LOGIN
+# ==========================================
+
 @app.post("/login")
-def logar_usuario(usuario: UsuarioLogin):
-    conn = sqlite3.connect("meu_banco.db")
-    cursor = conn.cursor()
-    
+def login(usuario: UsuarioLogin):
+
     cursor.execute(
-        "SELECT nome FROM usuarios WHERE email = ? AND senha = ?",
+        """
+        SELECT id, nome
+        FROM usuarios
+        WHERE email = ? AND senha = ?
+        """,
         (usuario.email, usuario.senha)
     )
+
     resultado = cursor.fetchone()
-    conn.close()
-    
+
     if resultado:
-        return {"mensagem": f"Login realizado com sucesso! Bem-vindo {resultado[0]}."}
-    else:
-        raise HTTPException(status_code=401, detail="E-mail ou senha incorretos.")
+
+        return {
+            "mensagem": "Login realizado com sucesso!",
+            "usuario_id": resultado[0],
+            "nome": resultado[1]
+        }
+
+    raise HTTPException(
+        status_code=401,
+        detail="E-mail ou senha incorretos."
+    )
+
+# ==========================================
+# ADICIONAR TRANSAÇÃO
+# ==========================================
+
+@app.post("/transacao")
+def adicionar_transacao(transacao: Transacao):
+
+    if transacao.tipo not in ["ganho", "gasto"]:
+        raise HTTPException(
+            status_code=400,
+            detail="Tipo deve ser 'ganho' ou 'gasto'"
+        )
+
+    data_atual = datetime.now().strftime("%d/%m/%Y")
+
+    cursor.execute(
+        """
+        INSERT INTO transacoes
+        (usuario_id, tipo, categoria, valor, descricao, data)
+
+        VALUES (?, ?, ?, ?, ?, ?)
+        """,
+        (
+            transacao.usuario_id,
+            transacao.tipo,
+            transacao.categoria,
+            transacao.valor,
+            transacao.descricao,
+            data_atual
+        )
+    )
+
+    conn.commit()
+
+    return {
+        "mensagem": "Transação adicionada com sucesso!"
+    }
+
+# ==========================================
+# LISTAR TRANSAÇÕES
+# ==========================================
+
+@app.get("/transacoes/{usuario_id}")
+def listar_transacoes(usuario_id: int):
+
+    cursor.execute(
+        """
+        SELECT id, tipo, categoria, valor, descricao, data
+        FROM transacoes
+        WHERE usuario_id = ?
+        ORDER BY id DESC
+        """,
+        (usuario_id,)
+    )
+
+    resultados = cursor.fetchall()
+
+    transacoes = []
+
+    for transacao in resultados:
+        transacoes.append({
+            "id": transacao[0],
+            "tipo": transacao[1],
+            "categoria": transacao[2],
+            "valor": transacao[3],
+            "descricao": transacao[4],
+            "data": transacao[5]
+        })
+
+    return transacoes
+
+# ==========================================
+# DASHBOARD FINANCEIRO
+# ==========================================
+
+@app.get("/dashboard/{usuario_id}")
+def dashboard(usuario_id: int):
+
+    # Total ganhos
+    cursor.execute(
+        """
+        SELECT SUM(valor)
+        FROM transacoes
+        WHERE usuario_id = ?
+        AND tipo = 'ganho'
+        """,
+        (usuario_id,)
+    )
+
+    ganhos = cursor.fetchone()[0]
+
+    # Total gastos
+    cursor.execute(
+        """
+        SELECT SUM(valor)
+        FROM transacoes
+        WHERE usuario_id = ?
+        AND tipo = 'gasto'
+        """,
+        (usuario_id,)
+    )
+
+    gastos = cursor.fetchone()[0]
+
+    ganhos = ganhos if ganhos else 0
+    gastos = gastos if gastos else 0
+
+    saldo = ganhos - gastos
+
+    return {
+        "total_ganhos": ganhos,
+        "total_gastos": gastos,
+        "saldo": saldo
+    }
+
+# ==========================================
+# GRÁFICO DE CATEGORIAS
+# ==========================================
+
+@app.get("/grafico-categorias/{usuario_id}")
+def grafico_categorias(usuario_id: int):
+
+    cursor.execute(
+        """
+        SELECT categoria, SUM(valor)
+        FROM transacoes
+        WHERE usuario_id = ?
+        AND tipo = 'gasto'
+        GROUP BY categoria
+        """,
+        (usuario_id,)
+    )
+
+    resultados = cursor.fetchall()
+
+    dados = []
+
+    for item in resultados:
+        dados.append({
+            "categoria": item[0],
+            "total": item[1]
+        })
+
+    return dados
