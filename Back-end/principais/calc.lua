@@ -19,5 +19,5 @@ server:start(function(req, rep)
     else
         rep:status(404)
         rep:write("Rota nao encontrada")
-    end
+    end 
 end)
