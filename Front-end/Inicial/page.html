@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOFI Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+    <header class="navbar">
+
+        <div class="logo">
+            YOFI
+        </div>
+
+        <nav>
+            <a href="#">Dashboard</a>
+            <a href="#">Gráficos</a>
+            <a href="#">Transações</a>
+            <a href="#">IA Financeira</a>
+        </nav>
+
+    </header>
+
+    <main>
+
+        <section class="cards">
+
+            <div class="card">
+                <h3>Saldo Atual</h3>
+                <p id="saldo">R$ 0,00</p>
+            </div>
+
+            <div class="card">
+                <h3>Receitas</h3>
+                <p id="ganhos">R$ 0,00</p>
+            </div>
+
+            <div class="card">
+                <h3>Despesas</h3>
+                <p id="gastos">R$ 0,00</p>
+            </div>
+
+        </section>
+
+        <section class="extrato">
+
+            <h2>Últimas Transações</h2>
+
+            <div id="lista-transacoes">
+
+                <div class="sem-transacoes">
+                    Nenhuma transação encontrada.
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <button id="abrirIA" class="ia-button">
+        IA
+    </button>
+
+    <aside id="painelIA" class="ia-sidebar">
+
+        <div class="ia-header">
+
+            <h2>MYA</h2>
+
+            <button id="fecharIA">
+                ✕
+            </button>
+
+        </div>
+
+        <div class="ia-content">
+
+            <p>
+                Sua assistente financeira aparecerá aqui.
+            </p>
+
+        </div>
+
+    </aside>
+
+    <script src="dashboard.js"></script>
+
+</body>
+</html>

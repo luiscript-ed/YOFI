@@ -1,0 +1,190 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#0b0718;
+    color:white;
+}
+
+.navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    height:70px;
+
+    background:#140c25;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 40px;
+
+    border-bottom:1px solid #2a1d47;
+
+    z-index:1000;
+}
+
+.logo{
+    font-size:32px;
+    font-weight:bold;
+    color:#8b5cf6;
+}
+
+.navbar nav{
+    display:flex;
+    gap:30px;
+}
+
+.navbar nav a{
+    color:white;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.navbar nav a:hover{
+    color:#8b5cf6;
+}
+
+main{
+    padding-top:100px;
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#140c25;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    border:1px solid #24163d;
+}
+
+.card h3{
+    margin-bottom:15px;
+}
+
+.card p{
+    font-size:24px;
+    font-weight:bold;
+    color:#8b5cf6;
+}
+
+.extrato{
+    margin-top:40px;
+
+    background:#140c25;
+
+    padding:25px;
+
+    border-radius:15px;
+}
+
+.extrato h2{
+    margin-bottom:20px;
+}
+
+.transacao{
+    display:flex;
+    justify-content:space-between;
+
+    padding:15px;
+
+    border-bottom:1px solid #24163d;
+}
+
+.sem-transacoes{
+    text-align:center;
+    color:#888;
+    padding:30px;
+}
+
+.ia-button{
+
+    position:fixed;
+
+    right:20px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:60px;
+    height:60px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#8b5cf6;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    z-index:1200;
+}
+
+.ia-sidebar{
+
+    position:fixed;
+
+    top:0;
+    right:-400px;
+
+    width:400px;
+    height:100vh;
+
+    background:#140c25;
+
+    transition:.3s;
+
+    border-left:1px solid #24163d;
+
+    z-index:1500;
+}
+
+.ia-sidebar.active{
+    right:0;
+}
+
+.ia-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px;
+
+    border-bottom:1px solid #24163d;
+}
+
+.ia-header button{
+
+    background:none;
+    border:none;
+
+    color:white;
+
+    font-size:20px;
+
+    cursor:pointer;
+}
+
+.ia-content{
+    padding:20px;
+}

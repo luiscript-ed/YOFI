@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot MYA</title>
+    <style>
+        /* Estilos baseados no seu código original */
+        body {
+            background-color: #fdf6ff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Logo fixa do gato */
+        .logo {
+            position: fixed;
+            top: 50px;
+            left: 15px;
+            width: 150px;
+            z-index: 100;
+        }
+
+        /* Título */
+        .title {
+            text-align: center;
+            color: #9333EA;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Container do Chat */
+        .chat-container {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        /* Bolhas de mensagem */
+        .message-bubble {
+            color: black;
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin: 5px 0;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #f1f0ff;
+            align-self: flex-end;
+            text-align: right;
+        }
+
+        .bot-message {
+            background-color: #f9f0ff;
+            align-self: flex-start;
+            text-align: left;
+        }
+
+        .error-message {
+            background-color: #ffe6e6;
+            color: #cc0000;
+            align-self: center;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        /* Formulário de Input */
+        .chat-form {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-text {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            outline: none;
+        }
+
+        .input-text:focus {
+            border-color: #a84ee0;
+        }
+
+        button {
+            background-color: #a84ee0;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #8e44ad;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="gato.png" alt="Logo MYA" class="logo">
+
+    <h1 class="title">MYA</h1>
+
+    <div class="chat-container" id="chatContainer"></div>
+
+    <form class="chat-form" id="chatForm">
+        <input type="text" id="userInput" class="input-text" placeholder="Digite sua mensagem:" required autocomplete="off">
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        const chatContainer = document.getElementById('chatContainer');
+        const chatForm = document.getElementById('chatForm');
+        const userInput = document.getElementById('userInput');
+
+        // URL da sua API Flask no Render
+        const API_URL = "https://mya-otfs.onrender.com/chatbot";
+
+        // Função para criar e adicionar uma bolha de mensagem na tela
+        function appendMessage(text, role) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message-bubble');
+            
+            if (role === 'user') {
+                messageDiv.classList.add('user-message');
+            } else if (role === 'bot') {
+                messageDiv.classList.add('bot-message');
+            } else {
+                messageDiv.classList.add('error-message');
+            }
+
+            messageDiv.textContent = text;
+            chatContainer.appendChild(messageDiv);
+
+            // Rola a tela automaticamente para a última mensagem
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        // Evento que intercepta o envio do formulário
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Evita que a página recarregue
+
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // 1. Mostra a mensagem do usuário na tela
+            appendMessage(message, 'user');
+            userInput.value = ''; // Limpa o campo de texto
+
+            try {
+                // 2. Faz a chamada POST para o seu backend Flask
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ pergunta: message })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erro no servidor: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                // 3. Pega a resposta do JSON (usando a chave 'resposta')
+                const botResponse = data.resposta || "Sem resposta.";
+                
+                // 4. Mostra a resposta do bot na tela
+                appendMessage(botResponse, 'bot');
+
+            } catch (error) {
+                // Tratamento de erro idêntico ao try/except do Python
+                appendMessage(`Erro ao se comunicar com o servidor: ${error.message}`, 'error');
+            }
+        });
+    </script>
+
+</body>
+</html>
