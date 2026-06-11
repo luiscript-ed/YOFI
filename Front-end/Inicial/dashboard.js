@@ -1,3 +1,7 @@
+// =========================
+// BARRA LATERAL IA
+// =========================
+
 const abrirIA = document.getElementById("abrirIA");
 const fecharIA = document.getElementById("fecharIA");
 const painelIA = document.getElementById("painelIA");
@@ -10,23 +14,118 @@ fecharIA.addEventListener("click", () => {
     painelIA.classList.remove("active");
 });
 
-const transacoes = [];
+// =========================
+// DADOS DO USUÁRIO
+// =========================
 
-const container = document.getElementById("lista-transacoes");
+const usuarioId = localStorage.getItem("usuario_id");
 
-if(transacoes.length > 0){
-
-    container.innerHTML = "";
-
-    transacoes.slice(0,3).forEach(t => {
-
-        container.innerHTML += `
-            <div class="transacao">
-                <span>${t.descricao}</span>
-                <span>R$ ${t.valor}</span>
-            </div>
-        `;
-
-    });
-
+if (!usuarioId) {
+    alert("Usuário não está logado.");
+    window.location.href = "autentification.html";
 }
+
+// =========================
+// CARREGAR DASHBOARD
+// =========================
+
+async function carregarDashboard() {
+
+    try {
+
+        const resposta = await fetch(
+            `http://127.0.0.1:8000/dashboard/${usuarioId}`
+        );
+
+        const dados = await resposta.json();
+
+        document.getElementById("saldo").textContent =
+            `R$ ${dados.saldo.toFixed(2)}`;
+
+        document.getElementById("ganhos").textContent =
+            `R$ ${dados.total_ganhos.toFixed(2)}`;
+
+        document.getElementById("gastos").textContent =
+            `R$ ${dados.total_gastos.toFixed(2)}`;
+
+    } catch (erro) {
+
+        console.error("Erro ao carregar dashboard:", erro);
+
+    }
+}
+
+// =========================
+// CARREGAR TRANSAÇÕES
+// =========================
+
+async function carregarTransacoes() {
+
+    try {
+
+        const resposta = await fetch(
+            `http://127.0.0.1:8000/transacoes/${usuarioId}`
+        );
+
+        const transacoes = await resposta.json();
+
+        const container = document.getElementById("lista-transacoes");
+
+        container.innerHTML = "";
+
+        if (transacoes.length === 0) {
+
+            container.innerHTML = `
+                <div class="sem-transacoes">
+                    Nenhuma transação encontrada.
+                </div>
+            `;
+
+            return;
+        }
+
+        const ultimasTres = transacoes.slice(0, 3);
+
+        ultimasTres.forEach(transacao => {
+
+            const classe =
+                transacao.tipo === "ganho"
+                ? "ganho"
+                : "gasto";
+
+            const sinal =
+                transacao.tipo === "ganho"
+                ? "+"
+                : "-";
+
+            container.innerHTML += `
+                <div class="transacao">
+
+                    <div>
+                        <strong>${transacao.categoria}</strong>
+                        <br>
+                        <small>${transacao.descricao || "Sem descrição"}</small>
+                    </div>
+
+                    <div class="${classe}">
+                        ${sinal} R$ ${Number(transacao.valor).toFixed(2)}
+                    </div>
+
+                </div>
+            `;
+
+        });
+
+    } catch (erro) {
+
+        console.error("Erro ao carregar transações:", erro);
+
+    }
+}
+
+// =========================
+// INICIAR
+// =========================
+
+carregarDashboard();
+carregarTransacoes();
