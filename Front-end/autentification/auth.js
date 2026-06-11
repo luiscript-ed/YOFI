@@ -112,7 +112,7 @@ loginForm.addEventListener("submit", async (e) => {
 
             setTimeout(() => {
 
-                window.location.href = "dashboard.html";
+                window.location.href = "inicial/page";
 
             }, 1500);
 
