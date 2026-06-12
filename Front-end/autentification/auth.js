@@ -112,7 +112,7 @@ loginForm.addEventListener("submit", async (e) => {
 
             setTimeout(() => {
 
-                window.location.href = "Inicial/page";
+                window.open("https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page", "_blank");
 
             }, 1500);
 
