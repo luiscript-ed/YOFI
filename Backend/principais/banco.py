@@ -175,6 +175,9 @@ def adicionar_transacao(transacao: Transacao):
 @app.get("/transacoes/{usuario_id}")
 def listar_transacoes(usuario_id: int):
 
+    conn = sqlite3.connect("meu_banco.db")
+    cursor = conn.cursor()
+
     cursor.execute(
         """
         SELECT id, tipo, categoria, valor, descricao, data
@@ -187,9 +190,12 @@ def listar_transacoes(usuario_id: int):
 
     resultados = cursor.fetchall()
 
+    conn.close()
+
     transacoes = []
 
     for transacao in resultados:
+
         transacoes.append({
             "id": transacao[0],
             "tipo": transacao[1],
