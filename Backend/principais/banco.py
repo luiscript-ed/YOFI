@@ -3,10 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
 from datetime import datetime
-from mya import perguntar_mya
-from analise_financeira import analisar_usuario
-from secundarios.notify import criar_notificacao
-import secundarios.scheduler
+from Backend.principais.mya import perguntar_mya
+from Backend.principais.analise_financeira import analisar_usuario
+from Backend.secundarios.notify import criar_notificacao
+import Backend.secundarios.scheduler
 
 app = FastAPI()
 

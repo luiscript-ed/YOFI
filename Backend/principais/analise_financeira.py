@@ -1,5 +1,5 @@
 import sqlite3
-from mya import perguntar_mya
+from Backend.principais.mya import perguntar_mya
 
 def analisar_usuario(usuario_id):
 
@@ -12,9 +12,13 @@ def analisar_usuario(usuario_id):
                categoria,
                valor,
                descricao
+
         FROM transacoes
+
         WHERE usuario_id = ?
+
         ORDER BY id DESC
+
         LIMIT 20
         """,
         (usuario_id,)
@@ -25,31 +29,46 @@ def analisar_usuario(usuario_id):
     conn.close()
 
     if not transacoes:
-
         return "Nenhuma transação encontrada."
 
-    texto = ""
+    resumo = ""
+
+    total_gastos = 0
+    total_ganhos = 0
 
     for t in transacoes:
 
-        texto += (
-            f"Tipo: {t[0]}, "
-            f"Categoria: {t[1]}, "
-            f"Valor: R${t[2]}, "
-            f"Descrição: {t[3]}\n"
-        )
+        tipo = t[0]
+        categoria = t[1]
+        valor = t[2]
+
+        resumo += f"{tipo} | {categoria} | R${valor}\n"
+
+        if tipo == "gasto":
+            total_gastos += valor
+
+        if tipo == "ganho":
+            total_ganhos += valor
 
     prompt = f"""
-Analise as últimas transações deste usuário.
+Analise os dados financeiros abaixo.
 
-{texto}
+Transações:
+
+{resumo}
+
+Total de ganhos:
+R${total_ganhos}
+
+Total de gastos:
+R${total_gastos}
 
 Forneça:
 
 1. Resumo financeiro
-2. Possíveis problemas
-3. Dica prática
-4. Mensagem curta para notificação
+2. Possível problema
+3. Sugestão prática
+4. Uma mensagem curta para notificação
 """
 
     return perguntar_mya(prompt)

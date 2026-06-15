@@ -1,9 +1,12 @@
 from openai import OpenAI
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
+
 client = OpenAI(
-    api_key=os.getenv("TOGETHER_API_KEY"),
-    base_url="https://api.together.xyz/v1"
+    api_key=os.getenv("OPENROUTER_API_KEY"),
+    base_url="https://openrouter.ai/api/v1"
 )
 
 PROMPT_SISTEMA = """
@@ -11,15 +14,13 @@ Você é a MYA, assistente financeira do aplicativo YOFI.
 
 Seu objetivo é:
 
-- Ajudar jovens a organizarem suas finanças
-- Dar dicas financeiras simples
+- Ajudar jovens a controlar gastos
 - Analisar hábitos financeiros
-- Sugerir melhorias
-- Alertar sobre gastos excessivos
+- Identificar excessos
+- Dar dicas práticas
+- Incentivar educação financeira
 
 Responda sempre em português.
-Seja objetiva.
-Não invente informações.
 """
 
 def perguntar_mya(pergunta: str):
@@ -28,7 +29,7 @@ def perguntar_mya(pergunta: str):
 
         resposta = client.chat.completions.create(
 
-            model="mistralai/Mistral-7B-Instruct-v0.1",
+            model="google/gemma-3-12b-it",
 
             messages=[
                 {
