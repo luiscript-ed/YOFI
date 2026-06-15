@@ -211,30 +211,105 @@ document
 
 document
 .getElementById("btnGastos")
-.addEventListener("click", () => {
+.addEventListener("click", async () => {
 
-    resultadoMYA.innerHTML = `
-        <h4>📊 Categorias</h4>
-        <p>
-            Em breve a MYA mostrará
-            suas categorias com maiores gastos.
-        </p>
-    `;
+    resultadoMYA.innerHTML =
+    "<p>Analisando categorias...</p>";
+
+    try{
+
+        const response = await fetch(
+            `http://127.0.0.1:8000/categorias/${usuarioId}`
+        );
+
+        const data =
+        await response.json();
+
+        let html =
+        "<h4>📊 Categorias com maiores gastos</h4>";
+
+        data.categorias.forEach(cat => {
+
+            html += `
+                <p>
+                    <strong>${cat.categoria}</strong>
+                    - R$ ${cat.valor.toFixed(2)}
+                </p>
+            `;
+
+        });
+
+        resultadoMYA.innerHTML = html;
+
+    }
+    catch{
+
+        resultadoMYA.innerHTML =
+        "<p>Erro ao analisar categorias.</p>";
+
+    }
 
 });
 
 document
 .getElementById("btnEconomia")
-.addEventListener("click", () => {
+.addEventListener("click", async () => {
 
-    resultadoMYA.innerHTML = `
-        <h4>🎯 Economia</h4>
-        <p>
-            Em breve a MYA criará
-            estratégias personalizadas
-            para economizar.
-        </p>
-    `;
+    resultadoMYA.innerHTML =
+    "<p>MYA está analisando...</p>";
+
+    try{
+
+        const response = await fetch(
+            `http://127.0.0.1:8000/analise/${usuarioId}`
+        );
+
+        const data =
+        await response.json();
+
+        resultadoMYA.innerHTML = `
+            <h4>📊 Resumo Financeiro</h4>
+            <p>${data.analise}</p>
+        `;
+
+    }
+    catch{
+
+        resultadoMYA.innerHTML =
+        "<p>Erro ao gerar análise.</p>";
+
+    }
+
+});
+
+document
+.getElementById("btnEconomia")
+.addEventListener("click", async () => {
+
+    resultadoMYA.innerHTML =
+    "<p>MYA está criando dicas...</p>";
+
+    try{
+
+        const response = await fetch(
+            `http://127.0.0.1:8000/economia/${usuarioId}`
+        );
+
+        const data =
+        await response.json();
+
+        resultadoMYA.innerHTML = `
+            <h4>🎯 Dicas da MYA</h4>
+            <p>${data.dicas}</p>
+        `;
+
+    }
+    catch{
+
+        resultadoMYA.innerHTML =
+        "<p>Erro ao gerar dicas.</p>";
+
+    }
 
 });
 

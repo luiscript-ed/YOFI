@@ -4,9 +4,11 @@ from pydantic import BaseModel
 import sqlite3
 from datetime import datetime
 from Backend.principais.mya import perguntar_mya
-from Backend.principais.analise_financeira import analisar_usuario
+from Backend.principais.analise_financeira import analisar_usuario 
+from Backend.principais.analise_financeira import categorias_principais
 from Backend.secundarios.notify import criar_notificacao
 from Backend.secundarios.scheduler import scheduler
+from principais.analise_financeira import gerar_dicas_economia
 
 app = FastAPI()
 
@@ -103,6 +105,29 @@ class PerguntaMYA(BaseModel):
 # ==========================================
 # MYA
 # ==========================================
+@app.get("/categorias/{usuario_id}")
+def top_categorias(usuario_id: int):
+
+    categorias = categorias_principais(usuario_id)
+
+    return {
+        "categorias": [
+            {
+                "categoria": c[0],
+                "valor": c[1]
+            }
+            for c in categorias
+        ]
+    }
+
+@app.get("/economia/{usuario_id}")
+def economia(usuario_id: int):
+
+    return {
+        "dicas": gerar_dicas_economia(
+            usuario_id
+        )
+    }
 
 @app.post("/mya")
 def conversar_mya(dados: PerguntaMYA):
