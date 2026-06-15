@@ -247,3 +247,80 @@ main{
 .hidden{
     display:none;
 }
+
+.mya-welcome h3{
+    color: #c084fc;
+    margin-bottom: 10px;
+}
+
+.mya-welcome p{
+    color: #d1d5db;
+    line-height: 1.5;
+}
+
+.mya-actions{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.mya-action-btn{
+
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #9333ea
+    );
+
+    border: none;
+
+    color: white;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.mya-action-btn:hover{
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 15px rgba(
+            147,
+            51,
+            234,
+            0.4
+        );
+}
+
+.mya-result{
+
+    margin-top: 20px;
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.05
+    );
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    min-height: 120px;
+
+    color: white;
+
+    line-height: 1.6;
+}

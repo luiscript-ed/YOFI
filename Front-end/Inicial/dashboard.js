@@ -6,6 +6,9 @@ const abrirIA = document.getElementById("abrirIA");
 const fecharIA = document.getElementById("fecharIA");
 const painelIA = document.getElementById("painelIA");
 
+const resultadoMYA =
+document.getElementById("myaResultado");
+
 abrirIA.addEventListener("click", () => {
     painelIA.classList.add("active");
 });
@@ -174,6 +177,66 @@ async function carregarNotificacoes(){
     });
 
 }
+
+document
+.getElementById("btnAnalise")
+.addEventListener("click", async () => {
+
+    resultadoMYA.innerHTML =
+    "<p>MYA está analisando...</p>";
+
+    try{
+
+        const response = await fetch(
+            `http://127.0.0.1:8000/analise/${usuarioId}`
+        );
+
+        const data =
+        await response.json();
+
+        resultadoMYA.innerHTML = `
+            <h4>📊 Resumo Financeiro</h4>
+            <p>${data.analise}</p>
+        `;
+
+    }
+    catch{
+
+        resultadoMYA.innerHTML =
+        "<p>Erro ao gerar análise.</p>";
+
+    }
+
+});
+
+document
+.getElementById("btnGastos")
+.addEventListener("click", () => {
+
+    resultadoMYA.innerHTML = `
+        <h4>📊 Categorias</h4>
+        <p>
+            Em breve a MYA mostrará
+            suas categorias com maiores gastos.
+        </p>
+    `;
+
+});
+
+document
+.getElementById("btnEconomia")
+.addEventListener("click", () => {
+
+    resultadoMYA.innerHTML = `
+        <h4>🎯 Economia</h4>
+        <p>
+            Em breve a MYA criará
+            estratégias personalizadas
+            para economizar.
+        </p>
+    `;
+
+});
 
 // =========================
 // INICIAR
