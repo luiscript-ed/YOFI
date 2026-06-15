@@ -1,15 +1,27 @@
-from winotify import Notification
+from datetime import datetime
+import sqlite3
 
-notificacao = Notification(
-    app_id="YOFI",
-    title="MYA",
-    message="Voce têm gastado demais"
-)
+def criar_notificacao(usuario_id, titulo, mensagem):
 
-# Adiciona um botão que abre um link no navegador
-notificacao.add_actions(
-    label="Abrir app", 
-    launch="https://google.com"
-)
+    conn = sqlite3.connect("meu_banco.db")
+    cursor = conn.cursor()
 
-notificacao.show()
+    data = datetime.now().strftime("%d/%m/%Y %H:%M")
+
+    cursor.execute(
+        """
+        INSERT INTO notificacoes
+        (usuario_id, titulo, mensagem, data)
+
+        VALUES (?, ?, ?, ?)
+        """,
+        (
+            usuario_id,
+            titulo,
+            mensagem,
+            data
+        )
+    )
+
+    conn.commit()
+    conn.close()

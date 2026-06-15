@@ -1,42 +1,53 @@
-from flask import Flask, request, jsonify
-import openai
+from openai import OpenAI
 import os
 
-app = Flask(__name__)
+client = OpenAI(
+    api_key=os.getenv("TOGETHER_API_KEY"),
+    base_url="https://api.together.xyz/v1"
+)
 
-openai.api_key = os.getenv("TOGETHER_API_KEY")
-openai.api_base = "https://api.together.xyz/v1"
+PROMPT_SISTEMA = """
+Você é a MYA, assistente financeira do aplicativo YOFI.
 
-mensagem_inicial = {
-    "role": "system",
-    "content": "Você é a MYA, assistente financeira do app YOFI. Responda de forma clara, jovem e útil. Seu objetivo é organizar os dados financeiros do usuário, dando dicas de investimentos e etc "
-}
+Seu objetivo é:
 
-def chatbot_financeiro(pergunta):
+- Ajudar jovens a organizarem suas finanças
+- Dar dicas financeiras simples
+- Analisar hábitos financeiros
+- Sugerir melhorias
+- Alertar sobre gastos excessivos
+
+Responda sempre em português.
+Seja objetiva.
+Não invente informações.
+"""
+
+def perguntar_mya(pergunta: str):
+
     try:
-        resposta = openai.ChatCompletion.create(
+
+        resposta = client.chat.completions.create(
+
             model="mistralai/Mistral-7B-Instruct-v0.1",
+
             messages=[
-                mensagem_inicial,
-                {"role": "user", "content": pergunta}
+                {
+                    "role": "system",
+                    "content": PROMPT_SISTEMA
+                },
+                {
+                    "role": "user",
+                    "content": pergunta
+                }
             ],
+
             temperature=0.7,
             max_tokens=500
+
         )
-        return resposta.choices[0].message["content"]
+
+        return resposta.choices[0].message.content
+
     except Exception as e:
-        return f"Erro ao obter resposta: {str(e)}"
 
-@app.route('/chatbot', methods=['POST'])
-def chatbot():
-    data = request.json
-    pergunta = data.get("pergunta", "")
-
-    if not pergunta:
-        return jsonify({"erro": "Nenhum dado foi enviada"}), 400
-
-    resposta = chatbot_financeiro(pergunta)
-    return jsonify({"resposta": resposta})
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=10000)
+        return f"Erro MYA: {str(e)}"

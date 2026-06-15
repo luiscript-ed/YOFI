@@ -3,6 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
 from datetime import datetime
+from mya import perguntar_mya
+from analise_financeira import analisar_usuario
+from secundarios.notify import criar_notificacao
+import secundarios.scheduler
 
 app = FastAPI()
 
@@ -49,6 +53,28 @@ CREATE TABLE IF NOT EXISTS transacoes (
 )
 """)
 
+# Tabela de notificações
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS notificacoes(
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    usuario_id INTEGER NOT NULL,
+
+    titulo TEXT NOT NULL,
+
+    mensagem TEXT NOT NULL,
+
+    data TEXT NOT NULL,
+
+    lida INTEGER DEFAULT 0,
+
+    FOREIGN KEY(usuario_id)
+    REFERENCES usuarios(id)
+
+)
+""")
+
 conn.commit()
 
 # ==========================================
@@ -70,6 +96,33 @@ class Transacao(BaseModel):
     categoria: str
     valor: float
     descricao: str
+
+class PerguntaMYA(BaseModel):
+    pergunta: str
+
+# ==========================================
+# MYA
+# ==========================================
+
+@app.post("/mya")
+def conversar_mya(dados: PerguntaMYA):
+
+    resposta = perguntar_mya(
+        dados.pergunta
+    )
+
+    return {
+        "resposta": resposta
+    }
+
+@app.get("/analise/{usuario_id}")
+def analise(usuario_id: int):
+
+    resultado = analisar_usuario(usuario_id)
+
+    return {
+        "analise": resultado
+    }
 
 # ==========================================
 # CADASTRO
@@ -145,6 +198,15 @@ def adicionar_transacao(transacao: Transacao):
 
     data_atual = datetime.now().strftime("%d/%m/%Y")
 
+    criar_notificacao(
+
+    transacao.usuario_id,
+
+    "Nova transação registrada",
+
+    f"{transacao.tipo.upper()} - {transacao.categoria} - R${transacao.valor}"
+
+)
     cursor.execute(
         """
         INSERT INTO transacoes
@@ -280,3 +342,46 @@ def grafico_categorias(usuario_id: int):
         })
 
     return dados
+
+@app.get("/notificacoes/{usuario_id}")
+def listar_notificacoes(usuario_id: int):
+
+    conn = sqlite3.connect("meu_banco.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT id,
+               titulo,
+               mensagem,
+               data,
+               lida
+
+        FROM notificacoes
+
+        WHERE usuario_id = ?
+
+        ORDER BY id DESC
+        """,
+        (usuario_id,)
+    )
+
+    resultados = cursor.fetchall()
+
+    conn.close()
+
+    notificacoes = []
+
+    for n in resultados:
+
+        notificacoes.append({
+
+            "id": n[0],
+            "titulo": n[1],
+            "mensagem": n[2],
+            "data": n[3],
+            "lida": n[4]
+
+        })
+
+    return notificacoes
