@@ -6,7 +6,7 @@ from datetime import datetime
 from Backend.principais.mya import perguntar_mya
 from Backend.principais.analise_financeira import analisar_usuario
 from Backend.secundarios.notify import criar_notificacao
-import Backend.secundarios.scheduler
+from Backend.secundarios.scheduler import scheduler
 
 app = FastAPI()
 
