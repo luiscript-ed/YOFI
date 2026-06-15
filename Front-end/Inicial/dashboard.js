@@ -25,6 +25,7 @@ if (!usuarioId) {
     window.location.href = "autentification.html";
 }
 
+
 // =========================
 // CARREGAR DASHBOARD
 // =========================
@@ -123,9 +124,61 @@ async function carregarTransacoes() {
     }
 }
 
+
+const notificationBtn =
+document.getElementById("notificationBtn");
+
+const notificationPanel =
+document.getElementById("notificationPanel");
+
+notificationBtn.addEventListener("click", () => {
+
+    notificationPanel.classList.toggle("hidden");
+
+});
+
+async function carregarNotificacoes(){
+
+    const resposta = await fetch(
+        `http://127.0.0.1:8000/notificacoes/${usuarioId}`
+    );
+
+    const notificacoes = await resposta.json();
+
+    const lista =
+    document.getElementById("notificationList");
+
+    const contador =
+    document.getElementById("notificationCount");
+
+    lista.innerHTML = "";
+
+    contador.innerText = notificacoes.length;
+
+    notificacoes.forEach(notificacao => {
+
+        lista.innerHTML += `
+
+        <div class="notification-card">
+
+            <h4>${notificacao.titulo}</h4>
+
+            <p>${notificacao.mensagem}</p>
+
+            <small>${notificacao.data}</small>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
 // =========================
 // INICIAR
 // =========================
 
 carregarDashboard();
 carregarTransacoes();
+carregarNotificacoes();
