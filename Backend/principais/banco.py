@@ -8,7 +8,7 @@ from Backend.principais.analise_financeira import analisar_usuario
 from Backend.principais.analise_financeira import categorias_principais
 from Backend.secundarios.notify import criar_notificacao
 from Backend.secundarios.scheduler import scheduler
-from principais.analise_financeira import gerar_dicas_economia
+from Backend.principais.analise_financeira import gerar_dicas_economia
 
 app = FastAPI()
 
