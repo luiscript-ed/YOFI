@@ -63,12 +63,11 @@ R${total_ganhos}
 Total de gastos:
 R${total_gastos}
 
-Forneça:
-
+Forneça Uma mensagem curta para notificação com as seguintes informações:
 1. Resumo financeiro
 2. Possível problema
 3. Sugestão prática
-4. Uma mensagem curta para notificação
+tente ser o mais breve possivel, não use negrito, pense que voce está enviando somente o corpo de uma notificação, ao fim da notificação, não adicione uma pergunta, como "Voce quer que faça tal coisa?", seja breve.
 """
 
     return perguntar_mya(prompt)
