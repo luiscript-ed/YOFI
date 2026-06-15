@@ -1,7 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from principais.analise_financeira import analisar_usuario
-from notify import criar_notificacao
+from Backend.principais.analise_financeira import analisar_usuario
+from Backend.secundarios.notify import criar_notificacao
 
 import sqlite3
 
@@ -55,9 +55,9 @@ scheduler.add_job(
 
 scheduler.add_job(
     executar_analises,
-    "cron",
-    hour=18,
-    minute=0
+    "interval",
+    minutes=1
 )
 
 scheduler.start()
+print("SCHEDULER INICIADO")

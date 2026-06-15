@@ -125,70 +125,103 @@
 
     <script>
         const chatContainer = document.getElementById('chatContainer');
-        const chatForm = document.getElementById('chatForm');
-        const userInput = document.getElementById('userInput');
+const chatForm = document.getElementById('chatForm');
+const userInput = document.getElementById('userInput');
 
-        // URL da sua API Flask no Render
-        const API_URL = "https://mya-otfs.onrender.com/chatbot";
+const API_URL = "http://127.0.0.1:8000/mya";
 
-        // Função para criar e adicionar uma bolha de mensagem na tela
-        function appendMessage(text, role) {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message-bubble');
-            
-            if (role === 'user') {
-                messageDiv.classList.add('user-message');
-            } else if (role === 'bot') {
-                messageDiv.classList.add('bot-message');
-            } else {
-                messageDiv.classList.add('error-message');
-            }
+function appendMessage(text, role) {
 
-            messageDiv.textContent = text;
-            chatContainer.appendChild(messageDiv);
+    const messageDiv = document.createElement('div');
 
-            // Rola a tela automaticamente para a última mensagem
-            window.scrollTo(0, document.body.scrollHeight);
+    messageDiv.classList.add('message-bubble');
+
+    if(role === 'user'){
+        messageDiv.classList.add('user-message');
+    }
+    else if(role === 'bot'){
+        messageDiv.classList.add('bot-message');
+    }
+    else{
+        messageDiv.classList.add('error-message');
+    }
+
+    messageDiv.textContent = text;
+
+    chatContainer.appendChild(messageDiv);
+
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+chatForm.addEventListener('submit', async (e) => {
+
+    e.preventDefault();
+
+    const message = userInput.value.trim();
+
+    if(!message) return;
+
+    appendMessage(message, 'user');
+
+    userInput.value = '';
+
+    const loadingMessage = document.createElement('div');
+
+    loadingMessage.classList.add(
+        'message-bubble',
+        'bot-message'
+    );
+
+    loadingMessage.textContent = "MYA está analisando...";
+
+    chatContainer.appendChild(loadingMessage);
+
+    try{
+
+        const response = await fetch(API_URL, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                pergunta: message
+            })
+
+        });
+
+        loadingMessage.remove();
+
+        if(!response.ok){
+
+            throw new Error(
+                `Erro ${response.status}`
+            );
+
         }
 
-        // Evento que intercepta o envio do formulário
-        chatForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Evita que a página recarregue
+        const data = await response.json();
 
-            const message = userInput.value.trim();
-            if (!message) return;
+        appendMessage(
+            data.resposta,
+            'bot'
+        );
 
-            // 1. Mostra a mensagem do usuário na tela
-            appendMessage(message, 'user');
-            userInput.value = ''; // Limpa o campo de texto
+    }
+    catch(error){
 
-            try {
-                // 2. Faz a chamada POST para o seu backend Flask
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ pergunta: message })
-                });
+        loadingMessage.remove();
 
-                if (!response.ok) {
-                    throw new Error(`Erro no servidor: ${response.status}`);
-                }
+        appendMessage(
+            `Erro: ${error.message}`,
+            'error'
+        );
 
-                const data = await response.json();
-                
-                // 3. Pega a resposta do JSON (usando a chave 'resposta')
-                const botResponse = data.resposta || "Sem resposta.";
-                
-                // 4. Mostra a resposta do bot na tela
-                appendMessage(botResponse, 'bot');
+    }
 
-            } catch (error) {
-                // Tratamento de erro idêntico ao try/except do Python
-                appendMessage(`Erro ao se comunicar com o servidor: ${error.message}`, 'error');
-            }
-        });
+});
     </script>
 
 </body>
