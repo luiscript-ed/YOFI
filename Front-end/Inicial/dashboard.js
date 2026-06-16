@@ -38,7 +38,7 @@ async function carregarDashboard() {
     try {
 
         const resposta = await fetch(
-            `http://127.0.0.1:8000/dashboard/${usuarioId}`
+            `https://yofi-api.onrender.com/dashboard/${usuarioId}`
         );
 
         const dados = await resposta.json();
@@ -68,7 +68,7 @@ async function carregarTransacoes() {
     try {
 
         const resposta = await fetch(
-            `http://127.0.0.1:8000/transacoes/${usuarioId}`
+            `https://yofi-api.onrender.com/transacoes/${usuarioId}`
         );
 
         const transacoes = await resposta.json();
@@ -143,7 +143,7 @@ notificationBtn.addEventListener("click", () => {
 async function carregarNotificacoes(){
 
     const resposta = await fetch(
-        `http://127.0.0.1:8000/notificacoes/${usuarioId}`
+        `https://yofi-api.onrender.com/notificacoes/${usuarioId}`
     );
 
     const notificacoes = await resposta.json();
@@ -188,7 +188,7 @@ document
     try{
 
         const response = await fetch(
-            `http://127.0.0.1:8000/analise/${usuarioId}`
+            `https://yofi-api.onrender.com/analise/${usuarioId}`
         );
 
         const data =
@@ -219,7 +219,7 @@ document
     try{
 
         const response = await fetch(
-            `http://127.0.0.1:8000/categorias/${usuarioId}`
+            `https://yofi-api.onrender.com/categorias/${usuarioId}`
         );
 
         const data =
@@ -261,7 +261,7 @@ document
     try{
 
         const response = await fetch(
-            `http://127.0.0.1:8000/analise/${usuarioId}`
+            `https://yofi-api.onrender.com/analise/${usuarioId}`
         );
 
         const data =
@@ -292,7 +292,7 @@ document
     try{
 
         const response = await fetch(
-            `http://127.0.0.1:8000/economia/${usuarioId}`
+            `https://yofi-api.onrender.com/economia/${usuarioId}`
         );
 
         const data =
@@ -318,7 +318,7 @@ async function carregarGraficoCategorias(){
     try{
 
         const response = await fetch(
-            `http://127.0.0.1:8000/grafico-categorias/${usuarioId}`
+            `https://yofi-api.onrender.com/grafico-categorias/${usuarioId}`
         );
 
         const categorias =
