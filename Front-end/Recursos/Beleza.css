@@ -24,7 +24,7 @@ body {
    EFEITO PEDIDO: Caixas que aumentam no hover + Shadow Escuro Oposto
    ========================================================================== */
 .card-section, .sub-card {
-    background-color: #ffffff; /* Fundo do card (Claro) */
+    background-color: #2b2249; /* Fundo do card (Claro) */
     border-radius: 8px;
     padding: 4%;
     margin-bottom: 4%;
@@ -35,8 +35,8 @@ body {
 /* Efeito Hover ativo */
 .card-section:hover, .sub-card:hover {
     transform: scale(1.02); /* Aumenta levemente de tamanho */
-    /* Shadow escuro oposto (Fundo é branco, sombra é bem escura e nítida) */
-    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.45); 
+    /* Shadow escuro oposto (Fundo é preto, sombra é bem clara e nítida) */
+    box-shadow: 0 15px 30px rgba(107, 109, 112, 0.45); 
 }
 
 /* ==========================================================================
@@ -62,14 +62,14 @@ p {
     text-align: justify;
 }
 
-/* TM da marca solicitado para cópia */
+/* TM da marca solicitado para cópia - Icone de TM */
 .tm-brand {
     font-size: 0.65rem;
     vertical-align: super;
     color: #94a3b8;
 }
 
-/* Lista de Integrantes - Projeto */
+/* Lista de Integrantes - Projeto Card com os integrantes*/
 .team-list {
     list-style: none;
     margin-top: 2%;
@@ -81,12 +81,12 @@ p {
     font-size: 1rem;
 }
 
-/* Estilo do Líder Indireto (Maior e com destaque) */
+/* Estilo do Líder Indireto Nome maior */
 .team-list li.leader {
     font-size: 1.25rem;
     font-weight: bold;
-    color: #0f172a;
-    border-bottom: 2px solid #2563eb;
+    color: #5f6677;
+    border-bottom: 2px solid #93aee9;
     padding-bottom: 2%;
 }
 
