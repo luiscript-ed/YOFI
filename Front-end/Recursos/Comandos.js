@@ -60,28 +60,33 @@ document.addEventListener("DOMContentLoaded", function() {
             ]
         },
         options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    position: 'top', // Posição das legendas explicativas
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true, // Garante que o eixo vertical comece sempre em 0
-                    grid: {
-                        color: '#e2e8f0'
-                    }
+                responsive: true,
+                maintainAspectRatio: false,
+    
+            // Configuração da animação de subida:
+                animation: {
+                    duration: 2000, // 2 segundos de animação
+                    easing: 'easeOutQuart' // Efeito suave de desaceleração ao chegar no topo
                 },
-                x: {
+    
+                scales: {
+                y: {
+                    beginAtZero: true,
                     grid: {
-                        display: false // Limpa as linhas verticais para ficar mais moderno
-                    }
+                        color: 'rgba(255, 255, 255, 0.08)'
+                    },
+                ticks: {
+                    color: 'white'
+                }
+        },
+                x: {
+                ticks: {
+                    color: 'white'
                 }
             }
         }
-    });
+    }
+});
 
     // Log para fins de debug e conferência no painel do desenvolvedor (F12)
     console.log(`Valores Gerados com Sucesso: N1: ${number_one} | N2: ${number_two} | N3: ${number_tree} | N4 (Fórmula): ${number_four}`);

@@ -102,6 +102,18 @@ p {
 /* ==========================================================================
    AFILIADOS: GRÁFICOS E GIF DE ANÁLISE (Responsivos em %)
    ========================================================================== */
+
+.grafico-wrapper {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    
+    /* Configuração crucial para o Chart.js aparecer: */
+    position: relative;
+    height: 350px; 
+    width: 100%;
+}
 .sub-card {
     background-color: #f8fafc; /* Leve distinção de cor para caixas afiliadas */
     margin-top: 3%;
