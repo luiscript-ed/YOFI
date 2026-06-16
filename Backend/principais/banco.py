@@ -301,6 +301,9 @@ def listar_transacoes(usuario_id: int):
 @app.get("/dashboard/{usuario_id}")
 def dashboard(usuario_id: int):
 
+    conn = sqlite3.connect("meu_banco.db")
+    cursor = conn.cursor()
+
     # Total ganhos
     cursor.execute(
         """
@@ -332,6 +335,7 @@ def dashboard(usuario_id: int):
 
     saldo = ganhos - gastos
 
+    conn.close()
     return {
         "total_ganhos": ganhos,
         "total_gastos": gastos,
@@ -345,34 +349,35 @@ def dashboard(usuario_id: int):
 @app.get("/grafico-categorias/{usuario_id}")
 def grafico_categorias(usuario_id: int):
 
+    conn = sqlite3.connect("meu_banco.db")
+    cursor = conn.cursor()
+
     cursor.execute(
-    """
-    SELECT categoria,
-           SUM(valor)
+        """
+        SELECT categoria,
+               SUM(valor)
 
-    FROM transacoes
+        FROM transacoes
 
-    WHERE usuario_id = ?
-    AND tipo = 'gasto'
+        WHERE usuario_id = ?
+        AND tipo = 'gasto'
 
-    GROUP BY categoria
-
-    ORDER BY SUM(valor) DESC
-    """,
-    (usuario_id,)
-)
+        GROUP BY categoria
+        """,
+        (usuario_id,)
+    )
 
     resultados = cursor.fetchall()
 
-    dados = []
+    conn.close()
 
-    for item in resultados:
-        dados.append({
+    return [
+        {
             "categoria": item[0],
             "total": item[1]
-        })
-
-    return dados
+        }
+        for item in resultados
+    ]
 
 @app.get("/notificacoes/{usuario_id}")
 def listar_notificacoes(usuario_id: int):
