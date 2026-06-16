@@ -1,178 +1,199 @@
-/* ==========================================================================
-   CONFIGURAÇÕES GERAIS E PALETA DE CORES (O Feijão com Farinha que Funciona)
-   ========================================================================== */
-* {
-    box-sizing: border-box;
+*{
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    background-color: #0b0718; /* Fundo claro e limpo para contrastar com os efeitos */
+    background: #0b0718;
     color: white;
-    padding-bottom: 8%; /* Espaço de segurança para o rodapé não cobrir o conteúdo */
+    padding-bottom: 60px;
 }
 
-/* Container que centraliza e limita a largura do manual com base em % */
-.main-container {
-    width: 85%;
-    margin: 4% auto;
-}
-
-/* ==========================================================================
-   EFEITO PEDIDO: Caixas que aumentam no hover + Shadow Escuro Oposto
-   ========================================================================== */
-.card-section, .sub-card {
-    background-color: #2b2249; /* Fundo do card (Claro) */
-    border-radius: 8px;
-    padding: 4%;
-    margin-bottom: 4%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave do efeito */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-/* Efeito Hover ativo */
-.card-section:hover, .sub-card:hover {
-    transform: scale(1.02); /* Aumenta levemente de tamanho */
-    /* Shadow escuro oposto (Fundo é preto, sombra é bem clara e nítida) */
-    box-shadow: 0 15px 30px rgba(107, 109, 112, 0.45); 
-}
-
-/* ==========================================================================
-   ESTILIZAÇÃO DOS ELEMENTOS TEXTUAIS E SEÇÕES
-   ========================================================================== */
-h2 {
-    color: #1e293b;
-    margin-bottom: 2%;
-    font-size: 1.6rem;
-    border-left: 5px solid #2563eb; /* Detalhe visual sutil azul */
-    padding-left: 2%;
-}
-
-h3 {
-    color: #475569;
-    margin: 3% 0 1.5% 0;
-    font-size: 1.2rem;
-}
-
-p {
-    line-height: 1.6;
-    font-size: 1.05rem;
-    text-align: justify;
-}
-
-/* TM da marca solicitado para cópia - Icone de TM */
-.tm-brand {
-    font-size: 0.65rem;
-    vertical-align: super;
-    color: #94a3b8;
-}
-
-/* Lista de Integrantes - Projeto Card com os integrantes*/
-.team-list {
-    list-style: none;
-    margin-top: 2%;
-}
-
-.team-list li {
-    padding: 1.5% 0;
-    border-bottom: 1px solid #e2e8f0;
-    font-size: 1rem;
-}
-
-/* Estilo do Líder Indireto Nome maior */
-.team-list li.leader {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #5f6677;
-    border-bottom: 2px solid #93aee9;
-    padding-bottom: 2%;
-}
-
-.badge {
-    background-color: #2563eb;
-    color: white;
-    font-size: 0.75rem;
-    padding: 0.3% 1.5%;
-    border-radius: 4px;
-    margin-left: 2%;
-}
-
-/* ==========================================================================
-   AFILIADOS: GRÁFICOS E GIF DE ANÁLISE (Responsivos em %)
-   ========================================================================== */
-
-.grafico-wrapper {
-    background: rgba(255, 255, 255, 0.02);
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    
-    /* Configuração crucial para o Chart.js aparecer: */
-    position: relative;
-    height: 350px; 
-    width: 100%;
-}
-.sub-card {
-    background-color: #f8fafc; /* Leve distinção de cor para caixas afiliadas */
-    margin-top: 3%;
-    padding: 3%;
-}
-
-.chart-container {
-    width: 100%;
-    max-width: 700px;
-    margin: 3% auto 0 auto;
-    position: relative;
-}
-
-.analysis-content {
-    display: block; /* Simples e direto para manipulação posterior */
-    width: 100%;
-}
-
-.gif-container {
-    width: 100%;
-    text-align: center;
-    margin-top: 3%;
-}
-
-.analysis-gif {
-    width: 80%; /* Tamanho em porcentagem conforme solicitado */
-    max-width: 500px;
-    border-radius: 6px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* ==========================================================================
-   RODAPÉ: Menor que 6% de altura vertical e linha preta
-   ========================================================================== */
-.footer-yofi {
-    background-color: #000000; /* Linha preta pedida */
-    color: #ffffff;
+/* NAVBAR */
+.navbar {
     position: fixed;
-    bottom: 0;
-    left: 0;
+    top: 0;
     width: 100%;
-    height: 5.5%; /* Garantindo que não passe de 6% da página */
-    z-index: 9999;
-    font-size: 0.85rem;
-}
-
-.footer-content {
-    width: 85%;
-    height: 100%;
-    margin: 0 auto;
+    height: 70px;
+    background: #140c25;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Alinha o conteúdo verticalmente no centro do rodapé */
+    align-items: center;
+    padding: 0 40px;
+    border-bottom: 1px solid #2a1d47;
+    z-index: 1000;
 }
 
-.logo-placeholder {
-    background-color: #222;
-    padding: 2px 10px;
-    border-radius: 3px;
-    color: #aaa;
-    font-size: 0.75rem;
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: #8b5cf6;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.navbar nav a:hover, .navbar nav a.active {
+    color: #8b5cf6;
+}
+
+/* CONTAINER */
+.recursos-container {
+    padding-top: 110px;
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+/* CARDS COM HOVER SOLICITADO */
+.recursos-card {
+    background: #140c25;
+    padding: 35px;
+    border-radius: 20px;
+    border: 1px solid #24163d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Passar o mouse: cresce e ativa a sombra marcante oposta ao background */
+.recursos-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 30px rgba(139, 92, 246, 0.25);
+}
+
+.recursos-card h2 {
+    color: #8b5cf6;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+
+.recursos-card p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #cbd5e1;
+}
+
+.trademark {
+    font-size: 10px;
+    vertical-align: super;
+    color: #a78bfa;
+}
+
+/* EQUIPE (LUIS EM DESTAQUE) */
+.equipe-container {
+    margin-top: 25px;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.equipe-container h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #a855f7;
+}
+
+.lider-box {
+    background: #1e1233;
+    border: 2px solid #8b5cf6;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.coroa { font-size: 22px; }
+
+.nome-lider {
+    font-size: 22px; /* Maior nome da lista */
+    font-weight: bold;
+    color: white;
+}
+
+.cargo-lider {
+    font-size: 11px;
+    background: #8b5cf6;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.membros-lista {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.membros-lista li {
+    background: rgba(255, 255, 255, 0.04);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 15px;
+    border-left: 3px solid #6366f1;
+}
+
+/* AFILIADOS SOBRE */
+.afiliados-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.sub-topico {
+    background: rgba(36, 22, 61, 0.4);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.sub-topico h4 { color: #c084fc; margin-bottom: 8px; }
+
+/* RECURSOS & GRÁFICO CONTAINER */
+.valores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.val-box {
+    background: #1c1233;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.val-box.alta {
+    border: 1px solid #10b981;
+}
+
+.purple-text { color: #a855f7; display: block; margin-top: 5px; font-size: 18px; }
+.green-text { color: #10b981; display: block; margin-top: 5px; font-size: 18px; }
+
+/* Wrapper essencial para o Chart.js funcionar e animar */
+.grafico-wrapper {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.01);
+    padding: 15px;
+    border-radius: 15px;
 }

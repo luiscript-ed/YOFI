@@ -1,98 +1,80 @@
-/* ==========================================================================
-   LÓGICA MATEMÁTICA E RENDERIZAÇÃO DO GRÁFICO DINÂMICO
-   ========================================================================== */
-
-// Evento disparado assim que a página carrega completamente
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
     
-    // Função para gerar números inteiros aleatórios inclusivos
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    // Generador de números aleatórios
+    const n1 = Math.floor(Math.random() * 4000) + 1000;
+    const n2 = Math.floor(Math.random() * 4000) + 1000;
+    const n3 = Math.floor(Math.random() * 4000) + 1000;
 
-    // 1. Gerando os 3 primeiros números aleatórios (Ex: Valores entre 10 e 50 para equilíbrio visual)
-    const number_one = getRandomInt(10, 50);
-    const number_two = getRandomInt(15, 60);
-    const number_tree = getRandomInt(20, 70);
+    // Garante que o último número (n4) é maior que todos os outros 3 anteriores
+    const maiorValor = Math.max(n1, n2, n3);
+    const n4 = maiorValor + Math.floor(Math.random() * 2000) + 1000;
 
-    // 2. Executando a fórmula matemática exata exigida:
-    // number_four = (two + tree) - (one / 4)
-    // Usamos Math.round para manter o "int" (número inteiro) no gráfico
-    const number_four = Math.round((number_two + number_tree) - (number_one / 4));
+    const dadosValores = [n1, n2, n3, n4];
 
-    // Array contendo os dados processados para alimentar o gráfico
-    const dadosFinanceiros = [number_one, number_two, number_tree, number_four];
+    // Atualiza os textos no HTML
+    document.getElementById("v1").textContent = `R$ ${n1.toFixed(2)}`;
+    document.getElementById("v2").textContent = `R$ ${n2.toFixed(2)}`;
+    document.getElementById("v3").textContent = `R$ ${n3.toFixed(2)}`;
+    document.getElementById("v4").textContent = `R$ ${n4.toFixed(2)}`;
 
-    // Buscando o contexto do elemento Canvas no HTML
-    const ctx = document.getElementById('yofiChart').getContext('2d');
+    // Inicialização do Gráfico Misto (Barras + Linha)
+    const ctx = document.getElementById("graficoRecursos").getContext("2d");
 
-    // Instanciando o Chart.js para criar um gráfico Misto (Barras + Linha por cima)
-    const yofiChart = new Chart(ctx, {
+    new Chart(ctx, {
+        type: 'bar',
         data: {
-            // Rótulos do eixo X representativos de períodos ou meses
-            labels: ['Período 01', 'Período 02', 'Período 03', 'Meta Atual (Máxima)'],
+            labels: ['Jan-Mar', 'Apr-Jun', 'Jul-Set', 'Projeção Alvo'],
             datasets: [
                 {
-                    // CAMADA 1: Gráfico de Linha por cima fazendo as quedas e subidas
+                    // A linha passando por cima
                     type: 'line',
-                    label: 'Tendência de Estabilidade',
-                    data: dadosFinanceiros,
-                    borderColor: '#ef4444', // Linha vermelha para destacar subidas e descidas
+                    label: 'Fluxo de Tendência',
+                    data: dadosValores,
+                    borderColor: '#10b981',
                     borderWidth: 3,
                     fill: false,
-                    tension: 0.1, // Curvatura sutil da linha
-                    order: 1 // Garante que a linha fique renderizada por cima das barras
+                    tension: 0.3,
+                    pointBackgroundColor: '#fff'
                 },
                 {
-                    // CAMADA 2: Gráfico de Barras representando cada valor individual
-                    type: 'bar',
-                    label: 'Controle de Volume Financeiro',
-                    data: dadosFinanceiros,
+                    // As barras
+                    label: 'Métricas de Caixa',
+                    data: dadosValores,
                     backgroundColor: [
-                        'rgba(37, 99, 235, 0.7)',  // Azul padrão
-                        'rgba(37, 99, 235, 0.7)',  // Azul padrão
-                        'rgba(37, 99, 235, 0.7)',  // Azul padrão
-                        'rgba(16, 185, 129, 0.8)'  // Último maior valor destacado em Verde
+                        'rgba(168, 85, 247, 0.6)',
+                        'rgba(124, 58, 237, 0.6)',
+                        'rgba(99, 102, 241, 0.6)',
+                        'rgba(16, 185, 129, 0.6)'
                     ],
-                    borderWidth: 1,
-                    order: 2
+                    borderWidth: 0,
+                    borderRadius: 6
                 }
             ]
         },
         options: {
-                responsive: true,
-                maintainAspectRatio: false,
-    
-            // Configuração da animação de subida:
-                animation: {
-                    duration: 2000, // 2 segundos de animação
-                    easing: 'easeOutQuart' // Efeito suave de desaceleração ao chegar no topo
-                },
-    
-                scales: {
+            responsive: true,
+            maintainAspectRatio: false,
+            // ANIMAÇÃO DE SUBIDA DA TABELA PARA O TAMANHO CORRETO
+            animation: {
+                duration: 2000,
+                easing: 'easeOutQuart'
+            },
+            plugins: {
+                legend: {
+                    labels: { color: 'white' }
+                }
+            },
+            scales: {
                 y: {
                     beginAtZero: true,
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.08)'
-                    },
-                ticks: {
-                    color: 'white'
-                }
-        },
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: 'white' }
+                },
                 x: {
-                ticks: {
-                    color: 'white'
+                    grid: { display: false },
+                    ticks: { color: 'white' }
                 }
             }
         }
-    }
+    });
 });
-
-    // Log para fins de debug e conferência no painel do desenvolvedor (F12)
-    console.log(`Valores Gerados com Sucesso: N1: ${number_one} | N2: ${number_two} | N3: ${number_tree} | N4 (Fórmula): ${number_four}`);
-});
-
-/* ==========================================================================
-   ESPAÇO RESERVADO PARA SEUS PULOS (Botões de menu, voltar, etc.)
-   ========================================================================== */
-// Você pode adicionar seus ouvintes de clique e funções de redirecionamento aqui embaixo...

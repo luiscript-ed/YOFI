@@ -5,76 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YOFI/Recursos</title>
     <link rel="stylesheet" href="Beleza.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="Comandos.js"></script>
 </head>
 <body>
 
-    <main class="main-container">
+    <header class="navbar">
+        <div class="logo">YOFI</div>
+        <nav>
+            <a href="#">Dashboard</a>
+            <a href="#">Gráficos</a>
+            <a href="#">Transações</a>
+            <a href="#" class="active">Recursos</a>
+        </nav>
+    </header>
 
-        <section class="card-section" id="objetivo">
-            <h2>Objetivo</h2>
-            <p>
-                A <strong>More Speed</strong><span class="tm-brand">™</span> tem como propósito fundamental democratizar e simplificar o ecossistema de gestão e planejamento financeiro. Acreditamos que o controle e a previsibilidade sobre o próprio dinheiro não devem ser um privilégio de poucos, mas sim uma ferramenta acessível, intuitiva e prática para a organização financeira de todos os perfis de usuários.
-            </p>
+    <main class="recursos-container">
+        
+        <section class="recursos-card">
+            <h2>🎯 Nosso Objetivo</h2>
+            <p>A nossa empresa desenvolvedora, <strong>More Speed<span class="trademark">T</span></strong>, tem como missão principal democratizar o controle financeiro. Nosso objetivo é trazer uma opção robusta, intuitiva e inteligente para a organização financeira de todos, transformando a relação das pessoas com o dinheiro através da tecnologia de ponta.</p>
         </section>
 
-        <section class="card-section" id="projeto">
-            <h2>Projeto</h2>
-            <p>
-                Este sistema representa o ápice de um esforço acadêmico e técnico desenvolvido com elegância por estudantes do Ensino Médio da escola <strong>Milton Santos - SESI</strong>, integrando de forma sinérgica o Curso Técnico em <strong>Informática para a Internet no SENAI de Camaçari</strong>.
-            </p>
+        <section class="recursos-card">
+            <h2>🏫 O Projeto</h2>
+            <p>Este sistema é o resultado de um trabalho acadêmico de excelência do Ensino Médio, desenvolvido por alunos da escola <strong>Milton Santos - SESI</strong>, articulado com o curso técnico de <strong>Técnico em Informática para a Internet</strong> no <strong>SENAI de Camaçari</strong>.</p>
             
-            <h3>Equipe Desenvolvedora</h3>
-            <ul class="team-list">
-                <li class="leader">Luiz Eduardo Cardoso <span class="badge">Líder</span></li>
-                <li>Nicolas Gabriel</li>
-                <li>Davi Passos</li>
-                <li>Emanoel Fagundes</li>
-                <li>Pedro Oliveira</li>
-            </ul>
+            <div class="equipe-container">
+                <h3>Equipe de Desenvolvimento:</h3>
+                <div class="lider-box">
+                    <span class="coroa">👑</span>
+                    <span class="nome-lider">Luiz Eduardo Cardoso</span>
+                    <span class="cargo-lider">Líder do Projeto</span>
+                </div>
+                <ul class="membros-lista">
+                    <li>Nicolas Gabriel</li>
+                    <li>Davi Passos</li>
+                    <li>Emanoel Fagundes</li>
+                    <li>Pedro Oliveira</li>
+                </ul>
+            </div>
         </section>
 
-        <section class="card-section" id="sobre">
-            <h2>Sobre a Plataforma</h2>
-            <p>Abaixo você pode explorar as ferramentas centrais que a YOFI utiliza para transformar a sua relação com o dinheiro, garantindo controle total sobre a sua vida financeira diária.</p>
+        <section class="recursos-card">
+            <h2>ℹ️ Sobre o Sistema</h2>
+            <p>O YOFI foi projetado para centralizar sua vida financeira em um único ecossistema automatizado. Abaixo estão os pilares que sustentam nossa plataforma:</p>
             
+            <div class="afiliados-container">
+                <div class="sub-topico">
+                    <h4>📊 Dashboard em Tempo Real</h4>
+                    <p>Visualização instantânea de saldo, receitas e despesas com atualização dinâmica.</p>
+                </div>
+                <div class="sub-topico">
+                    <h4>🧠 Inteligência Artificial (MYA)</h4>
+                    <p>Sua assistente virtual dedicada a analisar hábitos e fornecer dicas personalizadas de economia.</p>
+                </div>
+                <div class="sub-topico">
+                    <h4>🔒 Segurança de Dados</h4>
+                    <p>Armazenamento local estruturado para garantir a privacidade e integridade das suas informações.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recursos-card">
+            <h2>📈 Recursos & Demonstração Dinâmica</h2>
+            <p>Abaixo você confere uma simulação em tempo real do nosso motor gráfico de projeção financeira. Toda vez que a página é carregada, novos valores aleatórios são gerados, fechando sempre com o último indicador em alta máxima.</p>
+            
+            <div class="valores-grid">
+                <div class="val-box">Trimestre 1: <span id="v1" class="purple-text">R$ 0,00</span></div>
+                <div class="val-box">Trimestre 2: <span id="v2" class="purple-text">R$ 0,00</span></div>
+                <div class="val-box">Trimestre 3: <span id="v3" class="purple-text">R$ 0,00</span></div>
+                <div class="val-box alta">Projeção Atual: <span id="v4" class="green-text">R$ 0,00</span></div>
+            </div>
+
             <div class="grafico-wrapper">
-            <canvas id="graficoRecursos"></canvas>
-            </div>
-
-            <div class="sub-card">
-                <h3>Recursos Gráficos</h3>
-                <p>Nossa interface traduz dados complexos em visuais de fácil compreensão. O gráfico abaixo ilustra oscilações financeiras típicas, comprovando estatisticamente como o controle rigoroso resulta em um topo de estabilidade no quarto período analisado.</p>
-                
-                <div class="chart-container">
-                    <canvas id="yofiChart"></canvas>
-                </div>
-            </div>
-
-            <div class="sub-card">
-                <h3>Análise de Dados</h3>
-                <div class="analysis-content">
-                    <p>
-                        A inteligência da <strong>YOFI</strong> foi desenhada especificamente para facilitar o acesso a ferramentas analíticas robustas. Através dessa central de dados, o usuário expande drasticamente sua visão estratégica individual, conseguindo prever gargalos e otimizar margens de economia com poucos cliques.
-                    </p>
-                    <div class="gif-container">
-                        <img src="https://www.tableau.com/sites/default/files/2020-10/Forbes2.gif" alt="Análise de Dados YOFI" class="analysis-gif">
-                    </div>
-                </div>
+                <canvas id="graficoRecursos"></canvas>
             </div>
         </section>
 
     </main>
-
-    <footer class="footer-yofi">
-        <div class="footer-content">
-            <span class="copyright">© 2026 YOFI. Todos os direitos reservados à More Speed.</span>
-            <div class="logo-placeholder">
-                <span>[ LOGO ]</span>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
