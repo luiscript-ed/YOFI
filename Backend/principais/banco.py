@@ -292,9 +292,9 @@ conn.commit()
 cursor.close()
 conn.close()
 
-    return {
-        "mensagem": "Transação adicionada com sucesso!"
-    }
+return {
+    "mensagem": "Transação adicionada com sucesso!"
+}
 
 # ==========================================
 # LISTAR TRANSAÇÕES
