@@ -1,7 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from Backend.principais.analise_financeira import analisar_usuario
-from Backend.secundarios.notify import criar_notificacao
+from principais.analise_financeira import analisar_usuario
+from secundarios.notify import criar_notificacao
 
 import sqlite3
 
