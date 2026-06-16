@@ -313,6 +313,98 @@ document
 
 });
 
+async function carregarGraficoCategorias(){
+
+    try{
+
+        const response = await fetch(
+            `http://127.0.0.1:8000/grafico-categorias/${usuarioId}`
+        );
+
+        const categorias =
+        await response.json();
+
+        const labels =
+        categorias.map(
+            item => item.categoria
+        );
+
+        const valores =
+        categorias.map(
+            item => item.total
+        );
+
+        const ctx =
+        document
+        .getElementById(
+            "graficoCategorias"
+        );
+
+        new Chart(ctx, {
+
+            type: "doughnut",
+
+            data: {
+
+                labels: labels,
+
+                datasets: [
+
+                    {
+
+                        data: valores,
+
+                        backgroundColor: [
+
+                            "#A855F7",
+                            "#7C3AED",
+                            "#6366F1",
+                            "#3B82F6",
+                            "#06B6D4",
+                            "#10B981"
+
+                        ]
+
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                plugins: {
+
+                    legend: {
+
+                        labels: {
+
+                            color: "white"
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+    catch(error){
+
+        console.error(
+            "Erro gráfico:",
+            error
+        );
+
+    }
+
+}
+
 // =========================
 // INICIAR
 // =========================
@@ -320,3 +412,4 @@ document
 carregarDashboard();
 carregarTransacoes();
 carregarNotificacoes();
+carregarGraficoCategorias();

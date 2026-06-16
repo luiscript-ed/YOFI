@@ -346,15 +346,21 @@ def dashboard(usuario_id: int):
 def grafico_categorias(usuario_id: int):
 
     cursor.execute(
-        """
-        SELECT categoria, SUM(valor)
-        FROM transacoes
-        WHERE usuario_id = ?
-        AND tipo = 'gasto'
-        GROUP BY categoria
-        """,
-        (usuario_id,)
-    )
+    """
+    SELECT categoria,
+           SUM(valor)
+
+    FROM transacoes
+
+    WHERE usuario_id = ?
+    AND tipo = 'gasto'
+
+    GROUP BY categoria
+
+    ORDER BY SUM(valor) DESC
+    """,
+    (usuario_id,)
+)
 
     resultados = cursor.fetchall()
 
