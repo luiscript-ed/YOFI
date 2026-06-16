@@ -10,6 +10,10 @@ from secundarios.notify import criar_notificacao
 from secundarios.scheduler import scheduler
 from principais.analise_financeira import gerar_dicas_economia
 
+def conectar():
+    return psycopg2.connect(
+        os.getenv("DATABASE_URL")
+    )
 app = FastAPI()
 
 # ==========================================
@@ -29,13 +33,6 @@ app.add_middleware(
 
 import psycopg2
 import os
-
-conn = psycopg2.connect(
-    os.getenv("DATABASE_URL")
-)
-
-cursor = conn.cursor()
-
 conn = conectar()
 cursor = conn.cursor()
 
@@ -259,42 +256,38 @@ def adicionar_transacao(transacao: Transacao):
     data_atual = datetime.now().strftime("%d/%m/%Y")
 
     criar_notificacao(
-
-    transacao.usuario_id,
-
-    "Nova transação registrada",
-
-    f"{transacao.tipo.upper()} - {transacao.categoria} - R${transacao.valor}"
-
-)
-conn = conectar()
-cursor = conn.cursor()
-
-cursor.execute(
-    """
-    INSERT INTO transacoes
-    (usuario_id, tipo, categoria, valor, descricao, data)
-
-    VALUES (%s, %s, %s, %s, %s, %s)
-    """,
-    (
         transacao.usuario_id,
-        transacao.tipo,
-        transacao.categoria,
-        transacao.valor,
-        transacao.descricao,
-        data_atual
+        "Nova transação registrada",
+        f"{transacao.tipo.upper()} - {transacao.categoria} - R${transacao.valor}"
     )
-)
 
-conn.commit()
+    conn = conectar()
+    cursor = conn.cursor()
 
-cursor.close()
-conn.close()
+    cursor.execute(
+        """
+        INSERT INTO transacoes
+        (usuario_id, tipo, categoria, valor, descricao, data)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        """,
+        (
+            transacao.usuario_id,
+            transacao.tipo,
+            transacao.categoria,
+            transacao.valor,
+            transacao.descricao,
+            data_atual
+        )
+    )
 
-return {
-    "mensagem": "Transação adicionada com sucesso!"
-}
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return {
+        "mensagem": "Transação adicionada com sucesso!"
+    }
 
 # ==========================================
 # LISTAR TRANSAÇÕES
@@ -303,7 +296,7 @@ return {
 @app.get("/transacoes/{usuario_id}")
 def listar_transacoes(usuario_id: int):
 
-    conn = sqlite3.connect("meu_banco.db")
+    conn = conectar()
     cursor = conn.cursor()
 
     cursor.execute(
@@ -377,6 +370,7 @@ def dashboard(usuario_id: int):
     saldo = ganhos - gastos
 
     conn.close()
+    cursor.close()
     return {
         "total_ganhos": ganhos,
         "total_gastos": gastos,
@@ -411,6 +405,7 @@ def grafico_categorias(usuario_id: int):
     resultados = cursor.fetchall()
 
     conn.close()
+    cursor.close()
 
     return [
         {
@@ -446,6 +441,7 @@ def listar_notificacoes(usuario_id: int):
     resultados = cursor.fetchall()
 
     conn.close()
+    cursor.close()
 
     notificacoes = []
 
