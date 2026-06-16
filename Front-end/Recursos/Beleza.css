@@ -1,0 +1,166 @@
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS E PALETA DE CORES (O Feijão com Farinha que Funciona)
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9; /* Fundo claro e limpo para contrastar com os efeitos */
+    color: #333333;
+    padding-bottom: 8%; /* Espaço de segurança para o rodapé não cobrir o conteúdo */
+}
+
+/* Container que centraliza e limita a largura do manual com base em % */
+.main-container {
+    width: 85%;
+    margin: 4% auto;
+}
+
+/* ==========================================================================
+   EFEITO PEDIDO: Caixas que aumentam no hover + Shadow Escuro Oposto
+   ========================================================================== */
+.card-section, .sub-card {
+    background-color: #ffffff; /* Fundo do card (Claro) */
+    border-radius: 8px;
+    padding: 4%;
+    margin-bottom: 4%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave do efeito */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Efeito Hover ativo */
+.card-section:hover, .sub-card:hover {
+    transform: scale(1.02); /* Aumenta levemente de tamanho */
+    /* Shadow escuro oposto (Fundo é branco, sombra é bem escura e nítida) */
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.45); 
+}
+
+/* ==========================================================================
+   ESTILIZAÇÃO DOS ELEMENTOS TEXTUAIS E SEÇÕES
+   ========================================================================== */
+h2 {
+    color: #1e293b;
+    margin-bottom: 2%;
+    font-size: 1.6rem;
+    border-left: 5px solid #2563eb; /* Detalhe visual sutil azul */
+    padding-left: 2%;
+}
+
+h3 {
+    color: #475569;
+    margin: 3% 0 1.5% 0;
+    font-size: 1.2rem;
+}
+
+p {
+    line-height: 1.6;
+    font-size: 1.05rem;
+    text-align: justify;
+}
+
+/* TM da marca solicitado para cópia */
+.tm-brand {
+    font-size: 0.65rem;
+    vertical-align: super;
+    color: #94a3b8;
+}
+
+/* Lista de Integrantes - Projeto */
+.team-list {
+    list-style: none;
+    margin-top: 2%;
+}
+
+.team-list li {
+    padding: 1.5% 0;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 1rem;
+}
+
+/* Estilo do Líder Indireto (Maior e com destaque) */
+.team-list li.leader {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #0f172a;
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 2%;
+}
+
+.badge {
+    background-color: #2563eb;
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.3% 1.5%;
+    border-radius: 4px;
+    margin-left: 2%;
+}
+
+/* ==========================================================================
+   AFILIADOS: GRÁFICOS E GIF DE ANÁLISE (Responsivos em %)
+   ========================================================================== */
+.sub-card {
+    background-color: #f8fafc; /* Leve distinção de cor para caixas afiliadas */
+    margin-top: 3%;
+    padding: 3%;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 3% auto 0 auto;
+    position: relative;
+}
+
+.analysis-content {
+    display: block; /* Simples e direto para manipulação posterior */
+    width: 100%;
+}
+
+.gif-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 3%;
+}
+
+.analysis-gif {
+    width: 80%; /* Tamanho em porcentagem conforme solicitado */
+    max-width: 500px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* ==========================================================================
+   RODAPÉ: Menor que 6% de altura vertical e linha preta
+   ========================================================================== */
+.footer-yofi {
+    background-color: #000000; /* Linha preta pedida */
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5.5%; /* Garantindo que não passe de 6% da página */
+    z-index: 9999;
+    font-size: 0.85rem;
+}
+
+.footer-content {
+    width: 85%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinha o conteúdo verticalmente no centro do rodapé */
+}
+
+.logo-placeholder {
+    background-color: #222;
+    padding: 2px 10px;
+    border-radius: 3px;
+    color: #aaa;
+    font-size: 0.75rem;
+}
