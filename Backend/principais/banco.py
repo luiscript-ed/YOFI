@@ -267,7 +267,7 @@ def adicionar_transacao(transacao: Transacao):
     f"{transacao.tipo.upper()} - {transacao.categoria} - R${transacao.valor}"
 
 )
-   conn = conectar()
+conn = conectar()
 cursor = conn.cursor()
 
 cursor.execute(
