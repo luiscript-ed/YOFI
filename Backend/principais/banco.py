@@ -1,7 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import sqlite3
+import psycopg2
+import os
+
 from datetime import datetime
 from principais.mya import perguntar_mya
 from principais.analise_financeira import analisar_usuario 
@@ -27,7 +29,10 @@ app.add_middleware(
 # BANCO DE DADOS
 # ==========================================
 
-conn = sqlite3.connect("meu_banco.db", check_same_thread=False)
+conn = psycopg2.connect(
+    os.getenv("DATABASE_URL")
+)
+
 cursor = conn.cursor()
 
 # Tabela de usuários
