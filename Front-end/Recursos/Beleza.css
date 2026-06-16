@@ -113,8 +113,8 @@ body {
     border-radius: 10px;
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .coroa { font-size: 22px; }
@@ -134,10 +134,11 @@ body {
 }
 
 .membros-lista {
+    font-size: 16px;
     list-style: none;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
+    gap: 10px;
 }
 
 .membros-lista li {
@@ -146,6 +147,7 @@ body {
     border-radius: 8px;
     font-size: 15px;
     border-left: 3px solid #6366f1;
+    border-right: 3px solid #6366f1;
 }
 
 /* AFILIADOS SOBRE */
