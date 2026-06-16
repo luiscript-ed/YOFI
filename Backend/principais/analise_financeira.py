@@ -71,3 +71,86 @@ tente ser o mais breve possivel, não use negrito, pense que voce está enviando
 """
 
     return perguntar_mya(prompt)
+
+def categorias_principais(usuario_id):
+
+    conn = sqlite3.connect("meu_banco.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT categoria,
+               SUM(valor)
+
+        FROM transacoes
+
+        WHERE usuario_id = ?
+        AND tipo = 'gasto'
+
+        GROUP BY categoria
+
+        ORDER BY SUM(valor) DESC
+
+        LIMIT 3
+        """,
+        (usuario_id,)
+    )
+
+    resultado = cursor.fetchall()
+
+    conn.close()
+
+    return resultado
+
+def gerar_dicas_economia(usuario_id):
+
+    conn = sqlite3.connect("meu_banco.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT categoria,
+               valor
+
+        FROM transacoes
+
+        WHERE usuario_id = ?
+        AND tipo = 'gasto'
+        """,
+        (usuario_id,)
+    )
+
+    gastos = cursor.fetchall()
+
+    conn.close()
+
+    if not gastos:
+
+        return "Ainda não existem gastos registrados."
+
+    texto = ""
+
+    total = 0
+
+    for gasto in gastos:
+
+        texto += (
+            f"{gasto[0]} - "
+            f"R${gasto[1]}\n"
+        )
+
+        total += gasto[1]
+
+    prompt = f"""
+Analise os gastos abaixo.
+
+{texto}
+
+Total gasto:
+R${total}
+
+Dê 3 dicas práticas para economizar.
+Responda em português.
+"""
+
+    return perguntar_mya(prompt)

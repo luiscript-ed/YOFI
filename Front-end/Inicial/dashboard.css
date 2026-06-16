@@ -324,3 +324,48 @@ main{
 
     line-height: 1.6;
 }
+
+.grafico-section{
+
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+}
+
+.grafico-card{
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.04
+    );
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.08
+    );
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    backdrop-filter: blur(10px);
+
+}
+
+.grafico-card h2{
+
+    color: white;
+
+    margin-bottom: 20px;
+
+}
+
+#graficoCategorias{
+
+    max-height: 350px;
+
+}

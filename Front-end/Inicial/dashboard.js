@@ -211,32 +211,199 @@ document
 
 document
 .getElementById("btnGastos")
-.addEventListener("click", () => {
+.addEventListener("click", async () => {
 
-    resultadoMYA.innerHTML = `
-        <h4>📊 Categorias</h4>
-        <p>
-            Em breve a MYA mostrará
-            suas categorias com maiores gastos.
-        </p>
-    `;
+    resultadoMYA.innerHTML =
+    "<p>Analisando categorias...</p>";
+
+    try{
+
+        const response = await fetch(
+            `http://127.0.0.1:8000/categorias/${usuarioId}`
+        );
+
+        const data =
+        await response.json();
+
+        let html =
+        "<h4>📊 Categorias com maiores gastos</h4>";
+
+        data.categorias.forEach(cat => {
+
+            html += `
+                <p>
+                    <strong>${cat.categoria}</strong>
+                    - R$ ${cat.valor.toFixed(2)}
+                </p>
+            `;
+
+        });
+
+        resultadoMYA.innerHTML = html;
+
+    }
+    catch{
+
+        resultadoMYA.innerHTML =
+        "<p>Erro ao analisar categorias.</p>";
+
+    }
 
 });
 
 document
 .getElementById("btnEconomia")
-.addEventListener("click", () => {
+.addEventListener("click", async () => {
 
-    resultadoMYA.innerHTML = `
-        <h4>🎯 Economia</h4>
-        <p>
-            Em breve a MYA criará
-            estratégias personalizadas
-            para economizar.
-        </p>
-    `;
+    resultadoMYA.innerHTML =
+    "<p>MYA está analisando...</p>";
+
+    try{
+
+        const response = await fetch(
+            `http://127.0.0.1:8000/analise/${usuarioId}`
+        );
+
+        const data =
+        await response.json();
+
+        resultadoMYA.innerHTML = `
+            <h4>📊 Resumo Financeiro</h4>
+            <p>${data.analise}</p>
+        `;
+
+    }
+    catch{
+
+        resultadoMYA.innerHTML =
+        "<p>Erro ao gerar análise.</p>";
+
+    }
 
 });
+
+document
+.getElementById("btnEconomia")
+.addEventListener("click", async () => {
+
+    resultadoMYA.innerHTML =
+    "<p>MYA está criando dicas...</p>";
+
+    try{
+
+        const response = await fetch(
+            `http://127.0.0.1:8000/economia/${usuarioId}`
+        );
+
+        const data =
+        await response.json();
+
+        resultadoMYA.innerHTML = `
+            <h4>🎯 Dicas da MYA</h4>
+            <p>${data.dicas}</p>
+        `;
+
+    }
+    catch{
+
+        resultadoMYA.innerHTML =
+        "<p>Erro ao gerar dicas.</p>";
+
+    }
+
+});
+
+async function carregarGraficoCategorias(){
+
+    try{
+
+        const response = await fetch(
+            `http://127.0.0.1:8000/grafico-categorias/${usuarioId}`
+        );
+
+        const categorias =
+        await response.json();
+
+        const labels =
+        categorias.map(
+            item => item.categoria
+        );
+
+        const valores =
+        categorias.map(
+            item => item.total
+        );
+
+        const ctx =
+        document
+        .getElementById(
+            "graficoCategorias"
+        );
+
+        new Chart(ctx, {
+
+            type: "doughnut",
+
+            data: {
+
+                labels: labels,
+
+                datasets: [
+
+                    {
+
+                        data: valores,
+
+                        backgroundColor: [
+
+                            "#A855F7",
+                            "#7C3AED",
+                            "#6366F1",
+                            "#3B82F6",
+                            "#06B6D4",
+                            "#10B981"
+
+                        ]
+
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                plugins: {
+
+                    legend: {
+
+                        labels: {
+
+                            color: "white"
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+    catch(error){
+
+        console.error(
+            "Erro gráfico:",
+            error
+        );
+
+    }
+
+}
 
 // =========================
 // INICIAR
@@ -245,3 +412,4 @@ document
 carregarDashboard();
 carregarTransacoes();
 carregarNotificacoes();
+carregarGraficoCategorias();

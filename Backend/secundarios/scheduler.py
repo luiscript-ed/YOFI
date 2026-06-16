@@ -55,8 +55,9 @@ scheduler.add_job(
 
 scheduler.add_job(
     executar_analises,
-    "interval",
-    minutes=1
+    "cron",
+    hour=18,
+    minute=0
 )
 
 scheduler.start()

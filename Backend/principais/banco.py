@@ -4,9 +4,11 @@ from pydantic import BaseModel
 import sqlite3
 from datetime import datetime
 from Backend.principais.mya import perguntar_mya
-from Backend.principais.analise_financeira import analisar_usuario
+from Backend.principais.analise_financeira import analisar_usuario 
+from Backend.principais.analise_financeira import categorias_principais
 from Backend.secundarios.notify import criar_notificacao
 from Backend.secundarios.scheduler import scheduler
+from Backend.principais.analise_financeira import gerar_dicas_economia
 
 app = FastAPI()
 
@@ -103,6 +105,29 @@ class PerguntaMYA(BaseModel):
 # ==========================================
 # MYA
 # ==========================================
+@app.get("/categorias/{usuario_id}")
+def top_categorias(usuario_id: int):
+
+    categorias = categorias_principais(usuario_id)
+
+    return {
+        "categorias": [
+            {
+                "categoria": c[0],
+                "valor": c[1]
+            }
+            for c in categorias
+        ]
+    }
+
+@app.get("/economia/{usuario_id}")
+def economia(usuario_id: int):
+
+    return {
+        "dicas": gerar_dicas_economia(
+            usuario_id
+        )
+    }
 
 @app.post("/mya")
 def conversar_mya(dados: PerguntaMYA):
@@ -276,6 +301,9 @@ def listar_transacoes(usuario_id: int):
 @app.get("/dashboard/{usuario_id}")
 def dashboard(usuario_id: int):
 
+    conn = sqlite3.connect("meu_banco.db")
+    cursor = conn.cursor()
+
     # Total ganhos
     cursor.execute(
         """
@@ -307,6 +335,7 @@ def dashboard(usuario_id: int):
 
     saldo = ganhos - gastos
 
+    conn.close()
     return {
         "total_ganhos": ganhos,
         "total_gastos": gastos,
@@ -320,12 +349,19 @@ def dashboard(usuario_id: int):
 @app.get("/grafico-categorias/{usuario_id}")
 def grafico_categorias(usuario_id: int):
 
+    conn = sqlite3.connect("meu_banco.db")
+    cursor = conn.cursor()
+
     cursor.execute(
         """
-        SELECT categoria, SUM(valor)
+        SELECT categoria,
+               SUM(valor)
+
         FROM transacoes
+
         WHERE usuario_id = ?
         AND tipo = 'gasto'
+
         GROUP BY categoria
         """,
         (usuario_id,)
@@ -333,15 +369,15 @@ def grafico_categorias(usuario_id: int):
 
     resultados = cursor.fetchall()
 
-    dados = []
+    conn.close()
 
-    for item in resultados:
-        dados.append({
+    return [
+        {
             "categoria": item[0],
             "total": item[1]
-        })
-
-    return dados
+        }
+        for item in resultados
+    ]
 
 @app.get("/notificacoes/{usuario_id}")
 def listar_notificacoes(usuario_id: int):
