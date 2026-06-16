@@ -3,12 +3,12 @@ import psycopg2
 import os
 
 
-
 def criar_notificacao(usuario_id, titulo, mensagem):
-    
+
     conn = psycopg2.connect(
-    os.getenv("DATABASE_URL")
+        os.getenv("DATABASE_URL")
     )
+
     cursor = conn.cursor()
 
     data = datetime.now().strftime("%d/%m/%Y %H:%M")
@@ -18,7 +18,7 @@ def criar_notificacao(usuario_id, titulo, mensagem):
         INSERT INTO notificacoes
         (usuario_id, titulo, mensagem, data)
 
-        VALUES (?, ?, ?, ?)
+        VALUES (%s, %s, %s, %s)
         """,
         (
             usuario_id,
@@ -29,4 +29,6 @@ def criar_notificacao(usuario_id, titulo, mensagem):
     )
 
     conn.commit()
+
+    cursor.close()
     conn.close()
