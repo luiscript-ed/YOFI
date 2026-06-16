@@ -342,7 +342,7 @@ def listar_transacoes(usuario_id: int):
 @app.get("/dashboard/{usuario_id}")
 def dashboard(usuario_id: int):
 
-    conn = sqlite3.connect("meu_banco.db")
+    conn = conectar()
     cursor = conn.cursor()
 
     # Total ganhos
@@ -390,7 +390,7 @@ def dashboard(usuario_id: int):
 @app.get("/grafico-categorias/{usuario_id}")
 def grafico_categorias(usuario_id: int):
 
-    conn = sqlite3.connect("meu_banco.db")
+    conn = conectar()
     cursor = conn.cursor()
 
     cursor.execute(
@@ -423,7 +423,7 @@ def grafico_categorias(usuario_id: int):
 @app.get("/notificacoes/{usuario_id}")
 def listar_notificacoes(usuario_id: int):
 
-    conn = sqlite3.connect("meu_banco.db")
+    conn = conectar()
     cursor = conn.cursor()
 
     cursor.execute(
