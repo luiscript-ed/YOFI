@@ -35,36 +35,36 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
-# Tabela de usuários
+conn = conectar()
+cursor = conn.cursor()
+
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS usuarios (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     nome TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     senha TEXT NOT NULL
 )
 """)
 
-# Tabela de transações
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS transacoes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     usuario_id INTEGER NOT NULL,
     tipo TEXT NOT NULL,
     categoria TEXT NOT NULL,
-    valor REAL NOT NULL,
+    valor NUMERIC NOT NULL,
     descricao TEXT,
     data TEXT NOT NULL,
-    
-    FOREIGN KEY(usuario_id) REFERENCES usuarios(id)
+
+    FOREIGN KEY(usuario_id)
+    REFERENCES usuarios(id)
 )
 """)
 
-# Tabela de notificações
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS notificacoes(
-
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS notificacoes (
+    id SERIAL PRIMARY KEY,
 
     usuario_id INTEGER NOT NULL,
 
@@ -78,11 +78,12 @@ CREATE TABLE IF NOT EXISTS notificacoes(
 
     FOREIGN KEY(usuario_id)
     REFERENCES usuarios(id)
-
 )
 """)
 
 conn.commit()
+cursor.close()
+conn.close()
 
 # ==========================================
 # MODELOS
@@ -161,13 +162,23 @@ def analise(usuario_id: int):
 @app.post("/cadastro")
 def cadastrar_usuario(usuario: UsuarioCadastro):
 
+    conn = conectar()
+    cursor = conn.cursor()
+
     try:
+
         cursor.execute(
             """
-            INSERT INTO usuarios (nome, email, senha)
-            VALUES (?, ?, ?)
+            INSERT INTO usuarios
+            (nome, email, senha)
+
+            VALUES (%s, %s, %s)
             """,
-            (usuario.nome, usuario.email, usuario.senha)
+            (
+                usuario.nome,
+                usuario.email,
+                usuario.senha
+            )
         )
 
         conn.commit()
@@ -176,11 +187,19 @@ def cadastrar_usuario(usuario: UsuarioCadastro):
             "mensagem": "Usuário cadastrado com sucesso!"
         }
 
-    except sqlite3.IntegrityError:
+    except psycopg2.IntegrityError:
+
+        conn.rollback()
+
         raise HTTPException(
             status_code=400,
             detail="Este e-mail já está cadastrado."
         )
+
+    finally:
+
+        cursor.close()
+        conn.close()
 
 # ==========================================
 # LOGIN
@@ -189,16 +208,27 @@ def cadastrar_usuario(usuario: UsuarioCadastro):
 @app.post("/login")
 def login(usuario: UsuarioLogin):
 
+    conn = conectar()
+    cursor = conn.cursor()
+
     cursor.execute(
         """
         SELECT id, nome
         FROM usuarios
-        WHERE email = ? AND senha = ?
+
+        WHERE email = %s
+        AND senha = %s
         """,
-        (usuario.email, usuario.senha)
+        (
+            usuario.email,
+            usuario.senha
+        )
     )
 
     resultado = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
 
     if resultado:
 
@@ -212,7 +242,6 @@ def login(usuario: UsuarioLogin):
         status_code=401,
         detail="E-mail ou senha incorretos."
     )
-
 # ==========================================
 # ADICIONAR TRANSAÇÃO
 # ==========================================
@@ -237,24 +266,30 @@ def adicionar_transacao(transacao: Transacao):
     f"{transacao.tipo.upper()} - {transacao.categoria} - R${transacao.valor}"
 
 )
-    cursor.execute(
-        """
-        INSERT INTO transacoes
-        (usuario_id, tipo, categoria, valor, descricao, data)
+   conn = conectar()
+cursor = conn.cursor()
 
-        VALUES (?, ?, ?, ?, ?, ?)
-        """,
-        (
-            transacao.usuario_id,
-            transacao.tipo,
-            transacao.categoria,
-            transacao.valor,
-            transacao.descricao,
-            data_atual
-        )
+cursor.execute(
+    """
+    INSERT INTO transacoes
+    (usuario_id, tipo, categoria, valor, descricao, data)
+
+    VALUES (%s, %s, %s, %s, %s, %s)
+    """,
+    (
+        transacao.usuario_id,
+        transacao.tipo,
+        transacao.categoria,
+        transacao.valor,
+        transacao.descricao,
+        data_atual
     )
+)
 
-    conn.commit()
+conn.commit()
+
+cursor.close()
+conn.close()
 
     return {
         "mensagem": "Transação adicionada com sucesso!"
@@ -274,7 +309,7 @@ def listar_transacoes(usuario_id: int):
         """
         SELECT id, tipo, categoria, valor, descricao, data
         FROM transacoes
-        WHERE usuario_id = ?
+        WHERE usuario_id = %s
         ORDER BY id DESC
         """,
         (usuario_id,)
@@ -314,7 +349,7 @@ def dashboard(usuario_id: int):
         """
         SELECT SUM(valor)
         FROM transacoes
-        WHERE usuario_id = ?
+        WHERE usuario_id = %s
         AND tipo = 'ganho'
         """,
         (usuario_id,)
@@ -327,7 +362,7 @@ def dashboard(usuario_id: int):
         """
         SELECT SUM(valor)
         FROM transacoes
-        WHERE usuario_id = ?
+        WHERE usuario_id = %s
         AND tipo = 'gasto'
         """,
         (usuario_id,)
@@ -364,7 +399,7 @@ def grafico_categorias(usuario_id: int):
 
         FROM transacoes
 
-        WHERE usuario_id = ?
+        WHERE usuario_id = %s
         AND tipo = 'gasto'
 
         GROUP BY categoria
@@ -400,7 +435,7 @@ def listar_notificacoes(usuario_id: int):
 
         FROM notificacoes
 
-        WHERE usuario_id = ?
+        WHERE usuario_id = %s
 
         ORDER BY id DESC
         """,
