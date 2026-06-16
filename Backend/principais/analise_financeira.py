@@ -1,5 +1,5 @@
 import sqlite3
-from Backend.principais.mya import perguntar_mya
+from principais.mya import perguntar_mya
 
 def analisar_usuario(usuario_id):
 
