@@ -108,11 +108,61 @@
         button:hover {
             background-color: #8e44ad;
         }
+
+        .navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    height:70px;
+
+    background:#140c25;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 40px;
+
+    border-bottom:1px solid #2a1d47;
+
+    z-index:1000;
+}
+
+.logo{
+    font-size:32px;
+    font-weight:bold;
+    color:#8b5cf6;
+}
+
+.navbar nav{
+    display:flex;
+    gap:30px;
+}
+
+.navbar nav a{
+    color:white;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.navbar nav a:hover{
+    color:#8b5cf6;
+}
+
     </style>
 </head>
 <body>
 
+     <header class="navbar">
     <img src="gato.png" alt="Logo MYA" class="logo">
+    <div class="logo">YOFI/Inicio</div>
+    <nav>
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/forms/form">Transações</a>
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page">Inicial</a>
+    </nav>
+    </header>
+
+    
 
     <h1 class="title">MYA</h1>
 
