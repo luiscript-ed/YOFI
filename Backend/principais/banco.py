@@ -1,8 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import psycopg2
-import os
 
 from datetime import datetime
 from principais.mya import perguntar_mya
@@ -28,6 +26,9 @@ app.add_middleware(
 # ==========================================
 # BANCO DE DADOS
 # ==========================================
+
+import psycopg2
+import os
 
 conn = psycopg2.connect(
     os.getenv("DATABASE_URL")
