@@ -1,9 +1,14 @@
 from datetime import datetime
-import sqlite3
+import psycopg2
+import os
+
+
 
 def criar_notificacao(usuario_id, titulo, mensagem):
-
-    conn = sqlite3.connect("meu_banco.db")
+    
+    conn = psycopg2.connect(
+    os.getenv("DATABASE_URL")
+    )
     cursor = conn.cursor()
 
     data = datetime.now().strftime("%d/%m/%Y %H:%M")
