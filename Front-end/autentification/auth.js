@@ -47,7 +47,7 @@ registerForm.addEventListener("submit", async (e) => {
 
     try{
 
-        const resposta = await fetch("http://127.0.0.1:8000/cadastro", {
+        const resposta = await fetch("https://yofi-api.onrender.com/cadastro", {
 
             method: "POST",
 
@@ -88,7 +88,7 @@ loginForm.addEventListener("submit", async (e) => {
 
     try{
 
-        const resposta = await fetch("http://127.0.0.1:8000/login", {
+        const resposta = await fetch("https://yofi-api.onrender.com/login", {
 
             method: "POST",
 
