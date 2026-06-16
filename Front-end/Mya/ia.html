@@ -6,25 +6,16 @@
     <title>YOFI/MYA</title>
     <style>
         /* Estilos baseados no seu código original */
-        body {
-            background-color: #fdf6ff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        body{
+    background-color:#fdf6ff;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin:0;
+    padding:100px 20px 20px 20px;
 
-        /* Logo fixa do gato */
-        .logo {
-            position: fixed;
-            top: 50px;
-            left: 15px;
-            width: 150px;
-            z-index: 100;
-        }
-
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+} 
         /* Título */
         .title {
             text-align: center;
@@ -109,58 +100,80 @@
             background-color: #8e44ad;
         }
 
-        .navbar{
-    position:fixed;
-    top:0;
-    width:100%;
-    height:70px;
+        /* NAVBAR */
+.navbar{
+    position: fixed;
+    top: 0;
+    left: 0;
 
-    background:#140c25;
+    width: 100%;
+    height: 70px;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    background: #140c25;
 
-    padding:0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    border-bottom:1px solid #2a1d47;
+    padding: 0 30px;
+    box-sizing: border-box;
 
-    z-index:1000;
+    border-bottom: 1px solid #2a1d47;
+
+    z-index: 1000;
 }
 
-.logo{
-    font-size:32px;
-    font-weight:bold;
-    color:#8b5cf6;
+/* Grupo Logo + Nome */
+.navbar-left{
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
+.navbar-logo{
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.navbar-title{
+    font-size: 24px;
+    font-weight: bold;
+    color: #8b5cf6;
+}
+
+/* Links */
 .navbar nav{
-    display:flex;
-    gap:30px;
+    display: flex;
+    gap: 25px;
 }
 
 .navbar nav a{
-    color:white;
-    text-decoration:none;
-    transition:.2s;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: .2s;
 }
 
 .navbar nav a:hover{
-    color:#8b5cf6;
+    color: #8b5cf6;
 }
 
     </style>
 </head>
 <body>
 
-     <header class="navbar">
-    <img src="gato.png" alt="Logo MYA" class="logo">
-    <div class="logo">YOFI/Inicio</div>
+    <header class="navbar">
+    <div class="navbar-left">
+        <img src="https://i.ibb.co/Zz0wTfv8/MYA.png" alt="Logo MYA" class="navbar-logo">
+        <div class="navbar-title">YOFI</div>
+    </div>
+
     <nav>
         <a href="https://luiscript-ed.github.io/YOFI/Front-end/forms/form">Transações</a>
         <a href="https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page">Inicial</a>
     </nav>
-    </header>
+</header>
 
     <pre> 
 
