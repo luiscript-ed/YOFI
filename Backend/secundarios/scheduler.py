@@ -3,11 +3,17 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from principais.analise_financeira import analisar_usuario
 from secundarios.notify import criar_notificacao
 
-import sqlite3
+import psycopg2
+import os
+
+
 
 def executar_analises():
-
-    conn = sqlite3.connect("meu_banco.db")
+    
+    conn = psycopg2.connect(
+    os.getenv("DATABASE_URL")
+)
+    
     cursor = conn.cursor()
 
     cursor.execute(
