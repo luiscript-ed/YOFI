@@ -1,9 +1,13 @@
-import sqlite3
+import psycopg2
+import os
 from principais.mya import perguntar_mya
 
 def analisar_usuario(usuario_id):
 
-    conn = sqlite3.connect("meu_banco.db")
+    conn = psycopg2.connect(
+    os.getenv("DATABASE_URL")
+    )
+    
     cursor = conn.cursor()
 
     cursor.execute(
@@ -15,7 +19,7 @@ def analisar_usuario(usuario_id):
 
         FROM transacoes
 
-        WHERE usuario_id = ?
+        WHERE usuario_id = %s
 
         ORDER BY id DESC
 
@@ -74,7 +78,9 @@ tente ser o mais breve possivel, não use negrito, pense que voce está enviando
 
 def categorias_principais(usuario_id):
 
-    conn = sqlite3.connect("meu_banco.db")
+    conn = psycopg2.connect(
+    os.getenv("DATABASE_URL")
+    )
     cursor = conn.cursor()
 
     cursor.execute(
@@ -84,7 +90,7 @@ def categorias_principais(usuario_id):
 
         FROM transacoes
 
-        WHERE usuario_id = ?
+        WHERE usuario_id = %s
         AND tipo = 'gasto'
 
         GROUP BY categoria
@@ -104,7 +110,9 @@ def categorias_principais(usuario_id):
 
 def gerar_dicas_economia(usuario_id):
 
-    conn = sqlite3.connect("meu_banco.db")
+    conn = psycopg2.connect(
+    os.getenv("DATABASE_URL")
+    )
     cursor = conn.cursor()
 
     cursor.execute(
@@ -114,7 +122,7 @@ def gerar_dicas_economia(usuario_id):
 
         FROM transacoes
 
-        WHERE usuario_id = ?
+        WHERE usuario_id = %s
         AND tipo = 'gasto'
         """,
         (usuario_id,)
