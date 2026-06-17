@@ -77,4 +77,30 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+    //Faz os simbolos dos itens das atualizações
+    document.addEventListener("DOMContentLoaded", () => {
+    
+        // Seleciona todas as tarefas do quadro
+        const tarefas = document.querySelectorAll(".todo-item");
+
+        tarefas.forEach(tarefa => {
+            // Pega o status definido no HTML (feito, erro, pendente)
+            const status = tarefa.getAttribute("data-status");
+            // Procura a caixinha onde o ícone deve aparecer
+            const iconContainer = tarefa.querySelector(".todo-icon");
+
+            // Lógica de decisão pelo código
+            if (status === "feito") {
+                iconContainer.textContent = "✅";
+            } 
+            else if (status === "erro") {
+                iconContainer.textContent = "🚫";
+            } 
+            else {
+                iconContainer.textContent = "⏳"; 
+            // Para o que ainda está sendo feito, ou qualuer outra nomenclatura usada.
+            }
+        });
+
+    });
 });
