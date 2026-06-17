@@ -4,14 +4,14 @@
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
 }
-
+/* Body né... */
 body {
     background: #0b0718;
     color: white;
     padding-bottom: 60px;
 }
 
-/* NAVBAR */
+/* Parte central e praticamente o body 2.0 */
 .navbar {
     position: fixed;
     top: 0;
@@ -47,7 +47,7 @@ body {
     color: #8b5cf6;
 }
 
-/* CONTAINER */
+/* CONTAINER - basic bro */
 .recursos-container {
     padding-top: 110px;
     width: 90%;
@@ -58,7 +58,7 @@ body {
     gap: 35px;
 }
 
-/* CARDS COM HOVER SOLICITADO */
+/* CARDS bonitinhos, gemini que fez */
 .recursos-card {
     background: #140c25;
     padding: 35px;
@@ -67,7 +67,7 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Passar o mouse: cresce e ativa a sombra marcante oposta ao background */
+/* Passar o mouse: cresce e ativa a sombra marcante */
 .recursos-card:hover {
     transform: scale(1.02);
     box-shadow: 0 15px 30px rgba(139, 92, 246, 0.25);
@@ -91,7 +91,7 @@ body {
     color: #a78bfa;
 }
 
-/* EQUIPE (LUIS EM DESTAQUE) */
+/* Nome dos Exu */
 .equipe-container {
     margin-top: 25px;
     background: rgba(255, 255, 255, 0.02);
@@ -125,7 +125,7 @@ body {
     color: white;
 }
 
-.cargo-lider {
+.cargo-apelido {
     font-size: 11px;
     background: #8b5cf6;
     padding: 3px 8px;
@@ -150,7 +150,7 @@ body {
     border-right: 3px solid #6366f1;
 }
 
-/* AFILIADOS SOBRE */
+/* Roda pé */
 .afiliados-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -167,7 +167,7 @@ body {
 
 .sub-topico h4 { color: #c084fc; margin-bottom: 8px; }
 
-/* RECURSOS & GRÁFICO CONTAINER */
+/* Grafico animado */
 .valores-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -187,10 +187,69 @@ body {
     border: 1px solid #10b981;
 }
 
+/* Caixa das Atualizações*/
+.todo-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+/* CADA ITEM/TAREFA */
+.todo-item {
+    background: rgba(36, 22, 61, 0.4);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(139, 92, 246, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efeito de passar o mouse nas tarefas */
+.todo-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(139, 92, 246, 0.15);
+}
+
+.todo-info h4 {
+    color: #c084fc;
+    margin-bottom: 6px;
+    font-size: 16px;
+}
+
+.todo-info p {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    color: #94a3b8 !important;
+}
+
+/* ÁREA DO EMOJI */
+.todo-icon {
+    font-size: 24px;
+    min-width: 30px;
+    text-align: center;
+}
+
+/* ESTILOS DE ACORDO COM O STATUS (OPCIONAL: MUDA A BORDA CASO QUEIRA) */
+.todo-item[data-status="feito"] {
+    border-left: 4px solid #10b981;
+}
+
+.todo-item[data-status="erro"] {
+    border-left: 4px solid #ef4444;
+}
+
+.todo-item[data-status="pendente"] {
+    border-left: 4px solid #f59e0b;
+}
+
 .purple-text { color: #a855f7; display: block; margin-top: 5px; font-size: 18px; }
 .green-text { color: #10b981; display: block; margin-top: 5px; font-size: 18px; }
 
-/* Wrapper essencial para o Chart.js funcionar e animar */
+/* para carregar os efeitos do JS que peguei na internet vulgo API de animação*/
 .grafico-wrapper {
     position: relative;
     height: 300px;
