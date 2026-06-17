@@ -127,6 +127,14 @@ async function carregarTransacoes() {
     }
 }
 
+const somMYA = new Audio("somMya.mp3");
+
+function tocarSomMYA() {
+    somMYA.currentTime = 0;
+    somMYA.play();
+}
+
+let ultimaQuantidade = 0;
 
 const notificationBtn =
 document.getElementById("notificationBtn");
@@ -140,7 +148,7 @@ notificationBtn.addEventListener("click", () => {
 
 });
 
-async function carregarNotificacoes(){
+async function carregarNotificacoes() {
 
     const resposta = await fetch(
         `https://yofi-api.onrender.com/notificacoes/${usuarioId}`
@@ -153,6 +161,15 @@ async function carregarNotificacoes(){
 
     const contador =
     document.getElementById("notificationCount");
+
+    if (
+        ultimaQuantidade > 0 &&
+        notificacoes.length > ultimaQuantidade
+    ) {
+        tocarSomMYA();
+    }
+
+    ultimaQuantidade = notificacoes.length;
 
     lista.innerHTML = "";
 
