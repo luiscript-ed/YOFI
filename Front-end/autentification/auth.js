@@ -11,26 +11,24 @@ const mensagem = document.getElementById("mensagem");
 
 // ALTERAR ENTRE LOGIN E CADASTRO
 
-loginBtn.addEventListener("click", () => {
+loginBtn.addEventListener("click", () => { login_painel() });
 
+registerBtn.addEventListener("click", () => { cadastro_painel() });
+
+function login_painel() {
     loginBtn.classList.add("active");
     registerBtn.classList.remove("active");
 
     loginForm.classList.remove("hidden");
     registerForm.classList.add("hidden");
-
-});
-
-registerBtn.addEventListener("click", () => {
-
+}
+function cadastro_painel() {
     registerBtn.classList.add("active");
     loginBtn.classList.remove("active");
 
     registerForm.classList.remove("hidden");
     loginForm.classList.add("hidden");
-
-});
-
+}
 // ==============================
 // CADASTRO
 // ==============================
@@ -62,6 +60,9 @@ registerForm.addEventListener("submit", async (e) => {
         const resultado = await resposta.json();
 
         mensagem.innerText = resultado.mensagem || resultado.detail;
+
+        login_painel()
+
 
     }catch(error){
 
@@ -106,15 +107,12 @@ loginForm.addEventListener("submit", async (e) => {
 
         // LOGIN BEM SUCEDIDO
         if(resposta.ok){
-
+            
+            Cookies.set('login', 'true', { expires: 30 });
             localStorage.setItem("usuario_id", resultado.usuario_id);
             localStorage.setItem("nome", resultado.nome);
 
-            setTimeout(() => {
-
-                window.open("https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page", "_blank");
-
-            }, 1500);
+            window.open("https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page", "_blank");;
 
         }
 
