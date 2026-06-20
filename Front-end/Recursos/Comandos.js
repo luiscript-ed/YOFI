@@ -23,12 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Jan-Mar', 'Apr-Jun', 'Jul-Set', 'Projeção Alvo'],
+            labels: ['Primeiro Trimestre', 'Segundo Trimestre', 'Terceiro Trimestre', 'Projeção Alvo'],
             datasets: [
                 {
                     // A linha passando por cima
                     type: 'line',
-                    label: 'Fluxo de Tendência',
+                    label: 'Fluxo',
                     data: dadosValores,
                     borderColor: '#10b981',
                     borderWidth: 3,
@@ -38,12 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 {
                     // As barras
-                    label: 'Métricas de Caixa',
+                    label: 'Estimativas',
                     data: dadosValores,
                     backgroundColor: [
-                        'rgba(168, 85, 247, 0.6)',
-                        'rgba(124, 58, 237, 0.6)',
-                        'rgba(99, 102, 241, 0.6)',
+                        'rgba(4, 62, 223, 0.6)',
+                        'rgba(52, 17, 209, 0.87)',
+                        'rgba(148, 3, 245, 0.6)',
                         'rgba(16, 185, 129, 0.6)'
                     ],
                     borderWidth: 0,
