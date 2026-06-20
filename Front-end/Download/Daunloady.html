@@ -1,98 +1,244 @@
-<html>
-<header>
-    <meta charset="UTF-8">
-    <title>YOFI</title>
-    <style>
-        body{
-            color: whitesmoke;
-            background-color: rgb(33, 33, 33);
-            
-        }
-        button{
-            height: 40px;
-            width: 80px;
-            margin-right: 1px;
-            text-align: center;
-            align-items: right;
-            background-color: #601dcc;
-            color: rgb(230, 230, 255);
-        }
-        h1{
-                text-align: left;  
-                margin-left: 20px;
-                border-radius: 7px;          
-        }
-        h5{
-            text-align: right;
-            background: #5a3594;
-            margin: 20px 0;
-            border-radius: 7px;
-            border-left: black solid 4px;
-        }
-        h6{
-            margin-left: 10px;
-        }
-        p{
-            text-align: left;
-            color: beige;
-            text-shadow: 1px 1px 2px white;
-            margin: 2%;
-        }
-        .Superior{
-            background: #5a3594;
-            border-right: black solid 4px;
-            border-radius: 7px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;     
-        }
-        .cards{
-             display: flex;
-             justify-content: center;
-             gap: 30px;
-              margin-top: 50px;
-              flex-wrap: wrap;
-        }
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YOFI</title>
 
-        .container{
-             width: 350px;
-             min-height: 150px;
-             background-color: rgb(145, 141, 141);
-             color: black;
-             border-radius: 8px;
-             padding: 15px;
-        }
-    </style>
-</header>
+<style>
+:root{
+    --bg:#050816;
+    --bg2:#0d1228;
+    --purple:#8b5cf6;
+    --blue:#2563eb;
+    --text:#f5f7ff;
+    --card:rgba(255,255,255,0.06);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:var(--text);
+    background:
+    radial-gradient(circle at top left,#5b21b655 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#2563eb33 0%,transparent 35%),
+    linear-gradient(135deg,var(--bg),var(--bg2));
+}
+
+/* Barra superior */
+.Superior{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 40px;
+
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    box-shadow:0 0 25px rgba(139,92,246,.15);
+}
+
+.logo{
+    font-size:2rem;
+    font-weight:700;
+    letter-spacing:3px;
+
+    background:linear-gradient(90deg,#a855f7,#3b82f6);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* Botão download */
+.download-btn{
+    padding:12px 24px;
+    border:none;
+    border-radius:12px;
+
+    color:white;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+
+    background:linear-gradient(
+        135deg,
+        var(--purple),
+        var(--blue)
+    );
+
+    box-shadow:
+    0 0 20px rgba(139,92,246,.4),
+    0 0 30px rgba(37,99,235,.2);
+
+    transition:.3s;
+}
+
+.download-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:
+    0 0 25px rgba(139,92,246,.7),
+    0 0 40px rgba(37,99,235,.4);
+}
+
+/* Hero */
+.hero{
+    text-align:center;
+    max-width:900px;
+    margin:80px auto 30px;
+    padding:0 20px;
+}
+
+.hero h1{
+    font-size:3rem;
+    margin-bottom:15px;
+
+    background:linear-gradient(90deg,#ffffff,#a78bfa,#60a5fa);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    color:#cfd5ff;
+    font-size:1.1rem;
+    line-height:1.8;
+}
+
+/* Cards */
+.cards{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+
+    margin-top:60px;
+    padding:20px;
+}
+
+.container{
+    width:360px;
+    min-height:220px;
+
+    padding:25px;
+
+    background:var(--card);
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:18px;
+
+    transition:.3s;
+
+    box-shadow:
+    0 0 20px rgba(139,92,246,.08);
+}
+
+.container:hover{
+    transform:translateY(-8px);
+
+    border-color:rgba(139,92,246,.4);
+
+    box-shadow:
+    0 0 30px rgba(139,92,246,.25),
+    0 0 50px rgba(37,99,235,.15);
+}
+
+.container h3{
+    margin-bottom:15px;
+    color:#a78bfa;
+}
+
+.container p{
+    color:#d9ddff;
+    line-height:1.7;
+}
+
+/* Rodapé */
+.footer{
+    margin-top:80px;
+    text-align:center;
+
+    padding:20px;
+
+    color:#9ca3af;
+    letter-spacing:2px;
+}
+
+/* Linha brilhante */
+.glow-line{
+    width:180px;
+    height:4px;
+    margin:20px auto;
+
+    background:linear-gradient(
+    90deg,
+    transparent,
+    #8b5cf6,
+    #2563eb,
+    transparent
+    );
+
+    border-radius:50px;
+}
+</style>
+</head>
+
 <body>
-    <group class="Superior">
-        <h1>YOFI </h1>
-        <button>Download</button>
 
-    </group>
-        <p style="text-align: center;">YOFI é uma plataforma de inteligência artificial voltada para a gestão financeira.</p>
+<header class="Superior">
+    <div class="logo">YOFI</div>
 
-    <div class="cards">
+    <!-- Troque o arquivo abaixo pelo que desejar -->
+    <a href="arquivo.zip" download>
+        <button class="download-btn">
+            ⬇ Download
+        </button>
+    </a>
+</header>
+
+<section class="hero">
+    <h1>Inteligência Artificial Financeira</h1>
+
+    <div class="glow-line"></div>
+
+    <p>
+        A YOFI é uma plataforma de inteligência artificial voltada para
+        gestão financeira, automação de processos e análise preditiva
+        para empresas e usuários que desejam mais controle sobre seus recursos.
+    </p>
+</section>
+
+<div class="cards">
 
     <div class="container">
-        <h6>
-            Esqueça as planilhas manuais. A YOFI categoriza suas despesas,
-            identifica padrões de consumo e automatiza processos repetitivos
-            para você focar no que realmente importa.
-        </h6>
+        <h3>⚡ Automação Inteligente</h3>
+        <p>
+            Esqueça as planilhas manuais. A YOFI categoriza despesas,
+            identifica padrões de consumo e automatiza processos
+            repetitivos para que você foque no crescimento.
+        </p>
     </div>
 
     <div class="container">
-        <h6>
-            Através de algoritmos avançados, nossa IA analisa seu histórico
-            financeiro e projeta cenários futuros, ajudando você a antecipar
-            problemas e tomar decisões estratégicas.
-        </h6>
+        <h3>📈 Previsões Avançadas</h3>
+        <p>
+            Utilizando algoritmos avançados de IA, analisamos seu histórico
+            financeiro e projetamos cenários futuros para auxiliar em
+            decisões estratégicas e antecipação de riscos.
+        </p>
     </div>
 
 </div>
 
-    <h5>More Speed ™</h5>
-    
+<footer class="footer">
+    More Speed™
+</footer>
+
 </body>
 </html>
