@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Primeiro Trimestre', 'Segundo Trimestre', 'Terceiro Trimestre', 'Projeção Alvo'],
+            labels: ['Primeiro mês', 'Segundo mês', 'Terceiro mês', 'Projeção Alvo'],
             datasets: [
                 {
                     // A linha passando por cima
