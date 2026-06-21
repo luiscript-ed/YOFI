@@ -106,7 +106,7 @@ loginForm.addEventListener("submit", async (e) => {
 
         // LOGIN BEM SUCEDIDO
         if(resposta.ok){
-
+            
             localStorage.setItem("usuario_id", resultado.usuario_id);
             localStorage.setItem("nome", resultado.nome);
 
