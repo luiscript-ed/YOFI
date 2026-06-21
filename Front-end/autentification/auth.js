@@ -109,7 +109,6 @@ loginForm.addEventListener("submit", async (e) => {
         if(resposta.ok){
             
             Cookies.set('login', 'true', { expires: 30 });
-            console.log(Cookies.get("login"));
             localStorage.setItem("usuario_id", resultado.usuario_id);
             localStorage.setItem("nome", resultado.nome);
 
