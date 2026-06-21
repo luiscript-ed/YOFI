@@ -13,8 +13,6 @@ const fez_login = Cookies.set()("login", "true",{
     expires: 30 
         });
 
-console.log(Cookies.get("login"));
-
 // Verificação do login
 if (Cookies.get("login") === "true") {
     window.open("https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page", "_blank");;
