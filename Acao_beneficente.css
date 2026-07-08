@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1a1a1a; /* Tom escuro para dar foco às imagens, como um museu moderno */
+    color: #e5e5e5;
+    font-family: 'Georgia', 'Times New Roman', serif; /* Fonte serifada para um ar mais clássico */
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Cabeçalho */
+.cabecalho {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.cabecalho h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #d4af37; /* Tom dourado elegante */
+    margin-bottom: 10px;
+}
+
+.cabecalho p {
+    font-style: italic;
+    color: #a0a0a0;
+}
+
+/* ==========================================================================
+   Grid da Galeria onde coloca os espaçamentos de itens e etc...
+   ========================================================================== */
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    width: 100%;
+    justify-items: center;
+}
+
+/* ==========================================================================
+   Container da Obra (Moldura + Texto)
+   ========================================================================== */
+.card-img {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade na parede */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 360px;
+}
+
+/* Efeito de iluminação/foco ao passar o mouse */
+.card-img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2); /* Sombra dourada sutil */
+}
+
+/* A Moldura do Quadro */
+.moldura {
+    background-color: #111;
+    padding: 15px; /* Espaço que simula o "Passepartout" (borda interna branca/preta) */
+    border: 8px solid #0a0a0a; /* A moldura externa de madeira escura */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+    overflow: hidden;
+    height: 350px; /* Altura fixa para manter o padrão visual */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* A Imagem da Obra */
+.art-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+/* Efeito sutil de zoom na imagem ao passar o mouse */
+.art-card:hover .art-image {
+    transform: scale(1.03);
+}
+
+/* ==========================================================================
+   Formatação do Texto (Etiqueta de Identificação)
+   ========================================================================== */
+.informacoes {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #333; /* Linha divisória fina */
+    text-align: center;
+}
+
+/* Título da Obra */
+.art-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+/* Nome do Artista e Ano */
+.artista {
+    font-size: 0.95rem;
+    color: #d4af37; /* Destaque em dourado para o artista */
+    margin-bottom: 4px;
+}
+
+/* Técnica utilizada */
+.localizacao {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px; /* Espaçamento entre letras para parecer técnico */
+}
+
+/* Classe dinâmica que será aplicada pelo JS */
+.art-card.highlighted {
+    outline: 2px solid #d4af37;
+}
