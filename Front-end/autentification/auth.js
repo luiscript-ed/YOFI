@@ -87,6 +87,9 @@ loginForm.addEventListener("submit", async (e) => {
 
     };
 
+    console.log("=== DADOS ENVIADOS ===");
+    console.log(dados);
+
     try{
 
         const resposta = await fetch("https://yofi-api.onrender.com/login", {
@@ -101,25 +104,41 @@ loginForm.addEventListener("submit", async (e) => {
 
         });
 
+        console.log("=== STATUS ===");
+        console.log(resposta.status);
+
         const resultado = await resposta.json();
+
+        console.log("=== RESPOSTA DA API ===");
+        console.log(resultado);
 
         mensagem.innerText = resultado.mensagem || resultado.detail;
 
-        // LOGIN BEM SUCEDIDO
         if(resposta.ok){
-            
+
+            console.log("LOGIN OK");
+
             Cookies.set('login', 'true', { expires: 30 });
+
             localStorage.setItem("usuario_id", resultado.usuario_id);
             localStorage.setItem("nome", resultado.nome);
 
-            window.open("https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page", "_blank");;
+            window.location.href =
+            "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page";
+
+        }else{
+
+            console.log("LOGIN FALHOU");
 
         }
 
     }catch(error){
 
+        console.log("=== ERRO ===");
+        console.error(error);
+
         mensagem.innerText = "Erro ao conectar com o servidor.";
 
     }
 
-})
+});
