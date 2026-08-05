@@ -22,10 +22,15 @@ fecharIA.addEventListener("click", () => {
 // =========================
 
 const usuarioId = localStorage.getItem("usuario_id");
+const loginSet = localStorage.getItem("login");
 
-if (!usuarioId) {
+if (!usuarioId || loginSet !== "true") {
+
     alert("Usuário não está logado.");
-    window.location.href = "autentification.html";
+
+    window.location.href =
+    "https://luiscript-ed.github.io/YOFI/Front-end/autentification.html";
+
 }
 
 

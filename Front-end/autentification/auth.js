@@ -118,18 +118,16 @@ loginForm.addEventListener("submit", async (e) => {
 
             console.log("LOGIN OK");
 
-            Cookies.set('login', 'true', { expires: 30 });
-
             localStorage.setItem("usuario_id", resultado.usuario_id);
             localStorage.setItem("nome", resultado.nome);
+            localStorage.setItem("login", "true");
 
-            window.location.href =
-            "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page";
+           
 
         }else{
 
             console.log("LOGIN FALHOU");
-
+            localStorage.setItem("login", "false");
         }
 
     }catch(error){
