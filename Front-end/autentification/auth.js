@@ -121,6 +121,7 @@ loginForm.addEventListener("submit", async (e) => {
             localStorage.setItem("usuario_id", resultado.usuario_id);
             localStorage.setItem("nome", resultado.nome);
             localStorage.setItem("login", "true");
+            window.location.href = "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page.html"
 
            
 
