@@ -12,7 +12,8 @@ from principais.analise_financeira import gerar_dicas_economia
 
 def conectar():
     return psycopg2.connect(
-        os.getenv("DATABASE_URL")
+        os.environ["DATABASE_URL"],
+        sslmode="require"
     )
 app = FastAPI()
 
