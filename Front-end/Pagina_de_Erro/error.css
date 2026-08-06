@@ -1,42 +1,104 @@
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body{
-    background:#0b0718;
-    color:white;
+    background: #0b0718;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px;
 }
 
-h1{
-    font-size: 5em;
+/* ==========================================================================
+                        Imagem MYA
+   ========================================================================== */ 
+
+.imagem-error{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 99;
+    width: 100px;
+    height: 80px;
+}
+
+img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/*efeito glitch*/
+
+.imagem-error img {
+    max-width: 100%;
+    max-height: 100%;
+    transition: 0.1s;
+}
+
+.imagem-error:active img {
+    animation: glitch-img 0.3s infinite linear;
+    filter: drop-shadow(2px 0 red) drop-shadow(-2px 0 cyan);
+}
+
+@keyframes glitch-img {
+    0% {
+        transform: translate(0, 0);
+    }
+    20% {
+        transform: translate(-3px, 3px);
+        filter: drop-shadow(-4px 0 rgba(47, 11, 116, 0.397)) drop-shadow(4px 0 rgba(209, 6, 6, 0.404));
+    }
+    40% {
+        transform: translate(3px, -3px);
+        filter: drop-shadow(4px 0 rgba(47, 11, 116, 0.397)) drop-shadow(-4px 0 rgba(5, 5, 184, 0.479));
+    }
+    60% {
+        transform: translate(-2px, -2px);
+        filter: drop-shadow(0 3px rgba(47, 11, 116, 0.397)) drop-shadow(0 -3px rgba(0, 78, 0, 0.644));
+    }
+    80% {
+        transform: translate(2px, 2px);
+        filter: drop-shadow(-2px -2px rgba(47, 11, 116, 0.397)) drop-shadow(2px 2px rgba(174, 177, 9, 0.61));
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* ==========================================================================
+                        Texto no meio lá
+   ========================================================================== */
+/* Esse aqui foi IA */
+.ascii-error {
+    font-family: monospace;
+    font-size: 0.9em;
+    line-height: 1.1;
     margin-bottom: 20px;
+    color: #ff0000d5;
+    white-space: pre;
 }
 
 p{
     font-size: 1.5em;
-    margin-bottom: 20px;
-    text-shadow: 0 0 1px solid rgb(87, 85, 85);
+    margin-bottom: 10px;
+    text-shadow: 0 0 1px rgb(87, 85, 85);
 }
 
 .container{
-    display: flex;
-    flex-direction: column;
-    background-color: beige;
-    box-shadow: 0 0 10px rgba(77, 69, 69, 0.5);
-    border-radius: 2%;
+    background-color: rgb(49, 49, 24);
+    box-shadow: 0 0 8px rgba(235, 4, 4, 0.637);
+    border-radius: 12px;
     text-align: center;
     border-right: 3px solid rgb(53, 35, 58);
-}
-.container:hover {
-    transform: scale(1.02);
-    box-shadow: 0 15px 30px rgba(139, 92, 246, 0.25);
-}
-
-.imagem-error{
-    width: 50%;
-    height: 50%;
-    border-radius: 2%;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
 }
