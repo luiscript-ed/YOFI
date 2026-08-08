@@ -202,27 +202,35 @@ async function carregarTransacoes() {
 
 const somMYA = new Audio("../Imagens-Audios/somMya.mp3");
 
+let audioPermitido = false;
+
 function tocarSomMYA() {
-    somMYA.currentTime = 0;
-    somMYA.play();
+
+    if (audioPermitido) {
+        somMYA.currentTime = 0;
+        somMYA.play().catch(erro => console.error("Erro ao reproduzir som:", erro));
+    } else {
+        console.warn("Áudio bloqueado: O usuário ainda não interagiu com a página.");
+    }
 }
+
+document.addEventListener("click", () => {
+    audioPermitido = true;
+}, { once: true }); 
 
 let ultimaQuantidade = 0;
 
-const notificationBtn =
-document.getElementById("notificationBtn");
+const notificationBtn = document.getElementById("notificationBtn");
+const notificationPanel = document.getElementById("notificationPanel");
 
-const notificationPanel =
-document.getElementById("notificationPanel");
-
+// O próprio clique no botão de notificações já ativa o áudio para o futuro!
 notificationBtn.addEventListener("click", () => {
-
+    audioPermitido = true; 
     notificationPanel.classList.toggle("hidden");
-
 });
 
 async function carregarNotificacoes() {
-
+    try {
         const resposta = await fetch(
             `https://yofi-api.onrender.com/notificacoes`,
             {
@@ -232,55 +240,37 @@ async function carregarNotificacoes() {
         );
 
         if (!resposta.ok) {
-
-            console.error(
-                "Erro HTTP notificações:",
-                resposta.status
-            );
-
+            console.error("Erro HTTP notificações:", resposta.status);
             return;
         }
 
-    const notificacoes = await resposta.json();
+        const notificacoes = await resposta.json();
+        const lista = document.getElementById("notificationList");
+        const contador = document.getElementById("notificationCount");
 
-    const lista =
-    document.getElementById("notificationList");
+        // Toca o som apenas se a quantidade aumentou e se já passou da primeira carga
+        if (ultimaQuantidade > 0 && notificacoes.length > ultimaQuantidade) {
+            tocarSomMYA();
+        }
 
-    const contador =
-    document.getElementById("notificationCount");
+        ultimaQuantidade = notificacoes.length;
+        lista.innerHTML = "";
+        contador.innerText = notificacoes.length;
 
-    if (
-        ultimaQuantidade > 0 &&
-        notificacoes.length > ultimaQuantidade
-    ) {
-        tocarSomMYA();
+        notificacoes.forEach(notificacao => {
+            lista.innerHTML += `
+            <div class="notification-card">
+                <h4>${notificacao.titulo}</h4>
+                <p>${notificacao.mensagem}</p>
+                <small>${notificacao.data}</small>
+            </div>
+            `;
+        });
+    } catch (error) {
+        console.error("Erro ao buscar notificações:", error);
     }
-
-    ultimaQuantidade = notificacoes.length;
-
-    lista.innerHTML = "";
-
-    contador.innerText = notificacoes.length;
-
-    notificacoes.forEach(notificacao => {
-
-        lista.innerHTML += `
-
-        <div class="notification-card">
-
-            <h4>${notificacao.titulo}</h4>
-
-            <p>${notificacao.mensagem}</p>
-
-            <small>${notificacao.data}</small>
-
-        </div>
-
-        `;
-
-    });
-
 }
+
 
 document
 .getElementById("btnAnalise")
