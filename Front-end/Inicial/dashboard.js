@@ -200,7 +200,7 @@ async function carregarTransacoes() {
     }
 }
 
-const somMYA = new Audio("somMya.mp3");
+const somMYA = new Audio("../imagens-Audios/somMya.mp3");
 
 function tocarSomMYA() {
     somMYA.currentTime = 0;

@@ -1,7 +1,5 @@
-
-GET (Pega os dados)
-PUT (Altera um dado)
-POST (Cria um dado)
-DELETE (Deleta os dados)
-
-Não enlouqueça ainda, voce já está digitando consigo mesmo, mas o São Jõao já está chegando......
+Quando for compactar para capacitor, atualize o CORS
+Adicionar Outros gráficos
+Adicionar method delete nas transacoes
+Adicionar Captcha
+Adicionar Login com conta do google
