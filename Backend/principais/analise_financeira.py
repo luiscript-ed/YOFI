@@ -5,8 +5,9 @@ from principais.mya import perguntar_mya
 def analisar_usuario(usuario_id):
 
     conn = psycopg2.connect(
-    os.getenv("DATABASE_URL")
-    )
+    os.environ["DATABASE_URL"],
+    sslmode="require"
+)
     
     cursor = conn.cursor()
 
@@ -79,8 +80,9 @@ tente ser o mais breve possivel, não use negrito, pense que voce está enviando
 def categorias_principais(usuario_id):
 
     conn = psycopg2.connect(
-    os.getenv("DATABASE_URL")
-    )
+    os.environ["DATABASE_URL"],
+    sslmode="require"
+)
     cursor = conn.cursor()
 
     cursor.execute(
@@ -111,8 +113,9 @@ def categorias_principais(usuario_id):
 def gerar_dicas_economia(usuario_id):
 
     conn = psycopg2.connect(
-    os.getenv("DATABASE_URL")
-    )
+    os.environ["DATABASE_URL"],
+    sslmode="require"
+)
     cursor = conn.cursor()
 
     cursor.execute(

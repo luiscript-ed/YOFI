@@ -17,20 +17,60 @@ fecharIA.addEventListener("click", () => {
     painelIA.classList.remove("active");
 });
 
+let usuario = null;
+let usuarioId = null;
+
 // =========================
 // DADOS DO USUÁRIO
 // =========================
 
-const usuarioId = localStorage.getItem("usuario_id");
-const loginSet = localStorage.getItem("login");
+async function verificarLogin() {
+    try {
 
-if (!usuarioId || loginSet !== "true") {
+        const resposta = await fetch(
+            "https://yofi-api.onrender.com/me",
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
 
-    alert("Usuário não está logado.");
+        if (!resposta.ok) {
 
-    window.location.href =
-    "https://luiscript-ed.github.io/YOFI/Front-end/autentification.html";
+            window.location.href =
+                "../autentification.html";
 
+            return false;
+        }
+
+        usuario = await resposta.json();
+
+        console.log(
+            "Usuário autenticado:",
+            usuario
+        );
+
+        usuarioId = usuario.usuario_id;
+
+        console.log(
+            "ID do usuário:",
+            usuarioId
+        );
+
+        return true;
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao verificar autenticação:",
+            erro
+        );
+
+        window.location.href =
+            "../autentification.html";
+
+        return false;
+    }
 }
 
 
@@ -43,8 +83,22 @@ async function carregarDashboard() {
     try {
 
         const resposta = await fetch(
-            `https://yofi-api.onrender.com/dashboard/${usuarioId}`
+            `https://yofi-api.onrender.com/dashboard`,
+            {
+                method: "GET",
+                credentials: "include"
+            }
         );
+
+        if (!resposta.ok) {
+
+            console.error(
+                "Erro HTTP dashboard:",
+                resposta.status
+            );
+
+            return;
+        }
 
         const dados = await resposta.json();
 
@@ -73,8 +127,22 @@ async function carregarTransacoes() {
     try {
 
         const resposta = await fetch(
-            `https://yofi-api.onrender.com/transacoes/${usuarioId}`
+            `https://yofi-api.onrender.com/transacoes`,
+            {
+                method: "GET",
+                credentials: "include"
+            }
         );
+
+        if (!resposta.ok) {
+
+            console.error(
+                "Erro HTTP transações:",
+                resposta.status
+            );
+
+            return;
+        }
 
         const transacoes = await resposta.json();
 
@@ -155,9 +223,23 @@ notificationBtn.addEventListener("click", () => {
 
 async function carregarNotificacoes() {
 
-    const resposta = await fetch(
-        `https://yofi-api.onrender.com/notificacoes/${usuarioId}`
-    );
+        const resposta = await fetch(
+            `https://yofi-api.onrender.com/notificacoes`,
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
+
+        if (!resposta.ok) {
+
+            console.error(
+                "Erro HTTP notificações:",
+                resposta.status
+            );
+
+            return;
+        }
 
     const notificacoes = await resposta.json();
 
@@ -209,12 +291,26 @@ document
 
     try{
 
-        const response = await fetch(
-            `https://yofi-api.onrender.com/analise/${usuarioId}`
+        const resposta = await fetch(
+            `https://yofi-api.onrender.com/analise`,
+            {
+                method: "GET",
+                credentials: "include"
+            }
         );
 
+        if (!resposta.ok) {
+
+            console.error(
+                "Erro HTTP analise financeira:",
+                resposta.status
+            );
+
+            return;
+        }
+
         const data =
-        await response.json();
+        await resposta.json();
 
         resultadoMYA.innerHTML = `
             <h4>📊 Resumo Financeiro</h4>
@@ -240,12 +336,26 @@ document
 
     try{
 
-        const response = await fetch(
-            `https://yofi-api.onrender.com/categorias/${usuarioId}`
+        const resposta = await fetch(
+            `https://yofi-api.onrender.com/categorias`,
+            {
+                method: "GET",
+                credentials: "include"
+            }
         );
 
+        if (!resposta.ok) {
+
+            console.error(
+                "Erro HTTP categorias:",
+                resposta.status
+            );
+
+            return;
+        }
+
         const data =
-        await response.json();
+        await resposta.json();
 
         let html =
         "<h4>📊 Categorias com maiores gastos</h4>";
@@ -278,47 +388,30 @@ document
 .addEventListener("click", async () => {
 
     resultadoMYA.innerHTML =
-    "<p>MYA está analisando...</p>";
-
-    try{
-
-        const response = await fetch(
-            `https://yofi-api.onrender.com/analise/${usuarioId}`
-        );
-
-        const data =
-        await response.json();
-
-        resultadoMYA.innerHTML = `
-            <h4>📊 Resumo Financeiro</h4>
-            <p>${data.analise}</p>
-        `;
-
-    }
-    catch{
-
-        resultadoMYA.innerHTML =
-        "<p>Erro ao gerar análise.</p>";
-
-    }
-
-});
-
-document
-.getElementById("btnEconomia")
-.addEventListener("click", async () => {
-
-    resultadoMYA.innerHTML =
     "<p>MYA está criando dicas...</p>";
 
     try{
 
-        const response = await fetch(
-            `https://yofi-api.onrender.com/economia/${usuarioId}`
+        const resposta = await fetch(
+            `https://yofi-api.onrender.com/economia`,
+            {
+                method: "GET",
+                credentials: "include"
+            }
         );
 
+        if (!resposta.ok) {
+
+            console.error(
+                "Erro HTTP dashboard:",
+                resposta.status
+            );
+
+            return;
+        }
+
         const data =
-        await response.json();
+        await resposta.json();
 
         resultadoMYA.innerHTML = `
             <h4>🎯 Dicas da MYA</h4>
@@ -339,12 +432,26 @@ async function carregarGraficoCategorias(){
 
     try{
 
-        const response = await fetch(
-            `https://yofi-api.onrender.com/grafico-categorias/${usuarioId}`
+        const resposta = await fetch(
+            `https://yofi-api.onrender.com/grafico-categorias`,
+            {
+                method: "GET",
+                credentials: "include"
+            }
         );
 
+        if (!resposta.ok) {
+
+            console.error(
+                "Erro HTTP dashboard:",
+                resposta.status
+            );
+
+            return;
+        }
+
         const categorias =
-        await response.json();
+        await resposta.json();
 
         const labels =
         categorias.map(
@@ -428,10 +535,28 @@ async function carregarGraficoCategorias(){
 }
 
 // =========================
-// INICIAR
+// INICIAR PÁGINA
 // =========================
 
-carregarDashboard();
-carregarTransacoes();
-carregarNotificacoes();
-carregarGraficoCategorias();
+async function iniciarPagina() {
+
+    const autenticado =
+        await verificarLogin();
+
+    if (!autenticado) {
+
+        return;
+
+    }
+
+    await carregarDashboard();
+
+    await carregarTransacoes();
+
+    await carregarNotificacoes();
+
+    await carregarGraficoCategorias();
+
+}
+
+iniciarPagina();

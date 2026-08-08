@@ -81,62 +81,56 @@ loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const dados = {
-
         email: document.getElementById("loginEmail").value,
         senha: document.getElementById("loginSenha").value
-
     };
 
-    console.log("=== DADOS ENVIADOS ===");
-    console.log(dados);
+    try {
 
-    try{
+        const resposta = await fetch(
+            "https://yofi-api.onrender.com/login",
+            {
+                method: "POST",
 
-        const resposta = await fetch("https://yofi-api.onrender.com/login", {
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-            method: "POST",
+                credentials: "include",
 
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify(dados)
-
-        });
-
-        console.log("=== STATUS ===");
-        console.log(resposta.status);
+                body: JSON.stringify(dados)
+            }
+        );
 
         const resultado = await resposta.json();
 
-        console.log("=== RESPOSTA DA API ===");
-        console.log(resultado);
+        console.log("Status:", resposta.status);
+        console.log("Resposta:", resultado);
 
-        mensagem.innerText = resultado.mensagem || resultado.detail;
+        mensagem.innerText =
+            resultado.mensagem || resultado.detail;
 
-        if(resposta.ok){
+        if (resposta.ok) {
 
             console.log("LOGIN OK");
 
-            localStorage.setItem("usuario_id", resultado.usuario_id);
             localStorage.setItem("nome", resultado.nome);
-            localStorage.setItem("login", "true");
-            window.location.href = "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page.html"
 
-           
+            window.location.href =
+                "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page";
 
-        }else{
+        } else {
 
             console.log("LOGIN FALHOU");
-            localStorage.setItem("login", "false");
+
         }
 
-    }catch(error){
+    } catch (error) {
 
-        console.log("=== ERRO ===");
-        console.error(error);
+        console.error("Erro no login:", error);
 
-        mensagem.innerText = "Erro ao conectar com o servidor.";
+        mensagem.innerText =
+            "Erro ao conectar com o servidor.";
 
     }
 

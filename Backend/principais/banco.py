@@ -1,8 +1,10 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from pwdlib import PasswordHash
+import jwt
 
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from principais.mya import perguntar_mya
 from principais.analise_financeira import analisar_usuario 
 from principais.analise_financeira import categorias_principais
@@ -23,10 +25,15 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://luiscript-ed.github.io"
+    ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+password_hash = PasswordHash.recommended()
 
 # ==========================================
 # BANCO DE DADOS
@@ -34,6 +41,69 @@ app.add_middleware(
 
 import psycopg2
 import os
+
+JWT_SECRET = os.getenv("JWT_SECRET")
+
+if not JWT_SECRET:
+    raise RuntimeError("JWT_SECRET não configurado.")
+
+def criar_token(usuario_id: int):
+
+    payload = {
+        "usuario_id": usuario_id,
+        "exp": datetime.now(timezone.utc) + timedelta(minutes=30)
+    }
+
+    token = jwt.encode(
+        payload,
+        JWT_SECRET,
+        algorithm="HS256"
+    )
+
+    return token
+
+def obter_usuario_autenticado(request: Request):
+
+    token = request.cookies.get("access_token")
+
+    if not token:
+        raise HTTPException(
+            status_code=401,
+            detail="Usuário não autenticado."
+        )
+
+    try:
+
+        payload = jwt.decode(
+            token,
+            JWT_SECRET,
+            algorithms=["HS256"]
+        )
+
+        usuario_id = payload.get("usuario_id")
+
+        if not usuario_id:
+            raise HTTPException(
+                status_code=401,
+                detail="Token inválido."
+            )
+
+        return int(usuario_id)
+
+    except jwt.ExpiredSignatureError:
+
+        raise HTTPException(
+            status_code=401,
+            detail="Sessão expirada."
+        )
+
+    except jwt.InvalidTokenError:
+
+        raise HTTPException(
+            status_code=401,
+            detail="Token inválido."
+        )
+    
 conn = conectar()
 cursor = conn.cursor()
 
@@ -98,7 +168,6 @@ class UsuarioLogin(BaseModel):
     senha: str
 
 class Transacao(BaseModel):
-    usuario_id: int
     tipo: str  # ganho ou gasto
     categoria: str
     valor: float
@@ -110,8 +179,8 @@ class PerguntaMYA(BaseModel):
 # ==========================================
 # MYA
 # ==========================================
-@app.get("/categorias/{usuario_id}")
-def top_categorias(usuario_id: int):
+@app.get("/categorias")
+def top_categorias(usuario_id: int = Depends(obter_usuario_autenticado)):
 
     categorias = categorias_principais(usuario_id)
 
@@ -125,8 +194,8 @@ def top_categorias(usuario_id: int):
         ]
     }
 
-@app.get("/economia/{usuario_id}")
-def economia(usuario_id: int):
+@app.get("/economia")
+def economia(usuario_id: int = Depends(obter_usuario_autenticado)):
 
     return {
         "dicas": gerar_dicas_economia(
@@ -135,8 +204,7 @@ def economia(usuario_id: int):
     }
 
 @app.post("/mya")
-def conversar_mya(dados: PerguntaMYA):
-
+def conversar_mya( dados: PerguntaMYA, usuario_id: int = Depends(obter_usuario_autenticado)):
     resposta = perguntar_mya(
         dados.pergunta
     )
@@ -145,8 +213,8 @@ def conversar_mya(dados: PerguntaMYA):
         "resposta": resposta
     }
 
-@app.get("/analise/{usuario_id}")
-def analise(usuario_id: int):
+@app.get("/analise")
+def analise(usuario_id: int = Depends(obter_usuario_autenticado)):
 
     resultado = analisar_usuario(usuario_id)
 
@@ -160,12 +228,12 @@ def analise(usuario_id: int):
 
 @app.post("/cadastro")
 def cadastrar_usuario(usuario: UsuarioCadastro):
-
+    senha_hash = password_hash.hash(usuario.senha)
     conn = conectar()
     cursor = conn.cursor()
 
     try:
-
+        
         cursor.execute(
             """
             INSERT INTO usuarios
@@ -176,7 +244,7 @@ def cadastrar_usuario(usuario: UsuarioCadastro):
             (
                 usuario.nome,
                 usuario.email,
-                usuario.senha
+                senha_hash
             )
         )
 
@@ -205,22 +273,20 @@ def cadastrar_usuario(usuario: UsuarioCadastro):
 # ==========================================
 
 @app.post("/login")
-def login(usuario: UsuarioLogin):
+def login(usuario: UsuarioLogin, response: Response):
 
     conn = conectar()
     cursor = conn.cursor()
 
     cursor.execute(
         """
-        SELECT id, nome
+        SELECT id, nome, senha
         FROM usuarios
 
         WHERE email = %s
-        AND senha = %s
         """,
         (
             usuario.email,
-            usuario.senha
         )
     )
 
@@ -229,12 +295,23 @@ def login(usuario: UsuarioLogin):
     cursor.close()
     conn.close()
 
-    if resultado:
+    if resultado and password_hash.verify(usuario.senha, resultado[2]):
+        usuario_id, nome = resultado[0], resultado[1]
+        
+        token = criar_token(usuario_id)
+
+        response.set_cookie(
+            key="access_token",
+            value=token,
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=1800
+        )
 
         return {
             "mensagem": "Login realizado com sucesso!",
-            "usuario_id": resultado[0],
-            "nome": resultado[1]
+            "nome": nome
         }
 
     raise HTTPException(
@@ -246,7 +323,10 @@ def login(usuario: UsuarioLogin):
 # ==========================================
 
 @app.post("/transacao")
-def adicionar_transacao(transacao: Transacao):
+def adicionar_transacao(
+    transacao: Transacao,
+    usuario_id: int = Depends(obter_usuario_autenticado)
+):
 
     if transacao.tipo not in ["ganho", "gasto"]:
         raise HTTPException(
@@ -257,7 +337,7 @@ def adicionar_transacao(transacao: Transacao):
     data_atual = datetime.now().strftime("%d/%m/%Y")
 
     criar_notificacao(
-        transacao.usuario_id,
+        usuario_id,
         "Nova transação registrada",
         f"{transacao.tipo.upper()} - {transacao.categoria} - R${transacao.valor}"
     )
@@ -272,7 +352,7 @@ def adicionar_transacao(transacao: Transacao):
         VALUES (%s, %s, %s, %s, %s, %s)
         """,
         (
-            transacao.usuario_id,
+            usuario_id,
             transacao.tipo,
             transacao.categoria,
             transacao.valor,
@@ -294,8 +374,8 @@ def adicionar_transacao(transacao: Transacao):
 # LISTAR TRANSAÇÕES
 # ==========================================
 
-@app.get("/transacoes/{usuario_id}")
-def listar_transacoes(usuario_id: int):
+@app.get("/transacoes")
+def listar_transacoes(usuario_id: int = Depends(obter_usuario_autenticado)):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -333,8 +413,8 @@ def listar_transacoes(usuario_id: int):
 # DASHBOARD FINANCEIRO
 # ==========================================
 
-@app.get("/dashboard/{usuario_id}")
-def dashboard(usuario_id: int):
+@app.get("/dashboard")
+def dashboard(usuario_id: int = Depends(obter_usuario_autenticado)):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -382,8 +462,8 @@ def dashboard(usuario_id: int):
 # GRÁFICO DE CATEGORIAS
 # ==========================================
 
-@app.get("/grafico-categorias/{usuario_id}")
-def grafico_categorias(usuario_id: int):
+@app.get("/grafico-categorias")
+def grafico_categorias(usuario_id: int = Depends(obter_usuario_autenticado)):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -416,8 +496,8 @@ def grafico_categorias(usuario_id: int):
         for item in resultados
     ]
 
-@app.get("/notificacoes/{usuario_id}")
-def listar_notificacoes(usuario_id: int):
+@app.get("/notificacoes")
+def listar_notificacoes(usuario_id: int = Depends(obter_usuario_autenticado)):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -459,3 +539,38 @@ def listar_notificacoes(usuario_id: int):
         })
 
     return notificacoes
+
+@app.get("/me")
+def usuario_atual(
+    usuario_id: int = Depends(obter_usuario_autenticado)
+):
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT id, nome, email
+        FROM usuarios
+        WHERE id = %s
+        """,
+        (usuario_id,)
+    )
+
+    resultado = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    if not resultado:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Usuário não encontrado."
+        )
+
+    return {
+        "usuario_id": resultado[0],
+        "nome": resultado[1],
+        "email": resultado[2]
+    }
