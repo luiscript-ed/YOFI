@@ -7,16 +7,12 @@
 body{
 
     font-family:"Poppins",sans-serif;
-
     min-height:100vh;
-
-    display:flex;
+    display:grid;
     justify-content:center;
     align-items:center;
-
     overflow:hidden;
     position:relative;
-
     background:
     radial-gradient(circle at top,
     #ddc1fc 0%,
@@ -29,38 +25,27 @@ BACKGROUND
 ==========================*/
 
 .EspaceBar{
-
     position:fixed;
-
     top:0;
     left:0;
-
     width:100%;
     height:400px;
-
     overflow:hidden;
-
     z-index:-2;
 }
 
 .EspaceBar img{
-
     width:100%;
     height:100%;
-
     object-fit:cover;
 
     
 }
 
 .EspaceBar::after{
-
     content:"";
-
     position:absolute;
-
     inset:0;
-
     background:
     linear-gradient(to bottom,
     rgba(255,255,255,.0),
@@ -72,42 +57,39 @@ MYA
 ==========================*/
 
 .imagem-error{
-
     position:absolute;
-
-    top:220px;
-    left:300px;
-
+    top:190px;
+    left:-10px;
     width:120px;
-
     animation:flutuar 4s ease-in-out infinite;
 }
 
 .imagem-error img{
-
     width:100%;
     display:block;
-
     transition:.2s;
 }
 
-.imagem-error:active img{
-
+.imagem-error:hover img{
     animation:glitch-img .25s infinite linear;
 }
 
 @keyframes flutuar{
 
     0%{
-        transform:translateY(0px);
+        transform:translate(-1vw, -5vh) scale(0.9);
     }
 
-    50%{
-        transform:translateY(-10px);
+    10%{
+        transform:translate(1vw, -2vh) scale(1.29);
     }
 
-    100%{
-        transform:translateY(0px);
+    80%{
+        transform:translate(80vw, 8vh) scale(1.2) rotate(40deg);
+    } 
+
+    100%{ 
+        transform:translate(100vw, -10vh) scale(1) rotate(90deg);
     }
 
 }
@@ -147,23 +129,14 @@ CARD
 ==========================*/
 
 .container{
-
     width:min(700px,92%);
-
     padding:55px;
-
     text-align:center;
-
     border-radius:25px;
-
     margin-top: 10%;
-
     backdrop-filter:blur(12px);
-
     background:rgba(255,255,255,.72);
-
     border:1px solid rgba(255,255,255,.7);
-
     box-shadow:
     0 30px 70px rgba(119,54,255,.18);
 }
@@ -173,40 +146,26 @@ CARD
 ==========================*/
 
 .ascii-error{
-
     color:#8c43ff;
-
     font-family:monospace;
-
     font-size:15px;
-
     line-height:1.05;
-
     margin-bottom:25px;
-
     text-shadow:
     0 0 10px rgba(140,67,255,.35);
 }
 
 h2{
-
     color:#343434;
-
     margin-bottom:18px;
-
     font-size:32px;
-
     font-weight:700;
 }
 
 p{
-
     color:#666;
-
     font-size:17px;
-
     line-height:1.8;
-
     margin-bottom:35px;
 }
 
@@ -217,28 +176,18 @@ BOTÃO
 .btn-home{
 
     display:inline-block;
-
     padding:14px 30px;
-
     border-radius:12px;
-
     background:#8c43ff;
-
     color:white;
-
     text-decoration:none;
-
     font-weight:600;
-
     transition:.25s;
 }
 
 .btn-home:hover{
 
     background:#7730ec;
-
-    transform:translateY(-3px);
-
     box-shadow:
     0 12px 30px rgba(140,67,255,.35);
 }
@@ -250,31 +199,24 @@ RESPONSIVO
 @media(max-width:700px){
 
     .imagem-error{
-
         width:120px;
-
         left:20px;
-
         top:20px;
     }
 
     .container{
-
         padding:35px 20px;
     }
 
     .ascii-error{
-
         font-size:11px;
     }
 
     h2{
-
         font-size:26px;
     }
 
     p{
-
         font-size:15px;
     }
 
