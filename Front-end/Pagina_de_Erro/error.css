@@ -129,15 +129,14 @@ CARD
 
 .container{
     width:min(700px,92%);
-    padding:55px;
+    padding:30px;
     text-align:center;
     border-radius:25px;
     margin-top: 10%;
     backdrop-filter:blur(12px);
     background:rgba(255,255,255,.72);
     border:1px solid rgba(255,255,255,.7);
-    box-shadow:
-    0 30px 70px rgba(119,54,255,.18);
+    box-shadow: 0 30px 70px rgba(119,54,255,.18);
 }
 
 /*==========================
@@ -149,7 +148,7 @@ CARD
     font-family:monospace;
     font-size:15px;
     line-height:1.05;
-    margin-bottom:25px;
+    margin-bottom:5px;
     text-shadow:
     0 0 10px rgba(140,67,255,.35);
 }
@@ -165,30 +164,28 @@ p{
     color:#666;
     font-size:17px;
     line-height:1.8;
-    margin-bottom:35px;
+    margin-bottom:5px;
 }
 
 /*==========================
 BOTÃO
 ==========================*/
 
-.btn-home{
-
-    display:inline-block;
-    padding:14px 30px;
-    border-radius:12px;
-    background:#8c43ff;
-    color:white;
-    text-decoration:none;
-    font-weight:600;
-    transition:.25s;
+.btn-home {
+    display: inline-block;
+    padding: 9px 20px; 
+    border-radius: 13px;
+    background: #8c43ff;
+    color: white;
+    text-decoration: none; /*tira o desgrace do sublinhado demoniaco exu papai nenel ebô diabo */
+    font-weight: 600;
+    transition: .25s;
+    margin-top: 100px; 
 }
 
-.btn-home:hover{
-
-    background:#7730ec;
-    box-shadow:
-    0 12px 30px rgba(140,67,255,.35);
+.btn-home:hover {
+    background: #7730ec;
+    box-shadow: 0 12px 30px rgba(140, 67, 255, .35);
 }
 
 /*==========================
