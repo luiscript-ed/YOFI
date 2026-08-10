@@ -167,5 +167,5 @@ loginForm.addEventListener("submit", async (e) => {
         new CustomEvent("yofi:login-end");
 
     loginForm.dispatchEvent(eventoFim);
-
+            awdaw
 });
