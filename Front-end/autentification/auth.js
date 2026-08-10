@@ -7,6 +7,8 @@ const registerBtn = document.getElementById("registerBtn");
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
 
+const botaoSubmitLogin = loginForm.querySelector(".submit-btn");
+
 const mensagem = document.getElementById("mensagem");
 
 // ALTERAR ENTRE LOGIN E CADASTRO
@@ -29,6 +31,26 @@ function cadastro_painel() {
     registerForm.classList.remove("hidden");
     loginForm.classList.add("hidden");
 }
+
+// ============================================================
+// ANIMAÇÃO DO BOTÃO DE LOGIN
+// ============================================================
+
+// LOGIN COMEÇOU
+loginForm.addEventListener("yofi:login-start", () => {
+
+    botaoSubmitLogin.classList.add("loading");
+    botaoSubmitLogin.disabled = true;
+});
+
+
+// LOGIN TERMINOU
+loginForm.addEventListener("yofi:login-end", () => {
+
+    botaoSubmitLogin.classList.remove("loading");
+    botaoSubmitLogin.disabled = false;
+});
+
 // ==============================
 // CADASTRO
 // ==============================
@@ -79,6 +101,12 @@ registerForm.addEventListener("submit", async (e) => {
 loginForm.addEventListener("submit", async (e) => {
 
     e.preventDefault();
+
+    //sinalizar que o login começou para o front-end
+    const eventoInicio =
+        new CustomEvent("yofi:login-start");
+
+    loginForm.dispatchEvent(eventoInicio);
 
     const dados = {
         email: document.getElementById("loginEmail").value,
@@ -133,5 +161,11 @@ loginForm.addEventListener("submit", async (e) => {
             "Erro ao conectar com o servidor.";
 
     }
+
+    // sinalizar que o login terminou para o front-end
+    const eventoFim =
+        new CustomEvent("yofi:login-end");
+
+    loginForm.dispatchEvent(eventoFim);
 
 });
