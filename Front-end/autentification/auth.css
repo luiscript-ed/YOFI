@@ -107,47 +107,53 @@ input{
 }
 
 .submit-btn{
-    position: relative;
-    padding: 15px;
-    border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #7c3aed, #c084fc);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
+position: relative;
+padding: 15px;
+border: none;
+border-radius: 12px;
+background: linear-gradient(135deg, #7c3aed, #c084fc);
+color: white;
+font-weight: 600;
+cursor: pointer;
+transition: 0.3s;
 }
 
 .submit-btn:hover{
-    transform: translateY(-3px);
+transform: translateY(-3px);
 }
 
 /* O elemento de loading propriamente dito */
 .submit-btn.loading::after {
-    content: "";
-    position: absolute;
-    width: 35px;
-    height: 35px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    /*o gif embaixo*/
-    background-image: url("../Front-end/Imagens-Audios/loadings/loading_purplegif.gif");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+content: "";
+position: absolute;
+width: 35px;
+height: 35px;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+
+/* o gif embaixo */
+background-image: url("../Front-end/Imagens-Audios/loadings/loading_purplegif.gif");
+background-size: contain;
+background-position: center;
+background-repeat: no-repeat;
 }
 
-/*e animação (para o usuário não clicar de novo) */
+/* animação para o usuário não clicar de novo */
 .submit-btn:disabled {
-    animation:diminuir .25s linear;
-    cursor: not-allowed;
+animation: diminuir .25s linear forwards;
+cursor: not-allowed;
 }
 
 @keyframes diminuir {
-    0% { opacity: 1; scale: 1; }
-    50% { opacity: 0.5; scale: 0.7; }
-    100% { opacity: 0.0; scale: 0.0; }
+0% { opacity: 1; scale: 1; }
+50% { opacity: 0.5; scale: 0.7; }
+100% { opacity: 0.0; scale: 0.0; }
+}
+
+@keyframes aparecer {
+0% { opacity: 0; scale: 0; }
+100% { opacity: 1; scale: 1; }
 }
 
 .hidden{
