@@ -1,4 +1,3 @@
-
 // auth.js
 
 const loginBtn = document.getElementById("loginBtn");
@@ -11,63 +10,94 @@ const botaoSubmitLogin = loginForm.querySelector(".submit-btn");
 
 const mensagem = document.getElementById("mensagem");
 
+// ============================================================
+// GOOGLE
+// ============================================================
+
+// Client ID do Google Cloud
+const GOOGLE_CLIENT_ID =
+"105535642997-gvdf8prusufi8453kghrkh41mke2bsqc.apps.googleusercontent.com";
+
+// ============================================================
 // ALTERAR ENTRE LOGIN E CADASTRO
+// ============================================================
 
-loginBtn.addEventListener("click", () => { login_painel() });
+loginBtn.addEventListener("click", () => {
+login_painel();
+});
 
-registerBtn.addEventListener("click", () => { cadastro_painel() });
+registerBtn.addEventListener("click", () => {
+cadastro_painel();
+});
 
 function login_painel() {
-    loginBtn.classList.add("active");
-    registerBtn.classList.remove("active");
 
-    loginForm.classList.remove("hidden");
-    registerForm.classList.add("hidden");
+
+loginBtn.classList.add("active");
+registerBtn.classList.remove("active");
+
+loginForm.classList.remove("hidden");
+registerForm.classList.add("hidden");
+
+
 }
+
 function cadastro_painel() {
-    registerBtn.classList.add("active");
-    loginBtn.classList.remove("active");
 
-    registerForm.classList.remove("hidden");
-    loginForm.classList.add("hidden");
+
+registerBtn.classList.add("active");
+loginBtn.classList.remove("active");
+
+registerForm.classList.remove("hidden");
+loginForm.classList.add("hidden");
+
+
 }
 
-// ============================================================
-// ANIMAÇÃO DO BOTÃO DE LOGIN
-// ============================================================
 
-// LOGIN COMEÇOU
+
+
 loginForm.addEventListener("yofi:login-start", () => {
 
-    botaoSubmitLogin.classList.add("loading");
-    botaoSubmitLogin.disabled = true;
+
+botaoSubmitLogin.classList.add("loading");
+botaoSubmitLogin.disabled = true;
+
+
 });
 
 
-// LOGIN TERMINOU
+
 loginForm.addEventListener("yofi:login-end", () => {
 
-    botaoSubmitLogin.classList.remove("loading");
-    botaoSubmitLogin.disabled = false;
-});
 
-// ==============================
-// CADASTRO
-// ==============================
+botaoSubmitLogin.classList.remove("loading");
+botaoSubmitLogin.disabled = false;
+
+
+});
 
 registerForm.addEventListener("submit", async (e) => {
 
-    e.preventDefault();
 
-    const dados = {
-        nome: document.getElementById("cadastroNome").value,
-        email: document.getElementById("cadastroEmail").value,
-        senha: document.getElementById("cadastroSenha").value
-    };
+e.preventDefault();
 
-    try{
+const dados = {
 
-        const resposta = await fetch("https://yofi-api.onrender.com/cadastro", {
+    nome: document.getElementById("cadastroNome").value,
+
+    email: document.getElementById("cadastroEmail").value,
+
+    senha: document.getElementById("cadastroSenha").value
+
+};
+
+
+try {
+
+    const resposta = await fetch(
+        "https://yofi-api.onrender.com/cadastro",
+        {
 
             method: "POST",
 
@@ -77,95 +107,288 @@ registerForm.addEventListener("submit", async (e) => {
 
             body: JSON.stringify(dados)
 
-        });
-
-        const resultado = await resposta.json();
-
-        mensagem.innerText = resultado.mensagem || resultado.detail;
-
-        login_painel()
+        }
+    );
 
 
-    }catch(error){
+    const resultado = await resposta.json();
 
-        mensagem.innerText = "Erro ao conectar com o servidor.";
+
+    mensagem.innerText =
+        resultado.mensagem || resultado.detail;
+
+
+    if (resposta.ok) {
+
+        login_painel();
 
     }
 
+
+} catch (error) {
+
+    console.error("Erro no cadastro:", error);
+
+    mensagem.innerText =
+        "Erro ao conectar com o servidor.";
+
+}
+
+
 });
 
-// ==============================
-// LOGIN
-// ==============================
+
 
 loginForm.addEventListener("submit", async (e) => {
 
-    e.preventDefault();
 
-    //sinalizar que o login começou para o front-end
-    const eventoInicio =
-        new CustomEvent("yofi:login-start");
+e.preventDefault();
 
-    loginForm.dispatchEvent(eventoInicio);
 
-    const dados = {
-        email: document.getElementById("loginEmail").value,
-        senha: document.getElementById("loginSenha").value
-    };
+// Sinalizar que o login começou
 
-    try {
+const eventoInicio =
+    new CustomEvent("yofi:login-start");
 
-        const resposta = await fetch(
-            "https://yofi-api.onrender.com/login",
-            {
-                method: "POST",
+loginForm.dispatchEvent(eventoInicio);
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
 
-                credentials: "include",
+const dados = {
 
-                body: JSON.stringify(dados)
-            }
-        );
+    email:
+        document.getElementById("loginEmail").value,
 
-        const resultado = await resposta.json();
+    senha:
+        document.getElementById("loginSenha").value
 
-        console.log("Status:", resposta.status);
-        console.log("Resposta:", resultado);
+};
 
-        mensagem.innerText =
-            resultado.mensagem || resultado.detail;
 
-        if (resposta.ok) {
+try {
 
-            console.log("LOGIN OK");
+    const resposta = await fetch(
+        "https://yofi-api.onrender.com/login",
+        {
 
-            localStorage.setItem("nome", resultado.nome);
+            method: "POST",
 
-            window.location.href =
-                "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page";
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-        } else {
+            credentials: "include",
 
-            console.log("LOGIN FALHOU");
+            body: JSON.stringify(dados)
 
         }
+    );
 
-    } catch (error) {
 
-        console.error("Erro no login:", error);
+    const resultado =
+        await resposta.json();
 
-        mensagem.innerText =
-            "Erro ao conectar com o servidor.";
+
+    console.log(
+        "Status:",
+        resposta.status
+    );
+
+    console.log(
+        "Resposta:",
+        resultado
+    );
+
+
+    mensagem.innerText =
+        resultado.mensagem ||
+        resultado.detail;
+
+
+    if (resposta.ok) {
+
+        console.log("LOGIN OK");
+
+
+        localStorage.setItem(
+            "nome",
+            resultado.nome
+        );
+
+
+        window.location.href =
+            "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page";
+
+    } else {
+
+        console.log("LOGIN FALHOU");
 
     }
 
-    // sinalizar que o login terminou para o front-end
-    const eventoFim =
-        new CustomEvent("yofi:login-end");
 
-    loginForm.dispatchEvent(eventoFim);
+} catch (error) {
+
+    console.error(
+        "Erro no login:",
+        error
+    );
+
+
+    mensagem.innerText =
+        "Erro ao conectar com o servidor.";
+
+}
+
+
+// Sinalizar que o login terminou
+
+const eventoFim =
+    new CustomEvent("yofi:login-end");
+
+loginForm.dispatchEvent(eventoFim);
+
 
 });
+
+
+
+function loginComGoogle(response) {
+
+
+console.log(
+    "Token recebido do Google."
+);
+
+
+fetch(
+    "https://yofi-api.onrender.com/login/google",
+    {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        credentials: "include",
+
+        body: JSON.stringify({
+
+            credential: response.credential
+
+        })
+
+    }
+)
+
+.then(async (resposta) => {
+
+    const resultado =
+        await resposta.json();
+
+
+    console.log(
+        "Status Google:",
+        resposta.status
+    );
+
+    console.log(
+        "Resposta Google:",
+        resultado
+    );
+
+
+    if (!resposta.ok) {
+
+        mensagem.innerText =
+            resultado.detail ||
+            "Não foi possível entrar com o Google.";
+
+        return;
+
+    }
+
+
+    // Login realizado
+
+    mensagem.innerText =
+        resultado.mensagem;
+
+
+    localStorage.setItem(
+        "nome",
+        resultado.nome
+    );
+
+
+    window.location.href =
+        "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page";
+
+})
+
+
+.catch((error) => {
+
+    console.error(
+        "Erro no login com Google:",
+        error
+    );
+
+
+    mensagem.innerText =
+        "Erro ao conectar com o servidor.";
+
+});
+
+}
+
+window.onload = function () {
+
+
+if (
+    typeof google === "undefined" ||
+    !google.accounts
+) {
+
+    console.error(
+        "Google Identity Services não foi carregado."
+    );
+
+    return;
+
+}
+
+
+google.accounts.id.initialize({
+
+    client_id:
+        GOOGLE_CLIENT_ID,
+
+    callback:
+        loginComGoogle
+
+});
+
+
+google.accounts.id.renderButton(
+
+    document.getElementById(
+        "googleButton"
+    ),
+
+    {
+
+        theme: "outline",
+
+        size: "large",
+
+        text: "continue_with",
+
+        shape: "rectangular",
+
+        width: 300
+
+    }
+
+);
+
+};
