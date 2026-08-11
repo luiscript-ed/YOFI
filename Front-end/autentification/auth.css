@@ -132,6 +132,56 @@ transition: 0.3s;
 transform: translateY(-3px);
 }
 
+/* Container externo que cria o efeito */
+.wrapper-gemini {
+  position: relative;
+  width: 304px; /* 300px do botão + 4px das bordas laterais */
+  height: 44px; /* ~40px do botão + 4px das bordas superior/inferior */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px; /* Casamento perfeito com o shape "rectangular" do Google */
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* O gradiente que gira ao fundo */
+.wrapper-gemini::before {
+  content: '';
+  position: absolute;
+  top: -150%;
+  left: -150%;
+  width: 400%;
+  height: 400%;
+  background: conic-gradient(
+    #ffffff, 
+    #4285F4, /* Azul Google */
+    #EA4335, /* Vermelho Google */
+    #FBBC05, /* Amarelo Google */
+    #34A853, /* Verde Google */
+    #ffffff
+  );
+  animation: girarBorda 4s linear infinite;
+  z-index: -1;
+}
+
+/* Garante que o iframe do Google fique por cima e centralizado */
+.wrapper-gemini iframe {
+  position: relative;
+  z-index: 2;
+  border-radius: 2px !important; 
+}
+
+/* Adicione isso para ativar o movimento */
+@keyframes girarBorda {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 
 /* ANIMAÇÃO DO BOTÃO */
 

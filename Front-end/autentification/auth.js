@@ -1,24 +1,25 @@
-// auth.js
-
 const loginBtn = document.getElementById("loginBtn");
 const registerBtn = document.getElementById("registerBtn");
 
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
 
-const botaoSubmitLogin = loginForm.querySelector(".submit-btn");
+const botaoSubmitLogin =
+    loginForm.querySelector(".submit-btn");
 
-const mensagem = document.getElementById("mensagem");
-const botaoSubmitLogin = loginForm.querySelector(".submit-btn");
-const loadingGifLogin = loginForm.querySelector(".loading-gif");
+const loadingGifLogin =
+    loginForm.querySelector(".loading-gif");
+
+const mensagem =
+    document.getElementById("mensagem");
+
 
 // ============================================================
 // GOOGLE
 // ============================================================
 
-// Client ID do Google Cloud
 const GOOGLE_CLIENT_ID =
-"SEU_CLIENT_ID.apps.googleusercontent.com";
+    "105535642997-gvdf8prusufi8453kghrkh41mke2bsqc.apps.googleusercontent.com";
 
 // ============================================================
 // ALTERAR ENTRE LOGIN E CADASTRO
@@ -356,53 +357,47 @@ fetch(
 // INICIALIZAR GOOGLE IDENTITY SERVICES
 // ============================================================
 
-window.onload = function () {
+function inicializarGoogle() {
 
-if (
-    typeof google === "undefined" ||
-    !google.accounts
-) {
+    if (
+        typeof google === "undefined" ||
+        !google.accounts ||
+        !google.accounts.id
+    ) {
 
-    console.error(
-        "Google Identity Services não foi carregado."
-    );
+        console.error(
+            "Google Identity Services não foi carregado."
+        );
 
-    return;
+        return;
+    }
+
+    google.accounts.id.initialize({
+
+        client_id: GOOGLE_CLIENT_ID,
+
+        callback: loginComGoogle
+
+    });
+
+google.accounts.id.renderButton(
+    document.getElementById("googleButton"),
+    {
+        size: "large",
+        text: "continue_with",
+        shape: "rectangular",
+        width: 300
+    }
+);
+
 
 }
 
 
-google.accounts.id.initialize({
+// Espera o carregamento da página
 
-    client_id:
-        GOOGLE_CLIENT_ID,
+window.addEventListener("load", () => {
 
-    callback:
-        loginComGoogle
+    inicializarGoogle();
 
 });
-
-
-google.accounts.id.renderButton(
-
-    document.getElementById(
-        "googleButton"
-    ),
-
-    {
-
-        theme: "outline",
-
-        size: "large",
-
-        text: "continue_with",
-
-        shape: "rectangular",
-
-        width: 300
-
-    }
-
-);
-
-};
