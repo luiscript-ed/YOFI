@@ -8,6 +8,7 @@ const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
 
 const botaoSubmitLogin = loginForm.querySelector(".submit-btn");
+const loadingGif = loginForm.querySelector(".loading-gif");
 
 const mensagem = document.getElementById("mensagem");
 
@@ -39,8 +40,16 @@ function cadastro_painel() {
 // LOGIN COMEÇOU
 loginForm.addEventListener("yofi:login-start", () => {
 
-    botaoSubmitLogin.classList.add("loading");
     botaoSubmitLogin.disabled = true;
+
+    setTimeout(() => {
+
+        botaoSubmitLogin.style.display = "none";
+
+        loadingGif.classList.add("show");
+
+    }, 250);
+
 });
 
 
@@ -163,9 +172,14 @@ loginForm.addEventListener("submit", async (e) => {
     }
 
     // sinalizar que o login terminou para o front-end
-    const eventoFim =
-        new CustomEvent("yofi:login-end");
+    loginForm.addEventListener("yofi:login-end", () => {
 
-    loginForm.dispatchEvent(eventoFim);
+    botaoSubmitLogin.disabled = false;
+
+    botaoSubmitLogin.style.display = "block";
+
+    loadingGif.classList.remove("show");
+
+});
 
 });
