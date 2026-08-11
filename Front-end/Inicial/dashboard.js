@@ -1,34 +1,53 @@
-// =========================
-// BARRA LATERAL IA
-// =========================
+// ============================================================
+// CONFIGURAÇÃO
+// ============================================================
 
-const abrirIA = document.getElementById("abrirIA");
-const fecharIA = document.getElementById("fecharIA");
-const painelIA = document.getElementById("painelIA");
+const API_URL = "https://yofi-api.onrender.com";
+
+let usuario = null;
+
+let mesSelecionado = new Date().getMonth();
+let anoSelecionado = new Date().getFullYear();
+
+let graficoCategorias = null;
+let graficoEvolucao = null;
+
+
+// ============================================================
+// ELEMENTOS
+// ============================================================
+
+const sidebar = document.getElementById("sidebar");
+const menuBtn = document.getElementById("menuBtn");
+
+const usuarioNome = document.getElementById("usuarioNome");
+const usuarioEmail = document.getElementById("usuarioEmail");
+
+const mesAtual = document.getElementById("mesAtual");
+const anoAtual = document.getElementById("anoAtual");
 
 const resultadoMYA =
 document.getElementById("myaResultado");
 
-abrirIA.addEventListener("click", () => {
-    painelIA.classList.add("active");
-});
-
-fecharIA.addEventListener("click", () => {
-    painelIA.classList.remove("active");
-});
-
-let usuario = null;
 let usuarioId = null;
 
-// =========================
-// DADOS DO USUÁRIO
-// =========================
+const button12 = document.getElementById('alterarModo');
+const app12 = document.querySelector('.app');
+
+button12.addEventListener('click', () => {
+  app12.classList.toggle('active');
+});
+
+// ============================================================
+// AUTENTICAÇÃO
+// ============================================================
 
 async function verificarLogin() {
+
     try {
 
         const resposta = await fetch(
-            "https://yofi-api.onrender.com/me",
+            `${API_URL}/me`,
             {
                 method: "GET",
                 credentials: "include"
@@ -36,6 +55,10 @@ async function verificarLogin() {
         );
 
         if (!resposta.ok) {
+
+            console.warn(
+                "Usuário não autenticado."
+            );
 
             window.location.href =
                 "../autentification.html";
@@ -50,12 +73,11 @@ async function verificarLogin() {
             usuario
         );
 
-        usuarioId = usuario.usuario_id;
+        usuarioNome.textContent =
+            usuario.nome || "Usuário";
 
-        console.log(
-            "ID do usuário:",
-            usuarioId
-        );
+        usuarioEmail.textContent =
+            usuario.email || "";
 
         return true;
 
@@ -74,16 +96,16 @@ async function verificarLogin() {
 }
 
 
-// =========================
-// CARREGAR DASHBOARD
-// =========================
+// ============================================================
+// DASHBOARD
+// ============================================================
 
 async function carregarDashboard() {
 
     try {
 
         const resposta = await fetch(
-            `https://yofi-api.onrender.com/dashboard`,
+            `${API_URL}/dashboard`,
             {
                 method: "GET",
                 credentials: "include"
@@ -93,41 +115,133 @@ async function carregarDashboard() {
         if (!resposta.ok) {
 
             console.error(
-                "Erro HTTP dashboard:",
+                "Erro no dashboard:",
                 resposta.status
             );
 
-            return;
+            return null;
         }
 
-        const dados = await resposta.json();
+        const dados =
+            await resposta.json();
+
+        const saldo =
+            Number(dados.saldo);
+
+        const ganhos =
+            Number(dados.total_ganhos);
+
+        const gastos =
+            Number(dados.total_gastos);
+
 
         document.getElementById("saldo").textContent =
-            `R$ ${dados.saldo.toFixed(2)}`;
+            `R$ ${saldo.toFixed(2)}`;
 
         document.getElementById("ganhos").textContent =
-            `R$ ${dados.total_ganhos.toFixed(2)}`;
+            `R$ ${ganhos.toFixed(2)}`;
 
         document.getElementById("gastos").textContent =
-            `R$ ${dados.total_gastos.toFixed(2)}`;
+            `R$ ${gastos.toFixed(2)}`;
+
+
+        // ==========================================
+        // ECONOMIA
+        // ==========================================
+
+        atualizarEconomia(
+            ganhos,
+            gastos
+        );
+
+
+        return dados;
 
     } catch (erro) {
 
-        console.error("Erro ao carregar dashboard:", erro);
+        console.error(
+            "Erro ao carregar dashboard:",
+            erro
+        );
 
+        return null;
     }
 }
 
-// =========================
-// CARREGAR TRANSAÇÕES
-// =========================
+// ============================================================
+// ECONOMIA MENSAL
+// ============================================================
+
+function atualizarEconomia(
+    receitas,
+    despesas
+) {
+
+    const valorEconomizado =
+        receitas - despesas;
+
+    let taxa = 0;
+
+    if (receitas > 0) {
+
+        taxa =
+            (valorEconomizado / receitas) * 100;
+
+    }
+
+    taxa =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                taxa
+            )
+        );
+
+
+    document.getElementById(
+        "economiaReceitas"
+    ).textContent =
+        `R$ ${receitas.toFixed(2)}`;
+
+
+    document.getElementById(
+        "economiaDespesas"
+    ).textContent =
+        `R$ ${despesas.toFixed(2)}`;
+
+
+    document.getElementById(
+        "taxaEconomia"
+    ).textContent =
+        `${taxa.toFixed(1)}%`;
+
+
+    document.getElementById(
+        "valorEconomizado"
+    ).textContent =
+        `R$ ${Math.max(
+            0,
+            valorEconomizado
+        ).toFixed(2)}`;
+
+
+    document.getElementById(
+        "economiaProgressBar"
+    ).style.width =
+        `${taxa}%`;
+}
+
+// ============================================================
+// TRANSAÇÕES
+// ============================================================
 
 async function carregarTransacoes() {
 
     try {
 
         const resposta = await fetch(
-            `https://yofi-api.onrender.com/transacoes`,
+            `${API_URL}/transacoes`,
             {
                 method: "GET",
                 credentials: "include"
@@ -137,20 +251,28 @@ async function carregarTransacoes() {
         if (!resposta.ok) {
 
             console.error(
-                "Erro HTTP transações:",
+                "Erro nas transações:",
                 resposta.status
             );
 
             return;
         }
 
-        const transacoes = await resposta.json();
+        const transacoes =
+            await resposta.json();
 
-        const container = document.getElementById("lista-transacoes");
+        const container =
+            document.getElementById(
+                "lista-transacoes"
+            );
 
         container.innerHTML = "";
 
-        if (transacoes.length === 0) {
+
+        if (
+            !transacoes ||
+            transacoes.length === 0
+        ) {
 
             container.innerHTML = `
                 <div class="sem-transacoes">
@@ -161,41 +283,203 @@ async function carregarTransacoes() {
             return;
         }
 
-        const ultimasTres = transacoes.slice(0, 3);
 
-        ultimasTres.forEach(transacao => {
+        const ultimasTres =
+            transacoes.slice(0, 3);
 
-            const classe =
-                transacao.tipo === "ganho"
-                ? "ganho"
-                : "gasto";
 
-            const sinal =
-                transacao.tipo === "ganho"
-                ? "+"
-                : "-";
+        ultimasTres.forEach(
+            transacao => {
 
-            container.innerHTML += `
-                <div class="transacao">
+                const ganho =
+                    transacao.tipo === "ganho";
 
-                    <div>
-                        <strong>${transacao.categoria}</strong>
-                        <br>
-                        <small>${transacao.descricao || "Sem descrição"}</small>
+                const classe =
+                    ganho
+                        ? "ganho"
+                        : "gasto";
+
+                const sinal =
+                    ganho
+                        ? "+"
+                        : "-";
+
+
+                container.innerHTML += `
+
+                    <div class="transacao">
+
+                        <div>
+
+                            <strong>
+                                ${transacao.categoria}
+                            </strong>
+
+                            <br>
+
+                            <small>
+                                ${transacao.descricao || "Sem descrição"}
+                            </small>
+
+                        </div>
+
+                        <div class="${classe}">
+
+                            ${sinal}
+                            R$
+                            ${Number(
+                                transacao.valor
+                            ).toFixed(2)}
+
+                        </div>
+
                     </div>
 
-                    <div class="${classe}">
-                        ${sinal} R$ ${Number(transacao.valor).toFixed(2)}
-                    </div>
-
-                </div>
-            `;
-
-        });
+                `;
+            }
+        );
 
     } catch (erro) {
 
-        console.error("Erro ao carregar transações:", erro);
+        console.error(
+            "Erro ao carregar transações:",
+            erro
+        );
+
+    }
+}
+
+// ============================================================
+// GRÁFICO DE CATEGORIAS
+// ============================================================
+
+async function carregarGraficoCategorias() {
+
+    try {
+
+        const resposta = await fetch(
+            `${API_URL}/grafico-categorias`,
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
+
+        if (!resposta.ok) {
+
+            console.error(
+                "Erro no gráfico:",
+                resposta.status
+            );
+
+            return;
+        }
+
+        const categorias =
+            await resposta.json();
+
+
+        const labels =
+            categorias.map(
+                item => item.categoria
+            );
+
+
+        const valores =
+            categorias.map(
+                item => Number(item.total)
+            );
+
+
+        const canvas =
+            document.getElementById(
+                "graficoCategorias"
+            );
+
+
+        if (!canvas) {
+            return;
+        }
+
+
+        if (graficoCategorias) {
+
+            graficoCategorias.destroy();
+
+        }
+
+
+        graficoCategorias =
+            new Chart(
+                canvas,
+                {
+
+                    type: "doughnut",
+
+                    data: {
+
+                        labels,
+
+                        datasets: [
+
+                            {
+
+                                data: valores,
+
+                                backgroundColor: [
+
+                                    "#A855F7",
+                                    "#7C3AED",
+                                    "#6366F1",
+                                    "#3B82F6",
+                                    "#06B6D4",
+                                    "#10B981"
+
+                                ],
+
+                                borderWidth: 0
+
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: true,
+
+                        plugins: {
+
+                            legend: {
+
+                                position: "bottom",
+
+                                labels: {
+
+                                    color: "#f5f5f7",
+
+                                    padding: 16
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao carregar gráfico:",
+            erro
+        );
 
     }
 }
@@ -446,79 +730,38 @@ if (notificationBtn) {
 }
 
 
-// ==========================================
-// CONTROLE
-// ==========================================
-
-let ultimaQuantidade = 0;
 
 
-// ==========================================
-// CARREGAR NOTIFICAÇÕES
-// ==========================================
+// ============================================================
+// NOTIFICAÇÕES
+// ============================================================
+
+let ultimaNotificacaoId = null;
 
 async function carregarNotificacoes() {
-
-    console.log(
-        "🔄 Verificando novas notificações..."
-    );
 
     try {
 
         const resposta = await fetch(
-            "https://yofi-api.onrender.com/notificacoes",
+            `${API_URL}/notificacoes`,
             {
                 method: "GET",
                 credentials: "include"
             }
         );
 
-
-        // ==================================
-        // ERRO HTTP
-        // ==================================
-
         if (!resposta.ok) {
 
             console.error(
-                "❌ Erro HTTP notificações:",
+                "Erro nas notificações:",
                 resposta.status
             );
-
-            if (resposta.status === 401) {
-
-                console.warn(
-                    "⚠️ Usuário não autenticado."
-                );
-
-            }
 
             return;
         }
 
-
-        // ==================================
-        // RESPOSTA
-        // ==================================
-
         const notificacoes =
             await resposta.json();
-
-        console.log(
-            "🔔 Notificações recebidas:",
-            notificacoes
-        );
-
-        console.log(
-            "🔢 Quantidade atual:",
-            notificacoes.length
-        );
-
-        console.log(
-            "🔢 Quantidade anterior:",
-            ultimaQuantidade
-        );
-
 
         const lista =
             document.getElementById(
@@ -531,70 +774,64 @@ async function carregarNotificacoes() {
             );
 
 
-        // ==================================
-        // DETECTAR NOVA NOTIFICAÇÃO
-        // ==================================
-
-        if (
-            ultimaQuantidade > 0 &&
-            notificacoes.length > ultimaQuantidade
-        ) {
-
-            console.log(
-                "🚨 NOVA NOTIFICAÇÃO DETECTADA!"
-            );
-
-
-            // Tocar miado
-            tocarSomMYA();
-
-
-            // Mostrar notificação do navegador
-            mostrarNotificacaoNavegador(
-                notificacoes[0]
-            );
-
-        }
-
-
-        // Primeira leitura
-        if (ultimaQuantidade === 0) {
-
-            console.log(
-                "ℹ️ Primeira leitura das notificações. Som não será reproduzido."
-            );
-
-        }
-
-
-        ultimaQuantidade =
+        contador.textContent =
             notificacoes.length;
 
 
-        // ==================================
-        // ATUALIZAR CONTADOR
-        // ==================================
+        // ==========================================
+        // NOVA NOTIFICAÇÃO
+        // ==========================================
 
-        if (contador) {
+        if (
+            notificacoes.length > 0 &&
+            ultimaNotificacaoId !== null &&
+            notificacoes[0].id > ultimaNotificacaoId
+        ) {
 
-            contador.innerText =
-                notificacoes.length;
+            console.log(
+                "🔔 Nova notificação!"
+            );
+
+            // Se sua função existir
+            if (
+                typeof tocarSomMYA ===
+                "function"
+            ) {
+
+                tocarSomMYA();
+
+            }
+
+            if (
+                typeof mostrarNotificacaoNavegador ===
+                "function"
+            ) {
+
+                mostrarNotificacaoNavegador(
+                    notificacoes[0]
+                );
+
+            }
+        }
+
+
+        if (
+            notificacoes.length > 0
+        ) {
+
+            ultimaNotificacaoId =
+                notificacoes[0].id;
 
         }
 
 
-        // ==================================
-        // ATUALIZAR LISTA
-        // ==================================
+        lista.innerHTML = "";
 
-        if (lista) {
 
-            lista.innerHTML = "";
+        notificacoes.forEach(
+            notificacao => {
 
-            notificacoes.forEach(
-                notificacao => {
-
-                    lista.innerHTML += `
+                lista.innerHTML += `
 
                     <div class="notification-card">
 
@@ -612,22 +849,35 @@ async function carregarNotificacoes() {
 
                     </div>
 
-                    `;
-
-                }
-            );
-
-        }
-
-
-    } catch (error) {
-
-        console.error(
-            "❌ Erro ao buscar notificações:",
-            error
+                `;
+            }
         );
 
+    } catch (erro) {
+
+        console.error(
+            "Erro ao carregar notificações:",
+            erro
+        );
     }
+}
+
+
+// Abrir / fechar painel
+
+if (notificationBtn) {
+
+    notificationBtn.addEventListener(
+        "click",
+        () => {
+
+            notificationPanel
+                .classList
+                .toggle("hidden");
+
+        }
+    );
+
 }
 
 
@@ -738,9 +988,95 @@ carregarNotificacoes();
 // Verificar a cada 10 segundos
 setInterval(
     carregarNotificacoes,
-    10000
+    100000
 );
 
+// ============================================================
+// MESES
+// ============================================================
+
+const nomesMeses = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro"
+];
+
+
+function atualizarMesNaTela() {
+
+    mesAtual.textContent =
+        nomesMeses[mesSelecionado];
+
+    anoAtual.textContent =
+        anoSelecionado;
+
+    console.log(
+        "Mês selecionado:",
+        nomesMeses[mesSelecionado],
+        anoSelecionado
+    );
+
+    // Futuramente:
+    // carregarDashboardMensal();
+    // carregarEvolucaoMensal();
+}
+
+
+// MÊS ANTERIOR
+
+document
+    .getElementById("mesAnterior")
+    .addEventListener("click", async () => {
+
+        mesSelecionado--;
+
+        if (mesSelecionado < 0) {
+
+            mesSelecionado = 11;
+            anoSelecionado--;
+
+        }
+
+        atualizarMesNaTela();
+
+        await carregarDashboard();
+
+        await carregarGraficos();
+
+    });
+
+
+// PRÓXIMO MÊS
+
+document
+    .getElementById("proximoMes")
+    .addEventListener("click", async () => {
+
+        mesSelecionado++;
+
+        if (mesSelecionado > 11) {
+
+            mesSelecionado = 0;
+            anoSelecionado++;
+
+        }
+
+        atualizarMesNaTela();
+
+        await carregarDashboard();
+
+        await carregarGraficos();
+
+    });
 
 document
 .getElementById("btnAnalise")
@@ -888,115 +1224,86 @@ document
 
 });
 
-async function carregarGraficoCategorias(){
+if (menuBtn) {
 
-    try{
+    menuBtn.addEventListener("click", () => {
 
-        const resposta = await fetch(
-            `https://yofi-api.onrender.com/grafico-categorias`,
-            {
-                method: "GET",
-                credentials: "include"
-            }
-        );
+        sidebar.classList.toggle("open");
 
-        if (!resposta.ok) {
-
-            console.error(
-                "Erro HTTP dashboard:",
-                resposta.status
-            );
-
-            return;
-        }
-
-        const categorias =
-        await resposta.json();
-
-        const labels =
-        categorias.map(
-            item => item.categoria
-        );
-
-        const valores =
-        categorias.map(
-            item => item.total
-        );
-
-        const ctx =
-        document
-        .getElementById(
-            "graficoCategorias"
-        );
-
-        new Chart(ctx, {
-
-            type: "doughnut",
-
-            data: {
-
-                labels: labels,
-
-                datasets: [
-
-                    {
-
-                        data: valores,
-
-                        backgroundColor: [
-
-                            "#A855F7",
-                            "#7C3AED",
-                            "#6366F1",
-                            "#3B82F6",
-                            "#06B6D4",
-                            "#10B981"
-
-                        ]
-
-                    }
-
-                ]
-
-            },
-
-            options: {
-
-                responsive: true,
-
-                plugins: {
-
-                    legend: {
-
-                        labels: {
-
-                            color: "white"
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-        });
-
-    }
-    catch(error){
-
-        console.error(
-            "Erro gráfico:",
-            error
-        );
-
-    }
+    });
 
 }
+
+
+// Fechar sidebar ao clicar em um link no celular
+
+const linksSidebar =
+    document.querySelectorAll(".sidebar-link");
+
+linksSidebar.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        if (window.innerWidth <= 800) {
+
+            sidebar.classList.remove("open");
+
+        }
+
+    });
+
+});
+
+// ============================================================
+// LINKS DA SIDEBAR
+// ============================================================
+
+document
+    .querySelectorAll(".sidebar-link")
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(
+                        ".sidebar-link"
+                    )
+                    .forEach(
+                        item =>
+                            item.classList
+                                .remove("active")
+                    );
+
+                link.classList.add(
+                    "active"
+                );
+
+            }
+        );
+
+    });
 
 // =========================
 // INICIAR PÁGINA
 // =========================
+
+// ============================================================
+// GRÁFICOS
+// ============================================================
+
+async function carregarGraficos() {
+
+    await carregarGraficoCategorias();
+
+    criarGraficoEvolucaoDespesas();
+
+}
+
+// ============================================================
+// INICIAR PÁGINA
+// ============================================================
 
 async function iniciarPagina() {
 
@@ -1004,10 +1311,12 @@ async function iniciarPagina() {
         await verificarLogin();
 
     if (!autenticado) {
-
         return;
-
     }
+
+
+    atualizarMesNaTela();
+
 
     await carregarDashboard();
 
@@ -1015,7 +1324,15 @@ async function iniciarPagina() {
 
     await carregarNotificacoes();
 
-    await carregarGraficoCategorias();
+    await carregarGraficos();
+
+
+    // Atualizar notificações periodicamente
+
+    setInterval(
+        carregarNotificacoes,
+        10000
+    );
 
 }
 

@@ -1,139 +1,892 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YOFI/Inicio</title>
 
-    <link rel="stylesheet" href="dashboard.css">
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YOFI | Início</title>
+
+<link rel="stylesheet" href="dashboard.css">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 </head>
+
 <body>
 
-<header class="navbar">
-    <div class="logo">YOFI/Inicio</div>
-    <nav>
-        <a href="https://luiscript-ed.github.io/YOFI/Front-end/forms/form">Transações</a>
-        <a href="https://luiscript-ed.github.io/YOFI/Front-end/Mya/Ia">IA Financeira</a>
+<!-- ========================================================= -->
+<!-- BARRA LATERAL -->
+<!-- ========================================================= -->
+
+<aside id="sidebar" class="sidebar">
+
+    <!-- LOGO -->
+    <div class="sidebar-logo">
+
+        <a href="#">
+
+            <img
+                src="assets/icons/yofi-logo.png"
+                alt="YOFI"
+                class="logo-img"
+            >
+
+            <span class="logo-text">
+                YOFI
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <!-- USUÁRIO -->
+    <div class="sidebar-user">
+
+        <div class="user-avatar">
+
+            <img
+                id="usuarioAvatar"
+                src="assets/icons/user.png"
+                alt="Foto do usuário"
+            >
+
+        </div>
+
+        <div class="user-info">
+
+            <strong id="usuarioNome">
+                Usuário
+            </strong>
+
+            <span id="usuarioEmail">
+                email@email.com
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- NAVEGAÇÃO -->
+    <!-- ===================================================== -->
+
+    <nav class="sidebar-nav">
+
+
+        <!-- RESUMO -->
+        <a
+            href="https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page"
+            class="sidebar-link active"
+        >
+
+            <img
+                src="assets/icons/resumo.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                Resumo
+            </span>
+
+        </a>
+
+
+        <!-- CONTAS -->
+        <a
+            href="#contas"
+            class="sidebar-link"
+        >
+
+            <img
+                src="assets/icons/contas.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                Contas
+            </span>
+
+        </a>
+
+
+        <!-- TRANSAÇÕES -->
+        <a
+            href="https://luiscript-ed.github.io/YOFI/Front-end/forms/form"
+            class="sidebar-link"
+        >
+
+            <img
+                src="assets/icons/transacoes.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                Transações
+            </span>
+
+        </a>
+
+
+        <!-- MYA -->
+        <a
+            href="https://luiscript-ed.github.io/YOFI/Front-end/Mya/Ia"
+            class="sidebar-link"
+        >
+
+            <img
+                src="assets/icons/mya.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                MYA
+            </span>
+
+        </a>
+
+
+        <!-- ================================================= -->
+        <!-- PLANEJAR -->
+        <!-- SEM ÍCONE -->
+        <!-- ================================================= -->
+
+        <div class="sidebar-section-title">
+            Planejar
+        </div>
+
+
+        <!-- OBJETIVOS -->
+        <a
+            href="#objetivos"
+            class="sidebar-link"
+        >
+
+            <img
+                src="assets/icons/objetivos.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                Objetivos
+            </span>
+
+        </a>
+
+
+        <!-- ORÇAMENTOS -->
+        <a
+            href="#orcamentos"
+            class="sidebar-link"
+        >
+
+            <img
+                src="assets/icons/orcamentos.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                Orçamentos
+            </span>
+
+        </a>
+
+
+        <!-- ================================================= -->
+        <!-- ANALISAR -->
+        <!-- SEM ÍCONE -->
+        <!-- ================================================= -->
+
+        <div class="sidebar-section-title">
+            Analisar
+        </div>
+
+
+        <!-- GRÁFICOS -->
+        <a
+            href="#graficos"
+            class="sidebar-link"
+        >
+
+            <img
+                src="assets/icons/graficos.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                Gráficos
+            </span>
+
+        </a>
+
+
+        <!-- CATEGORIAS -->
+        <a
+            href="#categorias"
+            class="sidebar-link"
+        >
+
+            <img
+                src="assets/icons/categorias.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                Categorias
+            </span>
+
+        </a>
+
+
+        <!-- CALENDÁRIO -->
+        <a
+            href="#calendario"
+            class="sidebar-link"
+        >
+
+            <img
+                src="assets/icons/calendario.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                Calendário
+            </span>
+
+        </a>
+
+
+        <!-- ================================================= -->
+        <!-- SEPARADOR -->
+        <!-- ================================================= -->
+
+        <hr class="sidebar-divider">
+
+
+        <!-- OPEN FINANCE -->
+        <a
+            href="#open-finance"
+            class="sidebar-link"
+        >
+
+            <img
+                src="assets/icons/open-finance.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                Open Finance
+            </span>
+
+        </a>
+
+
+        <!-- CONFIGURAÇÕES -->
+        <a
+            href="#configuracoes"
+            class="sidebar-link"
+        >
+
+            <img
+                src="assets/icons/configuracoes.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                Configurações
+            </span>
+
+        </a>
+
+
+        <!-- SOBRE / RECURSOS -->
+        <a
+            href="#sobre"
+            class="sidebar-link"
+        >
+
+            <img
+                src="assets/icons/sobre.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                Sobre / Recursos
+            </span>
+
+        </a>
+
+        <!--  MODO VISOR-->
+
+        <a
+            class="sidebar-link"
+            id="alterarModo"
+        >
+
+            <img
+                src="assets/icons/sobre.png"
+                alt=""
+                class="nav-icon"
+            >
+
+            <span>
+                ALterar visualização
+            </span>
+
+        </a>
+
     </nav>
 
-    <div class="notification-container">
-        <button id="notificationBtn">
-            🔔
-            <span id="notificationCount">0</span>
+</aside>
+
+
+
+<!-- ========================================================= -->
+<!-- ÁREA PRINCIPAL -->
+<!-- ========================================================= -->
+
+<div class="app">
+
+
+    <!-- ===================================================== -->
+    <!-- NAVBAR SUPERIOR -->
+    <!-- ===================================================== -->
+
+    <header class="topbar">
+
+
+        <!-- BOTÃO MENU -->
+        <button
+            id="menuBtn"
+            class="menu-btn"
+            aria-label="Abrir menu"
+        >
+            ☰
         </button>
-        <div id="notificationPanel" class="hidden">
-            <h3>Notificações</h3>
-            <div id="notificationList"></div>
+
+
+        <!-- LOGO / NOME -->
+        <div class="topbar-logo">
+            YOFI
         </div>
-    </div>
-</header>
 
-    <main>
 
-        <section class="cards">
+        <!-- ================================================= -->
+        <!-- MÊS -->
+        <!-- ================================================= -->
 
-            <div class="card">
-                <h3>Saldo Atual</h3>
-                <p id="saldo">R$ 0,00</p>
+        <div class="month-selector">
+
+            <button
+                id="mesAnterior"
+                class="month-btn"
+                aria-label="Mês anterior"
+            >
+                ‹
+            </button>
+
+            <div class="month-info">
+
+                <span id="mesAtual">
+                    Agosto
+                </span>
+
+                <small id="anoAtual">
+                    2026
+                </small>
+
             </div>
 
-            <div class="card">
-                <h3>Receitas</h3>
-                <p id="ganhos">R$ 0,00</p>
+            <button
+                id="proximoMes"
+                class="month-btn"
+                aria-label="Próximo mês"
+            >
+                ›
+            </button>
+
+        </div>
+
+
+        <!-- NOTIFICAÇÕES -->
+        <div class="notification-container">
+
+            <button
+                id="notificationBtn"
+                class="notification-btn"
+                aria-label="Notificações"
+            >
+
+                🔔
+
+                <span id="notificationCount">
+                    0
+                </span>
+
+            </button>
+
+
+            <div
+                id="notificationPanel"
+                class="notification-panel hidden"
+            >
+
+                <h3>
+                    Notificações
+                </h3>
+
+                <div id="notificationList">
+                </div>
+
             </div>
 
-            <div class="card">
-                <h3>Despesas</h3>
-                <p id="gastos">R$ 0,00</p>
+        </div>
+
+    </header>
+
+
+
+    <!-- ===================================================== -->
+    <!-- CONTEÚDO -->
+    <!-- ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- ================================================= -->
+        <!-- RESUMO DO MÊS -->
+        <!-- ================================================= -->
+
+        <section class="month-summary">
+
+
+            <div class="summary-card">
+
+                <span>
+                    Saldo Atual
+                </span>
+
+                <strong id="saldo">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Receitas
+                </span>
+
+                <strong id="ganhos">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Despesas
+                </span>
+
+                <strong id="gastos">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- CONTAS -->
+        <!-- ================================================= -->
+
+        <section
+            id="contas"
+            class="dashboard-section accounts-section"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Contas
+                    </h2>
+
+                    <p>
+                        Acompanhe seus principais recursos financeiros.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="accounts-grid">
+
+
+                <!-- INVESTIMENTOS -->
+                <div class="account-card">
+
+                    <div class="account-icon">
+
+                        <img
+                            src="assets/icons/investimentos.png"
+                            alt=""
+                        >
+
+                    </div>
+
+                    <div class="account-info">
+
+                        <span>
+                            Investimentos
+                        </span>
+
+                        <strong id="investimentos">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CARTEIRA -->
+                <div class="account-card">
+
+                    <div class="account-icon">
+
+                        <img
+                            src="assets/icons/carteira.png"
+                            alt=""
+                        >
+
+                    </div>
+
+                    <div class="account-info">
+
+                        <span>
+                            Minha carteira
+                        </span>
+
+                        <strong id="carteira">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONTA CORRENTE -->
+                <div class="account-card">
+
+                    <div class="account-icon">
+
+                        <img
+                            src="assets/icons/conta-corrente.png"
+                            alt=""
+                        >
+
+                    </div>
+
+                    <div class="account-info">
+
+                        <span>
+                            Minha conta corrente
+                        </span>
+
+                        <strong id="contaCorrente">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
             </div>
 
         </section>
 
-        <section class="grafico-section">
 
-    <div class="grafico-card">
 
-        <h2>📊 Gastos por Categoria</h2>
+        <!-- ================================================= -->
+        <!-- ECONOMIA MENSAL -->
+        <!-- ================================================= -->
 
-        <canvas id="graficoCategorias"></canvas>
+        <section
+            class="dashboard-section economia-section"
+        >
 
-    </div>
+            <div class="section-header">
 
-</section>
+                <div>
 
-        <section class="extrato">
+                    <h2>
+                        Economia Mensal
+                    </h2>
 
-            <h2>Últimas Transações</h2>
+                    <p>
+                        Veja quanto da sua renda está sendo preservada.
+                    </p>
 
-            <div id="lista-transacoes">
+                </div>
 
-                <div class="sem-transacoes">
-                    Nenhuma transação encontrada.
+            </div>
+
+
+            <div class="economia-card">
+
+
+                <!-- RECEITAS CONSIDERADAS -->
+                <div class="economia-info">
+
+                    <span>
+                        Receitas consideradas
+                    </span>
+
+                    <strong id="economiaReceitas">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <!-- DESPESAS CONSIDERADAS -->
+                <div class="economia-info">
+
+                    <span>
+                        Despesas consideradas
+                    </span>
+
+                    <strong id="economiaDespesas">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <!-- PROGRESSO -->
+                <div class="economia-progress-area">
+
+                    <div class="economia-progress-header">
+
+                        <span>
+                            Taxa de economia
+                        </span>
+
+                        <strong id="taxaEconomia">
+                            0%
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="economia-progress"
+                        aria-label="Taxa de economia"
+                    >
+
+                        <div
+                            id="economiaProgressBar"
+                            class="economia-progress-fill"
+                        >
+                        </div>
+
+                    </div>
+
+
+                    <div class="economia-saved">
+
+                        <span>
+                            Valor economizado
+                        </span>
+
+                        <strong id="valorEconomizado">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+
                 </div>
 
             </div>
 
         </section>
 
+
+
+        <!-- ================================================= -->
+        <!-- GRÁFICO DE DESPESAS POR CATEGORIA -->
+        <!-- ================================================= -->
+
+        <section
+            id="categorias"
+            class="dashboard-section"
+        >
+
+            <div class="chart-card">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            Gastos por Categoria
+                        </h2>
+
+                        <p>
+                            Veja onde seu dinheiro está sendo gasto.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <canvas
+                        id="graficoCategorias"
+                    ></canvas>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- EVOLUÇÃO DAS DESPESAS -->
+        <!-- ================================================= -->
+
+        <section
+            id="graficos"
+            class="dashboard-section"
+        >
+
+            <div class="chart-card">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            Evolução das Despesas
+                        </h2>
+
+                        <p>
+                            Acompanhe seus gastos ao longo das semanas do mês.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <canvas
+                        id="graficoEvolucaoDespesas"
+                    ></canvas>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- ÚLTIMAS TRANSAÇÕES -->
+        <!-- ================================================= -->
+
+        <section class="dashboard-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Últimas Transações
+                    </h2>
+
+                    <p>
+                        Suas movimentações mais recentes.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="https://luiscript-ed.github.io/YOFI/Front-end/forms/form"
+                    class="section-action"
+                >
+                    Ver todas
+                </a>
+
+            </div>
+
+
+            <div
+                id="lista-transacoes"
+                class="transactions-list"
+            >
+
+                <div class="sem-transacoes">
+
+                    Nenhuma transação encontrada.
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
     </main>
-
-    <button id="abrirIA" class="ia-button">
-        IA
-    </button>
-
-    <aside id="painelIA" class="ia-sidebar">
-
-        <div class="ia-header">
-
-            <h2>MYA</h2>
-
-            <button id="fecharIA">
-                ✕
-            </button>
-
-        </div>
-
-      <div class="ia-content">
-
-    <div class="mya-welcome">
-
-        <h3>Olá! Eu sou a MYA 👋</h3>
-
-        <p>
-            Posso analisar seus hábitos financeiros e ajudá-lo a tomar decisões melhores.
-        </p>
-
-    </div>
-
-    <div class="mya-actions">
-
-        <button class="mya-action-btn" id="btnAnalise">
-            ✨ Analisar minhas finanças
-        </button>
-
-        <button class="mya-action-btn" id="btnGastos">
-            📊 Onde estou gastando mais?
-        </button>
-
-        <button class="mya-action-btn" id="btnEconomia">
-            🎯 Como posso economizar este mês?
-        </button>
-
-    </div>
-
-    <div id="myaResultado" class="mya-result">
-
-        <p>
-            Escolha uma análise acima.
-        </p>
-
-    </div>
 
 </div>
 
-    </aside>
 
-    <script src="dashboard.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ========================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================================= -->
+
+<script src="dashboard.js"></script>
+
 </body>
+
 </html>
