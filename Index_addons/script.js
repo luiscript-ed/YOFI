@@ -1,4 +1,3 @@
-
 // script.js
 console.log("YOFI inicializado com sucesso!");
 

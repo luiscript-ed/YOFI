@@ -33,6 +33,76 @@ registerBtn.addEventListener("click", () => {
 cadastro_painel();
 });
 
+// =========================
+// VERIFICAR LOGIN EXISTENTE
+// =========================
+
+async function verificarLogin() {
+
+    console.log("Verificando se existe uma sessão...");
+
+    try {
+
+        const resposta = await fetch(
+            "https://yofi-api.onrender.com/me",
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
+
+        console.log(
+            "Status da verificação:",
+            resposta.status
+        );
+
+        // Não existe token/sessão válida
+        if (!resposta.ok) {
+
+            console.log(
+                "Nenhuma sessão válida encontrada."
+            );
+
+            return false;
+        }
+
+        const usuario = await resposta.json();
+
+        console.log(
+            "Sessão encontrada!",
+            usuario
+        );
+
+        console.log(
+            "Usuário:",
+            usuario.nome
+        );
+
+        console.log(
+            "ID:",
+            usuario.usuario_id
+        );
+
+        // Usuário já está logado
+        window.location.href =
+            "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page";
+
+        return true;
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao verificar sessão:",
+            erro
+        );
+
+        return false;
+    }
+}
+
+
+verificarLogin();
+
 function login_painel() {
 
 loginBtn.classList.add("active");
