@@ -49,13 +49,13 @@ body {
 
 /* CONTAINER - basic bro */
 .recursos-container {
-    padding-top: 110px;
-    width: 90%;
-    max-width: 1000px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 35px;
+padding-top: 10vw;
+width: 90%;
+max-width: 1000px;
+margin: auto;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 1vh;
 }
 
 /* CARDS bonitinhos, gemini que fez */
