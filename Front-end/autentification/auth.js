@@ -9,6 +9,8 @@ const registerForm = document.getElementById("registerForm");
 const botaoSubmitLogin = loginForm.querySelector(".submit-btn");
 
 const mensagem = document.getElementById("mensagem");
+const botaoSubmitLogin = loginForm.querySelector(".submit-btn");
+const loadingGifLogin = loginForm.querySelector(".loading-gif");
 
 // ============================================================
 // GOOGLE
@@ -16,7 +18,7 @@ const mensagem = document.getElementById("mensagem");
 
 // Client ID do Google Cloud
 const GOOGLE_CLIENT_ID =
-"105535642997-gvdf8prusufi8453kghrkh41mke2bsqc.apps.googleusercontent.com";
+"SEU_CLIENT_ID.apps.googleusercontent.com";
 
 // ============================================================
 // ALTERAR ENTRE LOGIN E CADASTRO
@@ -32,18 +34,15 @@ cadastro_painel();
 
 function login_painel() {
 
-
 loginBtn.classList.add("active");
 registerBtn.classList.remove("active");
 
 loginForm.classList.remove("hidden");
 registerForm.classList.add("hidden");
 
-
 }
 
 function cadastro_painel() {
-
 
 registerBtn.classList.add("active");
 loginBtn.classList.remove("active");
@@ -51,34 +50,46 @@ loginBtn.classList.remove("active");
 registerForm.classList.remove("hidden");
 loginForm.classList.add("hidden");
 
-
 }
 
+// ============================================================
+// ANIMAÇÃO DO BOTÃO DE LOGIN
+// ============================================================
 
-
+// LOGIN COMEÇOU
 
 loginForm.addEventListener("yofi:login-start", () => {
 
+    botaoSubmitLogin.disabled = true;
 
-botaoSubmitLogin.classList.add("loading");
-botaoSubmitLogin.disabled = true;
+    setTimeout(() => {
 
+        botaoSubmitLogin.style.display = "none";
+
+        loadingGifLogin.classList.add("show");
+
+    }, 250);
 
 });
 
 
+// LOGIN TERMINOU
 
 loginForm.addEventListener("yofi:login-end", () => {
 
+    botaoSubmitLogin.disabled = false;
 
-botaoSubmitLogin.classList.remove("loading");
-botaoSubmitLogin.disabled = false;
+    botaoSubmitLogin.style.display = "block";
 
+    loadingGifLogin.classList.remove("show");
 
 });
 
-registerForm.addEventListener("submit", async (e) => {
+// ============================================================
+// CADASTRO
+// ============================================================
 
+registerForm.addEventListener("submit", async (e) => {
 
 e.preventDefault();
 
@@ -134,13 +145,13 @@ try {
 
 }
 
-
 });
 
-
+// ============================================================
+// LOGIN NORMAL
+// ============================================================
 
 loginForm.addEventListener("submit", async (e) => {
-
 
 e.preventDefault();
 
@@ -246,13 +257,13 @@ const eventoFim =
 
 loginForm.dispatchEvent(eventoFim);
 
-
 });
 
-
+// ============================================================
+// LOGIN COM GOOGLE
+// ============================================================
 
 function loginComGoogle(response) {
-
 
 console.log(
     "Token recebido do Google."
@@ -341,8 +352,11 @@ fetch(
 
 }
 
-window.onload = function () {
+// ============================================================
+// INICIALIZAR GOOGLE IDENTITY SERVICES
+// ============================================================
 
+window.onload = function () {
 
 if (
     typeof google === "undefined" ||

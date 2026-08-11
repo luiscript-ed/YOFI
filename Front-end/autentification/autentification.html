@@ -5,6 +5,8 @@
 <html lang="pt-br">
 
 <head>
+
+```
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,11 +19,13 @@
 
 <!-- Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+```
 
 </head>
 
 <body>
 
+```
 <div class="background"></div>
 
 <div class="container">
@@ -73,13 +77,34 @@
                     required
                 >
 
-                    <button type="submit" class="submit-btn">
-                        Entrar
-                    </button>
+<div class="submit-btn-container">
 
-                    <div class="google-separator"> <span>ou</span> </div> <!-- LOGIN COM GOOGLE --> <div id="googleButton" class="google-button-container"> </div>
+    <button type="submit" class="submit-btn">
+        Entrar
+    </button>
 
-                </form>
+    <img
+        class="loading-gif"
+        src="../Imagens-Audios/loadings/loading_purplegif.gif"
+    >
+
+</div>
+
+                <!-- Separador -->
+
+                <div class="google-separator">
+                    <span>ou</span>
+                </div>
+
+                <!-- LOGIN COM GOOGLE -->
+
+                <div
+                    id="googleButton"
+                    class="google-button-container">
+                </div>
+
+            </form>
+
 
             <!-- CADASTRO -->
 
@@ -108,9 +133,18 @@
                     required
                 >
 
-                <button type="submit" class="submit-btn">
-                    Cadastrar
-                </button>
+<div class="submit-btn-container">
+
+    <button type="submit" class="submit-btn">
+        Cadastrar
+    </button>
+
+    <img
+        class="loading-gif"
+        src="../Imagens-Audios/loadings/loading_purplegif.gif"
+    >
+
+</div>
 
             </form>
 
@@ -124,6 +158,7 @@
 </div>
 
 <script src="auth.js"></script>
+```
 
 </body>
 

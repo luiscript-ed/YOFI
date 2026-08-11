@@ -105,9 +105,19 @@ input{
     color: white;
     outline: none;
 }
+/* ======================
+    BOTÃO DE SUBMIT
+====================== */
+.submit-btn-container{
+position: relative;
+width: 100%;
+display: flex;
+justify-content: center;
+}
 
 .submit-btn{
 position: relative;
+width: 100%;
 padding: 15px;
 border: none;
 border-radius: 12px;
@@ -122,25 +132,10 @@ transition: 0.3s;
 transform: translateY(-3px);
 }
 
-/* O elemento de loading propriamente dito */
-.submit-btn.loading::after {
-content: "";
-position: absolute;
-width: 35px;
-height: 35px;
-left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
 
-/* o gif embaixo */
-background-image: url("../Front-end/Imagens-Audios/loadings/loading_purplegif.gif");
-background-size: contain;
-background-position: center;
-background-repeat: no-repeat;
-}
+/* ANIMAÇÃO DO BOTÃO */
 
-/* animação para o usuário não clicar de novo */
-.submit-btn:disabled {
+.submit-btn:disabled{
 animation: diminuir .25s linear forwards;
 cursor: not-allowed;
 }
@@ -151,10 +146,30 @@ cursor: not-allowed;
 100% { opacity: 0.0; scale: 0.0; }
 }
 
+
+/* GIF */
+
+.loading-gif{
+display: none;
+position: absolute;
+width: 50px;
+height: 50px;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+object-fit: contain;
+}
+
+.loading-gif.show{
+display: block;
+animation: aparecer .25s linear forwards;
+}
+
 @keyframes aparecer {
 0% { opacity: 0; scale: 0; }
-100% { opacity: 1; scale: 1; }
+100% { opacity: 1; scale: 1.5; }
 }
+
 
 .hidden{
     display: none;
