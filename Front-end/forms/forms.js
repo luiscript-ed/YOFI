@@ -18,7 +18,7 @@ async function verificarLogin() {
         if (!resposta.ok) {
 
             window.location.href =
-                "../autentification.html";
+                "../autentification/autentification.html";
 
             return false;
         }
@@ -41,7 +41,7 @@ async function verificarLogin() {
         );
 
         window.location.href =
-            "../autentification.html";
+            "../autentification/autentification.html";
 
         return false;
     }
