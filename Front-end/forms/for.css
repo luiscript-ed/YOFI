@@ -1,141 +1,803 @@
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #170f2b;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-        }
-
-        form {
-            background-color: #3e0953;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #f9f9f9;
-            font-size: 24px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #fbf7f7;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        /* Estilização para inputs, selects e textarea ficarem padronizados */
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #f0efef;
-            border-radius: 5px;
-            background-color: #ffffff;
-            color: #333333;
-            font-size: 16px;
-        }
-
-        /* Foco nos campos */
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #0078ff;
-            box-shadow: 0 0 5px rgba(0, 120, 255, 0.5);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        /* Estilo do botão de envio */
-        button {
-            width: 100%;
-            padding: 14px;
-            background-color: #0078ff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        button:hover {
-            background-color: #005fcc;
-        }
-
-        /* Link discreto para voltar à página inicial pós-login */
-        .btn-voltar {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #b39ddb;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .btn-voltar:hover {
-            text-decoration: underline;
-        }
-
-        .navbar{
-    position:fixed;
-    top:0;
-    width:100%;
-    height:70px;
-
-    background:#140c25;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:0 40px;
-
-    border-bottom:1px solid #2a1d47;
-
-    z-index:1000;
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: Arial, Helvetica, sans-serif;
 }
 
-.logo{
-    font-size:32px;
-    font-weight:bold;
-    color:#8b5cf6;
+body{
+min-height: 100vh;
+background: #0b0718;
+color: white;
+padding-bottom: 130px;
 }
 
-.navbar nav{
-    display:flex;
-    gap:30px;
+/* =========================================================
+SIDEBAR
+========================================================= */
+
+.sidebar {
+position: fixed;
+top: 0;
+left: 0;
+width: var(--sidebar-width);
+height: 100vh;
+background: var(--bg-sidebar);
+border-right: 1px solid var(--border);
+z-index: 2000;
+overflow-y: auto;
+overflow-x: hidden;
+padding: 20px 14px 24px;
+transition: transform 0.3s ease, width 0.3s ease;
 }
 
-.navbar nav a{
-    color:white;
-    text-decoration:none;
-    transition:.2s;
+.sidebar.closed {
+transform: translateX(-100%);
 }
 
-.navbar nav a:hover{
-    color:#8b5cf6;
+/* Barra de rolagem da sidebar */
+
+.sidebar::-webkit-scrollbar {
+width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+background: #2a2a31;
+border-radius: 20px;
+}
+
+.sidebar::-webkit-scrollbar-thumb\:hover {
+background: #3a3a44;
+}
+
+/* =========================================================
+LOGO DA SIDEBAR
+========================================================= */
+
+.sidebar-logo {
+margin-bottom: 28px;
+}
+
+.sidebar-logo a {
+display: flex;
+align-items: center;
+gap: 10px;
+text-decoration: none;
+padding: 8px 10px;
+}
+
+.logo-img {
+width: 38px;
+height: 38px;
+object-fit: contain;
+flex-shrink: 0;
+}
+
+.logo-text {
+color: var(--text-primary);
+font-size: 22px;
+font-weight: 800;
+letter-spacing: 0.5px;
+}
+
+/* =========================================================
+INFORMAÇÕES DO USUÁRIO
+========================================================= */
+
+.sidebar-user {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 12px 10px 20px;
+margin-bottom: 8px;
+}
+
+.user-avatar {
+width: 46px;
+height: 46px;
+border-radius: 50%;
+overflow: hidden;
+background: #202027;
+flex-shrink: 0;
+}
+
+.user-avatar img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.user-info {
+min-width: 0;
+display: flex;
+flex-direction: column;
+gap: 4px;
+}
+
+.user-info strong {
+color: var(--text-primary);
+font-size: 15px;
+font-weight: 700;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.user-info span {
+color: var(--text-secondary);
+font-size: 12px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+/* =========================================================
+NAVEGAÇÃO
+========================================================= */
+
+.sidebar-nav {
+display: flex;
+flex-direction: column;
+gap: 4px;
+}
+
+/* Links */
+
+.sidebar-link {
+position: relative;
+display: flex;
+align-items: center;
+gap: 14px;
+min-height: 46px;
+padding: 10px 13px;
+border-radius: 12px;
+color: var(--text-secondary);
+text-decoration: none;
+font-size: 15px;
+font-weight: 500;
+transition:
+background 0.2s ease,
+color 0.2s ease,
+transform 0.2s ease;
+}
+
+.sidebar-link\:hover {
+background: #17171c;
+color: var(--text-primary);
+}
+
+.sidebar-link.active {
+background: rgba(139, 92, 246, 0.15);
+color: var(--purple-light);
+font-weight: 700;
+}
+
+/* Pequena marca lateral do item ativo */
+
+.sidebar-link.active::before {
+content: "";
+position: absolute;
+left: 0;
+top: 8px;
+bottom: 8px;
+width: 3px;
+background: var(--purple);
+border-radius: 0 4px 4px 0;
+}
+
+/* =========================================================
+ÍCONES DA SIDEBAR
+========================================================= */
+
+.nav-icon {
+width: 21px;
+height: 21px;
+object-fit: contain;
+flex-shrink: 0;
+opacity: 0.9;
+transition:
+transform 0.2s ease,
+opacity 0.2s ease;
+background: #f1e1ff;
+border-radius: 50%
+}
+
+.sidebar-link\:hover .nav-icon {
+transform: translateX(2px);
+opacity: 1;
+}
+
+.sidebar-link.active .nav-icon {
+opacity: 1;
+}
+
+/* =========================================================
+TÍTULOS DAS SEÇÕES
+========================================================= */
+
+.sidebar-section-title {
+margin-top: 22px;
+padding: 8px 13px 6px;
+color: var(--text-muted);
+font-size: 11px;
+font-weight: 800;
+text-transform: uppercase;
+letter-spacing: 1.5px;
+}
+
+/* =========================================================
+DIVISOR
+========================================================= */
+
+.sidebar-divider {
+width: calc(100% - 20px);
+height: 1px;
+border: none;
+background: var(--border);
+margin: 18px auto 12px;
+}
+
+/* =========================================================
+TOPBAR
+========================================================= */
+
+.topbar {
+position: sticky;
+top: 0;
+width: 100%;
+height: var(--topbar-height);
+display: flex;
+align-items: center;
+padding: 0 22px;
+background: rgba(8, 8, 11, 0.94);
+backdrop-filter: blur(16px);
+-webkit-backdrop-filter: blur(16px);
+border-bottom: 1px solid var(--border);
+z-index: 1500;
+}
+
+/* =========================================================
+BOTÃO MOBILE
+========================================================= */
+
+.menu-btn {
+display: flex;
+width: 42px;
+height: 42px;
+align-items: center;
+justify-content: center;
+border: none;
+border-radius: 10px;
+background: transparent;
+color: var(--text-primary);
+font-size: 22px;
+cursor: pointer;
+transition: 0.2s;
+flex-shrink: 0;
+}
+
+.menu-btn\:hover {
+background: #18181d;
+}
+
+/* =========================================================
+LOGO DA TOPBAR
+========================================================= */
+
+.topbar-logo {
+color: var(--purple-light);
+font-size: 25px;
+font-weight: 800;
+letter-spacing: 0.5px;
+white-space: nowrap;
+}
+
+
+/* =========================================================
+NOTIFICAÇÕES
+========================================================= */
+
+.notification-container {
+position: absolute;
+right: 22px;
+top: 50%;
+transform: translateY(-50%);
+}
+
+.notification-btn {
+position: relative;
+width: 42px;
+height: 42px;
+border: none;
+border-radius: 12px;
+background: transparent;
+color: var(--text-primary);
+font-size: 20px;
+cursor: pointer;
+transition: background 0.2s ease;
+}
+
+.notification-btn\:hover {
+background: #18181d;
+}
+
+#notificationCount {
+position: absolute;
+top: 3px;
+right: 2px;
+min-width: 18px;
+height: 18px;
+padding: 0 4px;
+display: flex;
+justify-content: center;
+align-items: center;
+background: var(--purple);
+color: white;
+border-radius: 999px;
+font-size: 10px;
+font-weight: 800;
+border: 2px solid var(--bg-main);
+}
+
+/* =========================================================
+PAINEL DE NOTIFICAÇÕES
+========================================================= */
+
+.notification-panel {
+position: absolute;
+top: calc(100% + 10px);
+right: 0;
+width: 360px;
+max-height: 430px;
+overflow-y: auto;
+background: #131317;
+border: 1px solid var(--border);
+border-radius: 16px;
+padding: 16px;
+box-shadow:
+0 20px 60px rgba(0, 0, 0, 0.45);
+z-index: 2500;
+}
+
+.notification-panel h3 {
+margin-bottom: 14px;
+color: var(--text-primary);
+font-size: 16px;
+}
+
+/* =========================================================
+RESPONSIVIDADE DA SIDEBAR/TOPBAR
+========================================================= */
+
+@media (max-width: 1100px) {
+
+:root {
+--sidebar-width: 240px;
+}
+
+.sidebar {
+width: var(--sidebar-width);
+}
+
+.app {
+margin-left: var(--sidebar-width);
+}
+
+.topbar {
+padding: 0 20px;
+}
+
+.notification-panel {
+width: 320px;
+}
+}
+
+@media (max-width: 800px) {
+
+.sidebar {
+transform: translateX(-100%);
+box-shadow:
+20px 0 50px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar.open {
+transform: translateX(0);
+}
+
+.topbar {
+grid-template-columns:
+auto
+1fr
+auto;
+gap: 10px;
+padding: 0 14px;
+}
+
+.menu-btn {
+display: block;
+}
+
+.topbar-logo {
+justify-self: center;
+font-size: 22px;
+}
+
+}
+
+@media (max-width: 480px) {
+
+.topbar {
+height: 64px;
+}
+
+.topbar-logo {
+font-size: 20px;
+}
+
+.notification-btn {
+width: 38px;
+height: 38px;
+}
+
+.notification-panel {
+position: fixed;
+top: 64px;
+left: 9px;
+right: 9px;
+width: auto;
+max-height: 70vh;
+}
+
+.sidebar {
+width: min(290px, 88vw);
+}
+}
+
+
+
+/* ============================================================
+   ÁREA PRINCIPAL
+   ============================================================ */
+
+.movimentacao-container{
+width: 90%;
+max-width: 700px;
+margin: 0 auto;
+padding-top: 80px;
+}
+
+
+/* ============================================================
+   CABEÇALHO
+   ============================================================ */
+
+.movimentacao-header{
+margin-bottom: 40px;
+}
+
+.movimentacao-header h1{
+font-size: 34px;
+color: #a855f7;
+margin-bottom: 8px;
+}
+
+.movimentacao-header p{
+font-size: 16px;
+color: #94a3b8;
+}
+
+
+/* ============================================================
+   FORMULÁRIO
+   ============================================================ */
+
+.movimentacao-form{
+width: 100%;
+}
+
+
+/* ============================================================
+   CAMPOS
+   ============================================================ */
+
+.campo{
+display: flex;
+flex-direction: column;
+gap: 8px;
+margin-bottom: 28px;
+}
+
+.campo label{
+font-size: 15px;
+font-weight: bold;
+color: #f7f7f7;
+}
+
+.opcional{
+font-size: 12px;
+font-weight: normal;
+color: #64748b;
+margin-left: 5px;
+}
+
+
+/* ============================================================
+   INPUTS
+   ============================================================ */
+
+.campo input,
+.campo select{
+width: 100%;
+padding: 14px 0;
+
+background: transparent;
+
+border: none;
+border-bottom: 1px solid #3b2a5c;
+
+outline: none;
+
+color: white;
+
+font-size: 17px;
+
+transition: .2s;
+}
+
+.campo input:focus,
+.campo select:focus{
+border-bottom-color: #8b5cf6;
+}
+
+.campo input::placeholder{
+color: #64748b;
+}
+
+
+/* ============================================================
+   SELECT
+   ============================================================ */
+
+.campo select{
+cursor: pointer;
+}
+
+.campo select option{
+background: #140c25;
+color: white;
+}
+
+
+/* ============================================================
+   VALOR
+   ============================================================ */
+
+.valor-campo{
+margin-bottom: 35px;
+}
+
+.valor-input{
+display: flex;
+align-items: center;
+
+border-bottom: 2px solid #8b5cf6;
+}
+
+.valor-input span{
+font-size: 25px;
+font-weight: bold;
+color: #a855f7;
+margin-right: 10px;
+}
+
+.valor-input input{
+border: none;
+padding: 5px 0;
+
+font-size: 32px;
+font-weight: bold;
+
+color: white;
+}
+
+.valor-input input:focus{
+border: none;
+}
+
+
+/* ============================================================
+   BOTÃO SALVAR
+   ============================================================ */
+
+.botao-salvar{
+width: 100%;
+
+padding: 15px;
+margin-top: 10px;
+
+border: none;
+border-radius: 10px;
+
+background: linear-gradient(
+135deg,
+#7c3aed,
+#c084fc
+);
+
+color: white;
+
+font-size: 16px;
+font-weight: bold;
+
+cursor: pointer;
+
+transition: .2s;
+}
+
+.botao-salvar:hover{
+transform: translateY(-2px);
+}
+
+.botao-salvar:active{
+transform: scale(.98);
+}
+
+
+/* ============================================================
+   RODAPÉ DE CATEGORIAS
+   ============================================================ */
+
+.categoria-footer{
+position: fixed;
+
+bottom: 0;
+left: 0;
+
+width: 100%;
+
+background: #140c25;
+
+border-top: 1px solid #2a1d47;
+
+padding: 12px 20px;
+
+z-index: 1000;
+}
+
+.categoria-container{
+width: 100%;
+max-width: 700px;
+
+margin: auto;
+
+display: grid;
+
+grid-template-columns: repeat(3, 1fr);
+
+gap: 10px;
+}
+
+
+/* ============================================================
+   BOTÕES DE CATEGORIA
+   ============================================================ */
+
+.categoria-btn{
+background: transparent;
+
+border: none;
+border-radius: 8px;
+
+padding: 12px;
+
+color: #94a3b8;
+
+cursor: pointer;
+
+transition: .2s;
+
+display: flex;
+flex-direction: column;
+
+align-items: center;
+
+gap: 4px;
+}
+
+.categoria-btn:hover{
+background: rgba(139, 92, 246, 0.08);
+color: white;
+}
+
+.categoria-btn.ativo{
+background: rgba(139, 92, 246, 0.15);
+color: #c084fc;
+}
+
+.categoria-titulo{
+font-size: 16px;
+font-weight: bold;
+}
+
+.categoria-descricao{
+font-size: 11px;
+color: #64748b;
+}
+
+.categoria-btn.ativo .categoria-descricao{
+color: #a78bfa;
+}
+
+
+/* ============================================================
+   ELEMENTOS ESCONDIDOS
+   ============================================================ */
+
+.hidden{
+display: none;
+}
+
+
+/* ============================================================
+   TRANSAÇÃO
+   ============================================================ */
+
+.transacao-container{
+width: 100%;
+}
+
+.transacao-container h2{
+font-size: 28px;
+color: #a855f7;
+margin-bottom: 10px;
+}
+
+.transacao-container p{
+color: #94a3b8;
+}
+
+
+/* ============================================================
+   CELULAR
+   ============================================================ */
+
+@media (max-width: 600px){
+
+.movimentacao-container{
+width: 90%;
+padding-top: 50px;
+}
+
+.movimentacao-header h1{
+font-size: 28px;
+}
+
+.categoria-footer{
+padding: 8px;
+}
+
+.categoria-container{
+gap: 4px;
+}
+
+.categoria-btn{
+padding: 10px 5px;
+}
+
+.categoria-titulo{
+font-size: 14px;
+}
+
+.categoria-descricao{
+font-size: 9px;
+}
+
+.valor-input input{
+font-size: 28px;
+}
+
 }

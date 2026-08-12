@@ -25,8 +25,7 @@ async function verificarLogin() {
 
         if (!resposta.ok) {
 
-            window.location.href =
-                "../autentification/autentification.html";
+            
 
             return false;
         }
@@ -48,8 +47,7 @@ async function verificarLogin() {
             erro
         );
 
-        window.location.href =
-            "../autentification/autentification.html";
+        
 
         return false;
     }
@@ -68,27 +66,23 @@ async function iniciar() {
 
         e.preventDefault();
 
-        const tipo =
-            document.getElementById("tipo").value;
+        const tipo = document.getElementById("tipo").value;
 
-        const categoria =
-            document.getElementById("categoria").value;
+        const categoria = document.getElementById("categoria").value;
 
-        const valor =
-            document.getElementById("valor").value;
+        const valor = document.getElementById("valor").value;
 
-        const descricao =
-            document.getElementById("descricao").value;
+        const descricao = document.getElementById("descricao").value;
+
+        const data = document.getElementById("data").value;
 
         const dados = {
 
             tipo: tipo,
-
-            categoria: categoria,
-
             valor: Number(valor),
-
-            descricao: descricao
+            categoria: categoria,
+            descricao: descricao,
+            data: Date()
 
         };
 

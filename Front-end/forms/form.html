@@ -1,86 +1,368 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cadastro de Transações Financeiras">
-    <title>Yofi/Transações</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>YOFI - Transação</title>
+    <link
+        rel="stylesheet"
+        href="for.css"
+    >
 
-    <link  rel="stylesheet" href="for.css">
+     <header class="topbar">
+
+
+        <!-- BOTÃO MENU -->
+        <button
+            id="menuBtn"
+            class="menu-btn"
+            aria-label="Abrir menu"
+        >
+            ☰
+        </button>
+
+
+        <!-- LOGO / NOME -->
+        <div class="topbar-logo">
+            YOFI
+        </div>
+
+
+        <!-- NOTIFICAÇÕES -->
+        <div class="notification-container">
+
+            <button
+                id="notificationBtn"
+                class="notification-btn"
+                aria-label="Notificações"
+            >
+
+                ❤️
+
+                <span id="notificationCount">
+                    0
+                </span>
+
+            </button>
+
+
+            <div
+                id="notificationPanel"
+                class="notification-panel hidden"
+            >
+
+                <h3>
+                    Notificações
+                </h3>
+
+                <div id="notificationList">
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
 </head>
 
 <body>
+    <!-- =========================================================
+         ÁREA PRINCIPAL
+         ========================================================= -->
 
-    <header class="navbar">
-    <div class="logo">YOFI/Inicio</div>
-    <nav>
-        <a href="https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page">Início</a>
-        <a href="https://luiscript-ed.github.io/YOFI/Front-end/Mya/Ia">IA Financeira</a>
-    </nav>
-    </header>
+    <main class="movimentacao-container">
 
-    <div class="container">
-        <form id="transacaoForm">
-    <h1>Nova Transação</h1>
+        <!-- =====================================================
+             CABEÇALHO DO FORMULÁRIO
+             ===================================================== -->
 
-    <label for="tipo">Tipo de Transação</label>
-    <select id="tipo" name="tipo" required>
-        <option value="" disabled selected>Selecione o tipo</option>
-        <option value="gasto">Gasto (Saída)</option>
-        <option value="ganho">Ganho (Entrada)</option>
-    </select>
+        <header class="movimentacao-header">
 
-    <label for="categoria">Categoria</label>
-    <select id="categoria" name="categoria" required>
-        <option value="" disabled selected>Selecione uma categoria</option>
+            <h1 id="tituloFormulario">
+                Nova movimentação
+            </h1>
 
-        <optgroup label="Ganhos / Receitas">
-            <option value="freelance">Freelance / Investimentos</option>
-            <option value="outros_ganhos">Outros Ganhos</option>
-        </optgroup>
+            <p id="subtituloFormulario">
+                Registre sua movimentação financeira.
+            </p>
 
-        <optgroup label="Gastos / Despesas">
-            <option value="alimentacao">Alimentação</option>
-            <option value="transporte">Transporte</option>
-            <option value="moradia">Moradia</option>
-            <option value="lazer">Lazer</option>
-            <option value="saude">Saúde</option>
-            <option value="outros_gastos">Outros Gastos</option>
-        </optgroup>
-    </select>
+        </header>
 
-    <label for="valor">Valor (R$)</label>
-    <input
-        type="number"
-        id="valor"
-        name="valor"
-        step="0.01"
-        min="0.01"
-        placeholder="0,00"
-        required
-    >
+        <!-- =====================================================
+             FORMULÁRIO PRINCIPAL
+             ===================================================== -->
 
-    <label for="data">Data</label>
-    <input type="date" id="data" name="data" required>
+        <form
+            id="transacaoForm"
+            class="movimentacao-form"
+        >
 
-    <label for="descricao">Descrição</label>
-    <textarea
-        id="descricao"
-        name="descricao"
-        placeholder="Ex: Compras do mês..."
-    ></textarea>
+ 
+            <!-- =================================================
+                 CAMPO: VALOR
 
-    <button type="submit">
-        Cadastrar Transação
-    </button>
+                 O JS procura:
 
-    <a href="https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page" class="btn-voltar">
-        ← Voltar para pagina inicial
-    </a>
-</form>
-    </div>
+                 document.getElementById("valor").value
 
-    <script src="forms.js"></script>
+                 Portanto o input possui:
+
+                 id="valor"
+
+                 O JS depois executa:
+
+                 Number(valor)
+
+                 Por isso usamos type="number".
+                 ================================================= -->
+
+            <div class="campo valor-campo">
+
+                <label for="valor">
+                    VALOR
+                </label>
+
+                <div class="valor-input">
+                    <span>
+                        R$
+                    </span>
+
+                     <input
+                        type="number"
+                        id="valor"
+                        name="valor"
+                        placeholder="0,00"
+                        min="0"
+                        step="0.01"
+                        inputmode="decimal"
+                        required
+                    >
+                </div>
+            </div>
+
+            <!-- =================================================
+                CAMPO: CATEGORIA
+            ================================================= -->
+
+            <div class="campo">
+
+                <label for="categoriaGastos">
+                    CATEGORIA
+                </label>
+
+                <select
+                    id="categoria"
+                    name="categoria"
+                    required
+                >
+                    <option value="">
+                       Escolha uma Categoria
+                    </option>
+
+                    <!-- Categorias de gastos -->
+
+                    <option value="alimentacao">
+                        ALIMENTAÇÃO
+                    </option>
+
+                    <option value="transporte">
+                        TRANSPORTE
+                    </option>
+
+                    <option value="moradia">
+                        MORADIA
+                    </option>
+
+                    <option value="lazer">
+                        LAZER
+                    </option>
+
+                    <option value="saude">
+                        SAÚDE
+                    </option>
+
+                    <option value="educacao">
+                        EDUCAÇÃO
+                    </option>
+
+                    <option value="compras">
+                        COMPRAS
+                    </option>
+
+                    <option value="assinaturas">
+                        ASSINATURAS
+                    </option>
+
+                    <option value="outros">
+                        OUTROS
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CAMPO: DESCRIÇÃO
+                 ================================================= -->
+
+            <div class="campo">
+
+                <label for="descricao">
+
+                    Descrição
+
+                    <span class="opcional">
+                        opcional
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="descricaoGasto"
+                    name="descricao"
+                    placeholder="Ex: almoço, mercado, salário..."
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 CAMPO: DATA
+                 ================================================= -->
+
+            <div class="campo">
+
+                <label for="data">
+                    Data
+                </label>
+
+
+                <input
+                    type="date"
+                    id="dataGasto"
+                    name="data"
+                    required
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 BOTÃO ENVIAR
+                 ================================================= -->
+
+            <button
+                type="submit"
+                id="btnOk1"
+                name="acao"
+                value="enviar"
+                class="botao-salvar"
+            >
+                Confirmar
+            </button>
+
+
+        </form>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         RODAPÉ DE CATEGORIA
+    ========================================================= -->
+
+    <footer class="categoria-footer">
+
+
+        <div class="categoria-container">
+
+
+            <!-- =================================================
+                 BOTÃO GASTOS
+                 ================================================= -->
+
+            <button
+                type="button"
+                id="btnGastos"
+                name="categoriaGastos"
+                value="gasto"
+                class="categoria-btn ativo"
+            >
+
+                <span class="categoria-titulo">
+                    Despesas
+                </span>
+
+                <span class="categoria-descricao">
+                    Seus Gastos
+                </span>
+
+            </button>
+
+
+            <!-- =================================================
+                 BOTÃO ENTRADA
+                 ================================================= -->
+
+            <button
+                type="button"
+                id="btnEntrada"
+                name="categoriaEntrada"
+                value="entrada"
+                class="categoria-btn"
+            >
+
+                <span class="categoria-titulo">
+                    Entradas
+                </span>
+
+                <span class="categoria-descricao">
+                    Seus Ganhos
+                </span>
+
+            </button>
+
+
+            <!-- =================================================
+                 BOTÃO TRANSAÇÃO
+                 ================================================= -->
+
+            <button
+                type="button"
+                id="btnTransacao"
+                name="categoriaTransacao"
+                value="transacao"
+                class="categoria-btn"
+            >
+
+                <span class="categoria-titulo">
+                    Movimentações
+                </span>
+
+                <span class="categoria-descricao">
+                    Transações Entre Bancos
+                </span>
+
+            </button>
+
+
+        </div>
+
+    </footer>
+
 
 </body>
+
 </html>
