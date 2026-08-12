@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YOFI / Orçamentos</title>
+
+<link rel="stylesheet" href="orcamentos.css">
+
+</head>
+
+<body>
+<!-- ========================================================= -->
+<!-- SIDEBAR -->
+<!-- ========================================================= -->
+
+<aside id="sidebar" class="sidebar">
+
+    <!-- LOGO -->
+
+    <div class="sidebar-logo">
+
+        <a href="#">
+
+            <img
+                src="../Imagens-Audios/homepage/yofi-logo.png"
+                alt="YOFI"
+                class="logo-img"
+            >
+
+            <span class="logo-text">
+                YOFI
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <!-- USUÁRIO -->
+
+    <div class="sidebar-user">
+
+        <div class="user-info">
+
+            <strong id="usuarioNome">
+                Usuário
+            </strong>
+
+            <span id="usuarioEmail">
+                email@email.com
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- NAVEGAÇÃO -->
+    <!-- ===================================================== -->
+
+    <nav class="sidebar-nav">
+
+
+        <!-- RESUMO -->
+
+        <a
+            href="https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page"
+            class="sidebar-link"
+        >
+
+            <img
+                src="../Imagens-Audios/homepage/resumo.png"
+                alt="Resumo"
+                class="nav-icon"
+            >
+
+            <span>
+                Resumo
+            </span>
+
+        </a>
+
+
+        <!-- CONTAS -->
+
+        <a
+            href="#contas"
+            class="sidebar-link"
+        >
+
+            <img
+                src="../Imagens-Audios/homepage/contas.png"
+                alt="Contas"
+                class="nav-icon"
+            >
+
+            <span>
+                Contas
+            </span>
+
+        </a>
+
+
+        <!-- TRANSAÇÕES -->
+
+        <a
+            href="https://luiscript-ed.github.io/YOFI/Front-end/forms/form"
+            class="sidebar-link"
+        >
+
+            <img
+                src="../Imagens-Audios/homepage/transac.png"
+                alt="Transações"
+                class="nav-icon"
+            >
+
+            <span>
+                Transações
+            </span>
+
+        </a>
+
+
+        <!-- MYA -->
+
+        <a
+            href="https://luiscript-ed.github.io/YOFI/Front-end/Mya/Ia"
+            class="sidebar-link"
+        >
+
+            <img
+                src="../Imagens-Audios/MYA.png"
+                alt="MYA"
+                class="nav-icon"
+            >
+
+            <span>
+                MYA
+            </span>
+
+        </a>
+
+
+        <!-- ================================================= -->
+        <!-- PLANEJAR -->
+        <!-- ================================================= -->
+
+        <div class="sidebar-section-title">
+            Planejar
+        </div>
+
+
+        <!-- OBJETIVOS -->
+
+        <a
+            href="#objetivos"
+            class="sidebar-link"
+        >
+
+            <img
+                src="../Imagens-Audios/homepage/metas.png"
+                alt="Objetivos"
+                class="nav-icon"
+            >
+
+            <span>
+                Objetivos
+            </span>
+
+        </a>
+
+
+        <!-- ORÇAMENTOS -->
+
+        <a
+            href="#orcamentos"
+            class="sidebar-link active"
+        >
+
+            <img
+                src="../Imagens-Audios/homepage/orca.png"
+                alt="Orçamentos"
+                class="nav-icon"
+            >
+
+            <span>
+                Orçamentos
+            </span>
+
+        </a>
+
+
+        <!-- ================================================= -->
+        <!-- ANALISAR -->
+        <!-- ================================================= -->
+
+        <div class="sidebar-section-title">
+            Analisar
+        </div>
+
+
+        <!-- GRÁFICOS -->
+
+        <a
+            href="#graficos"
+            class="sidebar-link"
+        >
+
+            <img
+                src="../Imagens-Audios/homepage/graf.png"
+                alt="Gráficos"
+                class="nav-icon"
+            >
+
+            <span>
+                Gráficos
+            </span>
+
+        </a>
+
+
+        <!-- CATEGORIAS -->
+
+        <a
+            href="#categorias"
+            class="sidebar-link"
+        >
+
+            <img
+                src="../Imagens-Audios/homepage/categorias.png"
+                alt="Categorias"
+                class="nav-icon"
+            >
+
+            <span>
+                Categorias
+            </span>
+
+        </a>
+
+
+        <!-- CALENDÁRIO -->
+
+        <a
+            href="#calendario"
+            class="sidebar-link"
+        >
+
+            <img
+                src="../Imagens-Audios/homepage/calendario.png"
+                alt="Calendário"
+                class="nav-icon"
+            >
+
+            <span>
+                Calendário
+            </span>
+
+        </a>
+
+
+        <hr class="sidebar-divider">
+
+
+        <!-- OPEN FINANCE -->
+
+        <a
+            href="#open-finance"
+            class="sidebar-link"
+        >
+
+            <img
+                src="../Imagens-Audios/homepage/open.png"
+                alt="Open Finance"
+                class="nav-icon"
+            >
+
+            <span>
+                Open Finance
+            </span>
+
+        </a>
+
+
+        <!-- CONFIGURAÇÕES -->
+
+        <a
+            href="#configuracoes"
+            class="sidebar-link"
+        >
+
+            <img
+                src="../Imagens-Audios/homepage/configura.png"
+                alt="Configurações"
+                class="nav-icon"
+            >
+
+            <span>
+                Configurações
+            </span>
+
+        </a>
+
+
+        <!-- SOBRE -->
+
+        <a
+            href="#sobre"
+            class="sidebar-link"
+        >
+
+            <img
+                src="../Imagens-Audios/homepage/sobre.png"
+                alt="Sobre"
+                class="nav-icon"
+            >
+
+            <span>
+                Sobre / Recursos
+            </span>
+
+        </a>
+
+
+        <!-- MODO DE VISUALIZAÇÃO -->
+
+        <a
+            class="sidebar-link"
+            id="alterarModo"
+        >
+
+            <img
+                src="../Imagens-Audios/homepage/visualiza.png"
+                alt="Alterar Visualização"
+                class="nav-icon"
+            >
+
+            <span>
+                Alterar visualização
+            </span>
+
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- ========================================================= -->
+<!-- APLICAÇÃO -->
+<!-- ========================================================= -->
+
+<div class="app" id="app">
+
+
+    <!-- ===================================================== -->
+    <!-- HEADER -->
+    <!-- ===================================================== -->
+
+    <header class="topbar">
+
+
+        <!-- BOTÃO MENU -->
+
+        <button
+            id="menuBtn"
+            class="menu-btn"
+            aria-label="Abrir menu"
+            aria-expanded="true"
+        >
+            ☰
+        </button>
+
+
+        <!-- LOGO -->
+
+        <div class="topbar-logo">
+            YOFI
+        </div>
+
+
+        <!-- NOTIFICAÇÕES -->
+
+        <div class="notification-container">
+
+            <button
+                id="notificationBtn"
+                class="notification-btn"
+                aria-label="Notificações"
+            >
+
+                🔔
+
+                <span id="notificationCount">
+                    0
+                </span>
+
+            </button>
+
+
+            <div
+                id="notificationPanel"
+                class="notification-panel hidden"
+            >
+
+                <h3>
+                    Notificações
+                </h3>
+
+                <div id="notificationList">
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ===================================================== -->
+    <!-- CONTEÚDO -->
+    <!-- ===================================================== -->
+
+    <main class="main-content" id="orcamentos">
+
+
+        <!-- CABEÇALHO -->
+
+        <section class="page-header">
+
+            <div>
+
+                <span class="page-eyebrow">
+                    PLANEJAR
+                </span>
+
+                <h1>
+                    Orçamentos
+                </h1>
+
+                <p>
+                    Defina limites para seus gastos e acompanhe seu desempenho.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- FORMULÁRIO -->
+        <!-- ================================================= -->
+
+        <section class="budget-form-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2 id="formTitulo">
+                        Criar orçamento
+                    </h2>
+
+                    <p>
+                        Defina quanto você pretende gastar em uma categoria.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form
+                id="orcamentoForm"
+                class="budget-form"
+            >
+
+                <input
+                    type="hidden"
+                    id="orcamentoId"
+                >
+
+
+                <div class="form-group">
+
+                    <label for="categoria">
+                        Categoria
+                    </label>
+
+                    <input
+                        type="text"
+                        id="categoria"
+                        placeholder="Ex.: Alimentação"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="limite">
+                        Limite
+                    </label>
+
+                    <div class="money-input">
+
+                        <span>
+                            R$
+                        </span>
+
+                        <input
+                            type="number"
+                            id="limite"
+                            min="0.01"
+                            step="0.01"
+                            placeholder="0,00"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="mes">
+                        Mês
+                    </label>
+
+                    <select id="mes" required>
+
+                        <option value="1">
+                            Janeiro
+                        </option>
+
+                        <option value="2">
+                            Fevereiro
+                        </option>
+
+                        <option value="3">
+                            Março
+                        </option>
+
+                        <option value="4">
+                            Abril
+                        </option>
+
+                        <option value="5">
+                            Maio
+                        </option>
+
+                        <option value="6">
+                            Junho
+                        </option>
+
+                        <option value="7">
+                            Julho
+                        </option>
+
+                        <option value="8">
+                            Agosto
+                        </option>
+
+                        <option value="9">
+                            Setembro
+                        </option>
+
+                        <option value="10">
+                            Outubro
+                        </option>
+
+                        <option value="11">
+                            Novembro
+                        </option>
+
+                        <option value="12">
+                            Dezembro
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="ano">
+                        Ano
+                    </label>
+
+                    <input
+                        type="number"
+                        id="ano"
+                        min="2000"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="submit"
+                        id="salvarOrcamento"
+                        class="primary-btn"
+                    >
+                        Criar orçamento
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancelarEdicao"
+                        class="secondary-btn hidden"
+                    >
+                        Cancelar edição
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <p
+                id="mensagem"
+                class="form-message"
+            ></p>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- RESUMO -->
+        <!-- ================================================= -->
+
+        <section class="budget-summary">
+
+            <div class="summary-card">
+
+                <span>
+                    Orçamentos cadastrados
+                </span>
+
+                <strong id="totalOrcamentos">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Limite total
+                </span>
+
+                <strong id="limiteTotal">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Gasto total
+                </span>
+
+                <strong id="gastoTotal">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Disponível
+                </span>
+
+                <strong id="disponivelTotal">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- LISTA DE ORÇAMENTOS -->
+        <!-- ================================================= -->
+
+        <section class="budgets-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Meus orçamentos
+                    </h2>
+
+                    <p>
+                        Acompanhe o quanto já foi utilizado em cada categoria.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="orcamentosList"
+                class="budgets-grid"
+            >
+
+                <div
+                    id="loadingOrcamentos"
+                    class="empty-state"
+                >
+                    Carregando orçamentos...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="orcamentos.js"></script>
+
+</body>
+
+</html>

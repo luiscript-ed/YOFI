@@ -357,7 +357,7 @@ async function carregarGraficoCategorias() {
     try {
 
         const resposta = await fetch(
-            `${API_URL}/grafico-categorias`,
+            `${API_URL}/dashboard`,
             {
                 method: "GET",
                 credentials: "include"
