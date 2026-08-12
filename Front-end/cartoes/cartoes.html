@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>YOFI / Cartões</title>
+
+    <link rel="stylesheet" href="cartoes.css">
+
+</head>
+
+<body>
+
+    <!-- ========================================================= -->
+    <!-- SIDEBAR -->
+    <!-- ========================================================= -->
+
+    <aside id="sidebar" class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <a href="#">
+
+                <img
+                    src="../Imagens-Audios/homepage/yofi-logo.png"
+                    alt="YOFI"
+                    class="logo-img"
+                >
+
+                <span class="logo-text">
+                    YOFI
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <div class="sidebar-user">
+
+            <div class="user-info">
+
+                <strong id="usuarioNome">
+                    Usuário
+                </strong>
+
+                <span id="usuarioEmail">
+                    email@email.com
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <!-- RESUMO -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/resumo.png"
+                    alt="Resumo"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Resumo
+                </span>
+
+            </a>
+
+
+            <!-- CONTAS -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/Contas/contas"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/contas.png"
+                    alt="Contas"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Contas
+                </span>
+
+            </a>
+
+
+            <!-- CARTÕES -->
+
+            <a
+                href="#cartoes"
+                class="sidebar-link active"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/cartoes.png"
+                    alt="Cartões"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Cartões
+                </span>
+
+            </a>
+
+
+            <!-- TRANSAÇÕES -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/forms/form"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/transac.png"
+                    alt="Transações"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Transações
+                </span>
+
+            </a>
+
+
+            <!-- MYA -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/Mya/Ia"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/MYA.png"
+                    alt="MYA"
+                    class="nav-icon"
+                >
+
+                <span>
+                    MYA
+                </span>
+
+            </a>
+
+
+            <div class="sidebar-section-title">
+                Planejar
+            </div>
+
+
+            <!-- OBJETIVOS -->
+
+            <a
+                href="#objetivos"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/metas.png"
+                    alt="Objetivos"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Objetivos
+                </span>
+
+            </a>
+
+
+            <!-- ORÇAMENTOS -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/Orcamentos/orcamentos"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/orca.png"
+                    alt="Orçamentos"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Orçamentos
+                </span>
+
+            </a>
+
+
+            <div class="sidebar-section-title">
+                Analisar
+            </div>
+
+
+            <!-- GRÁFICOS -->
+
+            <a
+                href="#graficos"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/graf.png"
+                    alt="Gráficos"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Gráficos
+                </span>
+
+            </a>
+
+
+            <!-- CATEGORIAS -->
+
+            <a
+                href="#categorias"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/categorias.png"
+                    alt="Categorias"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Categorias
+                </span>
+
+            </a>
+
+
+            <!-- CALENDÁRIO -->
+
+            <a
+                href="#calendario"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/calendario.png"
+                    alt="Calendário"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Calendário
+                </span>
+
+            </a>
+
+
+            <hr class="sidebar-divider">
+
+
+            <!-- OPEN FINANCE -->
+
+            <a
+                href="#open-finance"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/open.png"
+                    alt="Open Finance"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Open Finance
+                </span>
+
+            </a>
+
+
+            <!-- CONFIGURAÇÕES -->
+
+            <a
+                href="#configuracoes"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/configura.png"
+                    alt="Configurações"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Configurações
+                </span>
+
+            </a>
+
+
+            <!-- SOBRE -->
+
+            <a
+                href="#sobre"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/sobre.png"
+                    alt="Sobre"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Sobre / Recursos
+                </span>
+
+            </a>
+
+
+            <!-- VISUALIZAÇÃO -->
+
+            <a
+                class="sidebar-link"
+                id="alterarModo"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/visualiza.png"
+                    alt="Alterar visualização"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Alterar visualização
+                </span>
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ========================================================= -->
+    <!-- APP -->
+    <!-- ========================================================= -->
+
+    <div class="app" id="app">
+
+
+        <!-- ===================================================== -->
+        <!-- TOPBAR -->
+        <!-- ===================================================== -->
+
+        <header class="topbar">
+
+
+            <button
+                id="menuBtn"
+                class="menu-btn"
+                aria-label="Abrir menu"
+                aria-expanded="true"
+            >
+                ☰
+            </button>
+
+
+            <div class="topbar-logo">
+                YOFI
+            </div>
+
+
+            <!-- NOTIFICAÇÕES -->
+
+            <div class="notification-container">
+
+                <button
+                    id="notificationBtn"
+                    class="notification-btn"
+                    aria-label="Notificações"
+                >
+
+                    🔔
+
+                    <span id="notificationCount">
+                        0
+                    </span>
+
+                </button>
+
+
+                <div
+                    id="notificationPanel"
+                    class="notification-panel hidden"
+                >
+
+                    <h3>
+                        Notificações
+                    </h3>
+
+                    <div id="notificationList">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ===================================================== -->
+        <!-- CONTEÚDO -->
+        <!-- ===================================================== -->
+
+        <main class="main-content" id="cartoes">
+
+
+            <section class="page-header">
+
+                <div>
+
+                    <span class="page-eyebrow">
+                        FINANÇAS
+                    </span>
+
+                    <h1>
+                        Meus cartões
+                    </h1>
+
+                    <p>
+                        Controle seus limites, acompanhe seus gastos e consulte suas faturas.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- FORMULÁRIO -->
+            <!-- ================================================= -->
+
+            <section class="card-form-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2 id="formTitulo">
+                            Adicionar cartão
+                        </h2>
+
+                        <p>
+                            Cadastre seus cartões de crédito para acompanhar seus gastos.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    id="cartaoForm"
+                    class="card-form"
+                >
+
+                    <input
+                        type="hidden"
+                        id="cartaoId"
+                    >
+
+
+                    <div class="form-group form-group-wide">
+
+                        <label for="nomeCartao">
+                            Nome do cartão
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nomeCartao"
+                            placeholder="Ex.: Nubank Platinum"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="bancoCartao">
+                            Banco / instituição
+                        </label>
+
+                        <input
+                            type="text"
+                            id="bancoCartao"
+                            placeholder="Ex.: Nubank"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="limiteCartao">
+                            Limite
+                        </label>
+
+                        <div class="money-input">
+
+                            <span>
+                                R$
+                            </span>
+
+                            <input
+                                type="number"
+                                id="limiteCartao"
+                                min="0"
+                                step="0.01"
+                                value="0"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="diaFechamento">
+                            Dia de fechamento
+                        </label>
+
+                        <input
+                            type="number"
+                            id="diaFechamento"
+                            min="1"
+                            max="31"
+                            placeholder="Ex.: 10"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="diaVencimento">
+                            Dia de vencimento
+                        </label>
+
+                        <input
+                            type="number"
+                            id="diaVencimento"
+                            min="1"
+                            max="31"
+                            placeholder="Ex.: 17"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            id="salvarCartao"
+                            class="primary-btn"
+                        >
+                            Adicionar cartão
+                        </button>
+
+                        <button
+                            type="button"
+                            id="cancelarEdicao"
+                            class="secondary-btn hidden"
+                        >
+                            Cancelar edição
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <p
+                    id="mensagem"
+                    class="form-message"
+                ></p>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- RESUMO -->
+            <!-- ================================================= -->
+
+            <section class="card-summary">
+
+                <div class="summary-card">
+
+                    <span>
+                        Cartões cadastrados
+                    </span>
+
+                    <strong id="totalCartoes">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <span>
+                        Limite total
+                    </span>
+
+                    <strong id="limiteTotal">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <span>
+                        Total utilizado
+                    </span>
+
+                    <strong id="utilizadoTotal">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <span>
+                        Limite disponível
+                    </span>
+
+                    <strong id="disponivelTotal">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- CARTÕES -->
+            <!-- ================================================= -->
+
+            <section class="cards-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            Meus cartões
+                        </h2>
+
+                        <p>
+                            Acompanhe o limite e os gastos de cada cartão.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="cartoesList"
+                    class="cards-grid"
+                >
+
+                    <div class="empty-state">
+                        Carregando cartões...
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="cartoes.js"></script>
+
+</body>
+
+</html>
