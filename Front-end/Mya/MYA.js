@@ -13,94 +13,65 @@ function salvarUrlAtual() {
 salvarUrlAtual();
 
 function appendMessage(text, role) {
-
     const messageDiv = document.createElement('div');
-
     messageDiv.classList.add('message-bubble');
 
-    if(role === 'user'){
+    if (role === 'user') {
         messageDiv.classList.add('user-message');
-    }
-    else if(role === 'bot'){
+    } else if (role === 'bot') {
         messageDiv.classList.add('bot-message');
-    }
-    else{
+    } else {
         messageDiv.classList.add('error-message');
     }
 
     messageDiv.textContent = text;
-
     chatContainer.appendChild(messageDiv);
-
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
 chatForm.addEventListener('submit', async (e) => {
-
     e.preventDefault();
 
     const message = userInput.value.trim();
-
-    if(!message) return;
+    if (!message) return;
 
     appendMessage(message, 'user');
-
     userInput.value = '';
 
     const loadingMessage = document.createElement('div');
-
-    loadingMessage.classList.add(
-        'message-bubble',
-        'bot-message'
-    );
-
+    loadingMessage.classList.add('message-bubble', 'bot-message');
     loadingMessage.textContent = "MYA está analisando...";
-
     chatContainer.appendChild(loadingMessage);
 
-    try{
-
+    try {
         const response = await fetch(API_URL, {
-
             method: "POST",
-
             headers: {
                 "Content-Type": "application/json"
             },
-
+            // CRUCIAL PARA ENVIAR O COOKIE DE AUTENTICAÇÃO AO RENDER
+            credentials: "include", 
             body: JSON.stringify({
                 pergunta: message
             })
-
         });
 
         loadingMessage.remove();
 
-        if(!response.ok){
+        if (response.status === 401) {
+            appendMessage("Sua sessão expirou ou você não está logado.", 'error');
+            return;
+        }
 
-            throw new Error(
-                `Erro ${response.status}`
-            );
-
+        if (!response.ok) {
+            throw new Error(`Erro ${response.status}`);
         }
 
         const data = await response.json();
+        appendMessage(data.resposta, 'bot');
 
-        appendMessage(
-            data.resposta,
-            'bot'
-        );
-
-    }
-    catch(error){
-
+    } catch (error) {
         loadingMessage.remove();
-
-        appendMessage(
-            `Erro: ${error.message}`,
-            'error'
-        );
-
+        appendMessage(`Erro: ${error.message}`, 'error');
     }
-
 });

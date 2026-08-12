@@ -217,9 +217,13 @@ def economia(usuario_id: int = Depends(obter_usuario_autenticado)):
     }
 
 @app.post("/mya")
-def conversar_mya( dados: PerguntaMYA, usuario_id: int = Depends(obter_usuario_autenticado)):
+def conversar_mya(
+    dados: PerguntaMYA, 
+    usuario_id: int = Depends(obter_usuario_autenticado)
+):
     resposta = perguntar_mya(
-        dados.pergunta
+        pergunta=dados.pergunta,
+        usuario_id=usuario_id
     )
 
     return {
