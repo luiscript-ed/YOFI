@@ -48,16 +48,6 @@
     <!-- USUÁRIO -->
     <div class="sidebar-user">
 
-        <div class="user-avatar">
-
-            <img
-                id="usuarioAvatar"
-                src="assets/icons/user.png"
-                alt="Foto do usuário"
-            >
-
-        </div>
-
         <div class="user-info">
 
             <strong id="usuarioNome">
@@ -87,8 +77,8 @@
         >
 
             <img
-                src="assets/icons/resumo.png"
-                alt=""
+                src="../Imagens-Audios/homepage/resumo.png"
+                alt="resumo"
                 class="nav-icon"
             >
 
@@ -106,8 +96,8 @@
         >
 
             <img
-                src="assets/icons/contas.png"
-                alt=""
+                src="../Imagens-Audios/homepage/contas.png"
+                alt="contas"
                 class="nav-icon"
             >
 
@@ -125,8 +115,8 @@
         >
 
             <img
-                src="assets/icons/transacoes.png"
-                alt=""
+                src="../Imagens-Audios/homepage/transac.png"
+                alt="transações"
                 class="nav-icon"
             >
 
@@ -144,8 +134,8 @@
         >
 
             <img
-                src="assets/icons/mya.png"
-                alt=""
+                src="../Imagens-Audios/MYA.png"
+                alt="MYA"
                 class="nav-icon"
             >
 
@@ -173,8 +163,8 @@
         >
 
             <img
-                src="assets/icons/objetivos.png"
-                alt=""
+                src="../Imagens-Audios/homepage/metas.png"
+                alt="Objetivos"
                 class="nav-icon"
             >
 
@@ -192,8 +182,8 @@
         >
 
             <img
-                src="assets/icons/orcamentos.png"
-                alt=""
+                src="../Imagens-Audios/homepage/orca.png"
+                alt="Orçamentos"
                 class="nav-icon"
             >
 
@@ -221,8 +211,8 @@
         >
 
             <img
-                src="assets/icons/graficos.png"
-                alt=""
+                src="../Imagens-Audios/homepage/graf.png"
+                alt="Graficos"
                 class="nav-icon"
             >
 
@@ -240,8 +230,8 @@
         >
 
             <img
-                src="assets/icons/categorias.png"
-                alt=""
+                src="../Imagens-Audios/homepage/categorias.png"
+                alt="Categorias"
                 class="nav-icon"
             >
 
@@ -259,8 +249,8 @@
         >
 
             <img
-                src="assets/icons/calendario.png"
-                alt=""
+                src="../Imagens-Audios/homepage/calendario.png"
+                alt="Calendário"
                 class="nav-icon"
             >
 
@@ -285,8 +275,8 @@
         >
 
             <img
-                src="assets/icons/open-finance.png"
-                alt=""
+                src="../Imagens-Audios/homepage/open.png"
+                alt="Open Finance"
                 class="nav-icon"
             >
 
@@ -304,8 +294,8 @@
         >
 
             <img
-                src="assets/icons/configuracoes.png"
-                alt=""
+                src="../Imagens-Audios/homepage/configura.png"
+                alt="Configurações"
                 class="nav-icon"
             >
 
@@ -323,8 +313,8 @@
         >
 
             <img
-                src="assets/icons/sobre.png"
-                alt=""
+                src="../Imagens-Audios/homepage/sobre.png"
+                alt="Recursos"
                 class="nav-icon"
             >
 
@@ -342,8 +332,8 @@
         >
 
             <img
-                src="assets/icons/sobre.png"
-                alt=""
+                src="../Imagens-Audios/homepage/visualiza.png"
+                alt="Alterar Visualização"
                 class="nav-icon"
             >
 
@@ -556,8 +546,8 @@
                     <div class="account-icon">
 
                         <img
-                            src="assets/icons/investimentos.png"
-                            alt=""
+                            src="../Imagens-Audios/homepage/investi.png"
+                            alt="Investimentos"
                         >
 
                     </div>
@@ -583,8 +573,8 @@
                     <div class="account-icon">
 
                         <img
-                            src="assets/icons/carteira.png"
-                            alt=""
+                            src="../Imagens-Audios/homepage/carteira.png"
+                            alt="Carteira"
                         >
 
                     </div>
@@ -610,8 +600,8 @@
                     <div class="account-icon">
 
                         <img
-                            src="assets/icons/conta-corrente.png"
-                            alt=""
+                            src="../Imagens-Audios/homepage/corrente.png"
+                            alt="Conta Corrente"
                         >
 
                     </div>
@@ -879,7 +869,49 @@
 
 </div>
 
+ 
 
+    <button id="abrirIA" class="ia-button">
+        IA
+    </button>
+
+    <aside id="painelIA" class="ia-sidebar">
+         <div class="ia-header">
+            <h2>MYA</h2>
+            <button id="fecharIA">
+                ✕
+            </button>
+             </div>
+             <div class="ia-content">
+                  <div class="mya-welcome">
+                     <h3>Olá! Eu sou a MYA 👋</h3>
+                      <p>
+                    Posso analisar seus hábitos financeiros e ajudá-lo a tomar decisões melhores.
+                        </p>
+                         </div>
+                    <div class="mya-actions">
+
+                <button class="mya-action-btn" id="btnAnalise">
+                    ✨ Analisar minhas finanças
+                </button>
+
+                <button class="mya-action-btn" id="btnGastos">
+                    📊 Onde estou gastando mais?
+                </button>
+
+                <button class="mya-action-btn" id="btnEconomia">
+                    🎯 Como posso economizar este mês?
+                </button>  
+                </div>
+                 <div id="myaResultado" class="mya-result">
+
+        <p>
+            Escolha uma análise acima.
+        </p>             
+                  </div>
+             </div>
+         </div>
+         </aside>
 
 <!-- ========================================================= -->
 <!-- JAVASCRIPT -->

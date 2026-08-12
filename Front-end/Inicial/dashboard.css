@@ -78,13 +78,171 @@ button {
 
 
 /* =========================================================
+   IA BUTTON (Botão Flutuante)
+   ========================================================= */
+.ia-button {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background: #8b5cf6;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1200;
+}
+
+/* =========================================================
+   IA SIDEBAR (Painel da IA)
+   ========================================================= */
+.ia-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100vh;
+    background: #140c25;
+    border-left: 1px solid #24163d;
+    transition: right 0.3s ease;
+    z-index: 1500;
+}
+
+.ia-sidebar.active {
+    right: 0;
+}
+
+.ia-sidebar .ia-content {
+    padding: 20px;
+}
+
+/* =========================================================
+   IA HEADER (Cabeçalho da IA)
+   ========================================================= */
+.ia-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #24163d;
+}
+
+.ia-header h1,
+.ia-header h2,
+.ia-header h3,
+.ia-header h4,
+.ia-header h5,
+.ia-header h6 {
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.ia-header span {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.ia-header button,
+.ia-header .fecharIA {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* =========================================================
+   MYA WELCOME & ACTIONS
+   ========================================================= */
+.mya-welcome h3 {
+    color: #c084fc;
+    margin-bottom: 10px;
+}
+
+.mya-welcome p {
+    color: #d1d5db;
+    line-height: 1.5;
+}
+
+.mya-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.mya-action-btn {
+    background: linear-gradient(135deg, #7c3aed, #9333ea);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mya-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(147, 51, 234, 0.4);
+}
+
+.mya-action-btn span,
+.mya-action-btn i {
+    pointer-events: none;
+}
+
+/* =========================================================
+   MYA RESULT (Área de Resultados da IA)
+   ========================================================= */
+.mya-result {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 12px;
+    min-height: 120px;
+    color: white;
+    line-height: 1.6;
+}
+
+.mya-result h1,
+.mya-result h2,
+.mya-result h3,
+.mya-result h4 {
+    color: var(--purple-light);
+    margin-bottom: 10px;
+}
+
+.mya-result p {
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.mya-result span {
+    color: var(--text-secondary);
+}
+
+.mya-result ul,
+.mya-result ol {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.mya-result li {
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+/* =========================================================
    SIDEBAR
    ========================================================= */
 
 .sidebar {
-
     position: fixed;
-
     top: 0;
     left: 0;
 
@@ -92,7 +250,6 @@ button {
     height: 100vh;
 
     background: var(--bg-sidebar);
-
     border-right: 1px solid var(--border);
 
     z-index: 2000;
@@ -102,9 +259,11 @@ button {
 
     padding: 20px 14px 24px;
 
-    transition:
-        transform 0.3s ease,
-        width 0.3s ease;
+    transition: transform 0.3s ease, width 0.3s ease;
+}
+
+.sidebar.closed {
+    transform: translateX(-100%);
 }
 
 
@@ -348,6 +507,9 @@ button {
     transition:
         transform 0.2s ease,
         opacity 0.2s ease;
+
+    background: #f1e1ff;
+    border-radius: 50%
 }
 
 .sidebar-link:hover .nav-icon {
@@ -418,50 +580,29 @@ button {
     background: #101020;
 }
 
-.app.active {
-
-    min-height: 100vh;
-
-    margin-left: var(--sidebar-width);
-
-    transition:
-        margin-left 0.3s ease;
-
-    background: linear-gradient(
-        145deg,
-        #f7ebff,
-        #e1bcff
-    );
+.app.sidebar-closed {
+    margin-left: 0;
 }
-
 
 /* =========================================================
    TOPBAR
    ========================================================= */
 
 .topbar {
-
     position: sticky;
-
     top: 0;
 
+    width: 100%;
     height: var(--topbar-height);
 
-    display: grid;
-
-    grid-template-columns:
-        1fr
-        auto
-        1fr;
-
+    display: flex;
     align-items: center;
 
-    padding: 0 28px;
+    padding: 0 22px;
 
-    background: rgba(8, 8, 11, 0.92);
+    background: rgba(8, 8, 11, 0.94);
 
     backdrop-filter: blur(16px);
-
     -webkit-backdrop-filter: blur(16px);
 
     border-bottom: 1px solid var(--border);
@@ -475,25 +616,27 @@ button {
    ========================================================= */
 
 .menu-btn {
-
-    display: none;
+    display: flex;
 
     width: 42px;
     height: 42px;
 
+    align-items: center;
+    justify-content: center;
+
     border: none;
+    border-radius: 10px;
 
     background: transparent;
-
     color: var(--text-primary);
 
     font-size: 22px;
 
     cursor: pointer;
 
-    border-radius: 10px;
+    transition: 0.2s;
 
-    transition: background 0.2s ease;
+    flex-shrink: 0;
 }
 
 .menu-btn:hover {
@@ -507,8 +650,6 @@ button {
 
 .topbar-logo {
 
-    justify-self: start;
-
     color: var(--purple-light);
 
     font-size: 25px;
@@ -516,6 +657,8 @@ button {
     font-weight: 800;
 
     letter-spacing: 0.5px;
+
+    white-space: nowrap;
 }
 
 
@@ -524,14 +667,21 @@ button {
    ========================================================= */
 
 .month-selector {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
-    gap: 12px;
+    gap: 14px;
+
+    margin: 0;
 }
 
 .month-info {
@@ -603,10 +753,12 @@ button {
    ========================================================= */
 
 .notification-container {
+    position: absolute;
 
-    position: relative;
+    right: 22px;
+    top: 50%;
 
-    justify-self: end;
+    transform: translateY(-50%);
 }
 
 .notification-btn {
@@ -807,16 +959,7 @@ button {
         font-size: 22px;
     }
 
-    .month-selector {
 
-        position: absolute;
-
-        top: calc(var(--topbar-height) + 10px);
-
-        left: 50%;
-
-        transform: translateX(-50%);
-    }
 
     .month-info {
         min-width: 110px;

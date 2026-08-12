@@ -18,7 +18,15 @@ let graficoEvolucao = null;
 // ============================================================
 
 const sidebar = document.getElementById("sidebar");
+const app = document.querySelector(".app");
 const menuBtn = document.getElementById("menuBtn");
+
+menuBtn.addEventListener("click", () => {
+
+    sidebar.classList.toggle("closed");
+    app.classList.toggle("sidebar-closed");
+
+});
 
 const usuarioNome = document.getElementById("usuarioNome");
 const usuarioEmail = document.getElementById("usuarioEmail");
@@ -30,13 +38,6 @@ const resultadoMYA =
 document.getElementById("myaResultado");
 
 let usuarioId = null;
-
-const button12 = document.getElementById('alterarModo');
-const app12 = document.querySelector('.app');
-
-button12.addEventListener('click', () => {
-  app12.classList.toggle('active');
-});
 
 // ============================================================
 // AUTENTICAÇÃO
@@ -61,8 +62,7 @@ async function verificarLogin() {
             );
 
             window.location.href =
-                "../autentification.html";
-
+                "https://luiscript-ed.github.io/YOFI/Front-end/autentification/autentification";
             return false;
         }
 
@@ -89,7 +89,7 @@ async function verificarLogin() {
         );
 
         window.location.href =
-            "../autentification.html";
+        "https://luiscript-ed.github.io/YOFI/Front-end/autentification/autentification";
 
         return false;
     }
@@ -1224,16 +1224,6 @@ document
 
 });
 
-if (menuBtn) {
-
-    menuBtn.addEventListener("click", () => {
-
-        sidebar.classList.toggle("open");
-
-    });
-
-}
-
 
 // Fechar sidebar ao clicar em um link no celular
 
@@ -1285,9 +1275,24 @@ document
 
     });
 
-// =========================
-// INICIAR PÁGINA
-// =========================
+// ============================================================
+// PAINEL DA IA (IA-SIDEBAR)
+// ============================================================
+
+// Seleciona os elementos do HTML
+const abrirIABtn = document.getElementById('abrirIA');
+const fecharIABtn = document.getElementById('fecharIA');
+const painelIA = document.getElementById('painelIA');
+
+// Função para abrir o painel da IA
+abrirIABtn.addEventListener('click', () => {
+    painelIA.classList.add('active'); // Ou remova a classe 'hidden' se estiver usando CSS assim
+});
+
+// Função para FECHAR o painel da IA (AQUI ESTÁ O QUE FALTA)
+fecharIABtn.addEventListener('click', () => {
+    painelIA.classList.remove('active');
+});
 
 // ============================================================
 // GRÁFICOS
