@@ -2,13 +2,7 @@
 // CONFIGURAÇÃO
 // ============================================================
 
-function salvarUrlAtual() {
-    const urlAtual = window.location.href;
-    localStorage.setItem('urlSalva', urlAtual);
-    console.log('URL salva com sucesso:', urlAtual);
-}
 
-salvarUrlAtual();
 
 const API_URL = "https://yofi-api.onrender.com";
 
@@ -69,8 +63,7 @@ async function verificarLogin() {
                 "Usuário não autenticado."
             );
 
-            window.location.href =
-                "https://luiscript-ed.github.io/YOFI/Front-end/autentification/autentification";
+
             return false;
         }
 
@@ -96,8 +89,6 @@ async function verificarLogin() {
             erro
         );
 
-        window.location.href =
-        "https://luiscript-ed.github.io/YOFI/Front-end/autentification/autentification";
 
         return false;
     }
@@ -1314,6 +1305,13 @@ async function carregarGraficos() {
 
 }
 
+function salvarUrlAtual() {
+    const urlAtual = window.location.href;
+    localStorage.setItem('urlSalva', urlAtual);
+    console.log('URL salva com sucesso:', urlAtual);
+}
+
+salvarUrlAtual();
 // ============================================================
 // INICIAR PÁGINA
 // ============================================================
