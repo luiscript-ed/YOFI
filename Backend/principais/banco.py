@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 from pwdlib import PasswordHash
 import jwt
 
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone, timedelta, date
 from principais.mya import perguntar_mya
 from principais.analise_financeira import analisar_usuario 
 
