@@ -150,4 +150,4 @@ async function iniciar() {
 
 }
 
-iniciar();A
+iniciar();
