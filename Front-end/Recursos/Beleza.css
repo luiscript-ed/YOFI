@@ -11,13 +11,13 @@ body {
     padding-bottom: 60px;
 }
 
-/* Parte central e praticamente o body 2.0 */
+/* Parte superior da página */
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
     height: 70px;
-    background: #140c25;
+    background: #140c2588;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,30 +47,28 @@ body {
     color: #8b5cf6;
 }
 
-/* CONTAINER - basic bro */
+/* CONTAINER - body da parte inferior */
 .recursos-container {
-padding-top: 10vw;
+padding-top: 6vw;
 width: 90%;
-max-width: 1000px;
+max-width: 1100px;
 margin: auto;
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 1vh;
+display: flex;
+flex-direction: column;
+gap: 1vw;
 }
 
 /* CARDS bonitinhos, gemini que fez */
 .recursos-card {
-    background: #140c25;
-    padding: 35px;
-    border-radius: 20px;
-    border: 1px solid #24163d;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+box-shadow: 0px 0px 5px rgba(187, 159, 159, 0.397);
+padding: 10px 60px 60px 60px;
+border-radius: 10px;
+border-bottom: 1px solid #24163d;
 }
 
-/* Passar o mouse: cresce e ativa a sombra marcante */
 .recursos-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 15px 30px rgba(139, 92, 246, 0.25);
+box-shadow: 0px 0px 7px rgba(88, 121, 134, 0.993);
+transform: scale(1.005);
 }
 
 .recursos-card h2 {
@@ -80,9 +78,10 @@ gap: 1vh;
 }
 
 .recursos-card p {
-    font-size: 16px;
-    line-height: 1.7;
-    color: #cbd5e1;
+font-size: 17px;
+line-height: 1.8;
+color: #cbd5e1;
+max-width: 900px;
 }
 
 .trademark {
@@ -115,6 +114,7 @@ gap: 1vh;
     align-items: center;
     gap: 10px;
     margin-bottom: 10px;
+    align-items: center;
 }
 
 .coroa { font-size: 22px; }

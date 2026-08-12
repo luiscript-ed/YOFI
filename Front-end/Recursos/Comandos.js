@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         'rgba(4, 62, 223, 0.6)',
                         'rgba(52, 17, 209, 0.87)',
                         'rgba(148, 3, 245, 0.6)',
-                        'rgba(16, 185, 129, 0.6)'
+                        'rgba(16, 185, 129, 0.75)'
                     ],
                     borderWidth: 0,
                     borderRadius: 6
