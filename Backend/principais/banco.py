@@ -243,6 +243,30 @@ conn.close()
 # MODELOS
 # ==========================================
 
+class UsuarioCadastro(BaseModel):
+    nome: str
+    email: str
+    senha: str
+
+
+class UsuarioLogin(BaseModel):
+    email: str
+    senha: str
+
+
+class GoogleLogin(BaseModel):
+    credential: str
+
+
+class PerguntaMYA(BaseModel):
+    pergunta: str
+
+
+class ContaCreate(BaseModel):
+    nome: str
+    tipo: str
+    saldo_inicial: float = 0
+
 
 class ContaCreate(BaseModel):
     nome: str
