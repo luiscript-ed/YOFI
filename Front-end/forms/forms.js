@@ -1,5 +1,13 @@
 const form = document.getElementById("transacaoForm");
 
+function salvarUrlAtual() {
+    const urlAtual = window.location.href;
+    localStorage.setItem('urlSalva', urlAtual);
+    console.log('URL salva com sucesso:', urlAtual);
+}
+
+salvarUrlAtual();
+
 let usuario = null;
 let usuarioId = null;
 

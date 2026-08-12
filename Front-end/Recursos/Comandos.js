@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     
+    function salvarUrlAtual() {
+    const urlAtual = window.location.href;
+    localStorage.setItem('urlSalva', urlAtual);
+    console.log('URL salva com sucesso:', urlAtual);
+}
+
+salvarUrlAtual();
+
     // Generador de números aleatórios
     const n1 = Math.floor(Math.random() * 4000) + 1000;
     const n2 = Math.floor(Math.random() * 4000) + 1000;

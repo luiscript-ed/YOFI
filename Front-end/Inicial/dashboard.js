@@ -2,6 +2,14 @@
 // CONFIGURAÇÃO
 // ============================================================
 
+function salvarUrlAtual() {
+    const urlAtual = window.location.href;
+    localStorage.setItem('urlSalva', urlAtual);
+    console.log('URL salva com sucesso:', urlAtual);
+}
+
+salvarUrlAtual();
+
 const API_URL = "https://yofi-api.onrender.com";
 
 let usuario = null;

@@ -4,6 +4,14 @@ const userInput = document.getElementById('userInput');
 
 const API_URL = "https://yofi-api.onrender.com/mya";
 
+function salvarUrlAtual() {
+    const urlAtual = window.location.href;
+    localStorage.setItem('urlSalva', urlAtual);
+    console.log('URL salva com sucesso:', urlAtual);
+}
+
+salvarUrlAtual();
+
 function appendMessage(text, role) {
 
     const messageDiv = document.createElement('div');
