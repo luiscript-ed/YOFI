@@ -42,7 +42,7 @@
                 aria-label="Notificações"
             >
 
-                ❤️
+                🔔
 
                 <span id="notificationCount">
                     0
@@ -249,7 +249,7 @@
 
             <button
                 type="submit"
-                id="btnOk1"
+                dataid="btnOk1"
                 name="acao"
                 value="enviar"
                 class="botao-salvar"
@@ -261,9 +261,9 @@
         </form>
     </div>
 <!--GANHOS-->
-    <div class="display-on">    
+    <div class="display">    
         <form
-            id="gastosForm"
+            id="ganhosForm"
             class="movimentacao-form"
         >
             <!-- =================================================
@@ -411,7 +411,7 @@
 
             <button
                 type="submit"
-                id="btnOk2"
+                data-id="btnOk2"
                 name="acao"
                 value="enviar"
                 class="botao-salvar"
@@ -423,9 +423,9 @@
         </form>
     </div>
 <!--Movimentação-->
-    <div class="display-on">    
+    <div class="display">    
         <form
-            id="gastosForm"
+            id="movimentacaoForm"
             class="movimentacao-form"
         >
             <!-- =================================================
@@ -605,11 +605,11 @@
 
             <button
                 type="button"
-                id="btnGastos"
+                data-id="gastosForm"
                 name="categoriaGastos"
                 value="gasto"
                 class="categoria-btn ativo"
-                onclick=""
+                onclick="trocarDisplay(gastosForm)"
             >
 
                 <span class="categoria-titulo">
@@ -629,10 +629,11 @@
 
             <button
                 type="button"
-                id="btnEntrada"
+                data-id="ganhosForm"
                 name="categoriaEntrada"
                 value="entrada"
                 class="categoria-btn"
+                onclick="trocarDisplay(ganhosForm)"
             >
 
                 <span class="categoria-titulo">
@@ -652,10 +653,11 @@
 
             <button
                 type="button"
-                id="btnTransacao"
+                data-id="movimentacaoForm"
                 name="categoriaTransacao"
                 value="transacao"
                 class="categoria-btn"
+                onclick="trocarDisplay(movimentacaoForm)"
             >
 
                 <span class="categoria-titulo">

@@ -144,6 +144,23 @@ async function iniciar() {
 
 }
 
-function 
+function trocarDisplay(botao){
+
+    const idRecebido = botao.dataset.id;
+
+    const elementosVisiveis = document.querySelectorAll(".display-on");
+
+    elementosVisiveis.forEach(elemento => {
+        elemento.classList.remove("display-on");
+        elemento.classList.add("display");
+    });
+
+    const elementoSelecionado = document.getElementById(idRecebido);
+
+    if(elementoSelecionado){
+        elementoSelecionado.classList.remove("display");
+        elementoSelecionado.classList.add("display-on");
+    }
+}
 
 iniciar();
