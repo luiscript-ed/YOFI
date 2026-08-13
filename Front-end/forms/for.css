@@ -461,10 +461,17 @@ width: min(290px, 88vw);
 
 
 /* ============================================================
-   ÁREA PRINCIPAL
+   Container
    ============================================================ */
 
-.movimentacao-container{
+.display{
+      display: none;
+}
+.display-on{
+      display: block;
+}
+
+   .movimentacao-container{
 width: 90%;
 max-width: 700px;
 margin: 0 auto;
@@ -608,6 +615,8 @@ color: white;
 .valor-input input:focus{
 border: none;
 }
+
+
 
 
 /* ============================================================

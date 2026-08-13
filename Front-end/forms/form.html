@@ -98,29 +98,14 @@
         <!-- =====================================================
              FORMULÁRIO PRINCIPAL
              ===================================================== -->
-
+<!--GASTOS-->
+    <div class="display-on">    
         <form
-            id="transacaoForm"
+            id="gastosForm"
             class="movimentacao-form"
         >
-
- 
             <!-- =================================================
                  CAMPO: VALOR
-
-                 O JS procura:
-
-                 document.getElementById("valor").value
-
-                 Portanto o input possui:
-
-                 id="valor"
-
-                 O JS depois executa:
-
-                 Number(valor)
-
-                 Por isso usamos type="number".
                  ================================================= -->
 
             <div class="campo valor-campo">
@@ -274,6 +259,331 @@
 
 
         </form>
+    </div>
+<!--GANHOS-->
+    <div class="display-on">    
+        <form
+            id="gastosForm"
+            class="movimentacao-form"
+        >
+            <!-- =================================================
+                 CAMPO: VALOR
+                 ================================================= -->
+
+            <div class="campo valor-campo">
+
+                <label for="valor">
+                    VALOR
+                </label>
+
+                <div class="valor-input">
+                    <span>
+                        R$
+                    </span>
+
+                     <input
+                        type="number"
+                        id="valor"
+                        name="valor"
+                        placeholder="0,00"
+                        min="0"
+                        step="0.01"
+                        inputmode="decimal"
+                        required
+                    >
+                </div>
+            </div>
+
+            <!-- =================================================
+                CAMPO: CATEGORIA
+            ================================================= -->
+
+            <div class="campo">
+
+                <label for="categoriaGastos">
+                    CATEGORIA
+                </label>
+
+                <select
+                    id="categoria"
+                    name="categoria"
+                    required
+                >
+                    <option value="">
+                       Escolha uma Categoria
+                    </option>
+
+                    <!-- Categorias de gastos -->
+
+                    <option value="alimentacao">
+                        ALIMENTAÇÃO
+                    </option>
+
+                    <option value="transporte">
+                        TRANSPORTE
+                    </option>
+
+                    <option value="moradia">
+                        MORADIA
+                    </option>
+
+                    <option value="lazer">
+                        LAZER
+                    </option>
+
+                    <option value="saude">
+                        SAÚDE
+                    </option>
+
+                    <option value="educacao">
+                        EDUCAÇÃO
+                    </option>
+
+                    <option value="compras">
+                        COMPRAS
+                    </option>
+
+                    <option value="assinaturas">
+                        ASSINATURAS
+                    </option>
+
+                    <option value="outros">
+                        OUTROS
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CAMPO: DESCRIÇÃO
+                 ================================================= -->
+
+            <div class="campo">
+
+                <label for="descricao">
+
+                    Descrição
+
+                    <span class="opcional">
+                        opcional
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="descricaoGasto"
+                    name="descricao"
+                    placeholder="Ex: almoço, mercado, salário..."
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 CAMPO: DATA
+                 ================================================= -->
+
+            <div class="campo">
+
+                <label for="data">
+                    Data
+                </label>
+
+
+                <input
+                    type="date"
+                    id="dataGasto"
+                    name="data"
+                    required
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 BOTÃO ENVIAR
+                 ================================================= -->
+
+            <button
+                type="submit"
+                id="btnOk2"
+                name="acao"
+                value="enviar"
+                class="botao-salvar"
+            >
+                Confirmar
+            </button>
+
+
+        </form>
+    </div>
+<!--Movimentação-->
+    <div class="display-on">    
+        <form
+            id="gastosForm"
+            class="movimentacao-form"
+        >
+            <!-- =================================================
+                 CAMPO: VALOR
+                 ================================================= -->
+
+            <div class="campo valor-campo">
+
+                <label for="valor">
+                    VALOR
+                </label>
+
+                <div class="valor-input">
+                    <span>
+                        R$
+                    </span>
+
+                     <input
+                        type="number"
+                        id="valor"
+                        name="valor"
+                        placeholder="0,00"
+                        min="0"
+                        step="0.01"
+                        inputmode="decimal"
+                        required
+                    >
+                </div>
+            </div>
+
+            <!-- =================================================
+                CAMPO: CATEGORIA
+            ================================================= -->
+
+            <div class="campo">
+
+                <label for="categoriaGastos">
+                    CATEGORIA
+                </label>
+
+                <select
+                    id="categoria"
+                    name="categoria"
+                    required
+                >
+                    <option value="">
+                       Escolha uma Categoria
+                    </option>
+
+                    <!-- Categorias de gastos -->
+
+                    <option value="alimentacao">
+                        ALIMENTAÇÃO
+                    </option>
+
+                    <option value="transporte">
+                        TRANSPORTE
+                    </option>
+
+                    <option value="moradia">
+                        MORADIA
+                    </option>
+
+                    <option value="lazer">
+                        LAZER
+                    </option>
+
+                    <option value="saude">
+                        SAÚDE
+                    </option>
+
+                    <option value="educacao">
+                        EDUCAÇÃO
+                    </option>
+
+                    <option value="compras">
+                        COMPRAS
+                    </option>
+
+                    <option value="assinaturas">
+                        ASSINATURAS
+                    </option>
+
+                    <option value="outros">
+                        OUTROS
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CAMPO: DESCRIÇÃO
+                 ================================================= -->
+
+            <div class="campo">
+
+                <label for="descricao">
+
+                    Descrição
+
+                    <span class="opcional">
+                        opcional
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="descricaoGasto"
+                    name="descricao"
+                    placeholder="Ex: almoço, mercado, salário..."
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 CAMPO: DATA
+                 ================================================= -->
+
+            <div class="campo">
+
+                <label for="data">
+                    Data
+                </label>
+
+
+                <input
+                    type="date"
+                    id="dataGasto"
+                    name="data"
+                    required
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 BOTÃO ENVIAR
+                 ================================================= -->
+
+            <button
+                type="submit"
+                id="btnOk3"
+                name="acao"
+                value="enviar"
+                class="botao-salvar"
+            >
+                Confirmar
+            </button>
+
+
+        </form>
+    </div>
 
     </main>
 
@@ -299,6 +609,7 @@
                 name="categoriaGastos"
                 value="gasto"
                 class="categoria-btn ativo"
+                onclick=""
             >
 
                 <span class="categoria-titulo">
