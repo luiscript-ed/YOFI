@@ -13,8 +13,11 @@
         rel="stylesheet"
         href="for.css"
     >
+</head>
 
-     <header class="topbar">
+<body>
+    
+    <header class="topbar">
 
 
         <!-- BOTÃO MENU -->
@@ -68,11 +71,6 @@
         </div>
 
     </header>
-
-
-</head>
-
-<body>
     <!-- =========================================================
          ÁREA PRINCIPAL
          ========================================================= -->
@@ -194,6 +192,37 @@
             </div>
 
 
+                <!-- =================================================
+                 CAMPO: QUAL A CONTA/CARTÂO
+                 ================================================= -->
+
+                <div class="campo">
+                    <label for="contaCartao">
+                        Conta ou Cartão
+                    </label>
+
+                    <select
+                        id="contaCartao"
+                        name="conta_cartao"
+                        required
+                            >
+                    <option value="">
+                        Selecione uma conta ou cartão
+                    </option>
+
+                    <option value="conta_corrente">
+                        Conta Corrente
+                    </option>
+
+                    <option value="conta_poupanca">
+                        Poupança
+                    </option>
+
+                    <option value="cartao">
+                        Cartão de Crédito
+                    </option>
+                </select>
+            </div>
 
             <!-- =================================================
                  CAMPO: DESCRIÇÃO
@@ -383,7 +412,38 @@
 
             </div>
 
+                <!-- =================================================
+                 CAMPO: QUAL A CONTA/CARTÂO
+                 ================================================= -->
 
+                    <div class="campo">
+                        <label for="contaCartao">
+                         Conta ou Cartão
+                            </label>
+
+                        <select
+                            id="contaCartao"
+                            name="conta_cartao"
+                            required
+                                >
+                        <option value="">
+                         Selecione uma conta ou cartão
+                        </option>
+
+                        <option value="conta_corrente">
+                            Conta Corrente
+                        </option>
+
+                        <option value="conta_poupanca">
+                            Poupança
+                        </option>
+
+                        <option value="cartao">
+                            Cartão de Crédito
+                        </option>
+                        </select>
+                    </div>
+                 
             <!-- =================================================
                  CAMPO: DATA
                  ================================================= -->
@@ -457,66 +517,70 @@
             </div>
 
             <!-- =================================================
-                CAMPO: CATEGORIA
+                CAMPO: VAI MUDAR DE QUAL CONTA PARA QUAL CONTA. ORIGEM/ DESTINO
             ================================================= -->
 
-            <div class="campo">
+         
+<div class="movimentacao-origem-destino">
 
-                <label for="categoriaGastos">
-                    CATEGORIA
-                </label>
+    <div class="campo">
+        <label for="origem">
+            Origem
+        </label>
 
-                <select
-                    id="categoria"
-                    name="categoria"
-                    required
-                >
-                    <option value="">
-                       Escolha uma Categoria
-                    </option>
+        <select
+            id="origem"
+            name="origem"
+            required
+        >
+            <option value="">
+                De onde sai?
+            </option>
 
-                    <!-- Categorias de gastos -->
+            <option value="conta_corrente">
+                Conta Corrente
+            </option>
 
-                    <option value="alimentacao">
-                        ALIMENTAÇÃO
-                    </option>
+            <option value="conta_poupanca">
+                Poupança
+            </option>
 
-                    <option value="transporte">
-                        TRANSPORTE
-                    </option>
+            <option value="cartao">
+                Cartão de Crédito
+            </option>
+        </select>
+    </div>
 
-                    <option value="moradia">
-                        MORADIA
-                    </option>
 
-                    <option value="lazer">
-                        LAZER
-                    </option>
+    <div class="campo">
+        <label for="destino">
+            Destino
+        </label>
 
-                    <option value="saude">
-                        SAÚDE
-                    </option>
+        <select
+            id="destino"
+            name="destino"
+            required
+        >
+            <option value="">
+                Para onde vai?
+            </option>
 
-                    <option value="educacao">
-                        EDUCAÇÃO
-                    </option>
+            <option value="conta_corrente">
+                Conta Corrente
+            </option>
 
-                    <option value="compras">
-                        COMPRAS
-                    </option>
+            <option value="conta_poupanca">
+                Poupança
+            </option>
 
-                    <option value="assinaturas">
-                        ASSINATURAS
-                    </option>
+            <option value="cartao">
+                Cartão de Crédito
+            </option>
+        </select>
+    </div>
 
-                    <option value="outros">
-                        OUTROS
-                    </option>
-
-                </select>
-
-            </div>
-
+</div>
 
 
             <!-- =================================================
@@ -678,4 +742,5 @@
 
 </body>
 
+<script src="forms.js"> </script>
 </html>

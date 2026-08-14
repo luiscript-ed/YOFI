@@ -532,6 +532,24 @@ color: #64748b;
 margin-left: 5px;
 }
 
+.movimentacao-origem-destino {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.movimentacao-origem-destino .campo {
+    margin-bottom: 28px;
+}
+
+@media (max-width: 600px) {
+
+    .movimentacao-origem-destino {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+}
 
 /* ============================================================
    INPUTS
