@@ -6,6 +6,7 @@ const API_URL = "https://yofi-api.onrender.com";
 
 let usuario = null;
 let usuarioId = null;
+let dashboardAtual = null;
 
 let mesSelecionado = new Date().getMonth();
 let anoSelecionado = new Date().getFullYear();
@@ -39,21 +40,23 @@ const notificationBtn =
 const notificationPanel =
     document.getElementById("notificationPanel");
 
+const notificationList =
+    document.getElementById("notificationList");
+
+const notificationCount =
+    document.getElementById("notificationCount");
+
 
 // ============================================================
-// FUNÇÕES AUXILIARES
+// UTILIDADES
 // ============================================================
 
 function formatarMoeda(valor) {
-
-    const numero = Number(valor) || 0;
-
-    return `R$ ${numero.toFixed(2)}`;
+    return `R$ ${(Number(valor) || 0).toFixed(2)}`;
 }
 
 
 async function obterJSON(resposta) {
-
     const texto = await resposta.text();
 
     if (!texto) {
@@ -69,7 +72,6 @@ async function obterJSON(resposta) {
 
 
 function escaparHTML(valor) {
-
     if (valor === null || valor === undefined) {
         return "";
     }
@@ -84,11 +86,31 @@ function escaparHTML(valor) {
 
 
 async function apiGet(endpoint) {
-
     const resposta = await fetch(
         `${API_URL}${endpoint}`,
         {
             method: "GET",
+            credentials: "include",
+            headers: {
+                "Accept": "application/json"
+            }
+        }
+    );
+
+    const dados = await obterJSON(resposta);
+
+    return {
+        resposta,
+        dados
+    };
+}
+
+
+async function apiDelete(endpoint) {
+    const resposta = await fetch(
+        `${API_URL}${endpoint}`,
+        {
+            method: "DELETE",
             credentials: "include",
             headers: {
                 "Accept": "application/json"
@@ -110,15 +132,36 @@ async function apiGet(endpoint) {
 // ============================================================
 
 if (menuBtn && sidebar && app) {
-
     menuBtn.addEventListener("click", () => {
-
         sidebar.classList.toggle("closed");
         app.classList.toggle("sidebar-closed");
-
     });
-
 }
+
+
+document
+    .querySelectorAll(".sidebar-link")
+    .forEach(link => {
+        link.addEventListener("click", () => {
+
+            document
+                .querySelectorAll(".sidebar-link")
+                .forEach(item => {
+                    item.classList.remove("active");
+                });
+
+            link.classList.add("active");
+
+            if (
+                window.innerWidth <= 800 &&
+                sidebar &&
+                app
+            ) {
+                sidebar.classList.add("closed");
+                app.classList.add("sidebar-closed");
+            }
+        });
+    });
 
 
 // ============================================================
@@ -126,34 +169,26 @@ if (menuBtn && sidebar && app) {
 // ============================================================
 
 async function verificarLogin() {
-
     try {
-
         const { resposta, dados } =
             await apiGet("/me");
 
         if (!resposta.ok) {
-
             console.warn(
                 "Usuário não autenticado:",
-                resposta.status
+                resposta.status,
+                dados
             );
 
             return false;
         }
 
         usuario = dados;
-
-        usuarioId =
-            usuario.usuario_id ??
-            usuario.id ??
-            usuario.user_id;
+        usuarioId = usuario.usuario_id;
 
         if (!usuarioId) {
-
             console.error(
-                "O endpoint /me não retornou o ID do usuário.",
-                usuario
+                "O endpoint /me não retornou usuario_id."
             );
 
             return false;
@@ -170,23 +205,18 @@ async function verificarLogin() {
         );
 
         if (usuarioNome) {
-
             usuarioNome.textContent =
                 usuario.nome || "Usuário";
-
         }
 
         if (usuarioEmail) {
-
             usuarioEmail.textContent =
                 usuario.email || "";
-
         }
 
         return true;
 
     } catch (erro) {
-
         console.error(
             "Erro ao verificar autenticação:",
             erro
@@ -198,96 +228,86 @@ async function verificarLogin() {
 
 
 // ============================================================
-// DASHBOARD
+// DASHBOARD PRINCIPAL
 // ============================================================
 
 async function carregarDashboard() {
-
     try {
-
         const { resposta, dados } =
             await apiGet(
                 `/dashboard?mes=${mesSelecionado + 1}&ano=${anoSelecionado}`
             );
 
         if (!resposta.ok) {
-
             console.error(
                 "Erro no dashboard:",
                 resposta.status,
                 dados
             );
 
+            dashboardAtual = null;
             return null;
         }
 
-        const resumo =
-            dados?.resumo || {};
+        dashboardAtual = dados;
 
-        const ganhos =
-            Number(
-                resumo.ganhos || 0
-            );
-
-        const gastos =
-            Number(
-                resumo.gastos || 0
-            );
-
-        const saldo =
-            Number(
-                resumo.saldo || 0
-            );
-
-
-        const elementoSaldo =
-            document.getElementById("saldo");
-
-        const elementoGanhos =
-            document.getElementById("ganhos");
-
-        const elementoGastos =
-            document.getElementById("gastos");
-
-
-        if (elementoSaldo) {
-
-            elementoSaldo.textContent =
-                formatarMoeda(saldo);
-
-        }
-
-        if (elementoGanhos) {
-
-            elementoGanhos.textContent =
-                formatarMoeda(ganhos);
-
-        }
-
-        if (elementoGastos) {
-
-            elementoGastos.textContent =
-                formatarMoeda(gastos);
-
-        }
-
-
-        atualizarEconomia(
-            ganhos,
-            gastos
-        );
-
+        renderizarResumo(dados);
+        renderizarEconomia(dados);
 
         return dados;
 
     } catch (erro) {
-
         console.error(
             "Erro ao carregar dashboard:",
             erro
         );
 
+        dashboardAtual = null;
         return null;
+    }
+}
+
+
+// ============================================================
+// RESUMO
+// ============================================================
+
+function renderizarResumo(dados) {
+    const resumo = dados?.resumo || {};
+
+    const saldo =
+        Number(resumo.saldo) || 0;
+
+    const ganhos =
+        Number(resumo.ganhos) || 0;
+
+    const gastos =
+        Number(resumo.gastos) || 0;
+
+
+    const elementoSaldo =
+        document.getElementById("saldo");
+
+    const elementoGanhos =
+        document.getElementById("ganhos");
+
+    const elementoGastos =
+        document.getElementById("gastos");
+
+
+    if (elementoSaldo) {
+        elementoSaldo.textContent =
+            formatarMoeda(saldo);
+    }
+
+    if (elementoGanhos) {
+        elementoGanhos.textContent =
+            formatarMoeda(ganhos);
+    }
+
+    if (elementoGastos) {
+        elementoGastos.textContent =
+            formatarMoeda(gastos);
     }
 }
 
@@ -296,32 +316,25 @@ async function carregarDashboard() {
 // ECONOMIA
 // ============================================================
 
-function atualizarEconomia(
-    receitas,
-    despesas
-) {
+function renderizarEconomia(dados) {
+    const economia =
+        dados?.economia || {};
 
-    receitas = Number(receitas) || 0;
-    despesas = Number(despesas) || 0;
+    const receitas =
+        Number(economia.receitas) || 0;
+
+    const despesas =
+        Number(economia.despesas) || 0;
 
     const valorEconomizado =
-        receitas - despesas;
+        Number(economia.valor_economizado) || 0;
 
-    let taxa = 0;
-
-    if (receitas > 0) {
-
-        taxa =
-            (valorEconomizado / receitas) * 100;
-
-    }
-
-    taxa =
+    const taxa =
         Math.max(
             0,
             Math.min(
                 100,
-                taxa
+                Number(economia.taxa) || 0
             )
         );
 
@@ -353,28 +366,21 @@ function atualizarEconomia(
 
 
     if (economiaReceitas) {
-
         economiaReceitas.textContent =
             formatarMoeda(receitas);
-
     }
 
     if (economiaDespesas) {
-
         economiaDespesas.textContent =
             formatarMoeda(despesas);
-
     }
 
     if (taxaEconomia) {
-
         taxaEconomia.textContent =
             `${taxa.toFixed(1)}%`;
-
     }
 
     if (valorEconomizadoElemento) {
-
         valorEconomizadoElemento.textContent =
             formatarMoeda(
                 Math.max(
@@ -382,161 +388,105 @@ function atualizarEconomia(
                     valorEconomizado
                 )
             );
-
     }
 
     if (progressBar) {
-
         progressBar.style.width =
             `${taxa}%`;
-
     }
 }
 
 
 // ============================================================
-// TRANSAÇÕES
+// ÚLTIMAS TRANSAÇÕES
 // ============================================================
 
-async function carregarTransacoes() {
+function renderizarUltimasTransacoes(dados) {
+    const container =
+        document.getElementById(
+            "lista-transacoes"
+        );
 
-    if (!usuarioId) {
-        return [];
+    if (!container) {
+        return;
     }
 
-    try {
+    const transacoes =
+        Array.isArray(
+            dados?.ultimas_transacoes
+        )
+            ? dados.ultimas_transacoes
+            : [];
 
-        const { resposta, dados } =
-            await apiGet(
-                `/transacoes/${usuarioId}`
-            );
 
-        if (!resposta.ok) {
+    container.innerHTML = "";
 
-            console.error(
-                "Erro nas transações:",
-                resposta.status,
-                dados
-            );
 
-            return [];
-        }
+    if (!transacoes.length) {
+        container.innerHTML = `
+            <div class="sem-transacoes">
+                Nenhuma transação encontrada.
+            </div>
+        `;
 
-        const transacoes =
-            Array.isArray(dados)
-                ? dados
-                : (
-                    dados?.transacoes ||
-                    dados?.data ||
-                    []
+        return;
+    }
+
+
+    transacoes
+        .slice(0, 3)
+        .forEach(transacao => {
+
+            const tipo =
+                String(
+                    transacao.tipo || ""
+                ).toLowerCase();
+
+            const ganho =
+                tipo === "ganho";
+
+            const classe =
+                ganho
+                    ? "ganho"
+                    : "gasto";
+
+            const sinal =
+                ganho
+                    ? "+"
+                    : "-";
+
+            const categoria =
+                escaparHTML(
+                    transacao.categoria ||
+                    "Sem categoria"
                 );
 
+            const descricao =
+                escaparHTML(
+                    transacao.descricao ||
+                    "Sem descrição"
+                );
 
-        const container =
-            document.getElementById(
-                "lista-transacoes"
-            );
-
-
-        if (!container) {
-            return transacoes;
-        }
-
-
-        container.innerHTML = "";
+            const valor =
+                Number(
+                    transacao.valor
+                ) || 0;
 
 
-        if (transacoes.length === 0) {
+            container.innerHTML += `
+                <div class="transacao">
+                    <div>
+                        <strong>${categoria}</strong>
+                        <br>
+                        <small>${descricao}</small>
+                    </div>
 
-            container.innerHTML = `
-                <div class="sem-transacoes">
-                    Nenhuma transação encontrada.
+                    <div class="${classe}">
+                        ${sinal} ${formatarMoeda(valor)}
+                    </div>
                 </div>
             `;
-
-            return transacoes;
-        }
-
-
-        const ultimasTres =
-            transacoes.slice(0, 3);
-
-
-        ultimasTres.forEach(
-            transacao => {
-
-                const tipo =
-                    String(
-                        transacao.tipo || ""
-                    ).toLowerCase();
-
-
-                const ganho =
-                    tipo === "ganho" ||
-                    tipo === "entrada" ||
-                    tipo === "receita";
-
-
-                const classe =
-                    ganho
-                        ? "ganho"
-                        : "gasto";
-
-
-                const sinal =
-                    ganho
-                        ? "+"
-                        : "-";
-
-
-                const categoria =
-                    escaparHTML(
-                        transacao.categoria ||
-                        "Sem categoria"
-                    );
-
-
-                const descricao =
-                    escaparHTML(
-                        transacao.descricao ||
-                        "Sem descrição"
-                    );
-
-
-                const valor =
-                    Number(
-                        transacao.valor
-                    ) || 0;
-
-
-                container.innerHTML += `
-                    <div class="transacao">
-                        <div>
-                            <strong>${categoria}</strong>
-                            <br>
-                            <small>${descricao}</small>
-                        </div>
-
-                        <div class="${classe}">
-                            ${sinal} ${formatarMoeda(valor)}
-                        </div>
-                    </div>
-                `;
-            }
-        );
-
-
-        return transacoes;
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao carregar transações:",
-            erro
-        );
-
-        return [];
-    }
+        });
 }
 
 
@@ -544,10 +494,7 @@ async function carregarTransacoes() {
 // GRÁFICO DE CATEGORIAS
 // ============================================================
 
-async function carregarGraficoCategorias(
-    dadosDashboard = null
-) {
-
+function carregarGraficoCategorias(dados) {
     const canvas =
         document.getElementById(
             "graficoCategorias"
@@ -561,7 +508,6 @@ async function carregarGraficoCategorias(
         typeof Chart ===
         "undefined"
     ) {
-
         console.error(
             "Chart.js não foi carregado."
         );
@@ -570,167 +516,111 @@ async function carregarGraficoCategorias(
     }
 
 
-    try {
-
-        if (!dadosDashboard) {
-
-            dadosDashboard =
-                await carregarDashboard();
-
-        }
-
-        if (!dadosDashboard) {
-            return;
-        }
+    const categorias =
+        Array.isArray(
+            dados?.categorias
+        )
+            ? dados.categorias
+            : [];
 
 
-        const categorias =
-            Array.isArray(
-                dadosDashboard.categorias
-            )
-                ? dadosDashboard.categorias
-                : [];
-
-
-        const labels =
-            categorias.map(
-                item =>
-                    item.categoria ||
-                    "Sem categoria"
-            );
-
-
-        const valores =
-            categorias.map(
-                item =>
-                    Number(
-                        item.total || 0
-                    )
-            );
-
-
-        if (graficoCategorias) {
-
-            graficoCategorias.destroy();
-            graficoCategorias = null;
-
-        }
-
-
-        if (valores.length === 0) {
-
-            console.warn(
-                "Nenhuma categoria encontrada para o mês selecionado."
-            );
-
-            return;
-        }
-
-
-        graficoCategorias =
-            new Chart(
-                canvas,
-                {
-
-                    type: "doughnut",
-
-                    data: {
-
-                        labels,
-
-                        datasets: [
-
-                            {
-
-                                data: valores,
-
-                                backgroundColor: [
-
-                                    "#A855F7",
-                                    "#7C3AED",
-                                    "#6366F1",
-                                    "#3B82F6",
-                                    "#06B6D4",
-                                    "#10B981",
-                                    "#F59E0B",
-                                    "#EF4444",
-                                    "#EC4899",
-                                    "#14B8A6"
-
-                                ],
-
-                                borderWidth: 0
-
-                            }
-
-                        ]
-
-                    },
-
-                    options: {
-
-                        responsive: true,
-
-                        maintainAspectRatio: true,
-
-                        plugins: {
-
-                            legend: {
-
-                                position: "bottom",
-
-                                labels: {
-
-                                    color: "#f5f5f7",
-
-                                    padding: 16
-
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                }
-            );
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao criar gráfico de categorias:",
-            erro
+    const labels =
+        categorias.map(
+            item =>
+                item.categoria ||
+                "Sem categoria"
         );
 
+
+    const valores =
+        categorias.map(
+            item =>
+                Number(
+                    item.total
+                ) || 0
+        );
+
+
+    if (graficoCategorias) {
+        graficoCategorias.destroy();
+        graficoCategorias = null;
     }
+
+
+    if (!valores.length) {
+        return;
+    }
+
+
+    graficoCategorias =
+        new Chart(
+            canvas,
+            {
+                type: "doughnut",
+
+                data: {
+                    labels,
+
+                    datasets: [
+                        {
+                            data: valores,
+
+                            backgroundColor: [
+                                "#A855F7",
+                                "#7C3AED",
+                                "#6366F1",
+                                "#3B82F6",
+                                "#06B6D4",
+                                "#10B981",
+                                "#F59E0B",
+                                "#EF4444",
+                                "#EC4899",
+                                "#14B8A6"
+                            ],
+
+                            borderWidth: 0
+                        }
+                    ]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+
+                    plugins: {
+                        legend: {
+                            position: "bottom",
+
+                            labels: {
+                                color: "#f5f5f7",
+                                padding: 16
+                            }
+                        }
+                    }
+                }
+            }
+        );
 }
 
 
 // ============================================================
-// GRÁFICO DE EVOLUÇÃO DAS DESPESAS
+// GRÁFICO DE EVOLUÇÃO
 // ============================================================
 
-async function criarGraficoEvolucaoDespesas(
-    transacoes = null
-) {
-
+function carregarGraficoEvolucao(dados) {
     const canvas =
         document.getElementById(
             "graficoEvolucaoDespesas"
         );
 
-
     if (!canvas) {
         return;
     }
-
 
     if (
         typeof Chart ===
         "undefined"
     ) {
-
         console.error(
             "Chart.js não foi carregado."
         );
@@ -739,247 +629,207 @@ async function criarGraficoEvolucaoDespesas(
     }
 
 
-    try {
+    const evolucao =
+        Array.isArray(
+            dados?.evolucao
+        )
+            ? dados.evolucao
+            : [];
 
-        if (!transacoes) {
 
-            transacoes =
-                await carregarTransacoes();
+    const ultimoDia =
+        new Date(
+            anoSelecionado,
+            mesSelecionado + 1,
+            0
+        ).getDate();
 
+
+    const valoresPorDia = {};
+
+
+    evolucao.forEach(item => {
+
+        if (!item?.data) {
+            return;
         }
 
+        const data =
+            new Date(item.data);
 
-        if (!Array.isArray(transacoes)) {
-
-            transacoes = [];
-
+        if (
+            Number.isNaN(
+                data.getTime()
+            )
+        ) {
+            return;
         }
 
+        const dia =
+            data.getDate();
 
-        const despesasPorDia = {};
-
-
-        transacoes.forEach(
-            transacao => {
-
-                const tipo =
-                    String(
-                        transacao.tipo || ""
-                    ).toLowerCase();
+        valoresPorDia[dia] =
+            Number(item.total) || 0;
+    });
 
 
-                const ehDespesa =
-                    tipo === "gasto" ||
-                    tipo === "despesa" ||
-                    tipo === "saida";
+    const labels = [];
+    const valores = [];
 
 
-                if (!ehDespesa) {
-                    return;
-                }
-
-
-                const dataOriginal =
-                    transacao.data ||
-                    transacao.created_at ||
-                    transacao.data_criacao;
-
-
-                if (!dataOriginal) {
-                    return;
-                }
-
-
-                const data =
-                    new Date(dataOriginal);
-
-
-                if (
-                    Number.isNaN(
-                        data.getTime()
-                    )
-                ) {
-                    return;
-                }
-
-
-                if (
-                    data.getMonth() !==
-                    mesSelecionado ||
-                    data.getFullYear() !==
-                    anoSelecionado
-                ) {
-
-                    return;
-                }
-
-
-                const dia =
-                    data.getDate();
-
-
-                const valor =
-                    Number(
-                        transacao.valor
-                    ) || 0;
-
-
-                despesasPorDia[dia] =
-                    (
-                        despesasPorDia[dia] ||
-                        0
-                    ) + valor;
-
-            }
+    for (
+        let dia = 1;
+        dia <= ultimoDia;
+        dia++
+    ) {
+        labels.push(
+            String(dia).padStart(2, "0")
         );
 
-
-        const ultimoDia =
-            new Date(
-                anoSelecionado,
-                mesSelecionado + 1,
-                0
-            ).getDate();
+        valores.push(
+            valoresPorDia[dia] || 0
+        );
+    }
 
 
-        const labels = [];
-        const valores = [];
+    if (graficoEvolucao) {
+        graficoEvolucao.destroy();
+        graficoEvolucao = null;
+    }
 
 
-        for (
-            let dia = 1;
-            dia <= ultimoDia;
-            dia++
-        ) {
+    graficoEvolucao =
+        new Chart(
+            canvas,
+            {
+                type: "line",
 
-            labels.push(
-                String(dia).padStart(2, "0")
-            );
+                data: {
+                    labels,
 
-            valores.push(
-                Number(
-                    despesasPorDia[dia] || 0
-                )
-            );
-        }
+                    datasets: [
+                        {
+                            label: "Despesas",
 
+                            data: valores,
 
-        if (graficoEvolucao) {
+                            borderColor:
+                                "#A855F7",
 
-            graficoEvolucao.destroy();
-            graficoEvolucao = null;
+                            backgroundColor:
+                                "rgba(168, 85, 247, 0.12)",
 
-        }
+                            borderWidth: 2,
 
+                            tension: 0.35,
 
-        graficoEvolucao =
-            new Chart(
-                canvas,
-                {
-                    type: "line",
+                            fill: true,
 
-                    data: {
+                            pointRadius: 3,
 
-                        labels,
+                            pointHoverRadius: 5
+                        }
+                    ]
+                },
 
-                        datasets: [
-                            {
-                                label:
-                                    "Despesas",
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
 
-                                data:
-                                    valores,
-
-                                borderColor:
-                                    "#A855F7",
-
-                                backgroundColor:
-                                    "rgba(168, 85, 247, 0.12)",
-
-                                borderWidth: 2,
-
-                                tension: 0.35,
-
-                                fill: true,
-
-                                pointRadius: 3,
-
-                                pointHoverRadius: 5
-                            }
-                        ]
+                    interaction: {
+                        intersect: false,
+                        mode: "index"
                     },
 
-                    options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
 
-                        responsive: true,
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: "#a8a5b0"
+                            },
 
-                        maintainAspectRatio: false,
-
-                        interaction: {
-
-                            intersect: false,
-
-                            mode: "index"
-                        },
-
-                        plugins: {
-
-                            legend: {
-
-                                display: false
+                            grid: {
+                                color:
+                                    "rgba(255,255,255,0.05)"
                             }
                         },
 
-                        scales: {
+                        y: {
+                            beginAtZero: true,
 
-                            x: {
+                            ticks: {
+                                color: "#a8a5b0",
 
-                                ticks: {
-
-                                    color:
-                                        "#a8a5b0"
-                                },
-
-                                grid: {
-
-                                    color:
-                                        "rgba(255,255,255,0.05)"
-                                }
+                                callback: valor =>
+                                    `R$ ${Number(valor).toFixed(0)}`
                             },
 
-                            y: {
-
-                                beginAtZero: true,
-
-                                ticks: {
-
-                                    color:
-                                        "#a8a5b0",
-
-                                    callback:
-                                        valor =>
-                                            `R$ ${Number(valor).toFixed(0)}`
-                                },
-
-                                grid: {
-
-                                    color:
-                                        "rgba(255,255,255,0.05)"
-                                }
+                            grid: {
+                                color:
+                                    "rgba(255,255,255,0.05)"
                             }
                         }
                     }
                 }
-            );
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao criar gráfico de evolução:",
-            erro
+            }
         );
+}
 
+
+// ============================================================
+// CONTAS E CARTÕES
+// ============================================================
+
+function atualizarDadosFinanceiros(dados) {
+
+    const contas =
+        Array.isArray(dados?.contas)
+            ? dados.contas
+            : [];
+
+    const cartoes =
+        Array.isArray(dados?.cartoes)
+            ? dados.cartoes
+            : [];
+
+
+    console.log(
+        "Contas carregadas:",
+        contas
+    );
+
+    console.log(
+        "Cartões carregados:",
+        cartoes
+    );
+
+    // Os dados ficam disponíveis em dashboardAtual.
+    // Os elementos visuais específicos podem ser ligados
+    // quando definirmos os IDs da Home.
+}
+
+
+// ============================================================
+// RENDERIZAÇÃO CENTRAL
+// ============================================================
+
+function renderizarDashboard(dados) {
+    if (!dados) {
+        return;
     }
+
+    renderizarResumo(dados);
+    renderizarEconomia(dados);
+    renderizarUltimasTransacoes(dados);
+    atualizarDadosFinanceiros(dados);
+
+    carregarGraficoCategorias(dados);
+    carregarGraficoEvolucao(dados);
 }
 
 
@@ -1008,11 +858,9 @@ console.log(
 somMYA.addEventListener(
     "canplaythrough",
     () => {
-
         console.log(
             "✅ Áudio da MYA carregado corretamente."
         );
-
     }
 );
 
@@ -1020,57 +868,34 @@ somMYA.addEventListener(
 somMYA.addEventListener(
     "error",
     erro => {
-
         console.error(
-            "❌ Erro ao carregar áudio da MYA:",
+            "❌ Erro ao carregar o áudio da MYA:",
             erro
         );
-
-        console.error(
-            "❌ Caminho:",
-            somMYA.src
-        );
-
     }
 );
 
 
 async function ativarAudio() {
-
     if (audioPermitido) {
         return true;
     }
 
-
     try {
-
         somMYA.volume = 0;
 
         await somMYA.play();
 
         somMYA.pause();
-
         somMYA.currentTime = 0;
-
         somMYA.volume = 1;
 
         audioPermitido = true;
 
-        console.log(
-            "✅ Áudio da MYA liberado."
-        );
-
         return true;
 
-    } catch (erro) {
-
+    } catch {
         audioPermitido = false;
-
-        console.warn(
-            "⚠️ Áudio ainda não liberado:",
-            erro
-        );
-
         return false;
     }
 }
@@ -1079,32 +904,24 @@ async function ativarAudio() {
 document.addEventListener(
     "click",
     ativarAudio,
-    {
-        once: true
-    }
+    { once: true }
 );
 
 
 async function tocarSomMYA() {
-
     if (!audioPermitido) {
         return;
     }
 
-
     try {
-
         somMYA.currentTime = 0;
-
         await somMYA.play();
 
     } catch (erro) {
-
         console.error(
             "Erro ao reproduzir som da MYA:",
             erro
         );
-
     }
 }
 
@@ -1118,41 +935,30 @@ async function solicitarPermissaoNotificacao() {
     if (
         !("Notification" in window)
     ) {
-
         return false;
     }
-
 
     if (
         Notification.permission ===
         "granted"
     ) {
-
         return true;
     }
-
 
     if (
         Notification.permission ===
         "denied"
     ) {
-
         return false;
     }
 
-
     try {
-
         const permissao =
             await Notification.requestPermission();
 
-        return (
-            permissao ===
-            "granted"
-        );
+        return permissao === "granted";
 
     } catch (erro) {
-
         console.error(
             "Erro ao solicitar permissão:",
             erro
@@ -1163,30 +969,55 @@ async function solicitarPermissaoNotificacao() {
 }
 
 
-// ============================================================
-// BOTÃO DE NOTIFICAÇÕES
-// ============================================================
-
-if (
-    notificationBtn &&
-    notificationPanel
+function mostrarNotificacaoNavegador(
+    notificacao
 ) {
 
-    notificationBtn.addEventListener(
-        "click",
-        async () => {
+    if (
+        !("Notification" in window)
+    ) {
+        return;
+    }
 
-            await ativarAudio();
+    if (
+        Notification.permission !==
+        "granted"
+    ) {
+        return;
+    }
 
-            await solicitarPermissaoNotificacao();
+    try {
+        const notificacaoNativa =
+            new Notification(
+                notificacao.titulo ||
+                    "YOFI - MYA",
+                {
+                    body:
+                        notificacao.mensagem ||
+                        "Você recebeu uma nova notificação.",
 
-            notificationPanel
-                .classList
-                .toggle("hidden");
+                    icon:
+                        "../Imagens-Audios/logo.png",
 
-        }
-    );
+                    tag:
+                        "yofi-notificacao"
+                }
+            );
 
+        notificacaoNativa.onclick =
+            () => {
+
+                window.focus();
+
+                notificacaoNativa.close();
+            };
+
+    } catch (erro) {
+        console.error(
+            "Erro na notificação nativa:",
+            erro
+        );
+    }
 }
 
 
@@ -1194,18 +1025,47 @@ if (
 // NOTIFICAÇÕES
 // ============================================================
 
-async function carregarNotificacoes() {
-
+async function carregarContadorNotificacoes() {
     try {
+        const { resposta, dados } =
+            await apiGet(
+                "/notificacoes/contador"
+            );
 
+        if (!resposta.ok) {
+            console.error(
+                "Erro no contador:",
+                resposta.status,
+                dados
+            );
+
+            return;
+        }
+
+        if (notificationCount) {
+            notificationCount.textContent =
+                Number(
+                    dados?.quantidade
+                ) || 0;
+        }
+
+    } catch (erro) {
+        console.error(
+            "Erro ao carregar contador:",
+            erro
+        );
+    }
+}
+
+
+async function carregarNotificacoes() {
+    try {
         const { resposta, dados } =
             await apiGet(
                 "/notificacoes"
             );
 
-
         if (!resposta.ok) {
-
             console.error(
                 "Erro nas notificações:",
                 resposta.status,
@@ -1215,34 +1075,10 @@ async function carregarNotificacoes() {
             return;
         }
 
-
         const notificacoes =
             Array.isArray(dados)
                 ? dados
-                : (
-                    dados?.notificacoes ||
-                    dados?.data ||
-                    []
-                );
-
-
-        const lista =
-            document.getElementById(
-                "notificationList"
-            );
-
-        const contador =
-            document.getElementById(
-                "notificationCount"
-            );
-
-
-        if (contador) {
-
-            contador.textContent =
-                notificacoes.length;
-
-        }
+                : [];
 
 
         if (
@@ -1261,33 +1097,28 @@ async function carregarNotificacoes() {
             mostrarNotificacaoNavegador(
                 notificacoes[0]
             );
-
         }
 
 
         if (
             notificacoes.length > 0
         ) {
-
             ultimaNotificacaoId =
                 notificacoes[0].id;
-
         }
 
 
-        if (!lista) {
+        if (!notificationList) {
             return;
         }
 
 
-        lista.innerHTML = "";
+        notificationList.innerHTML = "";
 
 
-        if (
-            notificacoes.length === 0
-        ) {
+        if (!notificacoes.length) {
 
-            lista.innerHTML = `
+            notificationList.innerHTML = `
                 <div class="notification-empty">
                     Nenhuma notificação.
                 </div>
@@ -1300,8 +1131,10 @@ async function carregarNotificacoes() {
         notificacoes.forEach(
             notificacao => {
 
-                lista.innerHTML += `
-                    <div class="notification-item">
+                notificationList.innerHTML += `
+                    <div class="notification-item"
+                         data-id="${notificacao.id}">
+
                         <strong>
                             ${escaparHTML(
                                 notificacao.titulo ||
@@ -1322,88 +1155,117 @@ async function carregarNotificacoes() {
                                 ""
                             )}
                         </small>
+
+                        <button
+                            type="button"
+                            class="btn-ler-notificacao"
+                            data-id="${notificacao.id}"
+                        >
+                            Marcar como lida
+                        </button>
+
                     </div>
                 `;
-
             }
         );
 
-    } catch (erro) {
 
+        notificationList
+            .querySelectorAll(
+                ".btn-ler-notificacao"
+            )
+            .forEach(botao => {
+
+                botao.addEventListener(
+                    "click",
+                    () => {
+
+                        deletarNotificacao(
+                            botao.dataset.id
+                        );
+                    }
+                );
+
+            });
+
+    } catch (erro) {
         console.error(
             "Erro ao carregar notificações:",
             erro
         );
-
     }
 }
 
 
-function mostrarNotificacaoNavegador(
-    notificacao
+async function deletarNotificacao(
+    notificacaoId
 ) {
 
-    if (
-        !("Notification" in window)
-    ) {
-
+    if (!notificacaoId) {
         return;
     }
-
-
-    if (
-        Notification.permission !==
-        "granted"
-    ) {
-
-        return;
-    }
-
 
     try {
 
-        const titulo =
-            notificacao.titulo ||
-            "YOFI - MYA";
-
-
-        const mensagem =
-            notificacao.mensagem ||
-            "Você recebeu uma nova notificação.";
-
-
-        const notificacaoNativa =
-            new Notification(
-                titulo,
-                {
-                    body: mensagem,
-
-                    icon:
-                        "../Imagens-Audios/logo.png",
-
-                    tag:
-                        "yofi-notificacao"
-                }
+        const {
+            resposta,
+            dados
+        } =
+            await apiDelete(
+                `/notificacoes/${notificacaoId}`
             );
 
 
-        notificacaoNativa.onclick =
-            () => {
+        if (!resposta.ok) {
+            console.error(
+                "Erro ao remover notificação:",
+                resposta.status,
+                dados
+            );
 
-                window.focus();
+            return;
+        }
 
-                notificacaoNativa.close();
 
-            };
+        await carregarNotificacoes();
+        await carregarContadorNotificacoes();
 
     } catch (erro) {
-
         console.error(
-            "Erro na notificação nativa:",
+            "Erro ao remover notificação:",
             erro
         );
-
     }
+}
+
+
+if (
+    notificationBtn &&
+    notificationPanel
+) {
+
+    notificationBtn.addEventListener(
+        "click",
+        async () => {
+
+            await ativarAudio();
+
+            await solicitarPermissaoNotificacao();
+
+            const estavaFechado =
+                notificationPanel.classList.contains(
+                    "hidden"
+                );
+
+            notificationPanel.classList.toggle(
+                "hidden"
+            );
+
+            if (estavaFechado) {
+                await carregarNotificacoes();
+            }
+        }
+    );
 }
 
 
@@ -1430,65 +1292,48 @@ const nomesMeses = [
 function atualizarMesNaTela() {
 
     if (mesAtual) {
-
         mesAtual.textContent =
             nomesMeses[
                 mesSelecionado
             ];
-
     }
 
-
     if (anoAtual) {
-
         anoAtual.textContent =
             anoSelecionado;
-
     }
 }
 
 
-async function mudarMes(
-    direcao
-) {
+async function atualizarMes(direcao) {
 
     mesSelecionado += direcao;
 
 
-    if (
-        mesSelecionado < 0
-    ) {
-
+    if (mesSelecionado < 0) {
         mesSelecionado = 11;
         anoSelecionado--;
-
     }
 
 
-    if (
-        mesSelecionado > 11
-    ) {
-
+    if (mesSelecionado > 11) {
         mesSelecionado = 0;
         anoSelecionado++;
-
     }
 
 
     atualizarMesNaTela();
 
 
-    const transacoes =
-        await carregarTransacoes();
+    const dados =
+        await carregarDashboard();
+
+    if (!dados) {
+        return;
+    }
 
 
-    await carregarDashboard();
-
-    await carregarGraficoCategorias();
-
-    await criarGraficoEvolucaoDespesas(
-        transacoes
-    );
+    renderizarDashboard(dados);
 }
 
 
@@ -1499,12 +1344,10 @@ const mesAnteriorBtn =
 
 
 if (mesAnteriorBtn) {
-
     mesAnteriorBtn.addEventListener(
         "click",
-        () => mudarMes(-1)
+        () => atualizarMes(-1)
     );
-
 }
 
 
@@ -1515,17 +1358,15 @@ const proximoMesBtn =
 
 
 if (proximoMesBtn) {
-
     proximoMesBtn.addEventListener(
         "click",
-        () => mudarMes(1)
+        () => atualizarMes(1)
     );
-
 }
 
 
 // ============================================================
-// MYA - ANÁLISE FINANCEIRA
+// MYA - ANÁLISE
 // ============================================================
 
 const btnAnalise =
@@ -1546,7 +1387,6 @@ if (
             resultadoMYA.innerHTML =
                 "<p>MYA está analisando...</p>";
 
-
             try {
 
                 const {
@@ -1561,7 +1401,7 @@ if (
                 if (!resposta.ok) {
 
                     console.error(
-                        "Erro na análise financeira:",
+                        "Erro na análise:",
                         resposta.status,
                         dados
                     );
@@ -1592,17 +1432,14 @@ if (
 
                 resultadoMYA.innerHTML =
                     "<p>Erro ao gerar análise.</p>";
-
             }
-
         }
     );
-
 }
 
 
 // ============================================================
-// MYA - GASTOS
+// MYA - CATEGORIAS
 // ============================================================
 
 const btnGastos =
@@ -1622,7 +1459,6 @@ if (
 
             resultadoMYA.innerHTML =
                 "<p>Analisando categorias...</p>";
-
 
             try {
 
@@ -1655,20 +1491,14 @@ if (
                         dados?.categorias
                     )
                         ? dados.categorias
-                        : (
-                            Array.isArray(dados)
-                                ? dados
-                                : []
-                        );
+                        : [];
 
 
                 let html =
                     "<h4>📊 Categorias com maiores gastos</h4>";
 
 
-                if (
-                    categorias.length === 0
-                ) {
+                if (!categorias.length) {
 
                     html +=
                         "<p>Nenhuma categoria encontrada.</p>";
@@ -1680,16 +1510,12 @@ if (
 
                             const nome =
                                 categoria.categoria ||
-                                categoria.nome ||
                                 "Sem categoria";
-
 
                             const valor =
                                 Number(
-                                    categoria.valor ??
-                                    categoria.total ??
-                                    0
-                                );
+                                    categoria.valor
+                                ) || 0;
 
 
                             html += `
@@ -1701,10 +1527,8 @@ if (
                                     ${formatarMoeda(valor)}
                                 </p>
                             `;
-
                         }
                     );
-
                 }
 
 
@@ -1720,12 +1544,9 @@ if (
 
                 resultadoMYA.innerHTML =
                     "<p>Erro ao analisar categorias.</p>";
-
             }
-
         }
     );
-
 }
 
 
@@ -1750,7 +1571,6 @@ if (
 
             resultadoMYA.innerHTML =
                 "<p>MYA está criando dicas...</p>";
-
 
             try {
 
@@ -1797,72 +1617,10 @@ if (
 
                 resultadoMYA.innerHTML =
                     "<p>Erro ao gerar dicas.</p>";
-
             }
-
         }
     );
-
 }
-
-
-// ============================================================
-// LINKS DA SIDEBAR
-// ============================================================
-
-const linksSidebar =
-    document.querySelectorAll(
-        ".sidebar-link"
-    );
-
-
-linksSidebar.forEach(
-    link => {
-
-        link.addEventListener(
-            "click",
-            () => {
-
-                linksSidebar.forEach(
-                    item => {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                link.classList.add(
-                    "active"
-                );
-
-
-                if (
-                    window.innerWidth <= 800 &&
-                    sidebar
-                ) {
-
-                    sidebar.classList.add(
-                        "closed"
-                    );
-
-                    if (app) {
-
-                        app.classList.add(
-                            "sidebar-closed"
-                        );
-
-                    }
-
-                }
-
-            }
-        );
-
-    }
-);
 
 
 // ============================================================
@@ -1893,14 +1651,11 @@ if (
     abrirIABtn.addEventListener(
         "click",
         () => {
-
             painelIA.classList.add(
                 "active"
             );
-
         }
     );
-
 }
 
 
@@ -1912,34 +1667,28 @@ if (
     fecharIABtn.addEventListener(
         "click",
         () => {
-
             painelIA.classList.remove(
                 "active"
             );
-
         }
     );
-
 }
 
 
 // ============================================================
-// URL ATUAL
+// URL
 // ============================================================
 
 function salvarUrlAtual() {
 
-    const urlAtual =
-        window.location.href;
-
     localStorage.setItem(
         "urlSalva",
-        urlAtual
+        window.location.href
     );
 
     console.log(
         "URL salva com sucesso:",
-        urlAtual
+        window.location.href
     );
 }
 
@@ -1948,28 +1697,7 @@ salvarUrlAtual();
 
 
 // ============================================================
-// GRÁFICOS
-// ============================================================
-
-async function carregarGraficos() {
-
-    const dadosDashboard =
-        await carregarDashboard();
-
-    const transacoes =
-        await carregarTransacoes();
-
-    await carregarGraficoCategorias(
-        dadosDashboard
-    );
-
-    await criarGraficoEvolucaoDespesas(
-        transacoes
-    );
-}
-
-// ============================================================
-// INICIAR PÁGINA
+// INICIALIZAÇÃO
 // ============================================================
 
 async function iniciarPagina() {
@@ -1996,19 +1724,31 @@ async function iniciarPagina() {
     atualizarMesNaTela();
 
 
-    await carregarDashboard();
+    const dados =
+        await carregarDashboard();
 
 
-    await carregarGraficos();
+    if (!dados) {
+
+        console.error(
+            "❌ Não foi possível carregar o dashboard."
+        );
+
+        return;
+    }
 
 
-    await carregarNotificacoes();
+    renderizarDashboard(
+        dados
+    );
+
+
+    await carregarContadorNotificacoes();
 
 
     console.log(
         "✅ Dashboard carregado."
     );
-
 }
 
 
@@ -2016,10 +1756,14 @@ iniciarPagina();
 
 
 // ============================================================
-// MONITORAMENTO DAS NOTIFICAÇÕES
+// MONITORAMENTO
 // ============================================================
 
 setInterval(
-    carregarNotificacoes,
+    async () => {
+
+        await carregarContadorNotificacoes();
+
+    },
     100000
 );
