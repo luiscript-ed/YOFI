@@ -1150,86 +1150,63 @@ function trocarDisplay(botao) {
         return;
     }
 
-    const idRecebido =
-        botao.dataset.id;
+    const idRecebido = botao.dataset.id;
 
     if (!idRecebido) {
         return;
     }
 
-
-    const elementos =
-        document.querySelectorAll(
-            ".display, .display-on"
-        );
-
-
-    elementos.forEach(
-        elemento => {
-
-            elemento.classList.remove(
-                "display-on"
-            );
-
-            elemento.classList.add(
-                "display"
-            );
-
-        }
+    const elementos = document.querySelectorAll(
+        ".display, .display-on"
     );
 
+    elementos.forEach(elemento => {
 
-    const selecionado =
-        document.getElementById(
-            idRecebido
-        );
+        elemento.classList.remove("display-on");
+        elemento.classList.add("display");
 
+    });
+
+    const selecionado = document.getElementById(idRecebido);
 
     if (selecionado) {
 
-        selecionado.classList.remove(
-            "display"
-        );
+        selecionado.classList.remove("display");
+        selecionado.classList.add("display-on");
 
-        selecionado.classList.add(
-            "display-on"
-        );
     }
 
-
-    const botoes =
-        document.querySelectorAll(
-            ".categoria-btn"
-        );
-
-
-    botoes.forEach(
-        botaoCategoria => {
-
-            botaoCategoria.classList.remove(
-                "ativo"
-            );
-
-        }
+    const botoes = document.querySelectorAll(
+        ".categoria-btn"
     );
 
+    botoes.forEach(botaoCategoria => {
 
-    if (
-        botao.classList.contains(
-            "categoria-btn"
-        )
-    ) {
+        botaoCategoria.classList.remove("ativo");
 
-        botao.classList.add(
-            "ativo"
-        );
-    }
+    });
+
+    botao.classList.add("ativo");
 }
 
 
-window.trocarDisplay =
-    trocarDisplay;
+/* =========================================================
+   NAVEGAÇÃO DOS FORMULÁRIOS
+   ========================================================= */
 
+const botoesCategoria = document.querySelectorAll(
+    ".categoria-btn"
+);
+
+botoesCategoria.forEach(botao => {
+
+    botao.addEventListener("click", () => {
+
+        trocarDisplay(botao);
+
+    });
+
+});
 
 // ============================================================
 // EVENTOS
