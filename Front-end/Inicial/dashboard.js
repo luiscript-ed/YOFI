@@ -203,15 +203,11 @@ async function verificarLogin() {
 
 async function carregarDashboard() {
 
-    if (!usuarioId) {
-        return null;
-    }
-
     try {
 
         const { resposta, dados } =
             await apiGet(
-                `/dashboard/${usuarioId}`
+                `/dashboard?mes=${mesSelecionado + 1}&ano=${anoSelecionado}`
             );
 
         if (!resposta.ok) {
@@ -225,27 +221,22 @@ async function carregarDashboard() {
             return null;
         }
 
-        const saldo =
-            Number(
-                dados?.saldo ??
-                dados?.saldo_atual ??
-                0
-            );
+        const resumo =
+            dados?.resumo || {};
 
         const ganhos =
             Number(
-                dados?.total_ganhos ??
-                dados?.ganhos ??
-                dados?.total_entradas ??
-                0
+                resumo.ganhos || 0
             );
 
         const gastos =
             Number(
-                dados?.total_gastos ??
-                dados?.gastos ??
-                dados?.total_despesas ??
-                0
+                resumo.gastos || 0
+            );
+
+        const saldo =
+            Number(
+                resumo.saldo || 0
             );
 
 
@@ -553,11 +544,9 @@ async function carregarTransacoes() {
 // GRÁFICO DE CATEGORIAS
 // ============================================================
 
-async function carregarGraficoCategorias() {
-
-    if (!usuarioId) {
-        return;
-    }
+async function carregarGraficoCategorias(
+    dadosDashboard = null
+) {
 
     const canvas =
         document.getElementById(
@@ -583,57 +572,30 @@ async function carregarGraficoCategorias() {
 
     try {
 
-        const { resposta, dados } =
-            await apiGet(
-                `/grafico-categorias/${usuarioId}`
-            );
+        if (!dadosDashboard) {
 
+            dadosDashboard =
+                await carregarDashboard();
 
-        if (!resposta.ok) {
+        }
 
-            console.error(
-                "Erro no gráfico de categorias:",
-                resposta.status,
-                dados
-            );
-
+        if (!dadosDashboard) {
             return;
         }
 
 
-        let categorias = [];
-
-
-        if (Array.isArray(dados)) {
-
-            categorias = dados;
-
-        } else if (
+        const categorias =
             Array.isArray(
-                dados?.categorias
+                dadosDashboard.categorias
             )
-        ) {
-
-            categorias =
-                dados.categorias;
-
-        } else if (
-            Array.isArray(
-                dados?.data
-            )
-        ) {
-
-            categorias =
-                dados.data;
-
-        }
+                ? dadosDashboard.categorias
+                : [];
 
 
         const labels =
             categorias.map(
                 item =>
-                    item.categoria ??
-                    item.nome ??
+                    item.categoria ||
                     "Sem categoria"
             );
 
@@ -642,10 +604,7 @@ async function carregarGraficoCategorias() {
             categorias.map(
                 item =>
                     Number(
-                        item.total ??
-                        item.valor ??
-                        item.quantidade ??
-                        0
+                        item.total || 0
                     )
             );
 
@@ -661,7 +620,7 @@ async function carregarGraficoCategorias() {
         if (valores.length === 0) {
 
             console.warn(
-                "Nenhum dado encontrado para o gráfico de categorias."
+                "Nenhuma categoria encontrada para o mês selecionado."
             );
 
             return;
@@ -672,6 +631,7 @@ async function carregarGraficoCategorias() {
             new Chart(
                 canvas,
                 {
+
                     type: "doughnut",
 
                     data: {
@@ -679,10 +639,13 @@ async function carregarGraficoCategorias() {
                         labels,
 
                         datasets: [
+
                             {
+
                                 data: valores,
 
                                 backgroundColor: [
+
                                     "#A855F7",
                                     "#7C3AED",
                                     "#6366F1",
@@ -693,11 +656,15 @@ async function carregarGraficoCategorias() {
                                     "#EF4444",
                                     "#EC4899",
                                     "#14B8A6"
+
                                 ],
 
                                 borderWidth: 0
+
                             }
+
                         ]
+
                     },
 
                     options: {
@@ -717,17 +684,22 @@ async function carregarGraficoCategorias() {
                                     color: "#f5f5f7",
 
                                     padding: 16
+
                                 }
+
                             }
+
                         }
+
                     }
+
                 }
             );
 
     } catch (erro) {
 
         console.error(
-            "Erro ao carregar gráfico de categorias:",
+            "Erro ao criar gráfico de categorias:",
             erro
         );
 
@@ -1981,18 +1953,20 @@ salvarUrlAtual();
 
 async function carregarGraficos() {
 
+    const dadosDashboard =
+        await carregarDashboard();
+
     const transacoes =
         await carregarTransacoes();
 
-
-    await carregarGraficoCategorias();
-
+    await carregarGraficoCategorias(
+        dadosDashboard
+    );
 
     await criarGraficoEvolucaoDespesas(
         transacoes
     );
 }
-
 
 // ============================================================
 // INICIAR PÁGINA
