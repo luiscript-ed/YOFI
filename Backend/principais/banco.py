@@ -193,7 +193,6 @@ CREATE TABLE IF NOT EXISTS orcamentos (
 """)
 
 cursor.execute("""
-
 CREATE TABLE IF NOT EXISTS movimentacoes (
     id SERIAL PRIMARY KEY,
     usuario_id INTEGER NOT NULL,
@@ -212,8 +211,7 @@ CREATE TABLE IF NOT EXISTS movimentacoes (
 
     FOREIGN KEY(destino_conta_id)
         REFERENCES contas(id)
-);
-);
+)
 """)
 
 

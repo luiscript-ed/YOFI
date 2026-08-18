@@ -337,7 +337,6 @@ function montarSelects() {
             "destino"
         );
 
-
     montarOpcoesFinanceiras(
         selectGasto
     );
@@ -346,13 +345,49 @@ function montarSelects() {
         selectGanho
     );
 
-    montarOpcoesFinanceiras(
-        selectOrigem
-    );
 
-    montarOpcoesFinanceiras(
-        selectDestino
-    );
+    const montarContas = select => {
+
+        if (!select) {
+            return;
+        }
+
+        select.innerHTML = "";
+
+        const primeiraOpcao =
+            document.createElement("option");
+
+        primeiraOpcao.value = "";
+        primeiraOpcao.textContent =
+            "Selecione uma conta";
+
+        select.appendChild(
+            primeiraOpcao
+        );
+
+
+        contas
+            .filter(conta => conta.ativo)
+            .forEach(conta => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value =
+                    `conta:${conta.id}`;
+
+                option.textContent =
+                    `${conta.nome} — ${formatarMoeda(conta.saldo_atual)}`;
+
+                select.appendChild(
+                    option
+                );
+            });
+    };
+
+
+    montarContas(selectOrigem);
+    montarContas(selectDestino);
 }
 
 
@@ -1083,60 +1118,213 @@ async function processarEntrada(evento) {
 // MOVIMENTAÇÕES
 // ============================================================
 
+async function criarMovimentacao({
+    origem,
+    destino,
+    valor,
+    descricao,
+    data
+}) {
+
+    if (!origem || !destino) {
+        throw new Error(
+            "Selecione a origem e o destino."
+        );
+    }
+
+    if (
+        origem.tipo !== "conta" ||
+        destino.tipo !== "conta"
+    ) {
+        throw new Error(
+            "Movimentações devem ser feitas entre contas."
+        );
+    }
+
+    if (
+        origem.id === destino.id
+    ) {
+        throw new Error(
+            "A origem e o destino precisam ser diferentes."
+        );
+    }
+
+    if (
+        !Number.isFinite(valor) ||
+        valor <= 0
+    ) {
+        throw new Error(
+            "Informe um valor válido."
+        );
+    }
+
+    if (!data) {
+        throw new Error(
+            "Informe a data da movimentação."
+        );
+    }
+
+    const dados = {
+        origem_conta_id: origem.id,
+        destino_conta_id: destino.id,
+        valor,
+        descricao: descricao || null,
+        data: `${data}T12:00:00`
+    };
+
+    const resposta = await fetch(
+        `${API_URL}/movimentacoes`,
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/json"
+            },
+
+            credentials: "include",
+
+            body: JSON.stringify(dados)
+        }
+    );
+
+    let resultado = {};
+
+    try {
+        resultado =
+            await resposta.json();
+    } catch {
+        resultado = {};
+    }
+
+    if (!resposta.ok) {
+        throw new Error(
+            resultado.detail ||
+            "Erro ao registrar a movimentação."
+        );
+    }
+
+    return resultado;
+}
+
 async function processarMovimentacao(evento) {
 
     evento.preventDefault();
 
-    const origemInput =
-        localizarSelect(
-            formMovimentacao,
-            "origem"
-        );
-
-    const destinoInput =
-        localizarSelect(
-            formMovimentacao,
-            "destino"
-        );
-
-
-    const origem =
-        interpretarOrigem(
-            origemInput?.value
-        );
-
-    const destino =
-        interpretarOrigem(
-            destinoInput?.value
-        );
-
-
-    if (!origem || !destino) {
-
-        mostrarErro(
-            "Selecione a origem e o destino da movimentação."
-        );
-
+    if (enviando) {
         return;
     }
 
+    enviando = true;
 
-    if (
-        origem.tipo === destino.tipo &&
-        origem.id === destino.id
-    ) {
-
-        mostrarErro(
-            "A origem e o destino precisam ser diferentes."
-        );
-
-        return;
-    }
-
-
-    alert(
-        "A estrutura de origem e destino já está preparada, mas a transferência ainda precisa de um endpoint próprio no backend. O /transacoes atual aceita apenas uma conta ou cartão por transação."
+    definirLoading(
+        formMovimentacao,
+        true
     );
+
+    try {
+
+        const valorInput =
+            formMovimentacao.querySelector(
+                '[name="valor"]'
+            );
+
+        const descricaoInput =
+            formMovimentacao.querySelector(
+                '[name="descricao"]'
+            );
+
+        const dataInput =
+            formMovimentacao.querySelector(
+                '[name="data"]'
+            );
+
+        const origemInput =
+            localizarSelect(
+                formMovimentacao,
+                "origem"
+            );
+
+        const destinoInput =
+            localizarSelect(
+                formMovimentacao,
+                "destino"
+            );
+
+
+        const valor =
+            Number(
+                valorInput?.value
+            );
+
+        const descricao =
+            descricaoInput?.value
+                ?.trim();
+
+        const data =
+            dataInput?.value;
+
+        const origem =
+            interpretarOrigem(
+                origemInput?.value
+            );
+
+        const destino =
+            interpretarOrigem(
+                destinoInput?.value
+            );
+
+
+        const resultado =
+            await criarMovimentacao({
+                origem,
+                destino,
+                valor,
+                descricao,
+                data
+            });
+
+
+        alert(
+            resultado.mensagem ||
+            "Movimentação realizada com sucesso!"
+        );
+
+
+        formMovimentacao.reset();
+
+        preencherDatas();
+
+
+        await carregarContas();
+        await carregarCartoes();
+
+        montarSelects();
+
+
+        await atualizarContadorNotificacoes();
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao registrar movimentação:",
+            erro
+        );
+
+        mostrarErro(
+            erro.message ||
+            "Erro ao registrar movimentação."
+        );
+
+    } finally {
+
+        enviando = false;
+
+        definirLoading(
+            formMovimentacao,
+            false
+        );
+    }
 }
 
 
