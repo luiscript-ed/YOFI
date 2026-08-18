@@ -193,6 +193,31 @@ CREATE TABLE IF NOT EXISTS orcamentos (
 """)
 
 cursor.execute("""
+
+CREATE TABLE IF NOT EXISTS movimentacoes (
+    id SERIAL PRIMARY KEY,
+    usuario_id INTEGER NOT NULL,
+    origem_conta_id INTEGER NOT NULL,
+    destino_conta_id INTEGER NOT NULL,
+    valor NUMERIC NOT NULL,
+    descricao TEXT,
+    data TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    criado_em TIMESTAMPTZ DEFAULT NOW(),
+
+    FOREIGN KEY(usuario_id)
+        REFERENCES usuarios(id),
+
+    FOREIGN KEY(origem_conta_id)
+        REFERENCES contas(id),
+
+    FOREIGN KEY(destino_conta_id)
+        REFERENCES contas(id)
+);
+);
+""")
+
+
+cursor.execute("""
 CREATE TABLE IF NOT EXISTS transacoes (
     id SERIAL PRIMARY KEY,
     usuario_id INTEGER NOT NULL,
@@ -253,6 +278,12 @@ class UsuarioLogin(BaseModel):
     email: str
     senha: str
 
+class MovimentacaoCreate(BaseModel):
+    origem_conta_id: int
+    destino_conta_id: int
+    valor: float = Field(gt=0)
+    descricao: str | None = None
+    data: datetime
 
 class GoogleLogin(BaseModel):
     credential: str
@@ -2278,7 +2309,161 @@ def deletar_transacao(
         cursor.close()
         conn.close()
 
+@app.post("/movimentacoes")
+def criar_movimentacao(
+    movimentacao: MovimentacaoCreate,
+    usuario_id: int = Depends(obter_usuario_autenticado)
+):
+    if movimentacao.origem_conta_id == movimentacao.destino_conta_id:
+        raise HTTPException(
+            status_code=400,
+            detail="A origem e o destino devem ser diferentes."
+        )
 
+    conn = conectar()
+    cursor = conn.cursor()
+
+    try:
+
+        cursor.execute(
+            """
+            SELECT id
+            FROM contas
+            WHERE id = %s
+            AND usuario_id = %s
+            AND ativo = TRUE
+            """,
+            (
+                movimentacao.origem_conta_id,
+                usuario_id
+            )
+        )
+
+        if not cursor.fetchone():
+            raise HTTPException(
+                status_code=404,
+                detail="Conta de origem não encontrada."
+            )
+
+
+        cursor.execute(
+            """
+            SELECT id
+            FROM contas
+            WHERE id = %s
+            AND usuario_id = %s
+            AND ativo = TRUE
+            """,
+            (
+                movimentacao.destino_conta_id,
+                usuario_id
+            )
+        )
+
+        if not cursor.fetchone():
+            raise HTTPException(
+                status_code=404,
+                detail="Conta de destino não encontrada."
+            )
+
+
+        cursor.execute(
+            """
+            SELECT
+                saldo_inicial +
+                COALESCE(
+                    SUM(
+                        CASE
+                            WHEN tipo = 'ganho'
+                                THEN valor
+                            WHEN tipo = 'gasto'
+                                THEN -valor
+                            ELSE 0
+                        END
+                    ),
+                    0
+                ) AS saldo
+            FROM contas
+            LEFT JOIN transacoes
+                ON transacoes.conta_id = contas.id
+                AND transacoes.usuario_id = %s
+            WHERE contas.id = %s
+            GROUP BY contas.id, contas.saldo_inicial
+            """,
+            (
+                usuario_id,
+                movimentacao.origem_conta_id
+            )
+        )
+
+        saldo_origem = cursor.fetchone()
+
+        if not saldo_origem:
+            raise HTTPException(
+                status_code=404,
+                detail="Conta de origem não encontrada."
+            )
+
+        saldo_atual = float(saldo_origem[0])
+
+        if saldo_atual < movimentacao.valor:
+            raise HTTPException(
+                status_code=400,
+                detail="Saldo insuficiente na conta de origem."
+            )
+
+
+        cursor.execute(
+            """
+            INSERT INTO movimentacoes
+            (
+                usuario_id,
+                origem_conta_id,
+                destino_conta_id,
+                valor,
+                descricao,
+                data
+            )
+            VALUES (%s, %s, %s, %s, %s, %s)
+            RETURNING id
+            """,
+            (
+                usuario_id,
+                movimentacao.origem_conta_id,
+                movimentacao.destino_conta_id,
+                movimentacao.valor,
+                movimentacao.descricao,
+                movimentacao.data
+            )
+        )
+
+        movimentacao_id = cursor.fetchone()[0]
+
+        conn.commit()
+
+        criar_notificacao(
+            usuario_id,
+            "Movimentação realizada",
+            f"Transferência de R$ {movimentacao.valor:.2f} realizada com sucesso."
+        )
+
+        return {
+            "mensagem": "Movimentação realizada com sucesso!",
+            "id": movimentacao_id
+        }
+
+    except HTTPException:
+        conn.rollback()
+        raise
+
+    except Exception:
+        conn.rollback()
+        raise
+
+    finally:
+        cursor.close()
+        conn.close()
+        
 # ==========================================
 # DASHBOARD
 # ==========================================
