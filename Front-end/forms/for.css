@@ -534,7 +534,7 @@ body {
    ========================================================= */
 
 .display {
-    display: none;
+    position: fixed;
 }
 
 .display-on {
