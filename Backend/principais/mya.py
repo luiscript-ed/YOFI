@@ -27,12 +27,11 @@ Seu objetivo é:
 Responda sempre em português.
 """
 
-def perguntar_mya(pergunta: str):
+def perguntar_mya(pergunta: str, usuario_id: int):
 
     try:
 
         resposta = client.chat.completions.create(
-
             model="google/gemma-3-12b-it",
 
             messages=[
@@ -48,7 +47,6 @@ def perguntar_mya(pergunta: str):
 
             temperature=0.7,
             max_tokens=500
-
         )
 
         return resposta.choices[0].message.content
