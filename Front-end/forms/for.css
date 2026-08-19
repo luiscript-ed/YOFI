@@ -534,7 +534,7 @@ body {
    ========================================================= */
 
 .display {
-    position: fixed;
+    display: none;
 }
 
 .display-on {
@@ -544,9 +544,7 @@ body {
 .movimentacao-container {
     width: 90%;
     max-width: 700px;
-
     margin: 0 auto;
-
     padding-top: 80px;
 }
 

@@ -24,60 +24,46 @@ body{
     linear-gradient(135deg,var(--bg),var(--bg2));
 }
 
-/* Barra superior */
-.Superior{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+/* =========================================================
+   BARRA SUPERIOR
+========================================================= */
 
-    padding:20px 40px;
+.Superior {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
+    padding: 20px 40px;
 
-    border-bottom:1px solid rgba(255,255,255,0.08);
-    box-shadow:0 0 25px rgba(139,92,246,.15);
-}
+    background: rgba(255,255,255,0.05);
 
-.logo{
-    font-size:2rem;
-    font-weight:700;
-    letter-spacing:3px;
+    backdrop-filter: blur(10px);
 
-    background:linear-gradient(90deg,#a855f7,#3b82f6);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-/* Botão download */
-.download-btn{
-    padding:12px 24px;
-    border:none;
-    border-radius:12px;
-
-    color:white;
-    font-weight:600;
-    font-size:15px;
-    cursor:pointer;
-
-    background:linear-gradient(
-        135deg,
-        var(--purple),
-        var(--blue)
-    );
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 
     box-shadow:
-    0 0 20px rgba(139,92,246,.4),
-    0 0 30px rgba(37,99,235,.2);
-
-    transition:.3s;
+        0 0 25px rgba(139,92,246,.15);
 }
 
-.download-btn:hover{
-    transform:translateY(-3px);
-    box-shadow:
-    0 0 25px rgba(139,92,246,.7),
-    0 0 40px rgba(37,99,235,.4);
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #a855f7,
+            #3b82f6
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* Hero */
@@ -178,4 +164,517 @@ body{
     );
 
     border-radius:50px;
+}
+
+/* =========================================================
+   DOWNLOADS
+========================================================= */
+
+.download-section {
+    width: 100%;
+    max-width: 950px;
+
+    margin: 100px auto 0;
+
+    padding: 20px;
+}
+
+.download-header {
+    text-align: center;
+
+    margin-bottom: 40px;
+}
+
+.download-header h2 {
+    font-size: 2.2rem;
+
+    margin-bottom: 12px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #a78bfa,
+            #60a5fa
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.download-header p {
+    color: #bfc5e8;
+
+    font-size: 1rem;
+
+    line-height: 1.7;
+}
+
+
+.download-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 25px;
+}
+
+
+.download-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 25px;
+
+    min-height: 150px;
+
+    text-decoration: none;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,0.06);
+
+    backdrop-filter: blur(12px);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 20px rgba(139,92,246,.08);
+
+    transition:
+        .3s ease;
+}
+
+
+.download-card:hover {
+    transform: translateY(-8px);
+
+    border-color:
+        rgba(139,92,246,.45);
+
+    box-shadow:
+        0 0 30px rgba(139,92,246,.25),
+        0 0 50px rgba(37,99,235,.15);
+}
+
+
+.download-icon {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    font-size: 30px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139,92,246,.25),
+            rgba(37,99,235,.25)
+        );
+
+    border:
+        1px solid
+        rgba(139,92,246,.2);
+}
+
+
+.download-info h3 {
+    margin-bottom: 8px;
+
+    color: #ffffff;
+
+    font-size: 1.1rem;
+}
+
+
+.download-info p {
+    color: #bfc5e8;
+
+    line-height: 1.5;
+
+    font-size: .9rem;
+
+    margin-bottom: 12px;
+}
+
+
+.download-action {
+    display: inline-block;
+
+    color: #a78bfa;
+
+    font-size: .9rem;
+
+    font-weight: 700;
+}
+
+ /* =========================================================
+    YOFI CORPORATE — ROXO + DOURADO
+ ========================================================= */
+
+.corporate-section {
+
+    margin-top: 140px;
+
+    padding-top: 90px;
+    padding-bottom: 70px;
+
+    border-top: 1px solid rgba(212, 175, 55, 0.18);
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(139, 92, 246, 0.18),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(212, 175, 55, 0.10),
+            transparent 35%
+        ),
+        linear-gradient(
+            180deg,
+            #0a0618,
+            #10091f,
+            #080511
+        );
+}
+
+
+/* =========================================================
+   HERO CORPORATE
+ ========================================================= */
+
+.corporate-hero {
+    margin-top: 0;
+}
+
+
+.corporate-badge {
+
+    display: inline-block;
+
+    padding: 8px 18px;
+
+    margin-bottom: 20px;
+
+    border-radius: 999px;
+
+    color: #f5d77a;
+
+    font-size: .75rem;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139, 92, 246, 0.18),
+            rgba(212, 175, 55, 0.12)
+        );
+
+    border:
+        1px solid
+        rgba(212, 175, 55, 0.35);
+
+    box-shadow:
+        0 0 20px
+        rgba(212, 175, 55, 0.08);
+}
+
+
+.corporate-hero h1 {
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff 0%,
+            #d8b4fe 35%,
+            #c084fc 55%,
+            #f5d77a 100%
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    background-clip: text;
+}
+
+
+.corporate-hero .glow-line {
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #8b5cf6,
+            #d4af37,
+            #f5d77a,
+            transparent
+        );
+
+    box-shadow:
+        0 0 15px
+        rgba(212, 175, 55, 0.35);
+}
+
+
+.corporate-hero p {
+
+    color: #ddd2ef;
+}
+
+
+/* =========================================================
+   PLANO PAGO
+ ========================================================= */
+
+.corporate-paid {
+
+    display: inline-block;
+
+    margin-top: 28px;
+
+    padding: 9px 18px;
+
+    border-radius: 10px;
+
+    color: #f5d77a;
+
+    font-size: .85rem;
+
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139, 92, 246, 0.13),
+            rgba(212, 175, 55, 0.08)
+        );
+
+    border:
+        1px solid
+        rgba(212, 175, 55, 0.30);
+
+    box-shadow:
+        inset 0 0 20px
+        rgba(212, 175, 55, 0.03),
+        0 0 20px
+        rgba(212, 175, 55, 0.06);
+}
+
+
+/* =========================================================
+   CARDS CORPORATE
+ ========================================================= */
+
+.corporate-cards {
+
+    margin-top: 60px;
+}
+
+
+.corporate-cards .container {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(139, 92, 246, 0.12),
+            rgba(212, 175, 55, 0.055),
+            rgba(255, 255, 255, 0.035)
+        );
+
+    border:
+        1px solid
+        rgba(212, 175, 55, 0.13);
+
+    box-shadow:
+        0 0 25px
+        rgba(139, 92, 246, 0.08),
+        inset 0 0 30px
+        rgba(212, 175, 55, 0.025);
+}
+
+
+.corporate-cards .container:hover {
+
+    transform: translateY(-8px);
+
+    border-color:
+        rgba(212, 175, 55, 0.40);
+
+    box-shadow:
+        0 0 30px
+        rgba(139, 92, 246, 0.20),
+
+        0 0 45px
+        rgba(212, 175, 55, 0.10),
+
+        inset 0 0 30px
+        rgba(212, 175, 55, 0.04);
+}
+
+
+.corporate-cards .container h3 {
+
+    background:
+        linear-gradient(
+            90deg,
+            #c084fc,
+            #e9d5ff,
+            #f5d77a
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    background-clip: text;
+}
+
+
+.corporate-cards .container p {
+
+    color: #d8d0e5;
+}
+
+
+/* =========================================================
+   DOWNLOAD CORPORATE
+ ========================================================= */
+
+.corporate-download {
+
+    margin-top: 90px;
+}
+
+
+.corporate-download .download-header h2 {
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #d8b4fe,
+            #c084fc,
+            #f5d77a
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    background-clip: text;
+}
+
+
+.corporate-download .download-header p {
+
+    color: #d4c9e3;
+}
+
+
+/* =========================================================
+   CARDS DE DOWNLOAD CORPORATE
+ ========================================================= */
+
+.corporate-download-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139, 92, 246, 0.14),
+            rgba(212, 175, 55, 0.08),
+            rgba(255, 255, 255, 0.035)
+        );
+
+    border:
+        1px solid
+        rgba(212, 175, 55, 0.18);
+
+    box-shadow:
+        0 0 25px
+        rgba(139, 92, 246, 0.10),
+
+        inset 0 0 25px
+        rgba(212, 175, 55, 0.025);
+}
+
+
+.corporate-download-card:hover {
+
+    border-color:
+        rgba(212, 175, 55, 0.50);
+
+    box-shadow:
+        0 0 30px
+        rgba(139, 92, 246, 0.22),
+
+        0 0 45px
+        rgba(212, 175, 55, 0.14);
+}
+
+
+.corporate-download-card .download-icon {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139, 92, 246, 0.28),
+            rgba(212, 175, 55, 0.18)
+        );
+
+    border:
+        1px solid
+        rgba(212, 175, 55, 0.25);
+
+    box-shadow:
+        0 0 18px
+        rgba(212, 175, 55, 0.08);
+}
+
+
+.corporate-download-card .download-info h3 {
+
+    color: #f5f1ff;
+}
+
+
+.corporate-download-card .download-info p {
+
+    color: #d2c8df;
+}
+
+
+.corporate-download-card .download-action {
+
+    background:
+        linear-gradient(
+            90deg,
+            #c084fc,
+            #f5d77a
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    background-clip: text;
+
+    font-weight: 800;
 }
