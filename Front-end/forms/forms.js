@@ -6,6 +6,7 @@ const formMovimentacao = document.getElementById("movimentacaoForm");
 
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
+const app = document.querySelector(".app");
 
 const notificationBtn = document.getElementById("notificationBtn");
 const notificationPanel = document.getElementById("notificationPanel");
@@ -657,11 +658,18 @@ if (menuBtn && sidebar) {
                 sidebar.classList.toggle(
                     "open"
                 );
+                app.classList.toggle(
+                    ""
+                );
 
             } else {
 
                 sidebar.classList.toggle(
                     "closed"
+                );
+
+                app.classList.toggle(
+                    "sidebar-closed"
                 );
             }
         }
@@ -1442,9 +1450,6 @@ async function iniciar() {
 
 
     if (!autenticado) {
-
-        window.location.href =
-            "https://luiscript-ed.github.io/YOFI/Front-end/Auth/auth";
 
         return;
     }

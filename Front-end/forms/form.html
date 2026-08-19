@@ -10,11 +10,6 @@
 
 <body>
 <!-- SIDEBAR -->
-
-
-
-<div class="app">
-    
 <aside id="sidebar" class="sidebar">
 
     <div class="sidebar-logo">
@@ -113,6 +108,10 @@
 
 </aside>
 
+
+<div class="app">
+
+
         <header class="topbar">
 
 
@@ -168,172 +167,171 @@
 
         </header>
 
-<main class="movimentacao-container">
+        <main class="movimentacao-container">
 
-    <header class="movimentacao-header">
-        <h1 id="tituloFormulario">Nova movimentação</h1>
-        <p id="subtituloFormulario">Registre sua movimentação financeira.</p>
-    </header>
-
-
-    <!-- DESPESAS -->
-
-    <div id="gastos" class="display-on">
-
-        <form id="gastosForm" class="movimentacao-form">
-
-            <div class="campo valor-campo">
-                <label for="valorGasto">VALOR</label>
-                <div class="valor-input">
-                    <span>R$</span>
-                    <input type="number" id="valorGasto" name="valor" placeholder="0,00" min="0" step="0.01" inputmode="decimal" required>
-                </div>
-            </div>
-
-            <div class="campo">
-                <label for="categoriaGasto">CATEGORIA</label>
-                <select id="categoriaGasto" name="categoria" required>
-                    <option value="">Escolha uma Categoria</option>
-                    <option value="alimentacao">ALIMENTAÇÃO</option>
-                    <option value="transporte">TRANSPORTE</option>
-                    <option value="moradia">MORADIA</option>
-                    <option value="lazer">LAZER</option>
-                    <option value="saude">SAÚDE</option>
-                    <option value="educacao">EDUCAÇÃO</option>
-                    <option value="compras">COMPRAS</option>
-                    <option value="assinaturas">ASSINATURAS</option>
-                    <option value="outros">OUTROS</option>
-                </select>
-            </div>
-
-            <div class="campo">
-                <label for="contaCartaoGasto">Conta ou Cartão</label>
-                <select id="contaCartaoGasto" name="conta_cartao" required>
-                    <option value="">Selecione uma conta ou cartão</option>
-                </select>
-            </div>
-
-            <div class="campo">
-                <label for="descricaoGasto">Descrição <span class="opcional">opcional</span></label>
-                <input type="text" id="descricaoGasto" name="descricao" placeholder="Ex: almoço, mercado, aluguel...">
-            </div>
-
-            <div class="campo">
-                <label for="dataGasto">Data</label>
-                <input type="date" id="dataGasto" name="data" required>
-            </div>
-
-            <button type="submit" id="btnGasto" name="acao" value="enviar" class="botao-salvar">Confirmar</button>
-
-        </form>
-
-    </div>
+            <header class="movimentacao-header">
+                <h1 id="tituloFormulario">Nova movimentação</h1>
+                <p id="subtituloFormulario">Registre sua movimentação financeira.</p>
+            </header>
 
 
-    <!-- ENTRADAS -->
+            <!-- DESPESAS -->
 
-    <div id="ganhos" class="display">
+            <div id="gastos" class="display-on">
 
-        <form id="ganhosForm" class="movimentacao-form">
+                <form id="gastosForm" class="movimentacao-form">
 
-            <div class="campo valor-campo">
-                <label for="valorGanho">VALOR</label>
-                <div class="valor-input">
-                    <span>R$</span>
-                    <input type="number" id="valorGanho" name="valor" placeholder="0,00" min="0" step="0.01" inputmode="decimal" required>
-                </div>
-            </div>
+                    <div class="campo valor-campo">
+                        <label for="valorGasto">VALOR</label>
+                        <div class="valor-input">
+                            <span>R$</span>
+                            <input type="number" id="valorGasto" name="valor" placeholder="0,00" min="0" step="0.01" inputmode="decimal" required>
+                        </div>
+                    </div>
 
-            <div class="campo">
-                <label for="categoriaGanho">CATEGORIA</label>
-                <select id="categoriaGanho" name="categoria" required>
-                    <option value="">Escolha uma Categoria</option>
-                    <option value="salario">SALÁRIO</option>
-                    <option value="freelance">FREELANCE</option>
-                    <option value="investimentos">INVESTIMENTOS</option>
-                    <option value="presente">PRESENTE</option>
-                    <option value="reembolso">REEMBOLSO</option>
-                    <option value="outros">OUTROS</option>
-                </select>
-            </div>
+                    <div class="campo">
+                        <label for="categoriaGasto">CATEGORIA</label>
+                        <select id="categoriaGasto" name="categoria" required>
+                            <option value="">Escolha uma Categoria</option>
+                            <option value="alimentacao">ALIMENTAÇÃO</option>
+                            <option value="transporte">TRANSPORTE</option>
+                            <option value="moradia">MORADIA</option>
+                            <option value="lazer">LAZER</option>
+                            <option value="saude">SAÚDE</option>
+                            <option value="educacao">EDUCAÇÃO</option>
+                            <option value="compras">COMPRAS</option>
+                            <option value="assinaturas">ASSINATURAS</option>
+                            <option value="outros">OUTROS</option>
+                        </select>
+                    </div>
 
-            <div class="campo">
-                <label for="contaCartaoGanho">Conta</label>
-                <select id="contaCartaoGanho" name="conta_cartao" required>
-                    <option value="">Selecione uma conta</option>
-                </select>
-            </div>
+                    <div class="campo">
+                        <label for="contaCartaoGasto">Conta ou Cartão</label>
+                        <select id="contaCartaoGasto" name="conta_cartao" required>
+                            <option value="">Selecione uma conta ou cartão</option>
+                        </select>
+                    </div>
 
-            <div class="campo">
-                <label for="descricaoGanho">Descrição <span class="opcional">opcional</span></label>
-                <input type="text" id="descricaoGanho" name="descricao" placeholder="Ex: salário, freelance, reembolso...">
-            </div>
+                    <div class="campo">
+                        <label for="descricaoGasto">Descrição <span class="opcional">opcional</span></label>
+                        <input type="text" id="descricaoGasto" name="descricao" placeholder="Ex: almoço, mercado, aluguel...">
+                    </div>
 
-            <div class="campo">
-                <label for="dataGanho">Data</label>
-                <input type="date" id="dataGanho" name="data" required>
-            </div>
+                    <div class="campo">
+                        <label for="dataGasto">Data</label>
+                        <input type="date" id="dataGasto" name="data" required>
+                    </div>
 
-            <button type="submit" id="btnGanho" name="acao" value="enviar" class="botao-salvar">Confirmar</button>
+                    <button type="submit" id="btnGasto" name="acao" value="enviar" class="botao-salvar">Confirmar</button>
 
-        </form>
-
-    </div>
-
-
-    <!-- MOVIMENTAÇÕES -->
-
-    <div id="movimentacao" class="display">
-
-        <form id="movimentacaoForm" class="movimentacao-form">
-
-            <div class="campo valor-campo">
-                <label for="valorMovimentacao">VALOR</label>
-                <div class="valor-input">
-                    <span>R$</span>
-                    <input type="number" id="valorMovimentacao" name="valor" placeholder="0,00" min="0" step="0.01" inputmode="decimal" required>
-                </div>
-            </div>
-
-            <div class="movimentacao-origem-destino">
-
-                <div class="campo">
-                    <label for="origem">Origem</label>
-                    <select id="origem" name="origem" required>
-                        <option value="">De onde sai?</option>
-                    </select>
-                </div>
-
-                <div class="campo">
-                    <label for="destino">Destino</label>
-                    <select id="destino" name="destino" required>
-                        <option value="">Para onde vai?</option>
-                    </select>
-                </div>
+                </form>
 
             </div>
 
-            <div class="campo">
-                <label for="descricaoMovimentacao">Descrição <span class="opcional">opcional</span></label>
-                <input type="text" id="descricaoMovimentacao" name="descricao" placeholder="Ex: transferência entre contas...">
+
+            <!-- ENTRADAS -->
+
+            <div id="ganhos" class="display">
+
+                <form id="ganhosForm" class="movimentacao-form">
+
+                    <div class="campo valor-campo">
+                        <label for="valorGanho">VALOR</label>
+                        <div class="valor-input">
+                            <span>R$</span>
+                            <input type="number" id="valorGanho" name="valor" placeholder="0,00" min="0" step="0.01" inputmode="decimal" required>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="categoriaGanho">CATEGORIA</label>
+                        <select id="categoriaGanho" name="categoria" required>
+                            <option value="">Escolha uma Categoria</option>
+                            <option value="salario">SALÁRIO</option>
+                            <option value="freelance">FREELANCE</option>
+                            <option value="investimentos">INVESTIMENTOS</option>
+                            <option value="presente">PRESENTE</option>
+                            <option value="reembolso">REEMBOLSO</option>
+                            <option value="outros">OUTROS</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="contaCartaoGanho">Conta</label>
+                        <select id="contaCartaoGanho" name="conta_cartao" required>
+                            <option value="">Selecione uma conta</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="descricaoGanho">Descrição <span class="opcional">opcional</span></label>
+                        <input type="text" id="descricaoGanho" name="descricao" placeholder="Ex: salário, freelance, reembolso...">
+                    </div>
+
+                    <div class="campo">
+                        <label for="dataGanho">Data</label>
+                        <input type="date" id="dataGanho" name="data" required>
+                    </div>
+
+                    <button type="submit" id="btnGanho" name="acao" value="enviar" class="botao-salvar">Confirmar</button>
+
+                </form>
+
             </div>
 
-            <div class="campo">
-                <label for="dataMovimentacao">Data</label>
-                <input type="date" id="dataMovimentacao" name="data" required>
+
+            <!-- MOVIMENTAÇÕES -->
+
+            <div id="movimentacao" class="display">
+
+                <form id="movimentacaoForm" class="movimentacao-form">
+
+                    <div class="campo valor-campo">
+                        <label for="valorMovimentacao">VALOR</label>
+                        <div class="valor-input">
+                            <span>R$</span>
+                            <input type="number" id="valorMovimentacao" name="valor" placeholder="0,00" min="0" step="0.01" inputmode="decimal" required>
+                        </div>
+                    </div>
+
+                    <div class="movimentacao-origem-destino">
+
+                        <div class="campo">
+                            <label for="origem">Origem</label>
+                            <select id="origem" name="origem" required>
+                                <option value="">De onde sai?</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="destino">Destino</label>
+                            <select id="destino" name="destino" required>
+                                <option value="">Para onde vai?</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="campo">
+                        <label for="descricaoMovimentacao">Descrição <span class="opcional">opcional</span></label>
+                        <input type="text" id="descricaoMovimentacao" name="descricao" placeholder="Ex: transferência entre contas...">
+                    </div>
+
+                    <div class="campo">
+                        <label for="dataMovimentacao">Data</label>
+                        <input type="date" id="dataMovimentacao" name="data" required>
+                    </div>
+
+                    <button type="submit" id="btnMovimentacao" name="acao" value="enviar" class="botao-salvar">Confirmar</button>
+
+                </form>
+
             </div>
 
-            <button type="submit" id="btnMovimentacao" name="acao" value="enviar" class="botao-salvar">Confirmar</button>
-
-        </form>
-
-    </div>
-
-</main>
+        </main>
 
 
 <!-- NAVEGAÇÃO INFERIOR -->
-
 <footer class="categoria-footer">
 
     <div class="categoria-container">
