@@ -614,9 +614,20 @@ function adicionarMensagem(
 
     }
 
+    if (
+        tipo === "bot" &&
+        typeof marked !== "undefined"
+    ) {
 
-    messageDiv.textContent =
-        texto;
+        messageDiv.innerHTML =
+            marked.parse(texto);
+
+    } else {
+
+        messageDiv.textContent =
+            texto;
+
+    }
 
 
     chatContainer.appendChild(
