@@ -57,10 +57,10 @@ MYA
 
 .imagem-error{
     position:absolute;
-    top:190px;
+    top:30px;
     left:-10px;
     width:120px;
-    animation:flutuar 4s ease-in-out infinite;
+    animation:flutuar 50s ease-in-out infinite;
 }
 
 .imagem-error img{
@@ -70,27 +70,26 @@ MYA
 }
 
 .imagem-error:hover img{
-    animation:glitch-img .25s infinite linear;
+    animation:glitch-img .4s infinite linear;
 }
 
 @keyframes flutuar{
 
     0%{
-        transform:translate(-1vw, -5vh) scale(0.9);
+        transform:translate(-5vw, -5vh) scale(0.9);
     }
 
-    10%{
-        transform:translate(1vw, -2vh) scale(1.29);
+    1%{
+        transform:translate(-5vw, -5vh) scale(1.0) rotate(9deg) ;
     }
 
-    80%{
-        transform:translate(80vw, 8vh) scale(1.2) rotate(40deg);
-    } 
-
-    100%{ 
-        transform:translate(100vw, -10vh) scale(1) rotate(90deg);
+    90% {
+    transform: translate(80vw, 15vh) scale(1.15) rotate(25deg);
     }
 
+    100% {
+        transform: translate(100vw, -10vh) scale(1) rotate(90deg);
+    }
 }
 
 @keyframes glitch-img{

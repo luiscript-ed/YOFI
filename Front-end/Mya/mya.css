@@ -19,6 +19,7 @@
             justify-content: center;
             align-self: center;
             align-content: center;
+            border-radius: 100px;
         }
 
 .containerMya {
@@ -56,8 +57,8 @@
         from 0deg,
         transparent 0%,
         #9333EA 25%, /* Roxo principal */
-        #b89cff 50%, /* Roxo claro brilhante */
-        #3b0764 75%, /* Roxo escuro */
+        #9c7af1 50%, /* Roxo claro brilhante */
+        #200435 75%, /* Roxo escuro */
         transparent 100%
     );
     animation: girarBorda 2s linear infinite;
@@ -70,7 +71,7 @@
     z-index: 2;
     width: 100%;
     background: #15151d; /* Cor de fundo do seu card */
-    border-radius: 10px; /* Um pouco menor que o pai para encaixar perfeitamente */
+    border-radius: 5px; /* Um pouco menor que o pai para encaixar perfeitamente */
 }
 
 /* Animação de rotação */
@@ -118,34 +119,71 @@
             width: 100%;
             max-width: 700px;
             display: flex;
-            gap: 10px;
+            background-color: white;
+            border-radius: 15px;
         }
 
+        /* Formulário de Input */
+        .chat-form {
+            width: 100%;
+            max-width: 700px;
+            height: 56px;
+
+            display: flex;
+            align-items: stretch;
+
+            background-color: white;
+            border-radius: 15px;
+
+            overflow: hidden;
+        }
+
+        /* Campo branco */
         .input-text {
             flex: 1;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+
+            padding: 12px 14px;
+
+            border: none;
+            border-radius: 15px 0 0 15px;
+
+            background-color: white;
+
             font-size: 1em;
             outline: none;
         }
 
         .input-text:focus {
-            border-color: #a84ee0;
+            border: none;
+            outline: none;
         }
 
+        /* Botão */
         .buttonMya {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             background-color: #a84ee0;
             color: white;
+
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            border-radius: 0 15px 15px 0;
+
+            padding: 0 23px;
+
             font-size: 1em;
             cursor: pointer;
+
             transition: background 0.2s;
         }
 
-       .buttonMya:hover {
+        .buttonMya p {
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .buttonMya:hover {
             background-color: #8e44ad;
         }
 
@@ -1375,3 +1413,4 @@ RESPONSIVIDADE
 }
 
 }
+
