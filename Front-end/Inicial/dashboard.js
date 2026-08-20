@@ -35,7 +35,11 @@ const anoAtual = document.getElementById("anoAtual");
 const resultadoMYA = document.getElementById("myaResultado");
 const MYAGIF = document.querySelectorAll("MYAload");
 
-MYAGIF.classList.add("active")
+if (MYAGIF) {
+    MYAGIF.classList.add("active");
+}
+
+
 
 const notificationBtn =
     document.getElementById("notificationBtn");
@@ -826,7 +830,10 @@ function renderizarDashboard(dados) {
         return;
     }
 
+  if (MYAGIF) {
     MYAGIF.classList.add("active");
+}
+
 
     renderizarResumo(dados);
     renderizarEconomia(dados);
@@ -836,7 +843,10 @@ function renderizarDashboard(dados) {
     carregarGraficoCategorias(dados);
     carregarGraficoEvolucao(dados);
 
+    if (MYAGIF) {
     MYAGIF.classList.remove("active");
+}
+
 }
 
 
@@ -1713,57 +1723,41 @@ salvarUrlAtual();
 // ============================================================
 
 async function iniciarPagina() {
+    console.log("🚀 Iniciando YOFI...");
 
-    console.log(
-        "🚀 Iniciando YOFI..."
-    );
-
-
-    const autenticado =
-        await verificarLogin();
-
+    const autenticado = await verificarLogin();
 
     if (!autenticado) {
-
-        console.warn(
-            "⚠️ Página interrompida: usuário não autenticado."
-        );
-
         return;
     }
 
+    if (MYAGIF) {
+        MYAGIF.classList.add("active");
+    }
 
     atualizarMesNaTela();
 
-
-    const dados =
-        await carregarDashboard();
-
+    const dados = await carregarDashboard();
 
     if (!dados) {
-
-        console.error(
-            "❌ Não foi possível carregar o dashboard."
-        );
+        if (MYAGIF) {
+            MYAGIF.classList.remove("active");
+        }
 
         return;
     }
 
-
-    renderizarDashboard(
-        dados
-    );
-
+    renderizarDashboard(dados);
 
     await carregarContadorNotificacoes();
 
+    if (MYAGIF) {
+        MYAGIF.classList.remove("active");
+    }
 
-    console.log(
-        "✅ Dashboard carregado."
-    );
-
-    MYAGIF.classList.remove("active")
+    console.log("✅ Dashboard carregado.");
 }
+
 
 
 iniciarPagina();
