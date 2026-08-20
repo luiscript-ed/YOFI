@@ -33,7 +33,7 @@ const mesAtual = document.getElementById("mesAtual");
 const anoAtual = document.getElementById("anoAtual");
 
 const resultadoMYA = document.getElementById("myaResultado");
-const MYAGIF = document.querySelectorAll("MYAload");
+const MYAGIF = document.querySelector("MYAload");
 
 if (MYAGIF) {
     MYAGIF.classList.add("active");
