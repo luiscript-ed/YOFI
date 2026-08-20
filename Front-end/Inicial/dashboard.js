@@ -33,6 +33,9 @@ const mesAtual = document.getElementById("mesAtual");
 const anoAtual = document.getElementById("anoAtual");
 
 const resultadoMYA = document.getElementById("myaResultado");
+const MYAGIF = document.querySelectorAll("MYAload");
+
+MYAGIF.classList.add("active")
 
 const notificationBtn =
     document.getElementById("notificationBtn");
@@ -823,6 +826,8 @@ function renderizarDashboard(dados) {
         return;
     }
 
+    MYAGIF.classList.add("active");
+
     renderizarResumo(dados);
     renderizarEconomia(dados);
     renderizarUltimasTransacoes(dados);
@@ -830,6 +835,8 @@ function renderizarDashboard(dados) {
 
     carregarGraficoCategorias(dados);
     carregarGraficoEvolucao(dados);
+
+    MYAGIF.classList.remove("active");
 }
 
 
@@ -1141,7 +1148,6 @@ async function carregarNotificacoes() {
                                 "YOFI"
                             )}
                         </strong>
-
                         <p>
                             ${escaparHTML(
                                 notificacao.mensagem ||
@@ -1695,6 +1701,12 @@ function salvarUrlAtual() {
 
 salvarUrlAtual();
 
+// ======================================
+// ADD GIF
+// ======================================
+
+
+
 
 // ============================================================
 // INICIALIZAÇÃO
@@ -1749,6 +1761,8 @@ async function iniciarPagina() {
     console.log(
         "✅ Dashboard carregado."
     );
+
+    MYAGIF.classList.remove("active")
 }
 
 

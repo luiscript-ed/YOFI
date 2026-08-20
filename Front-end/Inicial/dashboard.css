@@ -472,6 +472,20 @@ background: #101020;
 margin-left: 0;
 }
 
+.MYAload {
+    display: none;
+}
+
+.MYAload.active {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    margin: 0;
+    display: block;
+}
+
 /* =========================================================
 TOPBAR
 ========================================================= */
