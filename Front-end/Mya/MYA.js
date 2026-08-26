@@ -609,8 +609,67 @@ const anoAnterior =
         : anoAtual;
 
 
+// ============================================================
+// DADOS FINANCEIROS DO USUÁRIO
+// ============================================================
+
+let dadosFinanceirosAnteriores = {
+
+    resumo: {
+        saldo: 0,
+        ganhos: 0,
+        gastos: 0
+    },
+
+    economia: {
+        receitas: 0,
+        despesas: 0,
+        valorEconomizado: 0,
+        taxa: 0
+    },
+
+    ultimasTransacoes: [],
+
+    categorias: [],
+
+    evolucao: [],
+
+    contas: [],
+
+    cartoes: []
+};
+
+let dadosFinanceirosAtuais = {
+
+    resumo: {
+        saldo: 0,
+        ganhos: 0,
+        gastos: 0
+    },
+
+    economia: {
+        receitas: 0,
+        despesas: 0,
+        valorEconomizado: 0,
+        taxa: 0
+    },
+
+    ultimasTransacoes: [],
+
+    categorias: [],
+
+    evolucao: [],
+
+    contas: [],
+
+    cartoes: []
+};
+// ============================================================
+// CARREGAR DASHBOARD
+// ============================================================
 
 async function carregarDashboardAnterior() {
+
     try {
 
         const { resposta, dados } =
@@ -618,36 +677,200 @@ async function carregarDashboardAnterior() {
                 `/dashboard?mes=${mesAnterior}&ano=${anoAnterior}`
             );
 
+
         if (!resposta.ok) {
+
             console.error(
-                "Erro no dashboard anterior:",
+                "Erro no dashboard:",
                 resposta.status,
                 dados
             );
 
-            dashboardAnterior = null;
+            dadosFinanceirosAnteriores = {
+                resumo: {
+                    saldo: 0,
+                    ganhos: 0,
+                    gastos: 0
+                },
+
+                economia: {
+                    receitas: 0,
+                    despesas: 0,
+                    valorEconomizado: 0,
+                    taxa: 0
+                },
+
+                ultimasTransacoes: [],
+                categorias: [],
+                evolucao: [],
+                contas: [],
+                cartoes: []
+            };
+
             return null;
         }
 
-        dashboardAnterior = dados;
+        organizarDadosFinanceirosAnterior(dados);
 
         return dados;
+
 
     } catch (erro) {
 
         console.error(
-            "Erro ao carregar dashboard anterior:",
+            "Erro ao carregar dashboard:",
             erro
         );
-
-        dashboardAnterior = null;
 
         return null;
     }
 }
 
 
+// ============================================================
+// ORGANIZAR DADOS FINANCEIROS
+// ============================================================
+
+function organizarDadosFinanceirosAnterior(dados) {
+
+    const resumo =
+        dados?.resumo || {};
+
+    const economia =
+        dados?.economia || {};
+
+
+    dadosFinanceirosAnteriores = {
+
+        // ----------------------------------------------------
+        // RESUMO
+        // ----------------------------------------------------
+
+        resumo: {
+
+            saldo:
+                Number(
+                    resumo.saldo
+                ) || 0,
+
+            ganhos:
+                Number(
+                    resumo.ganhos
+                ) || 0,
+
+            gastos:
+                Number(
+                    resumo.gastos
+                ) || 0
+        },
+
+
+        // ----------------------------------------------------
+        // ECONOMIA
+        // ----------------------------------------------------
+
+        economia: {
+
+            receitas:
+                Number(
+                    economia.receitas
+                ) || 0,
+
+            despesas:
+                Number(
+                    economia.despesas
+                ) || 0,
+
+            valorEconomizado:
+                Math.max(
+                    0,
+                    Number(
+                        economia.valor_economizado
+                    ) || 0
+                ),
+
+            taxa:
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        Number(
+                            economia.taxa
+                        ) || 0
+                    )
+                )
+        },
+
+
+        // ----------------------------------------------------
+        // TRANSAÇÕES
+        // ----------------------------------------------------
+
+        ultimasTransacoes:
+            Array.isArray(
+                dados?.ultimas_transacoes
+            )
+                ? dados.ultimas_transacoes
+                : [],
+
+
+        // ----------------------------------------------------
+        // CATEGORIAS
+        // ----------------------------------------------------
+
+        categorias:
+            Array.isArray(
+                dados?.categorias
+            )
+                ? dados.categorias
+                : [],
+
+
+        // ----------------------------------------------------
+        // EVOLUÇÃO
+        // ----------------------------------------------------
+
+        evolucao:
+            Array.isArray(
+                dados?.evolucao
+            )
+                ? dados.evolucao
+                : [],
+
+
+        // ----------------------------------------------------
+        // CONTAS
+        // ----------------------------------------------------
+
+        contas:
+            Array.isArray(
+                dados?.contas
+            )
+                ? dados.contas
+                : [],
+
+
+        // ----------------------------------------------------
+        // CARTÕES
+        // ----------------------------------------------------
+
+        cartoes:
+            Array.isArray(
+                dados?.cartoes
+            )
+                ? dados.cartoes
+                : []
+    };
+
+
+    console.log(
+        "Dados financeiros organizados:",
+        dadosFinanceiros
+    );
+}
+
 async function carregarDashboardAtual() {
+
     try {
 
         const { resposta, dados } =
@@ -655,34 +878,196 @@ async function carregarDashboardAtual() {
                 `/dashboard?mes=${mesAtual}&ano=${anoAtual}`
             );
 
+
         if (!resposta.ok) {
+
             console.error(
-                "Erro no dashboard atual:",
+                "Erro no dashboard:",
                 resposta.status,
                 dados
             );
 
-            dashboardAtual = null;
+            dadosFinanceirosAtuais = {
+                resumo: {
+                    saldo: 0,
+                    ganhos: 0,
+                    gastos: 0
+                },
+
+                economia: {
+                    receitas: 0,
+                    despesas: 0,
+                    valorEconomizado: 0,
+                    taxa: 0
+                },
+
+                ultimasTransacoes: [],
+                categorias: [],
+                evolucao: [],
+                contas: [],
+                cartoes: []
+            };
+
             return null;
         }
 
-        dashboardAtual = dados;
+        organizarDadosFinanceirosAtual(dados);
 
         return dados;
 
     } catch (erro) {
 
         console.error(
-            "Erro ao carregar dashboard atual:",
+            "Erro ao carregar dashboard:",
             erro
         );
-
-        dashboardAtual = null;
 
         return null;
     }
 }
 
+
+// ============================================================
+// ORGANIZAR DADOS FINANCEIROS
+// ============================================================
+
+function organizarDadosFinanceirosAtual(dados) {
+
+    const resumo =
+        dados?.resumo || {};
+
+    const economia =
+        dados?.economia || {};
+
+
+    dadosFinanceirosAtuais = {
+
+        // ----------------------------------------------------
+        // RESUMO
+        // ----------------------------------------------------
+
+        resumo: {
+
+            saldo:
+                Number(
+                    resumo.saldo
+                ) || 0,
+
+            ganhos:
+                Number(
+                    resumo.ganhos
+                ) || 0,
+
+            gastos:
+                Number(
+                    resumo.gastos
+                ) || 0
+        },
+
+
+        // ----------------------------------------------------
+        // ECONOMIA
+        // ----------------------------------------------------
+
+        economia: {
+
+            receitas:
+                Number(
+                    economia.receitas
+                ) || 0,
+
+            despesas:
+                Number(
+                    economia.despesas
+                ) || 0,
+
+            valorEconomizado:
+                Math.max(
+                    0,
+                    Number(
+                        economia.valor_economizado
+                    ) || 0
+                ),
+
+            taxa:
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        Number(
+                            economia.taxa
+                        ) || 0
+                    )
+                )
+        },
+
+
+        // ----------------------------------------------------
+        // TRANSAÇÕES
+        // ----------------------------------------------------
+
+        ultimasTransacoes:
+            Array.isArray(
+                dados?.ultimas_transacoes
+            )
+                ? dados.ultimas_transacoes
+                : [],
+
+
+        // ----------------------------------------------------
+        // CATEGORIAS
+        // ----------------------------------------------------
+
+        categorias:
+            Array.isArray(
+                dados?.categorias
+            )
+                ? dados.categorias
+                : [],
+
+
+        // ----------------------------------------------------
+        // EVOLUÇÃO
+        // ----------------------------------------------------
+
+        evolucao:
+            Array.isArray(
+                dados?.evolucao
+            )
+                ? dados.evolucao
+                : [],
+
+
+        // ----------------------------------------------------
+        // CONTAS
+        // ----------------------------------------------------
+
+        contas:
+            Array.isArray(
+                dados?.contas
+            )
+                ? dados.contas
+                : [],
+
+
+        // ----------------------------------------------------
+        // CARTÕES
+        // ----------------------------------------------------
+
+        cartoes:
+            Array.isArray(
+                dados?.cartoes
+            )
+                ? dados.cartoes
+                : []
+    };
+
+
+    console.log(
+        "Dados financeiros organizados:",
+        dadosFinanceirosAtuais
+    );
+}
 
 // ============================================================
 // CHAT
@@ -877,9 +1262,9 @@ async function enviarMensagem(mensagem) {
 
                         contexto_financeiro: {
 
-                            mes_anterior: dashboardAnterior,
+                            mes_anterior: dadosFinanceirosAnteriores,
 
-                            mes_atual: dashboardAtual
+                            mes_atual: dadosFinanceirosAtuais
 
                         }
 
