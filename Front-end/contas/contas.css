@@ -492,7 +492,7 @@ body {
 .notification-item p {
     color: var(--text-secondary);
 
-    font-size: 12px;
+    font-size: 20px;
 
     line-height: 1.5;
 }
