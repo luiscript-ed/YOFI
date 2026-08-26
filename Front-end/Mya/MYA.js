@@ -864,8 +864,8 @@ function organizarDadosFinanceirosAnterior(dados) {
 
 
     console.log(
-        "Dados financeiros organizados:",
-        dadosFinanceiros
+        "Dados financeiros Anteriores:",
+        dadosFinanceirosAnteriores
     );
 }
 
@@ -1064,7 +1064,7 @@ function organizarDadosFinanceirosAtual(dados) {
 
 
     console.log(
-        "Dados financeiros organizados:",
+        "Dados financeiros Atuais",
         dadosFinanceirosAtuais
     );
 }

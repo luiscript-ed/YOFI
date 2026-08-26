@@ -289,7 +289,7 @@ class GoogleLogin(BaseModel):
 
 class PerguntaMYA(BaseModel):
     pergunta: str
-
+    contexto_financeiro: dict
 
 class ContaCreate(BaseModel):
     nome: str
@@ -410,7 +410,8 @@ def conversar_mya(
 ):
     resposta = perguntar_mya(
         pergunta=dados.pergunta,
-        usuario_id=usuario_id
+        usuario_id=usuario_id,
+        contexto_financeiro=dados.contexto_financeiro
     )
 
     return {

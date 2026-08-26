@@ -736,11 +736,51 @@ Quando houver conflito entre potencial de lucro e segurança financeira, prioriz
 
 """
 
-def perguntar_mya(pergunta: str, usuario_id: int):
+import json
+
+
+def perguntar_mya(
+    pergunta: str,
+    usuario_id: int,
+    contexto_financeiro: dict
+):
 
     try:
 
+        contexto = json.dumps(
+            contexto_financeiro,
+            ensure_ascii=False,
+            indent=2
+        )
+
+        mensagem_usuario = f"""
+Pergunta do usuário:
+
+{pergunta}
+
+
+Dados financeiros reais do usuário:
+
+{contexto}
+
+
+IMPORTANTE:
+
+Os dados financeiros acima pertencem ao usuário autenticado.
+
+Use esses dados para responder à pergunta quando forem relevantes.
+
+Não invente valores.
+
+Se um dado não estiver presente nos dados fornecidos, diga que não possui essa informação.
+
+Não trate exemplos como dados reais.
+
+Quando mencionar valores financeiros, utilize os valores presentes nos dados fornecidos.
+"""
+
         resposta = client.chat.completions.create(
+
             model="google/gemma-3-12b-it",
 
             messages=[
@@ -750,7 +790,7 @@ def perguntar_mya(pergunta: str, usuario_id: int):
                 },
                 {
                     "role": "user",
-                    "content": pergunta
+                    "content": mensagem_usuario
                 }
             ],
 
