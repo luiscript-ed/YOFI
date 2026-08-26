@@ -1,0 +1,163 @@
+<!-- auth.html -->
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YOFI/Autenticação</title>
+
+<link rel="stylesheet" href="auth.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
+
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="container">
+
+    <div class="left">
+
+        <h1>YOFI</h1>
+
+        <p>
+            Controle seus ganhos, gastos e receba análises inteligentes da sua IA financeira.
+        </p>
+
+    </div>
+
+    <div class="right">
+
+        <div class="form-container">
+
+            <div class="buttons">
+
+                <button id="loginBtn" class="active">
+                    Login
+                </button>
+
+                <button id="registerBtn">
+                    Cadastro
+                </button>
+
+            </div>
+
+
+            <!-- LOGIN -->
+
+            <form id="loginForm">
+
+                <h2>Entrar</h2>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Seu e-mail"
+                    required
+                >
+
+                <input
+                    type="password"
+                    id="loginSenha"
+                    placeholder="Sua senha"
+                    required
+                >
+
+<div class="submit-btn-container">
+
+    <button type="submit" class="submit-btn">
+        Entrar
+    </button>
+
+    <img
+        alt="Gif loading"
+        class="loading-gif"
+        src="../Imagens-Audios/loadings/loading_purplegif.gif"
+    >
+
+</div>
+
+                <!-- Separador -->
+
+                <div class="google-separator">
+                    <span>ou</span>
+                </div>
+
+                <!-- LOGIN COM GOOGLE -->
+<div class="wrapper-gemini">
+                <div
+                    id="googleButton"
+                    class="google-button-container">
+                </div>
+</div>
+            </form>
+
+
+            <!-- CADASTRO -->
+
+            <form id="registerForm" class="hidden">
+
+                <h2>Criar Conta</h2>
+
+                <input
+                    type="text"
+                    id="cadastroNome"
+                    placeholder="Seu nome"
+                    required
+                >
+
+                <input
+                    type="email"
+                    id="cadastroEmail"
+                    placeholder="Seu e-mail"
+                    required
+                >
+
+                <input
+                    type="password"
+                    id="cadastroSenha"
+                    placeholder="Sua senha"
+                    required
+                >
+
+<div class="submit-btn-container">
+
+    <button type="submit" class="submit-btn">
+        Cadastrar
+    </button>
+
+    <img
+        class="loading-gif"
+        src="../Imagens-Audios/loadings/loading_purplegif.gif"
+    >
+
+</div>
+
+            </form>
+
+
+            <p id="mensagem"></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="auth.js"></script>
+
+</body>
+
+</html>

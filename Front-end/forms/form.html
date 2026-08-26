@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOFI - Transação</title>
+    <link rel="stylesheet" href="for.css">
+</head>
+
+<body>
+<!-- SIDEBAR -->
+<aside id="sidebar" class="sidebar">
+
+    <div class="sidebar-logo">
+        <a href="#">
+            <img src="../Imagens-Audios/homepage/yofi-logo.png" alt="YOFI" class="logo-img">
+            <span class="logo-text">YOFI</span>
+        </a>
+    </div>
+
+    <div class="sidebar-user">
+        <div class="user-info">
+            <strong id="usuarioNome">Usuário</strong>
+            <span id="usuarioEmail">email@email.com</span>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page.html" class="sidebar-link">
+            <img src="../Imagens-Audios/homepage/resumo.png" alt="Resumo" class="nav-icon">
+            <span>Resumo</span>
+        </a>
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/contas/conta.html" class="sidebar-link">
+            <img src="../Imagens-Audios/homepage/contas.png" alt="Contas" class="nav-icon">
+            <span>Contas</span>
+        </a>
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/cartoes/cartoes.html" class="sidebar-link">
+            <img src="../Imagens-Audios/homepage/cartoes.png" alt="Cartões" class="nav-icon">
+            <span>Cartões</span>
+        </a>
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/forms/form.html" class="sidebar-link active">
+            <img src="../Imagens-Audios/homepage/transac.png" alt="Transações" class="nav-icon">
+            <span>Transações</span>
+        </a>
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/Mya/Ia.html" class="sidebar-link">
+            <img src="../Imagens-Audios/MYA.png" alt="MYA" class="nav-icon">
+            <span>MYA</span>
+        </a>
+
+        <div class="sidebar-section-title">Planejar</div>
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/Objetivos/objetivos.html" class="sidebar-link">
+            <img src="../Imagens-Audios/homepage/metas.png" alt="Objetivos" class="nav-icon">
+            <span>Objetivos</span>
+        </a>
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/orcamentos/orcamento.html" class="sidebar-link">
+            <img src="../Imagens-Audios/homepage/orca.png" alt="Orçamentos" class="nav-icon">
+            <span>Orçamentos</span>
+        </a>
+
+        <div class="sidebar-section-title">Analisar</div>
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/graficos/grafico.html" class="sidebar-link">
+            <img src="../Imagens-Audios/homepage/graf.png" alt="Gráficos" class="nav-icon">
+            <span>Gráficos</span>
+        </a>
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/categorias/categoria.html" class="sidebar-link">
+            <img src="../Imagens-Audios/homepage/categorias.png" alt="Categorias" class="nav-icon">
+            <span>Categorias</span>
+        </a>
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/calendarios/calendario.html" class="sidebar-link">
+            <img src="../Imagens-Audios/homepage/calendario.png" alt="Calendário" class="nav-icon">
+            <span>Calendário</span>
+        </a>
+
+        <hr class="sidebar-divider">
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/open-finance/open.html" class="sidebar-link">
+            <img src="../Imagens-Audios/homepage/open.png" alt="Open Finance" class="nav-icon">
+            <span>Open Finance</span>
+        </a>
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/configuracoes/config.html" class="sidebar-link">
+            <img src="../Imagens-Audios/homepage/configura.png" alt="Configurações" class="nav-icon">
+            <span>Configurações</span>
+        </a>
+
+        <a href="https://luiscript-ed.github.io/YOFI/Front-end/Recursos/Pagina.html" class="sidebar-link">
+            <img src="../Imagens-Audios/homepage/sobre.png" alt="Sobre" class="nav-icon">
+            <span>Sobre / Recursos</span>
+        </a>
+
+        <a class="sidebar-link" id="alterarModo">
+            <img src="../Imagens-Audios/homepage/visualiza.png" alt="Alterar visualização" class="nav-icon">
+            <span>Alterar visualização</span>
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<div class="app">
+
+
+        <header class="topbar">
+
+
+            <button
+                id="menuBtn"
+                class="menu-btn"
+                aria-label="Abrir menu"
+                aria-expanded="true"
+            >
+                ☰
+            </button>
+
+
+            <div class="topbar-logo">
+                YOFI
+            </div>
+
+
+            <!-- NOTIFICAÇÕES -->
+
+            <div class="notification-container">
+
+                <button
+                    id="notificationBtn"
+                    class="notification-btn"
+                    aria-label="Notificações"
+                >
+
+                    🔔
+
+                    <span id="notificationCount">
+                        0
+                    </span>
+
+                </button>
+
+
+                <div
+                    id="notificationPanel"
+                    class="notification-panel hidden"
+                >
+
+                    <h3>
+                        Notificações
+                    </h3>
+
+                    <div id="notificationList">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <main class="movimentacao-container">
+
+            <header class="movimentacao-header">
+                <h1 id="tituloFormulario">Nova movimentação</h1>
+                <p id="subtituloFormulario">Registre sua movimentação financeira.</p>
+            </header>
+
+
+            <!-- DESPESAS -->
+
+            <div id="gastos" class="display-on">
+
+                <form id="gastosForm" class="movimentacao-form">
+
+                    <div class="campo valor-campo">
+                        <label for="valorGasto">VALOR</label>
+                        <div class="valor-input">
+                            <span>R$</span>
+                            <input type="number" id="valorGasto" name="valor" placeholder="0,00" min="0" step="0.01" inputmode="decimal" required>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="categoriaGasto">CATEGORIA</label>
+                        <select id="categoriaGasto" name="categoria" required>
+                            <option value="">Escolha uma Categoria</option>
+                            <option value="alimentacao">ALIMENTAÇÃO</option>
+                            <option value="transporte">TRANSPORTE</option>
+                            <option value="moradia">MORADIA</option>
+                            <option value="lazer">LAZER</option>
+                            <option value="saude">SAÚDE</option>
+                            <option value="educacao">EDUCAÇÃO</option>
+                            <option value="compras">COMPRAS</option>
+                            <option value="assinaturas">ASSINATURAS</option>
+                            <option value="outros">OUTROS</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="contaCartaoGasto">Conta ou Cartão</label>
+                        <select id="contaCartaoGasto" name="conta_cartao" required>
+                            <option value="">Selecione uma conta ou cartão</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="descricaoGasto">Descrição <span class="opcional">opcional</span></label>
+                        <input type="text" id="descricaoGasto" name="descricao" placeholder="Ex: almoço, mercado, aluguel...">
+                    </div>
+
+                    <div class="campo">
+                        <label for="dataGasto">Data</label>
+                        <input type="date" id="dataGasto" name="data" required>
+                    </div>
+
+                    <button type="submit" id="btnGasto" name="acao" value="enviar" class="botao-salvar">Confirmar</button>
+
+                </form>
+
+            </div>
+
+
+            <!-- ENTRADAS -->
+
+            <div id="ganhos" class="display">
+
+                <form id="ganhosForm" class="movimentacao-form">
+
+                    <div class="campo valor-campo">
+                        <label for="valorGanho">VALOR</label>
+                        <div class="valor-input">
+                            <span>R$</span>
+                            <input type="number" id="valorGanho" name="valor" placeholder="0,00" min="0" step="0.01" inputmode="decimal" required>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="categoriaGanho">CATEGORIA</label>
+                        <select id="categoriaGanho" name="categoria" required>
+                            <option value="">Escolha uma Categoria</option>
+                            <option value="salario">SALÁRIO</option>
+                            <option value="freelance">FREELANCE</option>
+                            <option value="investimentos">INVESTIMENTOS</option>
+                            <option value="presente">PRESENTE</option>
+                            <option value="reembolso">REEMBOLSO</option>
+                            <option value="outros">OUTROS</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="contaCartaoGanho">Conta</label>
+                        <select id="contaCartaoGanho" name="conta_cartao" required>
+                            <option value="">Selecione uma conta</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="descricaoGanho">Descrição <span class="opcional">opcional</span></label>
+                        <input type="text" id="descricaoGanho" name="descricao" placeholder="Ex: salário, freelance, reembolso...">
+                    </div>
+
+                    <div class="campo">
+                        <label for="dataGanho">Data</label>
+                        <input type="date" id="dataGanho" name="data" required>
+                    </div>
+
+                    <button type="submit" id="btnGanho" name="acao" value="enviar" class="botao-salvar">Confirmar</button>
+
+                </form>
+
+            </div>
+
+
+            <!-- MOVIMENTAÇÕES -->
+
+            <div id="movimentacao" class="display">
+
+                <form id="movimentacaoForm" class="movimentacao-form">
+
+                    <div class="campo valor-campo">
+                        <label for="valorMovimentacao">VALOR</label>
+                        <div class="valor-input">
+                            <span>R$</span>
+                            <input type="number" id="valorMovimentacao" name="valor" placeholder="0,00" min="0" step="0.01" inputmode="decimal" required>
+                        </div>
+                    </div>
+
+                    <div class="movimentacao-origem-destino">
+
+                        <div class="campo">
+                            <label for="origem">Origem</label>
+                            <select id="origem" name="origem" required>
+                                <option value="">De onde sai?</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="destino">Destino</label>
+                            <select id="destino" name="destino" required>
+                                <option value="">Para onde vai?</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="campo">
+                        <label for="descricaoMovimentacao">Descrição <span class="opcional">opcional</span></label>
+                        <input type="text" id="descricaoMovimentacao" name="descricao" placeholder="Ex: transferência entre contas...">
+                    </div>
+
+                    <div class="campo">
+                        <label for="dataMovimentacao">Data</label>
+                        <input type="date" id="dataMovimentacao" name="data" required>
+                    </div>
+
+                    <button type="submit" id="btnMovimentacao" name="acao" value="enviar" class="botao-salvar">Confirmar</button>
+
+                </form>
+
+            </div>
+
+        </main>
+
+
+<!-- NAVEGAÇÃO INFERIOR -->
+<footer class="categoria-footer">
+
+    <div class="categoria-container">
+
+        <button type="button" data-id="gastos" name="categoriaGastos" value="gasto" class="categoria-btn ativo">
+            <span class="categoria-titulo">Despesas</span>
+            <span class="categoria-descricao">Seus Gastos</span>
+        </button>
+
+        <button type="button" data-id="ganhos" name="categoriaEntrada" value="entrada" class="categoria-btn">
+            <span class="categoria-titulo">Entradas</span>
+            <span class="categoria-descricao">Seus Ganhos</span>
+        </button>
+
+        <button type="button" data-id="movimentacao" name="categoriaTransacao" value="transacao" class="categoria-btn">
+            <span class="categoria-titulo">Movimentações</span>
+            <span class="categoria-descricao">Transações Entre Bancos</span>
+        </button>
+
+    </div>
+
+</footer>
+</div>
+
+<script src="forms.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Poppins",sans-serif;
+    min-height:100vh;
+    display:grid;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    position:relative;
+    background:
+    radial-gradient(circle at top,
+    #ddc1fc 0%,
+    #ffffff 55%,
+    #f8f7ff 100%);
+}
+
+/*==========================
+BACKGROUND
+==========================*/
+
+.EspaceBar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:400px;
+    overflow:hidden;
+    z-index:-2;
+}
+
+.EspaceBar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+    
+}
+
+.EspaceBar::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(to bottom,
+    rgba(255,255,255,.0),
+    rgba(255,255,255,.1));
+}
+
+/*==========================
+MYA
+==========================*/
+
+.imagem-error{
+    position:absolute;
+    top:30px;
+    left:-10px;
+    width:120px;
+    animation:flutuar 50s ease-in-out infinite;
+}
+
+.imagem-error img{
+    width:100%;
+    display:block;
+    transition:.2s;
+}
+
+.imagem-error:hover img{
+    animation:glitch-img .4s infinite linear;
+}
+
+@keyframes flutuar{
+
+    0%{
+        transform:translate(-5vw, -5vh) scale(0.9);
+    }
+
+    1%{
+        transform:translate(-5vw, -5vh) scale(1.0) rotate(9deg) ;
+    }
+
+    90% {
+    transform: translate(80vw, 15vh) scale(1.15) rotate(25deg);
+    }
+
+    100% {
+        transform: translate(100vw, -10vh) scale(1) rotate(90deg);
+    }
+}
+
+@keyframes glitch-img{
+
+    0%{
+        transform:translate(0);
+    }
+
+    20%{
+        transform:translate(-3px,3px);
+        filter:drop-shadow(-4px 0 red)
+               drop-shadow(4px 0 cyan);
+    }
+
+    40%{
+        transform:translate(3px,-3px);
+    }
+
+    60%{
+        transform:translate(-2px,-2px);
+    }
+
+    80%{
+        transform:translate(2px,2px);
+    }
+
+    100%{
+        transform:translate(0);
+    }
+
+}
+
+/*==========================
+CARD
+==========================*/
+
+.container{
+    width:min(700px,92%);
+    padding:30px;
+    text-align:center;
+    border-radius:25px;
+    margin-top: 10%;
+    backdrop-filter:blur(12px);
+    background:rgba(255,255,255,.72);
+    border:1px solid rgba(255,255,255,.7);
+    box-shadow: 0 30px 70px rgba(119,54,255,.18);
+}
+
+/*==========================
+404
+==========================*/
+
+.ascii-error{
+    color:#8c43ff;
+    font-family:monospace;
+    font-size:15px;
+    line-height:1.05;
+    margin-bottom:5px;
+    text-shadow:
+    0 0 10px rgba(140,67,255,.35);
+}
+
+h2{
+    color:#343434;
+    margin-bottom:18px;
+    font-size:32px;
+    font-weight:700;
+}
+
+p{
+    color:#666;
+    font-size:17px;
+    line-height:1.8;
+    margin-bottom:5px;
+}
+
+/*==========================
+BOTÃO
+==========================*/
+
+.btn-home {
+    display: inline-block;
+    padding: 9px 20px; 
+    border-radius: 13px;
+    background: #8c43ff;
+    color: white;
+    text-decoration: none; /*tira o desgrace do sublinhado demoniaco exu papai nenel ebô diabo */
+    font-weight: 600;
+    transition: .25s;
+    margin-top: 100px; 
+}
+
+.btn-home:hover {
+    background: #7730ec;
+    box-shadow: 0 12px 30px rgba(140, 67, 255, .35);
+}
+
+/*==========================
+RESPONSIVO
+==========================*/
+
+@media(max-width:700px){
+
+    .imagem-error{
+        width:120px;
+        left:20px;
+        top:20px;
+    }
+
+    .container{
+        padding:35px 20px;
+    }
+
+    .ascii-error{
+        font-size:11px;
+    }
+
+    h2{
+        font-size:26px;
+    }
+
+    p{
+        font-size:15px;
+    }
+
+}

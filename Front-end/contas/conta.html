@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>YOFI / Contas</title>
+
+    <link rel="stylesheet" href="contas.css">
+
+</head>
+
+<body>
+
+    <!-- ========================================================= -->
+    <!-- SIDEBAR -->
+    <!-- ========================================================= -->
+
+    <aside id="sidebar" class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <a href="#">
+
+                <img
+                    src="../Imagens-Audios/homepage/yofi-logo.png"
+                    alt="YOFI"
+                    class="logo-img"
+                >
+
+                <span class="logo-text">
+                    YOFI
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <div class="sidebar-user">
+
+            <div class="user-info">
+
+                <strong id="usuarioNome">
+                    Usuário
+                </strong>
+
+                <span id="usuarioEmail">
+                    email@email.com
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <!-- RESUMO -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page.html"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/resumo.png"
+                    alt="Resumo"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Resumo
+                </span>
+
+            </a>
+
+
+            <!-- CONTAS -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/contas/conta.html"
+                class="sidebar-link active"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/contas.png"
+                    alt="Contas"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Contas
+                </span>
+
+            </a>
+
+
+            <!-- CARTÕES -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/cartoes/cartoes.html"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/cartoes.png"
+                    alt="Cartões"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Cartões
+                </span>
+
+            </a>
+
+
+            <!-- TRANSAÇÕES -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/forms/form.html"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/transac.png"
+                    alt="Transações"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Transações
+                </span>
+
+            </a>
+
+
+            <!-- MYA -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/Mya/Ia.html"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/MYA.png"
+                    alt="MYA"
+                    class="nav-icon"
+                >
+
+                <span>
+                    MYA
+                </span>
+
+            </a>
+
+
+            <div class="sidebar-section-title">
+                Planejar
+            </div>
+
+
+            <!-- OBJETIVOS -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/Objetivos/objetivos.html"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/metas.png"
+                    alt="Objetivos"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Objetivos
+                </span>
+
+            </a>
+
+
+            <!-- ORÇAMENTOS -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/orcamentos/orcamento.html"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/orca.png"
+                    alt="Orçamentos"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Orçamentos
+                </span>
+
+            </a>
+
+
+            <div class="sidebar-section-title">
+                Analisar
+            </div>
+
+
+            <!-- GRÁFICOS -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/graficos/grafico.html"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/graf.png"
+                    alt="Gráficos"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Gráficos
+                </span>
+
+            </a>
+
+
+            <!-- CATEGORIAS -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/categorias/categoria.html"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/categorias.png"
+                    alt="Categorias"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Categorias
+                </span>
+
+            </a>
+
+
+            <!-- CALENDÁRIO -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/calendarios/calendario.html"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/calendario.png"
+                    alt="Calendário"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Calendário
+                </span>
+
+            </a>
+
+
+            <hr class="sidebar-divider">
+
+
+            <!-- OPEN FINANCE -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/open-finance/open.html"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/open.png"
+                    alt="Open Finance"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Open Finance
+                </span>
+
+            </a>
+
+
+            <!-- CONFIGURAÇÕES -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/configuracoes/config.html"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/configura.png"
+                    alt="Configurações"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Configurações
+                </span>
+
+            </a>
+
+
+            <!-- SOBRE -->
+
+            <a
+                href="https://luiscript-ed.github.io/YOFI/Front-end/Recursos/Pagina.html"
+                class="sidebar-link"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/sobre.png"
+                    alt="Sobre"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Sobre / Recursos
+                </span>
+
+            </a>
+
+
+            <!-- VISUALIZAÇÃO -->
+
+            <a
+                class="sidebar-link"
+                id="alterarModo"
+            >
+
+                <img
+                    src="../Imagens-Audios/homepage/visualiza.png"
+                    alt="Alterar visualização"
+                    class="nav-icon"
+                >
+
+                <span>
+                    Alterar visualização
+                </span>
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ========================================================= -->
+    <!-- APP -->
+    <!-- ========================================================= -->
+
+    <div class="app" id="app">
+
+
+        <!-- ===================================================== -->
+        <!-- TOPBAR -->
+        <!-- ===================================================== -->
+
+        <header class="topbar">
+
+
+            <button
+                id="menuBtn"
+                class="menu-btn"
+                aria-label="Abrir menu"
+                aria-expanded="true"
+            >
+                ☰
+            </button>
+
+
+            <div class="topbar-logo">
+                YOFI
+            </div>
+
+
+            <!-- NOTIFICAÇÕES -->
+
+            <div class="notification-container">
+
+                <button
+                    id="notificationBtn"
+                    class="notification-btn"
+                    aria-label="Notificações"
+                >
+
+                    🔔
+
+                    <span id="notificationCount">
+                        0
+                    </span>
+
+                </button>
+
+
+                <div
+                    id="notificationPanel"
+                    class="notification-panel hidden"
+                >
+
+                    <h3>
+                        Notificações
+                    </h3>
+
+                    <div id="notificationList">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ===================================================== -->
+        <!-- CONTEÚDO -->
+        <!-- ===================================================== -->
+
+        <main class="main-content" id="contas">
+
+
+            <section class="page-header">
+
+                <div>
+
+                    <span class="page-eyebrow">
+                        FINANÇAS
+                    </span>
+
+                    <h1>
+                        Minhas contas
+                    </h1>
+
+                    <p>
+                        Organize suas contas, acompanhe seus saldos e mantenha tudo sob controle.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- FORMULÁRIO -->
+            <!-- ================================================= -->
+
+            <section class="account-form-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2 id="formTitulo">
+                            Criar conta
+                        </h2>
+
+                        <p>
+                            Cadastre uma conta bancária, carteira ou outro tipo de recurso.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    id="contaForm"
+                    class="account-form"
+                >
+
+                    <input
+                        type="hidden"
+                        id="contaId"
+                    >
+
+
+                    <div class="form-group form-group-wide">
+
+                        <label for="nomeConta">
+                            Nome da conta
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nomeConta"
+                            placeholder="Ex.: Minha conta Nubank"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="tipoConta">
+                            Tipo
+                        </label>
+
+                        <select
+                            id="tipoConta"
+                            required
+                        >
+
+                            <option value="">
+                                Selecione
+                            </option>
+
+                            <option value="corrente">
+                                Conta corrente
+                            </option>
+
+                            <option value="poupanca">
+                                Poupança
+                            </option>
+
+                            <option value="carteira">
+                                Carteira
+                            </option>
+
+                            <option value="investimento">
+                                Investimento
+                            </option>
+
+                            <option value="outro">
+                                Outro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="saldoInicial">
+                            Saldo inicial
+                        </label>
+
+                        <div class="money-input">
+
+                            <span>
+                                R$
+                            </span>
+
+                            <input
+                                type="number"
+                                id="saldoInicial"
+                                min="0"
+                                step="0.01"
+                                value="0"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            id="salvarConta"
+                            class="primary-btn"
+                        >
+                            Criar conta
+                        </button>
+
+                        <button
+                            type="button"
+                            id="cancelarEdicao"
+                            class="secondary-btn hidden"
+                        >
+                            Cancelar edição
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <p
+                    id="mensagem"
+                    class="form-message"
+                ></p>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- RESUMO -->
+            <!-- ================================================= -->
+
+            <section class="account-summary">
+
+                <div class="summary-card">
+
+                    <span>
+                        Contas cadastradas
+                    </span>
+
+                    <strong id="totalContas">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <span>
+                        Saldo total
+                    </span>
+
+                    <strong id="saldoTotal">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <span>
+                        Contas ativas
+                    </span>
+
+                    <strong id="contasAtivas">
+                        0
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- LISTA -->
+            <!-- ================================================= -->
+
+            <section class="accounts-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            Minhas contas
+                        </h2>
+
+                        <p>
+                            Veja seus saldos atuais e gerencie suas contas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="contasList"
+                    class="accounts-grid"
+                >
+
+                    <div
+                        id="loadingContas"
+                        class="empty-state"
+                    >
+                        Carregando contas...
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="contas.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,254 @@
+
+/* auth.css */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #090b14, #111827, #1b1b2f);
+    color: white;
+    overflow: hidden;
+}
+
+.background{
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(168,85,247,0.25), transparent 70%);
+    top: -200px;
+    right: -100px;
+}
+
+.container{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+}
+
+.left{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px;
+}
+
+.left h1{
+    font-size: 5rem;
+    color: #c084fc;
+    margin-bottom: 20px;
+}
+
+.left p{
+    color: #9ca3af;
+    font-size: 1.2rem;
+    max-width: 500px;
+}
+
+.right{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container{
+    width: 420px;
+    background: rgba(17,24,39,0.85);
+    padding: 40px;
+    border-radius: 30px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.buttons{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.buttons button{
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #1f2937;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.buttons button.active{
+    background: linear-gradient(135deg, #7c3aed, #c084fc);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+form h2{
+    margin-bottom: 10px;
+}
+
+input{
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    background: #111827;
+    color: white;
+    outline: none;
+}
+/* ======================
+    BOTÃO DE SUBMIT
+====================== */
+.submit-btn-container{
+position: relative;
+width: 100%;
+display: flex;
+justify-content: center;
+}
+
+.submit-btn{
+position: relative;
+width: 100%;
+padding: 15px;
+border: none;
+border-radius: 12px;
+background: linear-gradient(135deg, #7c3aed, #c084fc);
+color: white;
+font-weight: 600;
+cursor: pointer;
+transition: 0.3s;
+}
+
+.submit-btn:hover{
+transform: translateY(-3px);
+}
+
+/* Container externo que cria o efeito */
+.wrapper-gemini {
+  position: relative;
+  width: 304px; /* 300px do botão + 4px das bordas laterais */
+  height: 44px; /* ~40px do botão + 4px das bordas superior/inferior */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px; /* Casamento perfeito com o shape "rectangular" do Google */
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* O gradiente que gira ao fundo */
+.wrapper-gemini::before {
+  content: '';
+  position: absolute;
+  top: -150%;
+  left: -150%;
+  width: 400%;
+  height: 400%;
+  background: conic-gradient(
+    #ffffff, 
+    #4285F4, /* Azul Google */
+    #EA4335, /* Vermelho Google */
+    #FBBC05, /* Amarelo Google */
+    #34A853, /* Verde Google */
+    #ffffff
+  );
+  animation: girarBorda 4s linear infinite;
+  z-index: -1;
+}
+
+/* Garante que o iframe do Google fique por cima e centralizado */
+.wrapper-gemini iframe {
+  position: relative;
+  z-index: 2;
+  border-radius: 2px !important; 
+}
+
+/* Adicione isso para ativar o movimento */
+@keyframes girarBorda {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ANIMAÇÃO DO BOTÃO */
+
+.submit-btn:disabled{
+animation: diminuir .25s linear forwards;
+cursor: not-allowed;
+}
+
+@keyframes diminuir {
+0% { opacity: 1; scale: 1; }
+50% { opacity: 0.5; scale: 0.7; }
+100% { opacity: 0.0; scale: 0.0; }
+}
+
+
+/* GIF */
+.loading-gif{
+display: none;
+position: absolute;
+width: 50px;
+height: 50px;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+object-fit: contain;
+}
+
+.loading-gif.show{
+display: block;
+animation: aparecer .25s linear forwards;
+}
+
+@keyframes aparecer {
+0% { opacity: 0; scale: 0; }
+100% { opacity: 1; scale: 1.5; }
+}
+
+
+.hidden{
+    display: none;
+}
+
+#mensagem{
+    margin-top: 20px;
+    color: #d8b4fe;
+    text-align: center;
+}
+
+@media(max-width: 900px){
+
+    .container{
+        flex-direction: column;
+    }
+
+    .left,
+    .right{
+        width: 100%;
+    }
+
+    .left{
+        padding: 40px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .left h1{
+        font-size: 4rem;
+    }
+
+}
