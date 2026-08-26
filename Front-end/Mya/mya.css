@@ -71,7 +71,8 @@
     z-index: 2;
     width: 100%;
     background: #15151d; /* Cor de fundo do seu card */
-    border-radius: 5px; /* Um pouco menor que o pai para encaixar perfeitamente */
+    border: none;
+    border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
 }
 
 /* Animação de rotação */
@@ -124,68 +125,77 @@
         }
 
         /* Formulário de Input */
-        .chat-form {
-            width: 100%;
-            max-width: 700px;
-            height: 56px;
+/* Formulário de Input */
+.chat-form {
+    width: 100%;
+    max-width: 700px;
+    height: 56px;
 
-            display: flex;
-            align-items: stretch;
+    display: flex;
+    align-items: center;
 
-            background-color: white;
-            border-radius: 15px;
+    background-color: white;
+    border-radius: 999px;
 
-            overflow: hidden;
-        }
+    padding: 5px;
+    overflow: hidden;
+}
 
-        /* Campo branco */
-        .input-text {
-            flex: 1;
+/* Campo branco */
+.input-text {
+    flex: 1;
 
-            padding: 12px 14px;
+    height: 100%;
+    padding: 12px 18px;
 
-            border: none;
-            border-radius: 15px 0 0 15px;
+    border: none;
+    border-radius: 999px;
 
-            background-color: white;
+    background-color: transparent;
 
-            font-size: 1em;
-            outline: none;
-        }
+    font-size: 1em;
+    outline: none;
+}
 
-        .input-text:focus {
-            border: none;
-            outline: none;
-        }
+.input-text:focus {
+    border: none;
+    outline: none;
+}
 
-        /* Botão */
-        .buttonMya {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+/* Botão redondo */
+.buttonMya {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
 
-            background-color: #a84ee0;
-            color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            border: none;
-            border-radius: 0 15px 15px 0;
+    background-color: #a84ee0;
+    color: white;
 
-            padding: 0 23px;
+    border: none;
+    border-radius: 50%;
 
-            font-size: 1em;
-            cursor: pointer;
+    padding: 0;
 
-            transition: background 0.2s;
-        }
+    font-size: 1em;
+    cursor: pointer;
 
-        .buttonMya p {
-            font-size: 1.1rem;
-            margin: 0;
-        }
+    transition: background 0.2s, transform 0.2s;
+}
 
-        .buttonMya:hover {
-            background-color: #8e44ad;
-        }
+.buttonMya p {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.buttonMya:hover {
+    background-color: #8e44ad;
+    transform: scale(1.05);
+}
+
 
         :root {
 --sidebar-width: 255px;
