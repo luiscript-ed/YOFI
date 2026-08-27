@@ -1,0 +1,4 @@
+Quando for compactar para capacitor, atualize o CORS
+Adicionar Captcha
+Verificação por email pra criar a conta
+
