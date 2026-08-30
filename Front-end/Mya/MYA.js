@@ -52,6 +52,26 @@ const chatForm =
 const userInput =
     document.getElementById("userInput");
 
+const buttonUpload =
+    document.querySelector(".buttonUpload");
+
+const imageInput =
+    document.getElementById("imageInput");
+
+const imagePreview =
+    document.getElementById("imagePreview");
+
+const imagePreviewImg =
+    document.getElementById("imagePreviewImg");
+
+const imagePreviewName =
+    document.getElementById("imagePreviewName");
+
+const removeImageBtn =
+    document.getElementById("removeImageBtn");
+
+
+let imagemSelecionada = null;
 
 // ============================================================
 // ESTADO
@@ -1192,63 +1212,92 @@ async function enviarMensagem(mensagem) {
         enviandoMensagem ||
         !mensagem
     ) {
-
         return;
-
     }
 
-
     enviandoMensagem = true;
-
 
     if (userInput) {
         userInput.disabled = true;
     }
 
-
     const botaoEnviar =
         chatForm?.querySelector(
-            '[type="submit"]'
+            ".buttonMya"
         );
-
 
     if (botaoEnviar) {
         botaoEnviar.disabled = true;
     }
 
+    const imagemAtual =
+        imagemSelecionada || null;
 
-    adicionarMensagem(
-        mensagem,
-        "user",
-    );
+    if (imagemAtual) {
 
+        adicionarMensagem(
+            `${mensagem}\n📎 ${imagemAtual.name}`,
+            "user"
+        );
+
+    } else {
+
+        adicionarMensagem(
+            mensagem,
+            "user"
+        );
+
+    }
 
     if (userInput) {
         userInput.value = "";
     }
 
-
     const loading =
         criarLoading();
-
 
     controllerAtual =
         new AbortController();
 
-
     try {
+
+        const contextoFinanceiro = {
+            mes_anterior:
+                dadosFinanceirosAnteriores,
+
+            mes_atual:
+                dadosFinanceirosAtuais
+        };
+
+        const formData =
+            new FormData();
+
+        formData.append(
+            "pergunta",
+            mensagem
+        );
+
+        formData.append(
+            "contexto_financeiro",
+            JSON.stringify(
+                contextoFinanceiro
+            )
+        );
+
+        if (imagemAtual) {
+
+            formData.append(
+                "imagem",
+                imagemAtual
+            );
+
+        }
 
         const resposta =
             await fetch(
                 `${API_URL}/mya`,
                 {
-
                     method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
 
                     credentials:
                         "include",
@@ -1256,24 +1305,10 @@ async function enviarMensagem(mensagem) {
                     signal:
                         controllerAtual.signal,
 
-                    body: JSON.stringify({
-
-                        pergunta: mensagem,
-
-                        contexto_financeiro: {
-
-                            mes_anterior: dadosFinanceirosAnteriores,
-
-                            mes_atual: dadosFinanceirosAtuais
-
-                        }
-
-                    })
-
-
+                    body:
+                        formData
                 }
             );
-
 
         if (
             resposta.status === 401
@@ -1284,7 +1319,6 @@ async function enviarMensagem(mensagem) {
             );
 
         }
-
 
         let dados = null;
 
@@ -1301,7 +1335,6 @@ async function enviarMensagem(mensagem) {
 
         }
 
-
         if (!resposta.ok) {
 
             throw new Error(
@@ -1310,7 +1343,6 @@ async function enviarMensagem(mensagem) {
             );
 
         }
-
 
         if (
             !dados ||
@@ -1323,12 +1355,31 @@ async function enviarMensagem(mensagem) {
 
         }
 
-
         adicionarMensagem(
             dados.resposta,
             "bot"
         );
 
+        imagemSelecionada = null;
+
+
+        if (imageInput) {
+            imageInput.value = "";
+        }
+
+        if (imagePreviewImg) {
+            URL.revokeObjectURL(
+            imagePreviewImg.src
+        );
+
+        imagePreviewImg.src = "";
+        }
+
+        if (imagePreview) {
+            imagePreview.classList.add(
+            "hidden"
+            );
+        }
 
     } catch (erro) {
 
@@ -1340,12 +1391,10 @@ async function enviarMensagem(mensagem) {
 
         }
 
-
         console.error(
             "Erro ao conversar com a MYA:",
             erro
         );
-
 
         adicionarMensagem(
             erro.message ||
@@ -1353,8 +1402,8 @@ async function enviarMensagem(mensagem) {
             "error"
         );
 
-
         if (
+            erro.message &&
             erro.message.includes(
                 "sessão expirou"
             )
@@ -1378,25 +1427,26 @@ async function enviarMensagem(mensagem) {
             loading.remove();
         }
 
-
         controllerAtual =
             null;
 
         enviandoMensagem =
             false;
 
-
         if (userInput) {
+
             userInput.disabled =
                 false;
 
             userInput.focus();
+
         }
 
-
         if (botaoEnviar) {
+
             botaoEnviar.disabled =
                 false;
+
         }
 
     }
@@ -1468,6 +1518,123 @@ if (userInput) {
 
 }
 
+if (buttonUpload && imageInput) {
+
+    buttonUpload.addEventListener(
+        "click",
+        () => {
+            imageInput.click();
+        }
+    );
+
+    imageInput.addEventListener(
+        "change",
+        () => {
+
+            const arquivo =
+                imageInput.files?.[0];
+
+            if (!arquivo) {
+                return;
+            }
+
+            const tiposPermitidos = [
+                "image/png",
+                "image/jpeg",
+                "image/webp",
+                "image/gif"
+            ];
+
+            if (
+                !tiposPermitidos.includes(
+                    arquivo.type
+                )
+            ) {
+
+                alert(
+                    "Formato de imagem não permitido."
+                );
+
+                imageInput.value = "";
+                imagemSelecionada = null;
+
+                return;
+            }
+
+            const tamanhoMaximo =
+                5 * 1024 * 1024;
+
+            if (
+                arquivo.size >
+                tamanhoMaximo
+            ) {
+
+                alert(
+                    "A imagem deve ter no máximo 5 MB."
+                );
+
+                imageInput.value = "";
+                imagemSelecionada = null;
+
+                return;
+            }
+
+            imagemSelecionada =
+                arquivo;
+
+            imagePreviewName.textContent =
+                arquivo.name;
+
+            imagePreviewImg.src =
+                URL.createObjectURL(
+                    arquivo
+                );
+
+            imagePreview.classList.remove(
+                "hidden"
+            );
+
+            console.log(
+                "Imagem selecionada:",
+                arquivo.name
+            );
+        }
+    );
+}
+
+if (removeImageBtn) {
+
+    removeImageBtn.addEventListener(
+        "click",
+        () => {
+
+            imagemSelecionada = null;
+
+            if (imageInput) {
+                imageInput.value = "";
+            }
+
+            if (imagePreviewImg) {
+                URL.revokeObjectURL(
+                    imagePreviewImg.src
+                );
+
+                imagePreviewImg.src = "";
+            }
+
+            if (imagePreview) {
+                imagePreview.classList.add(
+                    "hidden"
+                );
+            }
+
+            if (imagePreviewName) {
+                imagePreviewName.textContent =
+                    "Imagem selecionada";
+            }
+        }
+    );
+}
 
 // ============================================================
 // CANCELAR REQUISIÇÃO EM ANDAMENTO
@@ -1498,7 +1665,6 @@ async function iniciarMYA() {
     const autenticado = await verificarLogin();
 
     if (!autenticado) {
-        window.location.href = AUTH_PAGE;
         return;
     }
 

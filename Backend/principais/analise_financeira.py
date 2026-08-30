@@ -75,7 +75,12 @@ Forneça Uma mensagem curta para notificação com as seguintes informações:
 tente ser o mais breve possivel, não use negrito, pense que voce está enviando somente o corpo de uma notificação, ao fim da notificação, não adicione uma pergunta, como "Voce quer que faça tal coisa?", seja breve.
 """
 
-    return perguntar_mya(prompt)
+    return perguntar_mya(
+    pergunta=prompt,
+    contexto_financeiro={},
+    imagem = {},
+    usuario_id=usuario_id,
+)
 
 def categorias_principais(usuario_id):
 
@@ -164,4 +169,9 @@ Dê 3 dicas práticas para economizar.
 Responda em português.
 """
 
-    return perguntar_mya(prompt)
+    return perguntar_mya(
+    pergunta=prompt,
+    contexto_financeiro={},
+    imagem = {},
+    usuario_id=usuario_id,
+)

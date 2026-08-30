@@ -414,12 +414,23 @@
     </header>
 
     <!-- MYA -->
-<div class="containerMya"> 
+
+
+    <div class="containerMya"> 
     <h1 class="title">MYA</h1>
 
     <div class="chat-container" id="chatContainer"></div>
-
+        <div id="imagePreview" class="image-preview hidden">
+            <div class="image-preview-content">
+                <img id="imagePreviewImg" src="" alt="Imagem selecionada">
+                <div class="image-preview-info">
+                    <span id="imagePreviewName">Imagem selecionada</span>
+                </div>
+            <button type="button" id="removeImageBtn" class="remove-image-btn" aria-label="Remover imagem">×</button>
+        </div>
+    </div>
     <div class="wrapper-gemini">
+        
         <form class="chat-form" id="chatForm">
                 <input
                     type="text"
@@ -427,6 +438,24 @@
                     class="input-text"
                     placeholder="Digite sua mensagem:"
                     required autocomplete="on"
+                >
+
+                <button
+                    type="button"
+                    class="buttonUpload"
+                    aria-label="Enviar imagem"
+                >
+                <img
+                    src="../Imagens-Audios/homepage/uploadFile.png"
+                    alt="Upload"
+                    >
+                </button>
+
+                <input
+                    type="file"
+                    id="imageInput"
+                    accept="image/png,image/jpeg,image/webp,image/gif"
+                    hidden
                 >
 
                 <button type="submit" class="buttonMya"><p>⮝</p></button>

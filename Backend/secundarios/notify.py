@@ -32,3 +32,4 @@ def criar_notificacao(usuario_id, titulo, mensagem):
 
     cursor.close()
     conn.close()
+    

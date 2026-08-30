@@ -37,7 +37,7 @@
 .wrapper-gemini {
     position: relative;
     padding: 3px; /* Define a espessura da borda animada */
-    border-radius: 12px; /* Garante cantos arredondados */
+    border-radius: 35px; /* Garante cantos arredondados */
     overflow: hidden; /* Esconde o excesso da div que vai girar */
     display: flex;
     justify-content: center;
@@ -170,7 +170,8 @@
 }
 
 /* Botão redondo */
-.buttonMya {
+
+.buttonMya, .buttonUpload {
     width: 46px;
     height: 46px;
     flex-shrink: 0;
@@ -198,11 +199,93 @@
     margin: 0;
 }
 
+.buttonUpload img {
+    width: 80%;
+    height: 80%;
+}
+
 .buttonMya:hover {
     background-color: #8e44ad;
     transform: scale(1.05);
 }
 
+.image-preview {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.image-preview.hidden {
+    display: none;
+}
+
+.image-preview-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    max-width: 100%;
+    padding: 8px 10px;
+    background: linear-gradient(135deg, #f2e3ff, #5f23f8);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.image-preview-content img {
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.image-preview-info {
+    min-width: 0;
+    max-width: 220px;
+}
+
+.image-preview-info span {
+    display: block;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.remove-image-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.remove-image-btn:hover {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+}
+
+@media (max-width: 600px) {
+    .image-preview-content {
+        width: 100%;
+    }
+
+    .image-preview-info {
+        max-width: none;
+        flex: 1;
+    }
+}
 
         :root {
 --sidebar-width: 255px;

@@ -1,8 +1,9 @@
-from fastapi import FastAPI, HTTPException, Request, Response, Depends
+from fastapi import FastAPI, HTTPException, Request, Response, Depends, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from pwdlib import PasswordHash
 import jwt
+import json
 
 from datetime import datetime, timezone, timedelta, date
 from principais.mya import perguntar_mya
@@ -404,14 +405,26 @@ def economia(usuario_id: int = Depends(obter_usuario_autenticado)):
     }
 
 @app.post("/mya")
-def conversar_mya(
-    dados: PerguntaMYA, 
+async def conversar_mya(
+    pergunta: str = Form(...),
+    contexto_financeiro: str = Form("{}"),
+    imagem: UploadFile | None = File(None),
     usuario_id: int = Depends(obter_usuario_autenticado)
 ):
-    resposta = perguntar_mya(
-        pergunta=dados.pergunta,
+    try:
+        contexto = json.loads(contexto_financeiro)
+
+    except json.JSONDecodeError:
+        raise HTTPException(
+            status_code=400,
+            detail="Contexto financeiro inválido."
+        )
+
+    resposta = await perguntar_mya(
+        pergunta=pergunta,
         usuario_id=usuario_id,
-        contexto_financeiro=dados.contexto_financeiro
+        contexto_financeiro=contexto,
+        imagem=imagem
     )
 
     return {
