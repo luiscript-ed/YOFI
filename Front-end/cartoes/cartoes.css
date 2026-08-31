@@ -837,6 +837,56 @@ body {
 /* =========================================================
    CARTÕES
    ========================================================= */
+/* Container pai da pilha de cartões */
+.card-stack {
+    position: relative;
+    width: 100%;
+    min-height: 280px;
+    cursor: pointer;
+    perspective: 1000px;
+}
+
+/* Camada da Imagem (Fundo) */
+.card-layer-back {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-layer-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Camada das Informações (Frente) */
+.card-layer-front {
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Estado Invertido (Quando clica para trocar) */
+.card-stack.flipped .card-layer-back {
+    top: 0;
+    left: 0;
+    z-index: 2;
+    transform: scale(1);
+}
+
+.card-stack.flipped .card-layer-front {
+    transform: translate(-15px, -15px) scale(0.98);
+    z-index: 1;
+    opacity: 0.85;
+}
 
 .cards-section {
     background: var(--bg-card);

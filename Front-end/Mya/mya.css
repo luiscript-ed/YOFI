@@ -176,6 +176,8 @@
     height: 46px;
     flex-shrink: 0;
 
+    margin-left: 8px;
+    margin-right: 8px;
     display: flex;
     align-items: center;
     justify-content: center;

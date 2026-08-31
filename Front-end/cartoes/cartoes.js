@@ -528,6 +528,12 @@ async function carregarCartoes() {
 
 }
 
+function trocarPosicaoCartao(element, event) {
+    // Evita alternar se clicar nos botões de ação internos
+    if (event.target.closest('.card-actions')) return;
+    
+    element.classList.toggle('flipped');
+}
 
 // ============================================================
 // RENDERIZAR
@@ -548,6 +554,69 @@ function renderizarCartoes() {
         return;
 
     }
+
+let imagemCartao = "None";
+const nomeCartao = cartao.nome.replace(/\s+/g, "").toUpperCase(); 
+
+if (nomeCartao === "ITAUPERSONNALITEBLACK" || nomeCartao === "ITAUPERSONNALITE" || nomeCartao === "ITAUPERSONNALITEMASTERCARDBLACK") {
+    imagemCartao = "itauPersonaliteBlack.png";
+} else if (nomeCartao === "NUBANKULTRAVIOLETA" || nomeCartao === "NUBANKVIOLETA" || nomeCartao === "NUBANKULTRA" || nomeCartao === "NUULTRAVIOLETA") {
+    imagemCartao = "nubankUltravioleta.png";
+} else if (nomeCartao === "BRADESCOAETERNUM" || nomeCartao === "AETERNUM" || nomeCartao === "BRADESCOVISAETERNUM" || nomeCartao === "AETERNUMVISAINFINITE") {
+    imagemCartao = "bradescoAeternum.png";
+} else if (nomeCartao === "SANTANDERUNLIMITED" || nomeCartao === "UNLIMITED" || nomeCartao === "SANTANDERUNLIMITEDBLACK" || nomeCartao === "SANTANDERUNLIMITEDINFINITE") {
+    imagemCartao = "santanderUnlimited.png";
+} else if (nomeCartao === "BBALTUS" || nomeCartao === "BANCODOBRASILALTUS" || nomeCartao === "ALTUS" || nomeCartao === "ALTUSVISAINFINITE") {
+    imagemCartao = "bbAltus.png";
+} else if (nomeCartao === "C6CARBON" || nomeCartao === "C6CARBONBLACK" || nomeCartao === "CARBON" || nomeCartao === "CARBONBLACK") {
+    imagemCartao = "c6Carbon.png";
+} else if (nomeCartao === "BTGULTRABLUE" || nomeCartao === "ULTRABLUE" || nomeCartao === "BTGULTRABLUEWEBP" || nomeCartao === "BTGBLUE") {
+    imagemCartao = "btgUltrablue.webp";
+} else if (nomeCartao === "BRBDUX" || nomeCartao === "DUX" || nomeCartao === "DUXVISAINFINITE" || nomeCartao === "BRBDUXVISA") {
+    imagemCartao = "brbDux.png";
+} else if (nomeCartao === "SANTANDERUNIQUE" || nomeCartao === "UNIQUE" || nomeCartao === "SANTANDERUNIQUEBLACK" || nomeCartao === "SANTANDERUNIQUEINFINITE") {
+    imagemCartao = "santanderUnique.png";
+} else if (nomeCartao === "ITAUSIGNATURE" || nomeCartao === "ITAUNICLASSSIGNATURE" || nomeCartao === "UNICLASSSIGNATURE" || nomeCartao === "ITAUSIGNATUR") {
+    imagemCartao = "itauSignature.png";
+} else if (nomeCartao === "XPINFINITE" || nomeCartao === "XPVISAINFINITE" || nomeCartao === "XP" || nomeCartao === "CARTAOXP") {
+    imagemCartao = "xpInfinite.png";
+} else if (nomeCartao === "BRADESCOVISAGOLD" || nomeCartao === "BRADESCOGOLD" || nomeCartao === "VISAGOLDBRADESCO") {
+    imagemCartao = "bradescoVisaGold.png";
+} else if (nomeCartao === "NUBANKGOLD" || nomeCartao === "NUGOLD" || nomeCartao === "NUBANKMASTERCARDGOLD") {
+    imagemCartao = "nubankGold.png";
+} else if (nomeCartao === "NUBANKPLATINUM" || nomeCartao === "NUPLATINUM" || nomeCartao === "NUBANKMASTERCARDPLATINUM") {
+    imagemCartao = "nubankPlatinum.png";
+} else if (nomeCartao === "INTERGOLD" || nomeCartao === "BANCOINTERGOLD" || nomeCartao === "INTERMASTERCARDGOLD") {
+    imagemCartao = "interGold.png";
+} else if (nomeCartao === "INTERPLATINUM" || nomeCartao === "BANCOINTERPLATINUM" || nomeCartao === "INTERMASTERCARDPLATINUM") {
+    imagemCartao = "interPlatinum.png";
+} else if (nomeCartao === "SANTANDERSX" || nomeCartao === "SANTANDERSXVISA" || nomeCartao === "SANTANDERSXMASTERCARD" || nomeCartao === "SX") {
+    imagemCartao = "santanderSX.png";
+} else if (nomeCartao === "ITAUCLICK" || nomeCartao === "CLICK" || nomeCartao === "ITAUCLICKVISA" || nomeCartao === "ITAUCLICKMASTERCARD") {
+    imagemCartao = "itauClick.png";
+} else if (nomeCartao === "PICPAYPLATINUM" || nomeCartao === "PICPAYCARDPLATINUM" || nomeCartao === "PICPAYPLATINU") {
+    imagemCartao = "picpayPlatinum.png";
+} else if (nomeCartao === "PICPAYBLACK" || nomeCartao === "PICPAYCARDBLACK" || nomeCartao === "PICPAYBLACK") {
+    imagemCartao = "picpayBlack.webp";
+} else if (nomeCartao === "PICPAYGOLD" || nomeCartao === "PICPAYCARDGOLD" || nomeCartao === "PICPAYGOLD") {
+    imagemCartao = "picpayGold.webp";
+} else if (nomeCartao === "MERCADOPAGO" || lineage === "MERCADOLIVRE" || nomeCartao === "CARTAOMERCADOPAGO" || nomeCartao === "MERCADOPAGOVISA") {
+    imagemCartao = "mercadoPago.png";
+} else if (nomeCartao === "ITAUAZULPLATINUM" || nomeCartao === "AZULPLATINUM" || nomeCartao === "AZULITAUPLATINUM") {
+    imagemCartao = "itauAzulPlatinum.avif";
+} else if (nomeCartao === "ITAUAZULINFINITE" || nomeCartao === "AZULINFINITE" || nomeCartao === "AZULITAUVISAINFINITE") {
+    imagemCartao = "itauAzulInfinite.avif";
+} else if (nomeCartao === "NEXTVISAPLATINUM" || nomeCartao === "NEXTPLATINUM" || nomeCartao === "NEXTVISAPLATINUM" || nomeCartao === "NEXT") {
+    imagemCartao = "NextVisaPlatinum.webp";
+} else if (nomeCartao === "C6YELLOWPINKLOLILOP" || nomeCartao === "C6YELLOWPINK" || nomeCartao === "C6YELLOWLOLIPOP" || nomeCartao === "YELLOWPINK") {
+    imagemCartao = "c6YellowPink&Lolilop.png";
+} else if (nomeCartao === "C6YELLOWPINEAPLE" || nomeCartao === "C6YELLOWABACAXI" || nomeCartao === "C6YELLOWPINEAPPLE" || nomeCartao === "YELLOWPINEAPLE" || nomeCartao === "C6YELLOW") {
+    imagemCartao = "c6YellowPineaple.png";
+} else if (nomeCartao === "C6YELLOWBLUECOOLBLUE" || nomeCartao === "C6YELLOWBLUE" || nomeCartao === "C6YELLOWCOOLBLUE" || nomeCartao === "YELLOWBLUE") {
+    imagemCartao = "c6YellowBlue&CoolBlue.png";
+} else {
+    imagemCartao = "cartaoGenerico.png";
+}
 
 
     cartoesList.innerHTML =
@@ -589,10 +658,7 @@ function renderizarCartoes() {
 
                 let classeBarra = "";
 
-                if (
-                    percentual >= 100
-                ) {
-
+                if ( percentual >= 100) {
                     classeBarra =
                         "danger";
 
@@ -617,167 +683,59 @@ function renderizarCartoes() {
                         : "Inativo";
 
 
-                return `
+return `
+    <div class="card-stack" onclick="trocarPosicaoCartao(this, event)">
+        
+        <div class="card-layer-back">
+            <img src="../Imagens-Audios/cartoes/${imagemCartao}" alt="Design do Cartão" />
+        </div>
 
-                    <article
-                        class="card-item ${classeInativa}"
-                    >
+        <article class="card-item card-layer-front ${classeInativa}">
+            <div class="card-top">
+                <div>
+                    <span class="card-bank">${escaparHTML(cartao.banco)}</span>
+                    <h3 class="card-name">${escaparHTML(cartao.nome)}</h3>
+                </div>
+                <span class="card-status">${status}</span>
+            </div>
 
-                        <div class="card-top">
+            <div class="card-chip"></div>
 
-                            <div>
+            <div class="card-limit-area">
+                <div class="card-limit-block">
+                    <span>Utilizado</span>
+                    <strong>${formatarMoeda(utilizado)}</strong>
+                </div>
+                <div class="card-limit-block">
+                    <span>Disponível</span>
+                    <strong>${formatarMoeda(disponivel)}</strong>
+                </div>
+            </div>
 
-                                <span class="card-bank">
-                                    ${escaparHTML(
-                                        cartao.banco
-                                    )}
-                                </span>
+            <div class="card-progress">
+                <div class="card-progress-bar">
+                    <div class="card-progress-fill ${classeBarra}" style="width: ${percentualVisual}%"></div>
+                </div>
+                <div class="card-progress-label">
+                    <span>${percentual.toFixed(1)}% utilizado</span>
+                    <span>Limite: ${formatarMoeda(limite)}</span>
+                </div>
+            </div>
 
-                                <h3 class="card-name">
-                                    ${escaparHTML(
-                                        cartao.nome
-                                    )}
-                                </h3>
+            <div class="card-dates">
+                <span>Fechamento: <strong>dia ${cartao.dia_fechamento}</strong></span>
+                <span>Vencimento: <strong>dia ${cartao.dia_vencimento}</strong></span>
+            </div>
 
-                            </div>
-
-
-                            <span class="card-status">
-                                ${status}
-                            </span>
-
-                        </div>
-
-
-                        <div class="card-chip"></div>
-
-
-                        <div class="card-limit-area">
-
-                            <div class="card-limit-block">
-
-                                <span>
-                                    Utilizado
-                                </span>
-
-                                <strong>
-                                    ${formatarMoeda(
-                                        utilizado
-                                    )}
-                                </strong>
-
-                            </div>
-
-
-                            <div class="card-limit-block">
-
-                                <span>
-                                    Disponível
-                                </span>
-
-                                <strong>
-                                    ${formatarMoeda(
-                                        disponivel
-                                    )}
-                                </strong>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="card-progress">
-
-                            <div class="card-progress-bar">
-
-                                <div
-                                    class="card-progress-fill ${classeBarra}"
-                                    style="width: ${percentualVisual}%"
-                                ></div>
-
-                            </div>
-
-
-                            <div class="card-progress-label">
-
-                                <span>
-                                    ${percentual.toFixed(1)}% utilizado
-                                </span>
-
-                                <span>
-                                    Limite:
-                                    ${formatarMoeda(limite)}
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="card-dates">
-
-                            <span>
-                                Fechamento:
-                                <strong>
-                                    dia ${cartao.dia_fechamento}
-                                </strong>
-                            </span>
-
-                            <span>
-                                Vencimento:
-                                <strong>
-                                    dia ${cartao.dia_vencimento}
-                                </strong>
-                            </span>
-
-                        </div>
-
-
-                        <div class="card-actions">
-
-                            <button
-                                type="button"
-                                class="card-action invoice"
-                                onclick="abrirFatura(${cartao.id})"
-                            >
-                                Fatura
-                            </button>
-
-
-                            <button
-                                type="button"
-                                class="card-action"
-                                onclick="editarCartao(${cartao.id})"
-                            >
-                                Editar
-                            </button>
-
-
-                            <button
-                                type="button"
-                                class="card-action"
-                                onclick="alternarCartao(${cartao.id})"
-                            >
-                                ${cartao.ativo
-                                    ? "Desativar"
-                                    : "Ativar"}
-                            </button>
-
-
-                            <button
-                                type="button"
-                                class="card-action delete"
-                                onclick="deletarCartao(${cartao.id})"
-                            >
-                                Excluir
-                            </button>
-
-                        </div>
-
-                    </article>
-
-                `;
-
+            <div class="card-actions">
+                <button type="button" class="card-action invoice" onclick="abrirFatura(${cartao.id})">Fatura</button>
+                <button type="button" class="card-action" onclick="editarCartao(${cartao.id})">Editar</button>
+                <button type="button" class="card-action" onclick="alternarCartao(${cartao.id})">${cartao.ativo ? "Desativar" : "Ativar"}</button>
+                <button type="button" class="card-action delete" onclick="deletarCartao(${cartao.id})">Excluir</button>
+            </div>
+        </article>
+    </div>
+`;
             }
         ).join("");
 
