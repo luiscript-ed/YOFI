@@ -1206,6 +1206,8 @@ function criarLoading() {
 // ENVIAR MENSAGEM PARA A MYA
 // ============================================================
 
+mensagemErroMYAcansada = " A MYA está temporariamente com alta demanda. Aguarde alguns segundos e tente novamente. "
+
 async function enviarMensagem(mensagem) {
 
     if (
@@ -1310,15 +1312,20 @@ async function enviarMensagem(mensagem) {
                 }
             );
 
-        if (
-            resposta.status === 401
-        ) {
-
+        if (resposta.status === 401) {
             throw new Error(
                 "Sua sessão expirou. Faça login novamente."
+            );};
+
+        if (resposta.status === 429) {
+            adicionarMensagem(
+                mensagemErroMYAcansada,
+                "error"
             );
 
-        }
+            throw new Error(
+                "A MYA está sobrecarregada. Tente novamente mais tarde."
+            );};
 
         let dados = null;
 
