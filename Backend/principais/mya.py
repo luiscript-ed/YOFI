@@ -697,7 +697,7 @@ Quando mencionar valores financeiros, utilize os valores presentes nos dados for
                 "reasoning": {
                 "enabled": True,
                 "exclude": True,       # Permite capturar o pensamento para colocar na caixinha controlada
-                "effort": "minimal"     # Economiza tokens e responde rápido, mas mantém a lógica matemática afiada
+                "effort": "medium"     # Economiza tokens e responde rápido, mas mantém a lógica matemática afiada
                 },
     
                 # 2. Segurança de dados e estabilidade (Crítico para finanças)
