@@ -394,14 +394,14 @@ Quando mencionar valores financeiros, utilize os valores presentes nos dados for
             ],
 
             temperature=0.7,
-            max_tokens=1200,
+            max_tokens=1500,
 
             extra_body={
                 # 1. Raciocínio sob controle para finanças
                 "reasoning": {
                 "enabled": True,
                 "exclude": True,       # Permite capturar o pensamento para colocar na caixinha controlada
-                "effort": "medium"     # Economiza tokens e responde rápido, mas mantém a lógica matemática afiada
+                "effort": "low"     # Economiza tokens e responde rápido, mas mantém a lógica matemática afiada
                 },
     
                 # 2. Segurança de dados e estabilidade (Crítico para finanças)
