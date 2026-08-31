@@ -394,7 +394,7 @@ Quando mencionar valores financeiros, utilize os valores presentes nos dados for
             ],
 
             temperature=0.7,
-            max_tokens=750,
+            max_tokens=1200,
 
             extra_body={
                 # 1. Raciocínio sob controle para finanças
@@ -408,11 +408,7 @@ Quando mencionar valores financeiros, utilize os valores presentes nos dados for
                 "provider": {
                 "data_collection": "deny",  # PRIVACIDADE: Impede que os dados de transações do usuário sejam usados para treino
                 "allow_fallbacks": True    # ESTABILIDADE: Se o servidor principal do Gemma falhar, muda para outro sem travar seu site
-                },
-    
-                # 3. Precisão total e sem enrolação
-                "top_k": 20,                    # Foca apenas nas palavras mais prováveis e exatas
-                "repetition_penalty": 1.1       # Evita que a IA trave repetindo termos técnicos
+                }
             }
 
         )
