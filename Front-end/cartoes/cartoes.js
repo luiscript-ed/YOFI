@@ -555,74 +555,76 @@ function renderizarCartoes() {
 
     }
 
-let imagemCartao = "None";
-const nomeCartao = cartao.nome.replace(/\s+/g, "").toUpperCase(); 
 
-if (nomeCartao === "ITAUPERSONNALITEBLACK" || nomeCartao === "ITAUPERSONNALITE" || nomeCartao === "ITAUPERSONNALITEMASTERCARDBLACK") {
-    imagemCartao = "itauPersonaliteBlack.png";
-} else if (nomeCartao === "NUBANKULTRAVIOLETA" || nomeCartao === "NUBANKVIOLETA" || nomeCartao === "NUBANKULTRA" || nomeCartao === "NUULTRAVIOLETA") {
-    imagemCartao = "nubankUltravioleta.png";
-} else if (nomeCartao === "BRADESCOAETERNUM" || nomeCartao === "AETERNUM" || nomeCartao === "BRADESCOVISAETERNUM" || nomeCartao === "AETERNUMVISAINFINITE") {
-    imagemCartao = "bradescoAeternum.png";
-} else if (nomeCartao === "SANTANDERUNLIMITED" || nomeCartao === "UNLIMITED" || nomeCartao === "SANTANDERUNLIMITEDBLACK" || nomeCartao === "SANTANDERUNLIMITEDINFINITE") {
-    imagemCartao = "santanderUnlimited.png";
-} else if (nomeCartao === "BBALTUS" || nomeCartao === "BANCODOBRASILALTUS" || nomeCartao === "ALTUS" || nomeCartao === "ALTUSVISAINFINITE") {
-    imagemCartao = "bbAltus.png";
-} else if (nomeCartao === "C6CARBON" || nomeCartao === "C6CARBONBLACK" || nomeCartao === "CARBON" || nomeCartao === "CARBONBLACK") {
-    imagemCartao = "c6Carbon.png";
-} else if (nomeCartao === "BTGULTRABLUE" || nomeCartao === "ULTRABLUE" || nomeCartao === "BTGULTRABLUEWEBP" || nomeCartao === "BTGBLUE") {
-    imagemCartao = "btgUltrablue.webp";
-} else if (nomeCartao === "BRBDUX" || nomeCartao === "DUX" || nomeCartao === "DUXVISAINFINITE" || nomeCartao === "BRBDUXVISA") {
-    imagemCartao = "brbDux.png";
-} else if (nomeCartao === "SANTANDERUNIQUE" || nomeCartao === "UNIQUE" || nomeCartao === "SANTANDERUNIQUEBLACK" || nomeCartao === "SANTANDERUNIQUEINFINITE") {
-    imagemCartao = "santanderUnique.png";
-} else if (nomeCartao === "ITAUSIGNATURE" || nomeCartao === "ITAUNICLASSSIGNATURE" || nomeCartao === "UNICLASSSIGNATURE" || nomeCartao === "ITAUSIGNATUR") {
-    imagemCartao = "itauSignature.png";
-} else if (nomeCartao === "XPINFINITE" || nomeCartao === "XPVISAINFINITE" || nomeCartao === "XP" || nomeCartao === "CARTAOXP") {
-    imagemCartao = "xpInfinite.png";
-} else if (nomeCartao === "BRADESCOVISAGOLD" || nomeCartao === "BRADESCOGOLD" || nomeCartao === "VISAGOLDBRADESCO") {
-    imagemCartao = "bradescoVisaGold.png";
-} else if (nomeCartao === "NUBANKGOLD" || nomeCartao === "NUGOLD" || nomeCartao === "NUBANKMASTERCARDGOLD") {
-    imagemCartao = "nubankGold.png";
-} else if (nomeCartao === "NUBANKPLATINUM" || nomeCartao === "NUPLATINUM" || nomeCartao === "NUBANKMASTERCARDPLATINUM") {
-    imagemCartao = "nubankPlatinum.png";
-} else if (nomeCartao === "INTERGOLD" || nomeCartao === "BANCOINTERGOLD" || nomeCartao === "INTERMASTERCARDGOLD") {
-    imagemCartao = "interGold.png";
-} else if (nomeCartao === "INTERPLATINUM" || nomeCartao === "BANCOINTERPLATINUM" || nomeCartao === "INTERMASTERCARDPLATINUM") {
-    imagemCartao = "interPlatinum.png";
-} else if (nomeCartao === "SANTANDERSX" || nomeCartao === "SANTANDERSXVISA" || nomeCartao === "SANTANDERSXMASTERCARD" || nomeCartao === "SX") {
-    imagemCartao = "santanderSX.png";
-} else if (nomeCartao === "ITAUCLICK" || nomeCartao === "CLICK" || nomeCartao === "ITAUCLICKVISA" || nomeCartao === "ITAUCLICKMASTERCARD") {
-    imagemCartao = "itauClick.png";
-} else if (nomeCartao === "PICPAYPLATINUM" || nomeCartao === "PICPAYCARDPLATINUM" || nomeCartao === "PICPAYPLATINU") {
-    imagemCartao = "picpayPlatinum.png";
-} else if (nomeCartao === "PICPAYBLACK" || nomeCartao === "PICPAYCARDBLACK" || nomeCartao === "PICPAYBLACK") {
-    imagemCartao = "picpayBlack.webp";
-} else if (nomeCartao === "PICPAYGOLD" || nomeCartao === "PICPAYCARDGOLD" || nomeCartao === "PICPAYGOLD") {
-    imagemCartao = "picpayGold.webp";
-} else if (nomeCartao === "MERCADOPAGO" || lineage === "MERCADOLIVRE" || nomeCartao === "CARTAOMERCADOPAGO" || nomeCartao === "MERCADOPAGOVISA") {
-    imagemCartao = "mercadoPago.png";
-} else if (nomeCartao === "ITAUAZULPLATINUM" || nomeCartao === "AZULPLATINUM" || nomeCartao === "AZULITAUPLATINUM") {
-    imagemCartao = "itauAzulPlatinum.avif";
-} else if (nomeCartao === "ITAUAZULINFINITE" || nomeCartao === "AZULINFINITE" || nomeCartao === "AZULITAUVISAINFINITE") {
-    imagemCartao = "itauAzulInfinite.avif";
-} else if (nomeCartao === "NEXTVISAPLATINUM" || nomeCartao === "NEXTPLATINUM" || nomeCartao === "NEXTVISAPLATINUM" || nomeCartao === "NEXT") {
-    imagemCartao = "NextVisaPlatinum.webp";
-} else if (nomeCartao === "C6YELLOWPINKLOLILOP" || nomeCartao === "C6YELLOWPINK" || nomeCartao === "C6YELLOWLOLIPOP" || nomeCartao === "YELLOWPINK") {
-    imagemCartao = "c6YellowPink&Lolilop.png";
-} else if (nomeCartao === "C6YELLOWPINEAPLE" || nomeCartao === "C6YELLOWABACAXI" || nomeCartao === "C6YELLOWPINEAPPLE" || nomeCartao === "YELLOWPINEAPLE" || nomeCartao === "C6YELLOW") {
-    imagemCartao = "c6YellowPineaple.png";
-} else if (nomeCartao === "C6YELLOWBLUECOOLBLUE" || nomeCartao === "C6YELLOWBLUE" || nomeCartao === "C6YELLOWCOOLBLUE" || nomeCartao === "YELLOWBLUE") {
-    imagemCartao = "c6YellowBlue&CoolBlue.png";
-} else {
-    imagemCartao = "cartaoGenerico.png";
-}
 
 
     cartoesList.innerHTML =
         cartoes.map(
             cartao => {
 
+                        let imagemCartao = "None";
+                        const nomeCartao = cartao.nome.replace(/\s+/g, "").toUpperCase(); 
+
+                        if (nomeCartao === "ITAUPERSONNALITEBLACK" || nomeCartao === "ITAUPERSONNALITE" || nomeCartao === "ITAUPERSONNALITEMASTERCARDBLACK") {
+                            imagemCartao = "itauPersonaliteBlack.png";
+                        } else if (nomeCartao === "NUBANKULTRAVIOLETA" || nomeCartao === "NUBANKVIOLETA" || nomeCartao === "NUBANKULTRA" || nomeCartao === "NUULTRAVIOLETA") {
+                            imagemCartao = "nubankUltravioleta.png";
+                        } else if (nomeCartao === "BRADESCOAETERNUM" || nomeCartao === "AETERNUM" || nomeCartao === "BRADESCOVISAETERNUM" || nomeCartao === "AETERNUMVISAINFINITE") {
+                            imagemCartao = "bradescoAeternum.png";
+                        } else if (nomeCartao === "SANTANDERUNLIMITED" || nomeCartao === "UNLIMITED" || nomeCartao === "SANTANDERUNLIMITEDBLACK" || nomeCartao === "SANTANDERUNLIMITEDINFINITE") {
+                            imagemCartao = "santanderUnlimited.png";
+                        } else if (nomeCartao === "BBALTUS" || nomeCartao === "BANCODOBRASILALTUS" || nomeCartao === "ALTUS" || nomeCartao === "ALTUSVISAINFINITE") {
+                            imagemCartao = "bbAltus.png";
+                        } else if (nomeCartao === "C6CARBON" || nomeCartao === "C6CARBONBLACK" || nomeCartao === "CARBON" || nomeCartao === "CARBONBLACK") {
+                            imagemCartao = "c6Carbon.png";
+                        } else if (nomeCartao === "BTGULTRABLUE" || nomeCartao === "ULTRABLUE" || nomeCartao === "BTGULTRABLUEWEBP" || nomeCartao === "BTGBLUE") {
+                            imagemCartao = "btgUltrablue.webp";
+                        } else if (nomeCartao === "BRBDUX" || nomeCartao === "DUX" || nomeCartao === "DUXVISAINFINITE" || nomeCartao === "BRBDUXVISA") {
+                            imagemCartao = "brbDux.png";
+                        } else if (nomeCartao === "SANTANDERUNIQUE" || nomeCartao === "UNIQUE" || nomeCartao === "SANTANDERUNIQUEBLACK" || nomeCartao === "SANTANDERUNIQUEINFINITE") {
+                            imagemCartao = "santanderUnique.png";
+                        } else if (nomeCartao === "ITAUSIGNATURE" || nomeCartao === "ITAUNICLASSSIGNATURE" || nomeCartao === "UNICLASSSIGNATURE" || nomeCartao === "ITAUSIGNATUR") {
+                            imagemCartao = "itauSignature.png";
+                        } else if (nomeCartao === "XPINFINITE" || nomeCartao === "XPVISAINFINITE" || nomeCartao === "XP" || nomeCartao === "CARTAOXP") {
+                            imagemCartao = "xpInfinite.png";
+                        } else if (nomeCartao === "BRADESCOVISAGOLD" || nomeCartao === "BRADESCOGOLD" || nomeCartao === "VISAGOLDBRADESCO") {
+                            imagemCartao = "bradescoVisaGold.png";
+                        } else if (nomeCartao === "NUBANKGOLD" || nomeCartao === "NUGOLD" || nomeCartao === "NUBANKMASTERCARDGOLD") {
+                            imagemCartao = "nubankGold.png";
+                        } else if (nomeCartao === "NUBANKPLATINUM" || nomeCartao === "NUPLATINUM" || nomeCartao === "NUBANKMASTERCARDPLATINUM") {
+                            imagemCartao = "nubankPlatinum.png";
+                        } else if (nomeCartao === "INTERGOLD" || nomeCartao === "BANCOINTERGOLD" || nomeCartao === "INTERMASTERCARDGOLD") {
+                            imagemCartao = "interGold.png";
+                        } else if (nomeCartao === "INTERPLATINUM" || nomeCartao === "BANCOINTERPLATINUM" || nomeCartao === "INTERMASTERCARDPLATINUM") {
+                            imagemCartao = "interPlatinum.png";
+                        } else if (nomeCartao === "SANTANDERSX" || nomeCartao === "SANTANDERSXVISA" || nomeCartao === "SANTANDERSXMASTERCARD" || nomeCartao === "SX") {
+                            imagemCartao = "santanderSX.png";
+                        } else if (nomeCartao === "ITAUCLICK" || nomeCartao === "CLICK" || nomeCartao === "ITAUCLICKVISA" || nomeCartao === "ITAUCLICKMASTERCARD") {
+                            imagemCartao = "itauClick.png";
+                        } else if (nomeCartao === "PICPAYPLATINUM" || nomeCartao === "PICPAYCARDPLATINUM" || nomeCartao === "PICPAYPLATINU") {
+                            imagemCartao = "picpayPlatinum.png";
+                        } else if (nomeCartao === "PICPAYBLACK" || nomeCartao === "PICPAYCARDBLACK" || nomeCartao === "PICPAYBLACK") {
+                            imagemCartao = "picpayBlack.webp";
+                        } else if (nomeCartao === "PICPAYGOLD" || nomeCartao === "PICPAYCARDGOLD" || nomeCartao === "PICPAYGOLD") {
+                            imagemCartao = "picpayGold.webp";
+                        } else if (nomeCartao === "MERCADOPAGO" || lineage === "MERCADOLIVRE" || nomeCartao === "CARTAOMERCADOPAGO" || nomeCartao === "MERCADOPAGOVISA") {
+                            imagemCartao = "mercadoPago.png";
+                        } else if (nomeCartao === "ITAUAZULPLATINUM" || nomeCartao === "AZULPLATINUM" || nomeCartao === "AZULITAUPLATINUM") {
+                            imagemCartao = "itauAzulPlatinum.avif";
+                        } else if (nomeCartao === "ITAUAZULINFINITE" || nomeCartao === "AZULINFINITE" || nomeCartao === "AZULITAUVISAINFINITE") {
+                            imagemCartao = "itauAzulInfinite.avif";
+                        } else if (nomeCartao === "NEXTVISAPLATINUM" || nomeCartao === "NEXTPLATINUM" || nomeCartao === "NEXTVISAPLATINUM" || nomeCartao === "NEXT") {
+                            imagemCartao = "NextVisaPlatinum.webp";
+                        } else if (nomeCartao === "C6YELLOWPINKLOLILOP" || nomeCartao === "C6YELLOWPINK" || nomeCartao === "C6YELLOWLOLIPOP" || nomeCartao === "YELLOWPINK") {
+                            imagemCartao = "c6YellowPink&Lolilop.png";
+                        } else if (nomeCartao === "C6YELLOWPINEAPLE" || nomeCartao === "C6YELLOWABACAXI" || nomeCartao === "C6YELLOWPINEAPPLE" || nomeCartao === "YELLOWPINEAPLE" || nomeCartao === "C6YELLOW") {
+                            imagemCartao = "c6YellowPineaple.png";
+                        } else if (nomeCartao === "C6YELLOWBLUECOOLBLUE" || nomeCartao === "C6YELLOWBLUE" || nomeCartao === "C6YELLOWCOOLBLUE" || nomeCartao === "YELLOWBLUE") {
+                            imagemCartao = "c6YellowBlue&CoolBlue.png";
+                        } else {
+                            imagemCartao = "cartaoGenerico.png";
+                        }
+                        
                 const limite =
                     Number(
                         cartao.limite || 0
@@ -687,7 +689,7 @@ return `
     <div class="card-stack" onclick="trocarPosicaoCartao(this, event)">
         
         <div class="card-layer-back">
-            <img src="../Imagens-Audios/cartoes/${imagemCartao}" alt="Design do Cartão" />
+            <img src="../Imagens-Audios/etc/${imagemCartao}" alt="Design do Cartão" />
         </div>
 
         <article class="card-item card-layer-front ${classeInativa}">
