@@ -214,7 +214,23 @@ async function apiGet(endpoint) {
         }
     );
 
-    const dados = await obterJSON(resposta);
+let dados = null;
+
+try {
+    dados = await resposta.json();
+
+    console.log(
+        "Resposta completa da API MYA:",
+        dados
+    );
+
+} catch {
+    throw new Error(
+        "O servidor retornou uma resposta inválida."
+    );
+}
+
+
 
     return {
         resposta,

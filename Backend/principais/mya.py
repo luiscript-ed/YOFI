@@ -648,7 +648,7 @@ Quando mencionar valores financeiros, utilize os valores presentes nos dados for
                     "Formato de imagem não permitido."
             )
             conteudo = await imagem.read()
-            
+
             MAX_IMAGE_SIZE = 5 * 1024 * 1024
 
             if len(conteudo) > MAX_IMAGE_SIZE:
@@ -713,9 +713,46 @@ Quando mencionar valores financeiros, utilize os valores presentes nos dados for
 
         )
 
-        return resposta.choices[0].message.content
+        if not resposta.choices:
+            raise Exception("A MYA não retornou nenhuma resposta.")
+
+        choice = resposta.choices[0]
+
+        if getattr(choice, "error", None):
+            raise Exception(
+            f"Erro do provedor: {choice.error}"
+            )
+
+        conteudo_resposta = getattr(
+            choice.message,
+            "content",
+            None
+            )
+
+        if not conteudo_resposta or not isinstance(
+            conteudo_resposta,
+            str
+        ):
+            
+            finish_reason = getattr(
+                choice,
+                "finish_reason",
+                "desconhecido"
+            )
+
+            raise Exception(
+                f"A MYA não retornou conteúdo. "
+                f"Motivo: {finish_reason}"
+            )
+
+        return conteudo_resposta.strip()
 
     except Exception as e:
+        print("ERRO MYA:", repr(e))
 
-        return f"Erro MYA: {str(e)}"
+        return (
+            "Desculpe, tive um problema temporário "
+            "ao processar sua mensagem. Tente novamente."
+
+)
     
