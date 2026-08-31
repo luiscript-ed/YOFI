@@ -607,7 +607,7 @@ function renderizarCartoes() {
                             imagemCartao = "picpayBlack.webp";
                         } else if (nomeCartao === "PICPAYGOLD" || nomeCartao === "PICPAYCARDGOLD" || nomeCartao === "PICPAYGOLD") {
                             imagemCartao = "picpayGold.webp";
-                        } else if (nomeCartao === "MERCADOPAGO" || lineage === "MERCADOLIVRE" || nomeCartao === "CARTAOMERCADOPAGO" || nomeCartao === "MERCADOPAGOVISA") {
+                        } else if (nomeCartao === "MERCADOPAGO" || nomeCartao === "MERCADOLIVRE" || nomeCartao === "CARTAOMERCADOPAGO" || nomeCartao === "MERCADOPAGOVISA") {
                             imagemCartao = "mercadoPago.png";
                         } else if (nomeCartao === "ITAUAZULPLATINUM" || nomeCartao === "AZULPLATINUM" || nomeCartao === "AZULITAUPLATINUM") {
                             imagemCartao = "itauAzulPlatinum.avif";
