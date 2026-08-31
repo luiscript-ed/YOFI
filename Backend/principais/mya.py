@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 import os
 import base64
 
+conteudo = None
+
 load_dotenv()
 
 client = OpenAI(
@@ -636,13 +638,17 @@ Quando mencionar valores financeiros, utilize os valores presentes nos dados for
             "text": mensagem_usuario
             }
         ]
+
+        conteudo = None
+
         if imagem is not None:
 
             if imagem.content_type not in TIPOS_IMAGEM_PERMITIDOS:
                 raise ValueError(
                     "Formato de imagem não permitido."
             )
-
+            conteudo = await imagem.read()
+            
             MAX_IMAGE_SIZE = 5 * 1024 * 1024
 
             if len(conteudo) > MAX_IMAGE_SIZE:
@@ -650,7 +656,7 @@ Quando mencionar valores financeiros, utilize os valores presentes nos dados for
                 "A imagem deve ter no máximo 5 MB."
             )
 
-            conteudo = await imagem.read()
+            
 
             imagem_base64 = base64.b64encode(
                 conteudo
@@ -684,15 +690,14 @@ Quando mencionar valores financeiros, utilize os valores presentes nos dados for
             ],
 
             temperature=0.7,
-            max_tokens=450,
+            max_tokens=500,
 
             extra_body={
                 # 1. Raciocínio sob controle para finanças
                 "reasoning": {
                 "enabled": True,
                 "exclude": True,       # Permite capturar o pensamento para colocar na caixinha controlada
-                "effort": "minimal",     # Economiza tokens e responde rápido, mas mantém a lógica matemática afiada
-                "max_tokens": 500
+                "effort": "minimal"     # Economiza tokens e responde rápido, mas mantém a lógica matemática afiada
                 },
     
                 # 2. Segurança de dados e estabilidade (Crítico para finanças)
