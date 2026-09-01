@@ -689,7 +689,7 @@ return `
     <div class="card-stack" onclick="trocarPosicaoCartao(this, event)">
         
         <div class="card-layer-back">
-            <img src="../Imagens-Audios/etc/${imagemCartao}" alt="Design do Cartão" />
+            <img src="../Imagens-Audios/cartoes/${imagemCartao}" alt="Design do Cartão" />
         </div>
 
         <article class="card-item card-layer-front ${classeInativa}">
