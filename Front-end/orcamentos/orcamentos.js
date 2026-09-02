@@ -162,7 +162,7 @@ try {
         if (resposta.status === 401) {
 
             window.location.href =
-                "https://luiscript-ed.github.io/YOFI/Front-end/Auth/auth";
+                "https://luiscript-ed.github.io/YOFI/Front-end/autentification/autentification";
 
         }
 
@@ -406,7 +406,7 @@ try {
         if (resposta.status === 401) {
 
             window.location.href =
-                "https://luiscript-ed.github.io/YOFI/Front-end/Auth/auth";
+                "https://luiscript-ed.github.io/YOFI/Front-end/autentification/autentification";
 
             return;
 

@@ -874,7 +874,7 @@ function renderizarContas(contas) {
 
 
         if (
-            tipo === "contacorrente" &&
+            tipo === "corrente" &&
             contaCorrente
         ) {
             contaCorrente.textContent =
@@ -1773,13 +1773,6 @@ function salvarUrlAtual() {
 
 
 salvarUrlAtual();
-
-// ======================================
-// ADD GIF
-// ======================================
-
-
-
 
 // ============================================================
 // INICIALIZAÇÃO

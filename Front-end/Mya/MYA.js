@@ -5,7 +5,7 @@
 const API_URL = "https://yofi-api.onrender.com";
 
 const AUTH_PAGE =
-    "https://luiscript-ed.github.io/YOFI/Front-end/Auth/auth";
+    "https://luiscript-ed.github.io/YOFI/Front-end/autentification/autentification";
 
 const HOME_PAGE =
     "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page";

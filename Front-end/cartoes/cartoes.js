@@ -203,7 +203,7 @@ async function carregarUsuario() {
             ) {
 
                 window.location.href =
-                    "https://luiscript-ed.github.io/YOFI/Front-end/Auth/auth";
+                    "https://luiscript-ed.github.io/YOFI/Front-end/autentification/autentification";
 
             }
 
@@ -495,7 +495,7 @@ async function carregarCartoes() {
             ) {
 
                 window.location.href =
-                    "https://luiscript-ed.github.io/YOFI/Front-end/Auth/auth";
+                    "https://luiscript-ed.github.io/YOFI/Front-end/autentification/autentification";
 
                 return;
 
