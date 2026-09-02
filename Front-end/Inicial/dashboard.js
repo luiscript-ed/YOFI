@@ -887,17 +887,20 @@ function renderizarContas(contas) {
 }
 
 function renderizarCartoes(cartoes) {
-    const container = document.getElementById("lista-cartoes");
+
+    const container =
+        document.getElementById("lista-cartoes");
 
     if (!container) {
         return;
     }
 
-    // Limpa os cartões anteriores
+    // Limpa cartões anteriores
     container.innerHTML = "";
 
     // Garante que seja um array
     if (!Array.isArray(cartoes) || !cartoes.length) {
+
         container.innerHTML = `
             <div class="sem-transacoes">
                 Nenhum cartão encontrado.
@@ -907,84 +910,340 @@ function renderizarCartoes(cartoes) {
         return;
     }
 
-    // Cria um cartão para cada cartão encontrado
     cartoes.forEach((cartao, index) => {
+
+        // =====================================================
+        // NOME DO CARTÃO
+        // =====================================================
+
+        const banco =
+            String(
+                cartao?.banco ||
+                ""
+            );
+
+        const nomeModelo =
+            String(
+                cartao?.nome ||
+                ""
+            );
+
+        const nomeExibicao =
+            nomeModelo ||
+            banco ||
+            `${index + 1}° cartão`;
 
         const nome =
             escaparHTML(
-                cartao?.banco ||
-                cartao?.nome ||
-                `${index + 1}° cartão`
+                nomeExibicao
             );
 
+
+        // =====================================================
+        // VALORES
+        // =====================================================
+
         const limite =
-            Number(cartao?.limite) || 0;
+            Number(
+                cartao?.limite
+            ) || 0;
 
         const utilizado =
-            Number(cartao?.utilizado) || 0;
+            Number(
+                cartao?.utilizado
+            ) || 0;
 
-                        let imagemCartao = "None";
-                        const nomeCartao = cartoes.nome.replace(/\s+/g, "").toUpperCase(); 
 
-                        if (nomeCartao === "ITAUPERSONNALITEBLACK" || nomeCartao === "ITAUPERSONNALITE" || nomeCartao === "ITAUPERSONNALITEMASTERCARDBLACK") {
-                            imagemCartao = "itauPersonaliteBlack.png";
-                        } else if (nomeCartao === "NUBANKULTRAVIOLETA" || nomeCartao === "NUBANKVIOLETA" || nomeCartao === "NUBANKULTRA" || nomeCartao === "NUULTRAVIOLETA") {
-                            imagemCartao = "nubankUltravioleta.png";
-                        } else if (nomeCartao === "BRADESCOAETERNUM" || nomeCartao === "AETERNUM" || nomeCartao === "BRADESCOVISAETERNUM" || nomeCartao === "AETERNUMVISAINFINITE") {
-                            imagemCartao = "bradescoAeternum.png";
-                        } else if (nomeCartao === "SANTANDERUNLIMITED" || nomeCartao === "UNLIMITED" || nomeCartao === "SANTANDERUNLIMITEDBLACK" || nomeCartao === "SANTANDERUNLIMITEDINFINITE") {
-                            imagemCartao = "santanderUnlimited.png";
-                        } else if (nomeCartao === "BBALTUS" || nomeCartao === "BANCODOBRASILALTUS" || nomeCartao === "ALTUS" || nomeCartao === "ALTUSVISAINFINITE") {
-                            imagemCartao = "bbAltus.png";
-                        } else if (nomeCartao === "C6CARBON" || nomeCartao === "C6CARBONBLACK" || nomeCartao === "CARBON" || nomeCartao === "CARBONBLACK") {
-                            imagemCartao = "c6Carbon.png";
-                        } else if (nomeCartao === "BTGULTRABLUE" || nomeCartao === "ULTRABLUE" || nomeCartao === "BTGULTRABLUEWEBP" || nomeCartao === "BTGBLUE") {
-                            imagemCartao = "btgUltrablue.webp";
-                        } else if (nomeCartao === "BRBDUX" || nomeCartao === "DUX" || nomeCartao === "DUXVISAINFINITE" || nomeCartao === "BRBDUXVISA") {
-                            imagemCartao = "brbDux.png";
-                        } else if (nomeCartao === "SANTANDERUNIQUE" || nomeCartao === "UNIQUE" || nomeCartao === "SANTANDERUNIQUEBLACK" || nomeCartao === "SANTANDERUNIQUEINFINITE") {
-                            imagemCartao = "santanderUnique.png";
-                        } else if (nomeCartao === "ITAUSIGNATURE" || nomeCartao === "ITAUNICLASSSIGNATURE" || nomeCartao === "UNICLASSSIGNATURE" || nomeCartao === "ITAUSIGNATUR") {
-                            imagemCartao = "itauSignature.png";
-                        } else if (nomeCartao === "XPINFINITE" || nomeCartao === "XPVISAINFINITE" || nomeCartao === "XP" || nomeCartao === "CARTAOXP") {
-                            imagemCartao = "xpInfinite.png";
-                        } else if (nomeCartao === "BRADESCOVISAGOLD" || nomeCartao === "BRADESCOGOLD" || nomeCartao === "VISAGOLDBRADESCO") {
-                            imagemCartao = "bradescoVisaGold.png";
-                        } else if (nomeCartao === "NUBANKGOLD" || nomeCartao === "NUGOLD" || nomeCartao === "NUBANKMASTERCARDGOLD") {
-                            imagemCartao = "nubankGold.png";
-                        } else if (nomeCartao === "NUBANKPLATINUM" || nomeCartao === "NUPLATINUM" || nomeCartao === "NUBANKMASTERCARDPLATINUM") {
-                            imagemCartao = "nubankPlatinum.png";
-                        } else if (nomeCartao === "INTERGOLD" || nomeCartao === "BANCOINTERGOLD" || nomeCartao === "INTERMASTERCARDGOLD") {
-                            imagemCartao = "interGold.png";
-                        } else if (nomeCartao === "INTERPLATINUM" || nomeCartao === "BANCOINTERPLATINUM" || nomeCartao === "INTERMASTERCARDPLATINUM") {
-                            imagemCartao = "interPlatinum.png";
-                        } else if (nomeCartao === "SANTANDERSX" || nomeCartao === "SANTANDERSXVISA" || nomeCartao === "SANTANDERSXMASTERCARD" || nomeCartao === "SX") {
-                            imagemCartao = "santanderSX.png";
-                        } else if (nomeCartao === "ITAUCLICK" || nomeCartao === "CLICK" || nomeCartao === "ITAUCLICKVISA" || nomeCartao === "ITAUCLICKMASTERCARD") {
-                            imagemCartao = "itauClick.png";
-                        } else if (nomeCartao === "PICPAYPLATINUM" || nomeCartao === "PICPAYCARDPLATINUM" || nomeCartao === "PICPAYPLATINU") {
-                            imagemCartao = "picpayPlatinum.png";
-                        } else if (nomeCartao === "PICPAYBLACK" || nomeCartao === "PICPAYCARDBLACK" || nomeCartao === "PICPAYBLACK") {
-                            imagemCartao = "picpayBlack.webp";
-                        } else if (nomeCartao === "PICPAYGOLD" || nomeCartao === "PICPAYCARDGOLD" || nomeCartao === "PICPAYGOLD") {
-                            imagemCartao = "picpayGold.webp";
-                        } else if (nomeCartao === "MERCADOPAGO" || nomeCartao === "MERCADOLIVRE" || nomeCartao === "CARTAOMERCADOPAGO" || nomeCartao === "MERCADOPAGOVISA") {
-                            imagemCartao = "mercadoPago.png";
-                        } else if (nomeCartao === "ITAUAZULPLATINUM" || nomeCartao === "AZULPLATINUM" || nomeCartao === "AZULITAUPLATINUM") {
-                            imagemCartao = "itauAzulPlatinum.avif";
-                        } else if (nomeCartao === "ITAUAZULINFINITE" || nomeCartao === "AZULINFINITE" || nomeCartao === "AZULITAUVISAINFINITE") {
-                            imagemCartao = "itauAzulInfinite.avif";
-                        } else if (nomeCartao === "NEXTVISAPLATINUM" || nomeCartao === "NEXTPLATINUM" || nomeCartao === "NEXTVISAPLATINUM" || nomeCartao === "NEXT") {
-                            imagemCartao = "NextVisaPlatinum.webp";
-                        } else if (nomeCartao === "C6YELLOWPINKLOLILOP" || nomeCartao === "C6YELLOWPINK" || nomeCartao === "C6YELLOWLOLIPOP" || nomeCartao === "YELLOWPINK") {
-                            imagemCartao = "c6YellowPink&Lolilop.png";
-                        } else if (nomeCartao === "C6YELLOWPINEAPLE" || nomeCartao === "C6YELLOWABACAXI" || nomeCartao === "C6YELLOWPINEAPPLE" || nomeCartao === "YELLOWPINEAPLE" || nomeCartao === "C6YELLOW") {
-                            imagemCartao = "c6YellowPineaple.png";
-                        } else if (nomeCartao === "C6YELLOWBLUECOOLBLUE" || nomeCartao === "C6YELLOWBLUE" || nomeCartao === "C6YELLOWCOOLBLUE" || nomeCartao === "YELLOWBLUE") {
-                            imagemCartao = "c6YellowBlue&CoolBlue.png";
-                        } else {
-                            imagemCartao = "cartaoGenerico.png";
-                        }
+        // =====================================================
+        // IDENTIFICAÇÃO PARA ESCOLHER IMAGEM
+        // =====================================================
+
+        const nomeCartao =
+            `${banco}${nomeModelo}`
+                .replace(/\s+/g, "")
+                .toUpperCase();
+
+
+        // =====================================================
+        // IMAGEM
+        // =====================================================
+
+        let imagemCartao =
+            "cartaoGenerico.png";
+
+
+        if (
+            nomeCartao === "ITAUPERSONNALITEBLACK" ||
+            nomeCartao === "ITAUPERSONNALITE" ||
+            nomeCartao === "ITAUPERSONNALITEMASTERCARDBLACK"
+        ) {
+
+            imagemCartao =
+                "itauPersonaliteBlack.png";
+
+        } else if (
+            nomeCartao === "NUBANKULTRAVIOLETA" ||
+            nomeCartao === "NUBANKVIOLETA" ||
+            nomeCartao === "NUBANKULTRA" ||
+            nomeCartao === "NUULTRAVIOLETA"
+        ) {
+
+            imagemCartao =
+                "nubankUltravioleta.png";
+
+        } else if (
+            nomeCartao === "BRADESCOAETERNUM" ||
+            nomeCartao === "AETERNUM" ||
+            nomeCartao === "BRADESCOVISAETERNUM" ||
+            nomeCartao === "AETERNUMVISAINFINITE"
+        ) {
+
+            imagemCartao =
+                "bradescoAeternum.png";
+
+        } else if (
+            nomeCartao === "SANTANDERUNLIMITED" ||
+            nomeCartao === "UNLIMITED" ||
+            nomeCartao === "SANTANDERUNLIMITEDBLACK" ||
+            nomeCartao === "SANTANDERUNLIMITEDINFINITE"
+        ) {
+
+            imagemCartao =
+                "santanderUnlimited.png";
+
+        } else if (
+            nomeCartao === "BBALTUS" ||
+            nomeCartao === "BANCODOBRASILALTUS" ||
+            nomeCartao === "ALTUS" ||
+            nomeCartao === "ALTUSVISAINFINITE"
+        ) {
+
+            imagemCartao =
+                "bbAltus.png";
+
+        } else if (
+            nomeCartao === "C6CARBON" ||
+            nomeCartao === "C6CARBONBLACK" ||
+            nomeCartao === "CARBON" ||
+            nomeCartao === "CARBONBLACK"
+        ) {
+
+            imagemCartao =
+                "c6Carbon.png";
+
+        } else if (
+            nomeCartao === "BTGULTRABLUE" ||
+            nomeCartao === "ULTRABLUE" ||
+            nomeCartao === "BTGULTRABLUEWEBP" ||
+            nomeCartao === "BTGBLUE"
+        ) {
+
+            imagemCartao =
+                "btgUltrablue.webp";
+
+        } else if (
+            nomeCartao === "BRBDUX" ||
+            nomeCartao === "DUX" ||
+            nomeCartao === "DUXVISAINFINITE" ||
+            nomeCartao === "BRBDUXVISA"
+        ) {
+
+            imagemCartao =
+                "brbDux.png";
+
+        } else if (
+            nomeCartao === "SANTANDERUNIQUE" ||
+            nomeCartao === "UNIQUE" ||
+            nomeCartao === "SANTANDERUNIQUEBLACK" ||
+            nomeCartao === "SANTANDERUNIQUEINFINITE"
+        ) {
+
+            imagemCartao =
+                "santanderUnique.png";
+
+        } else if (
+            nomeCartao === "ITAUSIGNATURE" ||
+            nomeCartao === "ITAUNICLASSSIGNATURE" ||
+            nomeCartao === "UNICLASSSIGNATURE" ||
+            nomeCartao === "ITAUSIGNATUR"
+        ) {
+
+            imagemCartao =
+                "itauSignature.png";
+
+        } else if (
+            nomeCartao === "XPINFINITE" ||
+            nomeCartao === "XPVISAINFINITE" ||
+            nomeCartao === "XP" ||
+            nomeCartao === "CARTAOXP"
+        ) {
+
+            imagemCartao =
+                "xpInfinite.png";
+
+        } else if (
+            nomeCartao === "BRADESCOVISAGOLD" ||
+            nomeCartao === "BRADESCOGOLD" ||
+            nomeCartao === "VISAGOLDBRADESCO"
+        ) {
+
+            imagemCartao =
+                "bradescoVisaGold.png";
+
+        } else if (
+            nomeCartao === "NUBANKGOLD" ||
+            nomeCartao === "NUGOLD" ||
+            nomeCartao === "NUBANKMASTERCARDGOLD"
+        ) {
+
+            imagemCartao =
+                "nubankGold.png";
+
+        } else if (
+            nomeCartao === "NUBANKPLATINUM" ||
+            nomeCartao === "NUPLATINUM" ||
+            nomeCartao === "NUBANKMASTERCARDPLATINUM"
+        ) {
+
+            imagemCartao =
+                "nubankPlatinum.png";
+
+        } else if (
+            nomeCartao === "INTERGOLD" ||
+            nomeCartao === "BANCOINTERGOLD" ||
+            nomeCartao === "INTERMASTERCARDGOLD"
+        ) {
+
+            imagemCartao =
+                "interGold.png";
+
+        } else if (
+            nomeCartao === "INTERPLATINUM" ||
+            nomeCartao === "BANCOINTERPLATINUM" ||
+            nomeCartao === "INTERMASTERCARDPLATINUM"
+        ) {
+
+            imagemCartao =
+                "interPlatinum.png";
+
+        } else if (
+            nomeCartao === "SANTANDERSX" ||
+            nomeCartao === "SANTANDERSXVISA" ||
+            nomeCartao === "SANTANDERSXMASTERCARD" ||
+            nomeCartao === "SX"
+        ) {
+
+            imagemCartao =
+                "santanderSX.png";
+
+        } else if (
+            nomeCartao === "ITAUCLICK" ||
+            nomeCartao === "CLICK" ||
+            nomeCartao === "ITAUCLICKVISA" ||
+            nomeCartao === "ITAUCLICKMASTERCARD"
+        ) {
+
+            imagemCartao =
+                "itauClick.png";
+
+        } else if (
+            nomeCartao === "PICPAYPLATINUM" ||
+            nomeCartao === "PICPAYCARDPLATINUM" ||
+            nomeCartao === "PICPAYPLATINU"
+        ) {
+
+            imagemCartao =
+                "picpayPlatinum.png";
+
+        } else if (
+            nomeCartao === "PICPAYBLACK" ||
+            nomeCartao === "PICPAYCARDBLACK"
+        ) {
+
+            imagemCartao =
+                "picpayBlack.webp";
+
+        } else if (
+            nomeCartao === "PICPAYGOLD" ||
+            nomeCartao === "PICPAYCARDGOLD"
+        ) {
+
+            imagemCartao =
+                "picpayGold.webp";
+
+        } else if (
+            nomeCartao === "MERCADOPAGO" ||
+            nomeCartao === "MERCADOLIVRE" ||
+            nomeCartao === "CARTAOMERCADOPAGO" ||
+            nomeCartao === "MERCADOPAGOVISA"
+        ) {
+
+            imagemCartao =
+                "mercadoPago.png";
+
+        } else if (
+            nomeCartao === "ITAUAZULPLATINUM" ||
+            nomeCartao === "AZULPLATINUM" ||
+            nomeCartao === "AZULITAUPLATINUM"
+        ) {
+
+            imagemCartao =
+                "itauAzulPlatinum.avif";
+
+        } else if (
+            nomeCartao === "ITAUAZULINFINITE" ||
+            nomeCartao === "AZULINFINITE" ||
+            nomeCartao === "AZULITAUVISAINFINITE"
+        ) {
+
+            imagemCartao =
+                "itauAzulInfinite.avif";
+
+        } else if (
+            nomeCartao === "NEXTVISAPLATINUM" ||
+            nomeCartao === "NEXTPLATINUM" ||
+            nomeCartao === "NEXT"
+        ) {
+
+            imagemCartao =
+                "NextVisaPlatinum.webp";
+
+        } else if (
+            nomeCartao === "C6YELLOWPINKLOLILOP" ||
+            nomeCartao === "C6YELLOWPINK" ||
+            nomeCartao === "C6YELLOWLOLIPOP" ||
+            nomeCartao === "YELLOWPINK"
+        ) {
+
+            imagemCartao =
+                "c6YellowPink&Lolilop.png";
+
+        } else if (
+            nomeCartao === "C6YELLOWPINEAPLE" ||
+            nomeCartao === "C6YELLOWABACAXI" ||
+            nomeCartao === "C6YELLOWPINEAPPLE" ||
+            nomeCartao === "YELLOWPINEAPLE" ||
+            nomeCartao === "C6YELLOW"
+        ) {
+
+            imagemCartao =
+                "c6YellowPineaple.png";
+
+        } else if (
+            nomeCartao === "C6YELLOWBLUECOOLBLUE" ||
+            nomeCartao === "C6YELLOWBLUE" ||
+            nomeCartao === "C6YELLOWCOOLBLUE" ||
+            nomeCartao === "YELLOWBLUE"
+        ) {
+
+            imagemCartao =
+                "c6YellowBlue&CoolBlue.png";
+        }
+
+
+        // =====================================================
+        // HTML
+        // =====================================================
 
         container.innerHTML += `
             <div class="account-card">
@@ -992,7 +1251,7 @@ function renderizarCartoes(cartoes) {
                 <div class="account-icon">
 
                     <img
-                        src="../Imagens-Audios/cartoes/${imagem}"
+                        src="../Imagens-Audios/cartoes/${imagemCartao}"
                         alt="${nome}"
                     >
 
