@@ -606,13 +606,13 @@ function renderizarCartoes() {
                         } else if (nomeCartao === "PICPAYBLACK" || nomeCartao === "PICPAYCARDBLACK" || nomeCartao === "PICPAYBLACK") {
                             imagemCartao = "picpayBlack.webp";
                         } else if (nomeCartao === "PICPAYGOLD" || nomeCartao === "PICPAYCARDGOLD" || nomeCartao === "PICPAYGOLD") {
-                            imagemCartao = "picpayGold.webp";
+                            imagemCartao = "picpayGold.png";
                         } else if (nomeCartao === "MERCADOPAGO" || nomeCartao === "MERCADOLIVRE" || nomeCartao === "CARTAOMERCADOPAGO" || nomeCartao === "MERCADOPAGOVISA") {
                             imagemCartao = "mercadoPago.png";
                         } else if (nomeCartao === "ITAUAZULPLATINUM" || nomeCartao === "AZULPLATINUM" || nomeCartao === "AZULITAUPLATINUM") {
-                            imagemCartao = "itauAzulPlatinum.avif";
+                            imagemCartao = "itauAzulPlatinum.png";
                         } else if (nomeCartao === "ITAUAZULINFINITE" || nomeCartao === "AZULINFINITE" || nomeCartao === "AZULITAUVISAINFINITE") {
-                            imagemCartao = "itauAzulInfinite.avif";
+                            imagemCartao = "itauAzulInfinite.png";
                         } else if (nomeCartao === "NEXTVISAPLATINUM" || nomeCartao === "NEXTPLATINUM" || nomeCartao === "NEXTVISAPLATINUM" || nomeCartao === "NEXT") {
                             imagemCartao = "NextVisaPlatinum.webp";
                         } else if (nomeCartao === "C6YELLOWPINKLOLILOP" || nomeCartao === "C6YELLOWPINK" || nomeCartao === "C6YELLOWLOLIPOP" || nomeCartao === "YELLOWPINK") {

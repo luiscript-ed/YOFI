@@ -928,15 +928,21 @@ function renderizarCartoes(cartoes) {
                 ""
             );
 
+            console.log(nomeModelo);
+
         const nomeExibicao =
             nomeModelo ||
             banco ||
             `${index + 1}° cartão`;
 
+            console.log(nomeExibicao);
+
         const nome =
             escaparHTML(
                 nomeExibicao
             );
+
+            console.log(nome);
 
 
         // =====================================================
@@ -959,7 +965,7 @@ function renderizarCartoes(cartoes) {
         // =====================================================
 
         const nomeCartao =
-            `${banco}${nomeModelo}`
+            `${nomeModelo}`
                 .replace(/\s+/g, "")
                 .toUpperCase();
 
@@ -1169,7 +1175,7 @@ function renderizarCartoes(cartoes) {
         ) {
 
             imagemCartao =
-                "picpayGold.webp";
+                "picpayGold.png";
 
         } else if (
             nomeCartao === "MERCADOPAGO" ||
@@ -1188,7 +1194,7 @@ function renderizarCartoes(cartoes) {
         ) {
 
             imagemCartao =
-                "itauAzulPlatinum.avif";
+                "itauAzulPlatinum.png";
 
         } else if (
             nomeCartao === "ITAUAZULINFINITE" ||
@@ -1197,7 +1203,7 @@ function renderizarCartoes(cartoes) {
         ) {
 
             imagemCartao =
-                "itauAzulInfinite.avif";
+                "itauAzulInfinite.png";
 
         } else if (
             nomeCartao === "NEXTVISAPLATINUM" ||
