@@ -6,70 +6,36 @@ const API_URL =
 // ELEMENTOS
 // ============================================================
 
-const sidebar =
-    document.getElementById("sidebar");
-
-const app =
-    document.getElementById("app");
-
-const menuBtn =
-    document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const app = document.getElementById("app");
+const menuBtn =  document.getElementById("menuBtn");
 
 
-const cartaoForm =
-    document.getElementById("cartaoForm");
+const cartaoForm = document.getElementById("cartaoForm");
+const cartaoId = document.getElementById("cartaoId");
+const nomeCartao = document.getElementById("nomeCartao");
 
-const cartaoId =
-    document.getElementById("cartaoId");
+const bancoCartao = document.getElementById("bancoCartao");
+const limiteCartao = document.getElementById("limiteCartao");
+const diaFechamento = document.getElementById("diaFechamento");
 
-const nomeCartao =
-    document.getElementById("nomeCartao");
+const diaVencimento = document.getElementById("diaVencimento");
+const salvarCartao = document.getElementById("salvarCartao");
+const cancelarEdicao = document.getElementById("cancelarEdicao");
 
-const bancoCartao =
-    document.getElementById("bancoCartao");
+const formTitulo = document.getElementById("formTitulo");
+const mensagem = document.getElementById("mensagem");
+const cartoesList = document.getElementById("cartoesList");
 
-const limiteCartao =
-    document.getElementById("limiteCartao");
+const totalCartoes = document.getElementById("totalCartoes");
+const limiteTotal = document.getElementById("limiteTotal");
+const utilizadoTotal = document.getElementById("utilizadoTotal");
 
-const diaFechamento =
-    document.getElementById("diaFechamento");
+const disponivelTotal = document.getElementById("disponivelTotal");
 
-const diaVencimento =
-    document.getElementById("diaVencimento");
-
-const salvarCartao =
-    document.getElementById("salvarCartao");
-
-const cancelarEdicao =
-    document.getElementById("cancelarEdicao");
-
-const formTitulo =
-    document.getElementById("formTitulo");
-
-const mensagem =
-    document.getElementById("mensagem");
-
-const cartoesList =
-    document.getElementById("cartoesList");
-
-const totalCartoes =
-    document.getElementById("totalCartoes");
-
-const limiteTotal =
-    document.getElementById("limiteTotal");
-
-const utilizadoTotal =
-    document.getElementById("utilizadoTotal");
-
-const disponivelTotal =
-    document.getElementById("disponivelTotal");
-
-const usuarioNome =
-    document.getElementById("usuarioNome");
-
-const usuarioEmail =
-    document.getElementById("usuarioEmail");
-
+const usuarioNome = document.getElementById("usuarioNome");
+const usuarioEmail = document.getElementById("usuarioEmail");
+const usuarioImagem = document.getElementById("usuarioImagem");
 
 // ============================================================
 // ESTADO
@@ -214,6 +180,16 @@ async function carregarUsuario() {
         const dados =
             await resposta.json();
 
+if (usuarioImagem) {
+    if (dados.imagem) {
+        usuarioImagem.src = dados.imagem;
+        usuarioImagem.alt = dados.nome || "Foto do usuário";
+    } else {
+        usuarioImagem.src = "usuarioGenerico.png";
+        usuarioImagem.alt = "Usuário";
+    }
+}
+        
         usuarioNome.textContent =
             dados.nome ||
             "Usuário";

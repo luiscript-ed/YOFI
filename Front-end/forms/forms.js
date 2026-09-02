@@ -12,6 +12,7 @@ const notificationBtn = document.getElementById("notificationBtn");
 const notificationPanel = document.getElementById("notificationPanel");
 const notificationList = document.getElementById("notificationList");
 const notificationCount = document.getElementById("notificationCount");
+const usuarioImagem = document.getElementById("usuarioImagem");
 
 let usuario = null;
 let contas = [];
@@ -156,6 +157,16 @@ function preencherUsuario() {
         email.textContent =
             usuario?.email || "";
     }
+
+    if (usuarioImagem) {
+    if (usuario.imagem) {
+        usuarioImagem.src = usuario.imagem;
+        usuarioImagem.alt = usuario.nome || "Foto do usuário";
+    } else {
+        usuarioImagem.src = "usuarioGenerico.png";
+        usuarioImagem.alt = "Usuário";
+    }
+}
 }
 
 

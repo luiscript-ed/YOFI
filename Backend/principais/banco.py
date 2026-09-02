@@ -125,6 +125,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     senha TEXT,
     provedor TEXT NOT NULL DEFAULT 'local',
     google_id TEXT UNIQUE,
+    imagem TEXT,
     criado_em TIMESTAMPTZ DEFAULT NOW()
 )
 """)
@@ -560,6 +561,7 @@ def login_google(dados: GoogleLogin, response: Response):
     google_id = idinfo.get("sub")
     email = idinfo.get("email")
     nome = idinfo.get("name")
+    imagem = idinfo.get("picture")
 
     if not google_id or not email:
         raise HTTPException(
@@ -588,7 +590,7 @@ def login_google(dados: GoogleLogin, response: Response):
 
         cursor.execute(
             """
-            SELECT id, nome, email, provedor, google_id
+            SELECT id, nome, email, provedor, google_id, imagem
             FROM usuarios
             WHERE google_id = %s
                OR email = %s
@@ -608,8 +610,8 @@ def login_google(dados: GoogleLogin, response: Response):
             cursor.execute(
                 """
                 INSERT INTO usuarios
-                (nome, email, senha, provedor, google_id)
-                VALUES (%s, %s, %s, %s, %s)
+                (nome, email, senha, provedor, google_id, imagem)
+                VALUES (%s, %s, %s, %s, %s, %s)
                 RETURNING id, nome
                 """,
                 (
@@ -617,7 +619,8 @@ def login_google(dados: GoogleLogin, response: Response):
                     email,
                     None,
                     "google",
-                    google_id
+                    google_id,
+                    imagem
                 )
             )
 
@@ -646,10 +649,11 @@ def login_google(dados: GoogleLogin, response: Response):
                     """
                     UPDATE usuarios
                     SET google_id = %s,
-                        provedor = 'google'
+                        provedor = 'google',
+                        imagem = %s
                     WHERE id = %s
                     """,
-                    (google_id, usuario_id)
+                    (google_id, imagem, usuario_id)
                 )
 
                 conn.commit()
@@ -2963,7 +2967,7 @@ def usuario_atual(
 
     cursor.execute(
         """
-        SELECT id, nome, email
+        SELECT id, nome, email, imagem
         FROM usuarios
         WHERE id = %s
         """,
@@ -2985,5 +2989,6 @@ def usuario_atual(
     return {
         "usuario_id": resultado[0],
         "nome": resultado[1],
-        "email": resultado[2]
+        "email": resultado[2],
+        "imagem": resultado[3]
     }

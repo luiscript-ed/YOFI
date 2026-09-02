@@ -70,6 +70,7 @@ const imagePreviewName =
 const removeImageBtn =
     document.getElementById("removeImageBtn");
 
+const usuarioImagem = document.getElementById("usuarioImagem");
 
 let imagemSelecionada = null;
 
@@ -286,6 +287,16 @@ async function verificarLogin() {
         if (usuarioEmail) {
             usuarioEmail.textContent =
                 usuario.email || "";
+        }
+
+        if (usuarioImagem) {
+            if (usuario.imagem) {
+                usuarioImagem.src = usuario.imagem;
+                usuarioImagem.alt = usuario.nome || "Foto do usuário";
+            } else {
+                usuarioImagem.src = "usuarioGenerico.png";
+                usuarioImagem.alt = "Usuário";
+            }
         }
 
         return true;

@@ -5,61 +5,33 @@ const API_URL = "https://yofi-api.onrender.com";
 // ELEMENTOS
 // ============================================================
 
-const sidebar =
-    document.getElementById("sidebar");
-
-const app =
-    document.getElementById("app");
-
-const menuBtn =
-    document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const app = document.getElementById("app");
+const menuBtn = document.getElementById("menuBtn");
 
 
-const contaForm =
-    document.getElementById("contaForm");
+const contaForm = document.getElementById("contaForm");
+const contaId = document.getElementById("contaId");
 
-const contaId =
-    document.getElementById("contaId");
+const nomeConta = document.getElementById("nomeConta");
+const tipoConta = document.getElementById("tipoConta");
+const saldoInicial = document.getElementById("saldoInicial");
 
-const nomeConta =
-    document.getElementById("nomeConta");
+const salvarConta = document.getElementById("salvarConta");
+const cancelarEdicao = document.getElementById("cancelarEdicao");
 
-const tipoConta =
-    document.getElementById("tipoConta");
+const formTitulo = document.getElementById("formTitulo");
+const mensagem = document.getElementById("mensagem");
 
-const saldoInicial =
-    document.getElementById("saldoInicial");
+const contasList = document.getElementById("contasList");
+const totalContas = document.getElementById("totalContas");
+const saldoTotal = document.getElementById("saldoTotal");
 
-const salvarConta =
-    document.getElementById("salvarConta");
+const contasAtivas = document.getElementById("contasAtivas");
 
-const cancelarEdicao =
-    document.getElementById("cancelarEdicao");
-
-const formTitulo =
-    document.getElementById("formTitulo");
-
-const mensagem =
-    document.getElementById("mensagem");
-
-const contasList =
-    document.getElementById("contasList");
-
-const totalContas =
-    document.getElementById("totalContas");
-
-const saldoTotal =
-    document.getElementById("saldoTotal");
-
-const contasAtivas =
-    document.getElementById("contasAtivas");
-
-const usuarioNome =
-    document.getElementById("usuarioNome");
-
-const usuarioEmail =
-    document.getElementById("usuarioEmail");
-
+const usuarioNome = document.getElementById("usuarioNome");
+const usuarioEmail = document.getElementById("usuarioEmail");
+const usuarioImagem = document.getElementById("usuarioImagem");
 
 // ============================================================
 // ESTADO
@@ -218,6 +190,16 @@ async function carregarUsuario() {
 
         const dados =
             await resposta.json();
+
+    if (usuarioImagem) {
+        if (dados.imagem) {
+            usuarioImagem.src = dados.imagem;
+            usuarioImagem.alt = dados.nome || "Foto do usuário";
+        } else {
+            usuarioImagem.src = "usuarioGenerico.png";
+            usuarioImagem.alt = "Usuário";
+            }
+        }
 
         usuarioNome.textContent =
             dados.nome || "Usuário";

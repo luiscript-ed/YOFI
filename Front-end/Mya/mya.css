@@ -441,6 +441,13 @@ margin-bottom: 8px;
 
 }
 
+.usuario-imagem {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .user-info {
 min-width: 0;
 

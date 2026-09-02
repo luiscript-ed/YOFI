@@ -70,6 +70,7 @@ const usuarioNome =
 const usuarioEmail =
     document.getElementById("usuarioEmail");
 
+const usuarioImagem = document.getElementById("usuarioImagem");
 
 // ============================================================
 // ESTADO
@@ -246,6 +247,16 @@ async function carregarUsuario() {
         usuarioEmail.textContent =
             dados.email ||
             "";
+
+            if (usuarioImagem) {
+                if (dados.imagem) {
+                    usuarioImagem.src = dados.imagem;
+                    usuarioImagem.alt = dados.nome || "Foto do usuário";
+                } else {
+                    usuarioImagem.src = "usuarioGenerico.png";
+                    usuarioImagem.alt = "Usuário";
+                }
+            }
 
     } catch (erro) {
 

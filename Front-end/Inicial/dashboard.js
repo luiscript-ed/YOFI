@@ -28,6 +28,7 @@ const menuBtn = document.getElementById("menuBtn");
 
 const usuarioNome = document.getElementById("usuarioNome");
 const usuarioEmail = document.getElementById("usuarioEmail");
+const usuarioImagem = document.getElementById("usuarioImagem");
 
 const mesAtual = document.getElementById("mesAtual");
 const anoAtual = document.getElementById("anoAtual");
@@ -193,7 +194,7 @@ async function verificarLogin() {
         usuario = dados;
         usuarioId = usuario.usuario_id;
 
-        if (!usuarioId) {
+        if (!usuarioId || !imagemUser) {
             console.error(
                 "O endpoint /me não retornou usuario_id."
             );
@@ -211,6 +212,11 @@ async function verificarLogin() {
             usuarioId
         );
 
+        console.log(
+            "Foto do usuário:", 
+            usuario.imagem
+        );
+
         if (usuarioNome) {
             usuarioNome.textContent =
                 usuario.nome || "Usuário";
@@ -221,6 +227,15 @@ async function verificarLogin() {
                 usuario.email || "";
         }
 
+        if (usuarioImagem) {
+        if (usuario.imagem) {
+                usuarioImagem.src = usuario.imagem;
+                usuarioImagem.alt = usuario.nome || "Foto do usuário";
+        } else {
+                usuarioImagem.src = "usuarioGenerico.png";
+                usuarioImagem.alt = "Usuário";
+            }
+        }
         return true;
 
     } catch (erro) {
