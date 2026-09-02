@@ -185,7 +185,7 @@ try {
                 usuarioImagem.src = dados.imagem;
                 usuarioImagem.alt = dados.nome || "Foto do usuário";
             } else {
-                usuarioImagem.src = "usuarioGenerico.png";
+                usuarioImagem.src = "../Imagens-Audios/404/usuarioGenerico.png";
                 usuarioImagem.alt = "Usuário";
             }
         }
