@@ -808,18 +808,81 @@ function atualizarDadosFinanceiros(dados) {
     console.log(
         "Contas carregadas:",
         contas
+        
     );
-
+    
+    renderizarContas(contas);
+    
     console.log(
         "Cartões carregados:",
         cartoes
     );
 
-    // Os dados ficam disponíveis em dashboardAtual.
-    // Os elementos visuais específicos podem ser ligados
-    // quando definirmos os IDs da Home.
 }
 
+function renderizarContas(contas) {
+    const investimento =
+        document.getElementById("investimentos");
+
+    const carteira =
+        document.getElementById("carteira");
+
+    const contaCorrente =
+        document.getElementById("contaCorrente");
+
+
+    // Limpa os valores
+    if (investimento) {
+        investimento.textContent = "R$ 0,00";
+    }
+
+    if (carteira) {
+        carteira.textContent = "R$ 0,00";
+    }
+
+    if (contaCorrente) {
+        contaCorrente.textContent = "R$ 0,00";
+    }
+
+
+    contas.forEach(conta => {
+
+        const tipo =
+            String(conta?.tipo || "")
+                .toLowerCase();
+
+        const saldo =
+            Number(conta?.saldo) || 0;
+
+
+        if (
+            tipo === "investimento" &&
+            investimento
+        ) {
+            investimento.textContent =
+                formatarMoeda(saldo);
+        }
+
+
+        if (
+            tipo === "carteira" &&
+            carteira
+        ) {
+            carteira.textContent =
+                formatarMoeda(saldo);
+        }
+
+
+        if (
+            tipo === "contacorrente" &&
+            contaCorrente
+        ) {
+            contaCorrente.textContent =
+                formatarMoeda(saldo);
+        }
+
+    });
+}
 
 // ============================================================
 // RENDERIZAÇÃO CENTRAL
