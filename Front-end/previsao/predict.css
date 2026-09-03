@@ -1,0 +1,633 @@
+/* =========================================================
+RESET / BASE
+========================================================= */
+
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+--bg-main: #08080b;
+--bg-sidebar: #0b0b0e;
+--bg-card:
+linear-gradient(
+145deg,
+#2d223f,
+#140c25
+);;
+--bg-card-hover:
+linear-gradient(
+145deg,
+#2d223f,
+#140c25
+);;
+--border: #29292f;
+--text-primary: #f5f5f7;
+--text-secondary: #a1a1aa;
+--text-muted: #71717a;
+--purple: #8b5cf6;
+--purple-light: #a78bfa;
+--purple-dark: #6d28d9;
+--green: #34d399;
+--red: #f87171;
+--yellow: #fbbf24;
+--blue: #60a5fa;
+--sidebar-width: 275px;
+--topbar-height: 72px;
+--radius: 18px;
+}
+
+/* =========================================================
+BODY
+========================================================= */
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+min-height: 100vh;
+background: var(--bg-main);
+color: var(--text-primary);
+overflow-x: hidden;
+}
+
+/* =========================================================
+LINKS / BUTTONS
+========================================================= */
+
+a {
+color: inherit;
+}
+
+button {
+font: inherit;
+}
+
+/* =========================================================
+SIDEBAR
+========================================================= */
+
+.sidebar {
+position: fixed;
+top: 0;
+left: 0;
+width: var(--sidebar-width);
+height: 100vh;
+background: var(--bg-sidebar);
+border-right: 1px solid var(--border);
+z-index: 2000;
+overflow-y: auto;
+overflow-x: hidden;
+padding: 20px 14px 24px;
+transition: transform 0.3s ease, width 0.3s ease;
+}
+
+.sidebar.closed {
+transform: translateX(-100%);
+}
+
+/* Barra de rolagem da sidebar */
+
+.sidebar::-webkit-scrollbar {
+width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+background: #2a2a31;
+border-radius: 20px;
+}
+
+.sidebar::-webkit-scrollbar-thumb\:hover {
+background: #3a3a44;
+}
+
+/* =========================================================
+LOGO DA SIDEBAR
+========================================================= */
+
+.sidebar-logo {
+margin-bottom: 28px;
+}
+
+.sidebar-logo a {
+display: flex;
+align-items: center;
+gap: 10px;
+text-decoration: none;
+padding: 8px 10px;
+}
+
+.logo-img {
+width: 38px;
+height: 38px;
+object-fit: contain;
+flex-shrink: 0;
+}
+
+.logo-text {
+color: var(--text-primary);
+font-size: 22px;
+font-weight: 800;
+letter-spacing: 0.5px;
+}
+
+/* =========================================================
+INFORMAÇÕES DO USUÁRIO
+========================================================= */
+
+.sidebar-user {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 12px 10px 20px;
+margin-bottom: 8px;
+}
+
+.usuario-imagem {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-info {
+min-width: 0;
+display: flex;
+flex-direction: column;
+gap: 4px;
+}
+
+.user-info strong {
+color: var(--text-primary);
+font-size: 15px;
+font-weight: 700;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.user-info span {
+color: var(--text-secondary);
+font-size: 12px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+/* =========================================================
+NAVEGAÇÃO
+========================================================= */
+
+.sidebar-nav {
+display: flex;
+flex-direction: column;
+gap: 4px;
+}
+
+/* Links */
+
+.sidebar-link {
+position: relative;
+display: flex;
+align-items: center;
+gap: 14px;
+min-height: 46px;
+padding: 10px 13px;
+border-radius: 12px;
+color: var(--text-secondary);
+text-decoration: none;
+font-size: 15px;
+font-weight: 500;
+transition:
+background 0.2s ease,
+color 0.2s ease,
+transform 0.2s ease;
+}
+
+.sidebar-link\:hover {
+background: #17171c;
+color: var(--text-primary);
+}
+
+.sidebar-link.active {
+background: rgba(139, 92, 246, 0.15);
+color: var(--purple-light);
+font-weight: 700;
+}
+
+/* Pequena marca lateral do item ativo */
+
+.sidebar-link.active::before {
+content: "";
+position: absolute;
+left: 0;
+top: 8px;
+bottom: 8px;
+width: 3px;
+background: var(--purple);
+border-radius: 0 4px 4px 0;
+}
+
+/* =========================================================
+ÍCONES DA SIDEBAR
+========================================================= */
+
+.nav-icon {
+width: 21px;
+height: 21px;
+object-fit: contain;
+flex-shrink: 0;
+opacity: 0.9;
+transition:
+transform 0.2s ease,
+opacity 0.2s ease;
+background: #f1e1ff;
+border-radius: 50%
+}
+
+.sidebar-link\:hover .nav-icon {
+transform: translateX(2px);
+opacity: 1;
+}
+
+.sidebar-link.active .nav-icon {
+opacity: 1;
+}
+
+/* =========================================================
+TÍTULOS DAS SEÇÕES
+========================================================= */
+
+.sidebar-section-title {
+margin-top: 22px;
+padding: 8px 13px 6px;
+color: var(--text-muted);
+font-size: 11px;
+font-weight: 800;
+text-transform: uppercase;
+letter-spacing: 1.5px;
+}
+
+/* =========================================================
+DIVISOR
+========================================================= */
+
+.sidebar-divider {
+width: calc(100% - 20px);
+height: 1px;
+border: none;
+background: var(--border);
+margin: 18px auto 12px;
+}
+
+/* =========================================================
+APP / ÁREA PRINCIPAL
+========================================================= */
+
+.app {
+min-height: 100vh;
+margin-left: var(--sidebar-width);
+transition:
+margin-left 0.3s ease;
+background: #101020;
+}
+
+.app.sidebar-closed {
+margin-left: 0;
+}
+
+/* =========================================================
+TOPBAR
+========================================================= */
+
+.topbar {
+position: sticky;
+top: 0;
+width: 100%;
+height: var(--topbar-height);
+display: flex;
+align-items: center;
+padding: 0 22px;
+background: rgba(8, 8, 11, 0.94);
+backdrop-filter: blur(16px);
+-webkit-backdrop-filter: blur(16px);
+border-bottom: 1px solid var(--border);
+z-index: 1500;
+}
+
+/* =========================================================
+BOTÃO MOBILE
+========================================================= */
+
+.menu-btn {
+display: flex;
+width: 42px;
+height: 42px;
+align-items: center;
+justify-content: center;
+border: none;
+border-radius: 10px;
+background: transparent;
+color: var(--text-primary);
+font-size: 22px;
+cursor: pointer;
+transition: 0.2s;
+flex-shrink: 0;
+}
+
+.menu-btn\:hover {
+background: #18181d;
+}
+
+/* =========================================================
+LOGO DA TOPBAR
+========================================================= */
+
+.topbar-logo {
+color: var(--purple-light);
+font-size: 25px;
+font-weight: 800;
+letter-spacing: 0.5px;
+white-space: nowrap;
+}
+
+/* =========================================================
+SELETOR DE MÊS
+========================================================= */
+
+.month-selector {
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 14px;
+margin: 0;
+}
+
+.month-info {
+min-width: 130px;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 1px;
+}
+
+.month-info span {
+color: var(--text-primary);
+font-size: 17px;
+font-weight: 700;
+}
+
+.month-info small {
+color: var(--text-muted);
+font-size: 11px;
+}
+
+/* Botões do mês */
+
+.month-btn {
+width: 34px;
+height: 34px;
+border: none;
+border-radius: 50%;
+background: transparent;
+color: var(--text-secondary);
+font-size: 26px;
+line-height: 1;
+cursor: pointer;
+transition:
+background 0.2s ease,
+color 0.2s ease;
+}
+
+.month-btn\:hover {
+background: #19191f;
+color: var(--text-primary);
+}
+
+/* =========================================================
+NOTIFICAÇÕES
+========================================================= */
+
+.notification-container {
+position: absolute;
+right: 22px;
+top: 50%;
+transform: translateY(-50%);
+}
+
+.notification-btn {
+position: relative;
+width: 42px;
+height: 42px;
+border: none;
+border-radius: 12px;
+background: transparent;
+color: var(--text-primary);
+font-size: 20px;
+cursor: pointer;
+transition: background 0.2s ease;
+}
+
+.notification-btn\:hover {
+background: #18181d;
+}
+
+#notificationCount {
+position: absolute;
+top: 3px;
+right: 2px;
+min-width: 18px;
+height: 18px;
+padding: 0 4px;
+display: flex;
+justify-content: center;
+align-items: center;
+background: var(--purple);
+color: white;
+border-radius: 999px;
+font-size: 10px;
+font-weight: 800;
+border: 2px solid var(--bg-main);
+}
+
+/* =========================================================
+PAINEL DE NOTIFICAÇÕES
+========================================================= */
+
+.notification-panel {
+position: absolute;
+top: calc(100% + 10px);
+right: 0;
+width: 360px;
+max-height: 430px;
+overflow-y: auto;
+background: #131317;
+border: 1px solid var(--border);
+border-radius: 16px;
+padding: 16px;
+box-shadow:
+0 20px 60px rgba(0, 0, 0, 0.45);
+z-index: 2500;
+}
+
+.notification-panel h3 {
+margin-bottom: 14px;
+color: var(--text-primary);
+font-size: 16px;
+}
+
+.hidden {
+display: none !important;
+}
+
+/* =========================================================
+CONTEÚDO PRINCIPAL
+========================================================= */
+
+.main-content {
+width: min(1400px, calc(100% - 48px));
+margin: 0 auto;
+padding: 34px 0 50px;
+}
+
+/* =========================================================
+RESPONSIVIDADE - TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+:root {
+--sidebar-width: 240px;
+}
+
+.sidebar {
+width: var(--sidebar-width);
+}
+
+.app {
+margin-left: var(--sidebar-width);
+}
+
+.topbar {
+padding: 0 20px;
+}
+
+.main-content {
+width: min(100% - 32px, 1000px);
+}
+
+.notification-panel {
+width: 320px;
+}
+}
+
+/* =========================================================
+RESPONSIVIDADE - MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+.sidebar {
+transform: translateX(-100%);
+box-shadow:
+20px 0 50px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar.open {
+transform: translateX(0);
+}
+
+.app {
+margin-left: 0;
+width: 100%;
+}
+
+.topbar {
+grid-template-columns:
+auto
+1fr
+auto;
+gap: 10px;
+padding: 0 14px;
+}
+
+.menu-btn {
+display: block;
+}
+
+.topbar-logo {
+justify-self: center;
+font-size: 22px;
+}
+
+.month-info {
+min-width: 110px;
+}
+
+.main-content {
+width: calc(100% - 24px);
+padding-top: 82px;
+}
+}
+
+/* =========================================================
+MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 480px) {
+
+.topbar {
+height: 64px;
+}
+
+.topbar-logo {
+font-size: 20px;
+}
+
+.notification-btn {
+width: 38px;
+height: 38px;
+}
+
+.main-content {
+width: calc(100% - 18px);
+padding-top: 78px;
+}
+
+.notification-panel {
+position: fixed;
+top: 64px;
+left: 9px;
+right: 9px;
+width: auto;
+max-height: 70vh;
+}
+
+.sidebar {
+width: min(290px, 88vw);
+}
+}
+
+/* =========================================================
+RESUMO DO MÊS
+========================================================= */
+
+.month-summary {
+display: grid;
+grid-template-columns:
+repeat(3, minmax(0, 1fr));
+gap: 18px;
+margin-bottom: 28px;
+}

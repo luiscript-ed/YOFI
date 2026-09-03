@@ -17,6 +17,30 @@
 * Segurança e acessos (troca de senha, ativação de PIN, encerramento/transferência de conta).
 * Documentos legais (Termos de Uso e Políticas de Privacidade).
 
+### 5. Planejamento Financeiro
+* Visão consolidada do planejamento financeiro do usuário.
+* Exibição de previsão de receitas, despesas e saldo futuro.
+* Visualização de valores comprometidos com despesas recorrentes e parcelamentos.
+* Exibição do valor realmente disponível para gastar após considerar compromissos financeiros.
+
+### 6. Recorrências e Assinaturas
+* Visualização das transações recorrentes cadastradas.
+* Gerenciamento de despesas e receitas recorrentes.
+* Exibição das próximas cobranças.
+* Cálculo do custo mensal e anual das assinaturas.
+
+### 7. Patrimônio
+* Visualização do patrimônio financeiro total do usuário.
+* Separação entre ativos e dívidas.
+* Cálculo do patrimônio líquido.
+* Histórico da evolução patrimonial ao longo do tempo.
+
+### 8. Dívidas
+* Cadastro e acompanhamento de dívidas.
+* Controle de valor original, valor restante e parcelas.
+* Registro de juros e vencimentos quando disponíveis.
+* Visualização do progresso de quitação das dívidas.
+
 ---
 
 ## 🛠️ Funcionalidades e Requisitos
@@ -47,3 +71,22 @@
 - [ ] **#24** Investimentos.
 - [ ] **#25** Controle de assinaturas recorrentes.
 - [ ] **#26** Recomendações personalizadas da MYA.
+- [ ] **#27** Transações recorrentes com frequência configurável.
+- [ ] **#28** Parcelamentos de compras com geração automática das parcelas futuras.
+- [ ] **#29** Controle do comprometimento futuro de cartões.
+- [ ] **#30** Previsão financeira baseada nas receitas, despesas, recorrências e parcelamentos.
+- [ ] **#31** Cálculo do dinheiro realmente disponível para gastar.
+- [ ] **#32** Comparação financeira entre meses.
+- [ ] **#33** Comparação de receitas, despesas, economia e categorias entre períodos.
+- [ ] **#34** Importação de dados financeiros por CSV.
+- [ ] **#35** Mapeamento e validação das colunas durante a importação de CSV.
+- [ ] **#36** Cofrinhos virtuais para separar valores por objetivo.
+- [ ] **#37** Acompanhamento do progresso financeiro de cada cofrinho.
+- [ ] **#38** Controle detalhado de dívidas e parcelamentos.
+- [ ] **#39** Histórico da evolução do patrimônio líquido.
+- [ ] **#40** Cálculo automático de ativos, compromissos e patrimônio líquido.
+- [ ] **#41** Visualização das próximas cobranças recorrentes.
+- [ ] **#42** Cálculo do custo mensal e anual das assinaturas.
+- [ ] **#43** Alertas para cobranças e transações recorrentes próximas.
+- [ ] **#44** Indicador de comprometimento financeiro futuro.
+- [ ] **#45** Relatórios com evolução mensal das finanças.
