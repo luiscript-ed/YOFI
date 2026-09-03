@@ -640,10 +640,9 @@ def login_google(dados: GoogleLogin, response: Response):
             usuario_id = usuario[0]
             nome_usuario = usuario[1]
 
-            # Se a conta já existia por e-mail,
-            # vinculamos o Google a ela.
 
-            if usuario[4] is None:
+
+            if usuario[4] is None or not usuario[5]:
 
                 cursor.execute(
                     """
