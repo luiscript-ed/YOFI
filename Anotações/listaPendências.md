@@ -12,34 +12,31 @@
 * Visualização em formato de calendário para exibição de eventos financeiros.
 * Ao selecionar um dia específico, o sistema lista todas as transações daquela data (funcionamento estilo agenda).
 
-### 4. Configurações
+### 4. Conquistas
+* Sistema de conquistas baseado no uso e na organização financeira do usuário.
+* Registro de marcos relacionados a economia, objetivos, orçamentos e consistência no controle financeiro.
+
+### 5. Importar/Exportar
+* Importação de dados financeiros por arquivos CSV.
+* Exportação dos dados financeiros em formatos como CSV, Excel ou PDF.
+* Backup e exportação das informações da conta.
+
+### 6. Previsão Financeira
+* Estimativa de receitas, despesas e saldo futuro.
+* Consideração de transações recorrentes, assinaturas e parcelamentos.
+* Visualização dos compromissos financeiros futuros.
+* Estimativa do valor disponível para gastar.
+
+### 7. Cofrinhos
+* Criação de cofres virtuais para separar valores por objetivos específicos.
+* Acompanhamento do valor acumulado e da evolução de cada cofrinho.
+* Definição de metas financeiras individuais para cada cofrinho.
+
+### 8. Configurações
 * Gerenciamento de perfil (nome e foto de usuário).
 * Segurança e acessos (troca de senha, ativação de PIN, encerramento/transferência de conta).
+* Gerenciamento de preferências e tema.
 * Documentos legais (Termos de Uso e Políticas de Privacidade).
-
-### 5. Planejamento Financeiro
-* Visão consolidada do planejamento financeiro do usuário.
-* Exibição de previsão de receitas, despesas e saldo futuro.
-* Visualização de valores comprometidos com despesas recorrentes e parcelamentos.
-* Exibição do valor realmente disponível para gastar após considerar compromissos financeiros.
-
-### 6. Recorrências e Assinaturas
-* Visualização das transações recorrentes cadastradas.
-* Gerenciamento de despesas e receitas recorrentes.
-* Exibição das próximas cobranças.
-* Cálculo do custo mensal e anual das assinaturas.
-
-### 7. Patrimônio
-* Visualização do patrimônio financeiro total do usuário.
-* Separação entre ativos e dívidas.
-* Cálculo do patrimônio líquido.
-* Histórico da evolução patrimonial ao longo do tempo.
-
-### 8. Dívidas
-* Cadastro e acompanhamento de dívidas.
-* Controle de valor original, valor restante e parcelas.
-* Registro de juros e vencimentos quando disponíveis.
-* Visualização do progresso de quitação das dívidas.
 
 ---
 
@@ -60,7 +57,7 @@
 - [ ] **#13** Loading durante operações demoradas.
 - [ ] **#14** Responsividade completa para celular, tablet e desktop.
 - [ ] **#15** Compatibilidade com navegação por teclado e acessibilidade básica.
-- [ ] **#16** Exportação dos dados financeiros (ex: CSV ou PDF).
+- [ ] **#16** Exportação dos dados financeiros (ex: CSV, Excel ou PDF).
 - [ ] **#17** Backup/exportação da conta.
 - [ ] **#18** Atualização periódica dos dados sem precisar recarregar a página.
 - [ ] **#19** Diferenciação visual entre conta, cartão, entrada, despesa e movimentação.
@@ -82,11 +79,16 @@
 - [ ] **#35** Mapeamento e validação das colunas durante a importação de CSV.
 - [ ] **#36** Cofrinhos virtuais para separar valores por objetivo.
 - [ ] **#37** Acompanhamento do progresso financeiro de cada cofrinho.
-- [ ] **#38** Controle detalhado de dívidas e parcelamentos.
-- [ ] **#39** Histórico da evolução do patrimônio líquido.
-- [ ] **#40** Cálculo automático de ativos, compromissos e patrimônio líquido.
-- [ ] **#41** Visualização das próximas cobranças recorrentes.
-- [ ] **#42** Cálculo do custo mensal e anual das assinaturas.
-- [ ] **#43** Alertas para cobranças e transações recorrentes próximas.
-- [ ] **#44** Indicador de comprometimento financeiro futuro.
-- [ ] **#45** Relatórios com evolução mensal das finanças.
+- [ ] **#38** Histórico da evolução do patrimônio líquido.
+- [ ] **#39** Cálculo automático de ativos, compromissos e patrimônio líquido.
+- [ ] **#40** Visualização das próximas cobranças recorrentes.
+- [ ] **#41** Cálculo do custo mensal e anual das assinaturas.
+- [ ] **#42** Alertas para cobranças e transações recorrentes próximas.
+- [ ] **#43** Indicador de comprometimento financeiro futuro.
+- [ ] **#44** Relatórios com evolução mensal das finanças.
+- [ ] **#45** Sistema de conquistas e marcos financeiros.
+- [ ] **#46** Registro de progresso e histórico das conquistas desbloqueadas.
+- [ ] **#47** Filtros e organização de dados financeiros por período.
+- [ ] **#48** Detecção de gastos incomuns.
+- [ ] **#49** Previsão de saldo futuro com base no histórico e nos compromissos cadastrados.
+- [ ] **#50** Indicadores de valores reservados, disponíveis e comprometidos.
