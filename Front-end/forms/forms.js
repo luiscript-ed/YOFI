@@ -349,6 +349,18 @@ function montarSelects() {
             "destino"
         );
 
+    const selectCusto =
+        localizarSelect(
+        formCustos,
+        "conta_cartao"
+        );
+
+    const selectReservado =
+        localizarSelect(
+        formReservados,
+        "conta_cartao"
+        );
+
     montarOpcoesFinanceiras(
         selectGasto
     );
@@ -357,6 +369,13 @@ function montarSelects() {
         selectGanho
     );
 
+    montarOpcoesFinanceiras(
+        selectCusto
+    );
+
+    montarOpcoesFinanceiras(
+        selectReservado
+    );
 
     const montarContas = select => {
 
@@ -988,7 +1007,6 @@ async function processarDespesa(evento) {
     }
 }
 
-
 // ============================================================
 // ENTRADAS
 // ============================================================
@@ -1132,6 +1150,331 @@ async function processarEntrada(evento) {
     }
 }
 
+// ============================================================
+// CUSTOS RECORRENTES
+// ============================================================
+async function criarCustoRecorrente({
+  valor,
+  categoria,
+  origem,
+  descricao,
+  frequencia,
+  dias,
+  dataAnual,
+  dataInicio,
+  dataFim
+}) {
+  if (!origem) {
+    throw new Error("Selecione uma conta ou cartão.");
+  }
+  
+  if (!origem.id || !["conta", "cartao"].includes(origem.tipo)) {
+    throw new Error("A conta ou cartão selecionado é inválido.");
+  }
+
+  if (!Number.isFinite(valor) || valor <= 0) {
+    throw new Error("Informe um valor válido.");
+  }
+
+  if (!categoria) {
+    throw new Error("Selecione uma categoria.");
+  }
+
+  if (!frequencia) {
+    throw new Error("Selecione uma frequência.");
+  }
+
+  if (!dataInicio) {
+    throw new Error("Informe a data de início.");
+  }
+
+  if (dataFim && dataFim < dataInicio) {
+    throw new Error("A data final não pode ser anterior à data inicial.");
+  }
+
+  if (frequencia === "mensal" && (!dias || dias.length === 0)) {
+    throw new Error("Informe pelo menos um dia de cobrança.");
+  }
+
+  if (frequencia === "mensal" && dias.length > 5) {
+    throw new Error("Você pode cadastrar no máximo 5 dias por mês.");
+  }
+
+  if (frequencia === "anual" && !dataAnual) {
+    throw new Error("Informe a data da cobrança anual.");
+  }
+
+  const dados = {
+    categoria,
+    valor,
+    descricao: descricao || null,
+    frequencia,
+    dias: frequencia === "mensal" ? dias : [],
+    data_anual: frequencia === "anual" ? dataAnual : null,
+    data_inicio: dataInicio,
+    data_fim: dataFim || null
+  };
+
+  if (origem.tipo === "conta") {
+    dados.conta_id = origem.id;
+    dados.cartao_id = null;
+  } else {
+    dados.cartao_id = origem.id;
+    dados.conta_id = null;
+  }
+
+  const resposta = await fetch(`${API_URL}/custos-recorrentes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "include",
+    body: JSON.stringify(dados)
+  });
+
+  let resultado = {};
+
+  try {
+    resultado = await resposta.json();
+  } catch {
+    resultado = {};
+  }
+
+  if (!resposta.ok) {
+    throw new Error(
+      resultado.detail || "Erro ao cadastrar o custo recorrente."
+    );
+  }
+
+  return resultado;
+}
+
+// ============================================================
+// PROCESSAR CUSTO RECORRENTE
+// ============================================================
+async function processarCusto(evento) {
+  evento.preventDefault();
+  
+  if (enviando) {
+    return;
+  }
+
+  enviando = true;
+  definirLoading(formCustos, true);
+
+  try {
+    const valorInput = formCustos.querySelector('[name="valor"]');
+    const categoriaInput = formCustos.querySelector('[name="categoria"]');
+    const contaCartaoInput = localizarSelect(formCustos, "conta_cartao");
+    const descricaoInput = formCustos.querySelector('[name="descricao"]');
+    const frequenciaInput = formCustos.querySelector('[name="frequencia"]');
+    const diasInputs = formCustos.querySelectorAll('[name="dias[]"]');
+    const dataAnualInput = formCustos.querySelector('[name="data_anual"]');
+    const dataInicioInput = formCustos.querySelector('[name="data_inicio"]');
+    const dataFimInput = formCustos.querySelector('[name="data_fim"]');
+
+    const valor = Number(valorInput?.value);
+    const categoria = categoriaInput?.value?.trim();
+    const origem = interpretarOrigem(contaCartaoInput?.value);
+    const descricao = descricaoInput?.value?.trim();
+    const frequencia = frequenciaInput?.value;
+    const dias = Array.from(diasInputs)
+      .map(input => Number(input.value))
+      .filter(dia => Number.isInteger(dia) && dia >= 1 && dia <= 31);
+    const dataAnual = dataAnualInput?.value || null;
+    const dataInicio = dataInicioInput?.value;
+    const dataFim = dataFimInput?.value || null;
+
+    const resultado = await criarCustoRecorrente({
+      valor,
+      categoria,
+      origem,
+      descricao,
+      frequencia,
+      dias,
+      dataAnual,
+      dataInicio,
+      dataFim
+    });
+
+    alert(resultado.mensagem || "Custo recorrente cadastrado com sucesso!");
+
+    formCustos.reset();
+
+    // O formulário volta a usar a data atual
+    const inicio = formCustos.querySelector('[name="data_inicio"]');
+    if (inicio) {
+      inicio.value = hojeISO();
+    }
+
+    const select = localizarSelect(formCustos, "conta_cartao");
+    if (select) {
+      select.value = "";
+    }
+
+    await carregarContas();
+    await carregarCartoes();
+    montarSelects();
+    await atualizarContadorNotificacoes();
+
+  } catch (erro) {
+    console.error("Erro ao cadastrar custo recorrente:", erro);
+    mostrarErro(erro.message || "Erro ao cadastrar custo recorrente.");
+
+  } finally {
+    enviando = false;
+    definirLoading(formCustos, false);
+  }
+}
+
+// ============================================================
+// TRANSAÇÕES RESERVADAS
+// ============================================================
+async function criarTransacaoReservada({
+  tipo,
+  valor,
+  categoria,
+  origem,
+  descricao,
+  data
+}) {
+  if (!origem) {
+    throw new Error("Selecione uma conta ou cartão.");
+  }
+
+  if (!origem.id || !["conta", "cartao"].includes(origem.tipo)) {
+    throw new Error("A conta ou cartão selecionado é inválido.");
+  }
+
+  if (!["gasto", "ganho"].includes(tipo)) {
+    throw new Error("Selecione um tipo de transação válido.");
+  }
+
+  if (!Number.isFinite(valor) || valor <= 0) {
+    throw new Error("Informe um valor válido.");
+  }
+
+  if (!categoria) {
+    throw new Error("Selecione uma categoria.");
+  }
+
+  if (!data) {
+    throw new Error("Informe a data da transação.");
+  }
+
+  const dados = {
+    tipo,
+    categoria,
+    valor,
+    descricao: descricao || null,
+    data: `${data}T12:00:00`
+  };
+
+  if (origem.tipo === "conta") {
+    dados.conta_id = origem.id;
+    dados.cartao_id = null;
+  } else {
+    dados.cartao_id = origem.id;
+    dados.conta_id = null;
+  }
+
+  const resposta = await fetch(`${API_URL}/transacoes-reservadas`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "include",
+    body: JSON.stringify(dados)
+  });
+
+  let resultado = {};
+
+  try {
+    resultado = await resposta.json();
+  } catch {
+    resultado = {};
+  }
+
+  if (!resposta.ok) {
+    throw new Error(
+      resultado.detail || "Erro ao reservar a transação."
+    );
+  }
+
+  return resultado;
+}
+
+// ============================================================
+// PROCESSAR TRANSAÇÃO RESERVADA
+// ============================================================
+async function processarReservado(evento) {
+  evento.preventDefault();
+
+  if (enviando) {
+    return;
+  }
+
+  enviando = true;
+  definirLoading(formReservados, true);
+
+  try {
+    const tipoInput = formReservados.querySelector('[name="tipo"]');
+    const valorInput = formReservados.querySelector('[name="valor"]');
+    const categoriaInput = formReservados.querySelector('[name="categoria"]');
+    const contaCartaoInput = localizarSelect(formReservados, "conta_cartao");
+    const descricaoInput = formReservados.querySelector('[name="descricao"]');
+    const dataInput = formReservados.querySelector('[name="data"]');
+
+    const tipo = tipoInput?.value;
+    const valor = Number(valorInput?.value);
+    const categoria = categoriaInput?.value?.trim();
+    const origem = interpretarOrigem(contaCartaoInput?.value);
+    const descricao = descricaoInput?.value?.trim();
+    const data = dataInput?.value;
+
+    if (tipo === "ganho" && origem && origem.tipo === "cartao") {
+      throw new Error(
+        "Entradas devem ser reservadas em uma conta, não em um cartão."
+      );
+    }
+
+    const resultado = await criarTransacaoReservada({
+      tipo,
+      valor,
+      categoria,
+      origem,
+      descricao,
+      data
+    });
+
+    alert(resultado.mensagem || "Transação reservada com sucesso!");
+
+    formReservados.reset();
+
+    const dataReservado = formReservados.querySelector('[name="data"]');
+    if (dataReservado) {
+      dataReservado.value = hojeISO();
+    }
+
+    const select = localizarSelect(formReservados, "conta_cartao");
+    if (select) {
+      select.value = "";
+    }
+
+    await carregarContas();
+    await carregarCartoes();
+    montarSelects();
+    await atualizarContadorNotificacoes();
+
+  } catch (erro) {
+    console.error("Erro ao reservar transação:", erro);
+    mostrarErro(erro.message || "Erro ao reservar transação.");
+
+  } finally {
+    enviando = false;
+    definirLoading(formReservados, false);
+  }
+}
 
 // ============================================================
 // MOVIMENTAÇÕES
@@ -1446,6 +1789,69 @@ if (formMovimentacao) {
 
 }
 
+if (formCustos) {
+    formCustos.addEventListener(
+    "submit",
+    processarCusto
+);
+}
+
+if (formReservados) {
+    formReservados.addEventListener(
+    "submit",
+    processarReservado
+    );
+}
+
+const frequenciaCusto =
+document.getElementById(
+"frequenciaCusto"
+);
+
+const datasMensaisCusto =
+document.getElementById(
+"datasMensaisCusto"
+);
+
+const dataAnualCusto =
+document.getElementById(
+"dataAnualCusto"
+);
+
+if (frequenciaCusto) {
+frequenciaCusto.addEventListener(
+"change",
+() => {
+const frequencia =
+frequenciaCusto.value;
+
+        if (frequencia === "mensal") {
+            if (datasMensaisCusto) {
+                datasMensaisCusto.style.display =
+                    "block";
+            }
+
+            if (dataAnualCusto) {
+                dataAnualCusto.style.display =
+                    "none";
+            }
+        }
+
+        if (frequencia === "anual") {
+            if (datasMensaisCusto) {
+                datasMensaisCusto.style.display =
+                    "none";
+            }
+
+            if (dataAnualCusto) {
+                dataAnualCusto.style.display =
+                    "block";
+            }
+        }
+    }
+);
+
+}
 
 // ============================================================
 // INICIALIZAÇÃO

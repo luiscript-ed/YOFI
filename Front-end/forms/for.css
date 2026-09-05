@@ -843,6 +843,89 @@ body {
     color: #a78bfa;
 }
 
+/* =========================================================
+   RECORRÊNCIAS / CUSTOS
+   ========================================================= */
+
+.recorrencia-box {
+    margin: 5px 0 28px;
+    padding: 18px;
+    background: rgba(139, 92, 246, 0.06);
+    border: 1px solid #3b2a5c;
+    border-radius: 12px;
+}
+
+.recorrencia-header {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 18px;
+}
+
+.recorrencia-header strong {
+    color: #f7f7f7;
+    font-size: 15px;
+}
+
+.recorrencia-header span {
+    color: #716e79;
+    font-size: 12px;
+}
+
+.datas-recorrencia {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+.datas-recorrencia .campo {
+    margin-bottom: 0;
+}
+
+.datas-recorrencia .campo label {
+    font-size: 12px;
+    color: #a8a5b0;
+}
+
+.datas-recorrencia .campo input {
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   CAMPOS DE DATA
+   ========================================================= */
+
+#dataAnualCusto .campo,
+#datasMensaisCusto .campo {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .datas-recorrencia {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .datas-recorrencia {
+        grid-template-columns: 1fr;
+    }
+
+    .recorrencia-box {
+        padding: 14px;
+    }
+
+}
 
 /* =========================================================
    RESPONSIVIDADE

@@ -386,6 +386,7 @@
 
         </nav>
 
+
 </aside>
 
 
@@ -508,7 +509,570 @@
 
             </div>
 
+            <!-- =========================================================
+                CUSTOS RECORRENTES
+                ========================================================= -->
 
+            <div id="custos" class="display">
+
+                <form id="custosForm" class="movimentacao-form">
+
+                    <div class="campo valor-campo">
+
+                        <label for="valorCusto">
+                            VALOR
+                        </label>
+
+                        <div class="valor-input">
+                            <span>R$</span>
+
+                            <input
+                                type="number"
+                                id="valorCusto"
+                                name="valor"
+                                placeholder="0,00"
+                                min="0"
+                                step="0.01"
+                                inputmode="decimal"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="categoriaCusto">
+                            CATEGORIA
+                        </label>
+
+                        <select
+                            id="categoriaCusto"
+                            name="categoria"
+                            required
+                        >
+                            <option value="">
+                                Escolha uma Categoria
+                            </option>
+
+                            <option value="alimentacao">
+                                ALIMENTAÇÃO
+                            </option>
+
+                            <option value="transporte">
+                                TRANSPORTE
+                            </option>
+
+                            <option value="moradia">
+                                MORADIA
+                            </option>
+
+                            <option value="lazer">
+                                LAZER
+                            </option>
+
+                            <option value="saude">
+                                SAÚDE
+                            </option>
+
+                            <option value="educacao">
+                                EDUCAÇÃO
+                            </option>
+
+                            <option value="compras">
+                                COMPRAS
+                            </option>
+
+                            <option value="assinaturas">
+                                ASSINATURAS
+                            </option>
+
+                            <option value="outros">
+                                OUTROS
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="contaCartaoCusto">
+                            Conta ou Cartão
+                        </label>
+
+                        <select
+                            id="contaCartaoCusto"
+                            name="conta_cartao"
+                            required
+                        >
+                            <option value="">
+                                Selecione uma conta ou cartão
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="descricaoCusto">
+                            Descrição
+                            <span class="opcional">
+                                opcional
+                            </span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="descricaoCusto"
+                            name="descricao"
+                            placeholder="Ex: aluguel, Netflix, academia..."
+                        >
+
+                    </div>
+
+
+                    <!-- FREQUÊNCIA -->
+
+                    <div class="campo">
+
+                        <label for="frequenciaCusto">
+                            FREQUÊNCIA
+                        </label>
+
+                        <select
+                            id="frequenciaCusto"
+                            name="frequencia"
+                            required
+                        >
+
+                            <option value="">
+                                Escolha a frequência
+                            </option>
+
+                            <option value="mensal">
+                                Todo mês
+                            </option>
+
+                            <option value="anual">
+                                Uma vez por ano
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- DATAS MENSAIS -->
+
+                    <div
+                        id="datasMensaisCusto"
+                        class="recorrencia-box"
+                    >
+
+                        <div class="recorrencia-header">
+
+                            <strong>
+                                Dias de cobrança
+                            </strong>
+
+                            <span>
+                                Até 5 ocorrências por mês
+                            </span>
+
+                        </div>
+
+
+                        <div class="datas-recorrencia">
+
+                            <div class="campo">
+
+                                <label for="diaCusto1">
+                                    1º dia
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="diaCusto1"
+                                    name="dias[]"
+                                    min="1"
+                                    max="31"
+                                    placeholder="Ex: 5"
+                                >
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label for="diaCusto2">
+                                    2º dia
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="diaCusto2"
+                                    name="dias[]"
+                                    min="1"
+                                    max="31"
+                                    placeholder="Opcional"
+                                >
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label for="diaCusto3">
+                                    3º dia
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="diaCusto3"
+                                    name="dias[]"
+                                    min="1"
+                                    max="31"
+                                    placeholder="Opcional"
+                                >
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label for="diaCusto4">
+                                    4º dia
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="diaCusto4"
+                                    name="dias[]"
+                                    min="1"
+                                    max="31"
+                                    placeholder="Opcional"
+                                >
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label for="diaCusto5">
+                                    5º dia
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="diaCusto5"
+                                    name="dias[]"
+                                    min="1"
+                                    max="31"
+                                    placeholder="Opcional"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DATA ANUAL -->
+
+                    <div
+                        id="dataAnualCusto"
+                        class="recorrencia-box"
+                        style="display: none;"
+                    >
+
+                        <div class="campo">
+
+                            <label for="dataAnual">
+                                DATA DA COBRANÇA
+                            </label>
+
+                            <input
+                                type="date"
+                                id="dataAnual"
+                                name="data_anual"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- INÍCIO -->
+
+                    <div class="campo">
+
+                        <label for="inicioCusto">
+                            COMEÇA EM
+                        </label>
+
+                        <input
+                            type="date"
+                            id="inicioCusto"
+                            name="data_inicio"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- FIM -->
+
+                    <div class="campo">
+
+                        <label for="fimCusto">
+                            TERMINA EM
+                            <span class="opcional">
+                                opcional
+                            </span>
+                        </label>
+
+                        <input
+                            type="date"
+                            id="fimCusto"
+                            name="data_fim"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="btnCusto"
+                        name="acao"
+                        value="enviar"
+                        class="botao-salvar"
+                    >
+                        Confirmar custo
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- =========================================================
+                TRANSAÇÕES RESERVADAS
+                ========================================================= -->
+
+            <div id="reservados" class="display">
+
+                <form
+                    id="reservadosForm"
+                    class="movimentacao-form"
+                >
+
+                    <div class="campo">
+
+                        <label for="tipoReservado">
+                            TIPO
+                        </label>
+
+                        <select
+                            id="tipoReservado"
+                            name="tipo"
+                            required
+                        >
+
+                            <option value="">
+                                Escolha o tipo
+                            </option>
+
+                            <option value="gasto">
+                                DESPESA
+                            </option>
+
+                            <option value="ganho">
+                                ENTRADA
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo valor-campo">
+
+                        <label for="valorReservado">
+                            VALOR
+                        </label>
+
+                        <div class="valor-input">
+
+                            <span>R$</span>
+
+                            <input
+                                type="number"
+                                id="valorReservado"
+                                name="valor"
+                                placeholder="0,00"
+                                min="0"
+                                step="0.01"
+                                inputmode="decimal"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="categoriaReservado">
+                            CATEGORIA
+                        </label>
+
+                        <select
+                            id="categoriaReservado"
+                            name="categoria"
+                            required
+                        >
+
+                            <option value="">
+                                Escolha uma Categoria
+                            </option>
+
+                            <option value="alimentacao">
+                                ALIMENTAÇÃO
+                            </option>
+
+                            <option value="transporte">
+                                TRANSPORTE
+                            </option>
+
+                            <option value="moradia">
+                                MORADIA
+                            </option>
+
+                            <option value="lazer">
+                                LAZER
+                            </option>
+
+                            <option value="saude">
+                                SAÚDE
+                            </option>
+
+                            <option value="educacao">
+                                EDUCAÇÃO
+                            </option>
+
+                            <option value="compras">
+                                COMPRAS
+                            </option>
+
+                            <option value="assinaturas">
+                                ASSINATURAS
+                            </option>
+
+                            <option value="salario">
+                                SALÁRIO
+                            </option>
+
+                            <option value="freelance">
+                                FREELANCE
+                            </option>
+
+                            <option value="investimentos">
+                                INVESTIMENTOS
+                            </option>
+
+                            <option value="presente">
+                                PRESENTE
+                            </option>
+
+                            <option value="reembolso">
+                                REEMBOLSO
+                            </option>
+
+                            <option value="outros">
+                                OUTROS
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="contaCartaoReservado">
+                            Conta ou Cartão
+                        </label>
+
+                        <select
+                            id="contaCartaoReservado"
+                            name="conta_cartao"
+                            required
+                        >
+
+                            <option value="">
+                                Selecione uma conta ou cartão
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="descricaoReservado">
+                            Descrição
+                            <span class="opcional">
+                                opcional
+                            </span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="descricaoReservado"
+                            name="descricao"
+                            placeholder="Ex: compra do notebook..."
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="dataReservado">
+                            DATA DA TRANSAÇÃO
+                        </label>
+
+                        <input
+                            type="date"
+                            id="dataReservado"
+                            name="data"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="btnReservado"
+                        name="acao"
+                        value="enviar"
+                        class="botao-salvar"
+                    >
+                        Reservar transação
+                    </button>
+
+                </form>
+
+            </div>
+             
             <!-- ENTRADAS -->
 
             <div id="ganhos" class="display">
@@ -608,6 +1172,7 @@
 
             </div>
 
+            
         </main>
 
 
@@ -619,6 +1184,16 @@
         <button type="button" data-id="gastos" name="categoriaGastos" value="gasto" class="categoria-btn ativo">
             <span class="categoria-titulo">Despesas</span>
             <span class="categoria-descricao">Seus Gastos</span>
+        </button>
+
+        <button type="button" data-id="custos" name="categoriaCustos" value="custo" class="categoria-btn">
+            <span class="categoria-titulo">Custos</span>
+            <span class="categoria-descricao">Seus Custos</span>
+        </button>
+
+        <button type="button" data-id="reservados" name="categoriaReservados" value="reservado" class="categoria-btn">
+            <span class="categoria-titulo">Reservados</span>
+            <span class="categoria-descricao">Seu dinheiro Reservado</span>
         </button>
 
         <button type="button" data-id="ganhos" name="categoriaEntrada" value="entrada" class="categoria-btn">

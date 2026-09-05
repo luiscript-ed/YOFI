@@ -1,38 +1,38 @@
 ## 📋 Páginas do Sistema
 
-### 1. Gráficos
+### 1. Gráficos == Nicolas
 * Gráficos detalhados de despesas, custos, receitas e indicadores financeiros gerais.
 
-### 2. Categorias
+### 2. Categorias == Nenel
 * Vínculo de cada transação a uma categoria específica.
 * Interface com componente horizontal de tamanho médio que, ao ser clicado, expande uma área inferior exibindo as transações daquela categoria.
 * Inclusão de filtro por período (data).
 
-### 3. Calendário
+### 3. Calendário == Luiz
 * Visualização em formato de calendário para exibição de eventos financeiros.
 * Ao selecionar um dia específico, o sistema lista todas as transações daquela data (funcionamento estilo agenda).
 
-### 4. Conquistas
+### 4. Conquistas == Passos
 * Sistema de conquistas baseado no uso e na organização financeira do usuário.
 * Registro de marcos relacionados a economia, objetivos, orçamentos e consistência no controle financeiro.
 
-### 5. Importar/Exportar
+### 5. Importar/Exportar == Luiz
 * Importação de dados financeiros por arquivos CSV.
 * Exportação dos dados financeiros em formatos como CSV, Excel ou PDF.
 * Backup e exportação das informações da conta.
 
-### 6. Previsão Financeira
+### 6. Previsão Financeira == Pedro
 * Estimativa de receitas, despesas e saldo futuro.
 * Consideração de transações recorrentes, assinaturas e parcelamentos.
 * Visualização dos compromissos financeiros futuros.
 * Estimativa do valor disponível para gastar.
 
-### 7. Cofrinhos
+### 7. Cofrinhos == Nenel
 * Criação de cofres virtuais para separar valores por objetivos específicos.
 * Acompanhamento do valor acumulado e da evolução de cada cofrinho.
 * Definição de metas financeiras individuais para cada cofrinho.
 
-### 8. Configurações
+### 8. Configurações == Nicolas
 * Gerenciamento de perfil (nome e foto de usuário).
 * Segurança e acessos (troca de senha, ativação de PIN, encerramento/transferência de conta).
 * Gerenciamento de preferências e tema.
