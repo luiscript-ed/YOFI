@@ -3,6 +3,8 @@ const API_URL = "https://yofi-api.onrender.com";
 const formGastos = document.getElementById("gastosForm");
 const formGanhos = document.getElementById("ganhosForm");
 const formMovimentacao = document.getElementById("movimentacaoForm");
+const formCustos = document.getElementById("custosForm");
+const formReservados = document.getElementById("reservadosForm");
 
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");

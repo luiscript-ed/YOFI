@@ -94,7 +94,7 @@
 
         /* Bolhas de mensagem */
         .message-bubble {
-            color: black;
+            color: rgb(246, 223, 255);
             padding: 10px 15px;
             border-radius: 12px;
             margin: 5px 0;
@@ -103,23 +103,26 @@
         }
 
         .user-message {
-            background-color: #f1f0ff;
+            background-color: linear-gradient(135deg, #ce97ff, #a84ee0);
             align-self: flex-end;
             text-align: right;
+            max-width: 65%;
         }
 
         .bot-message {
-            background-color: #f9f0ff;
+            background-color: #f9f0ff00;
             align-self: flex-start;
             text-align: left;
+            max-width: 100%;
         }
 
         .error-message {
-            background-color: #ffe6e6;
-            color: #cc0000;
+            background-color: #ff8686;
+            color: #e30000;
             align-self: center;
             text-align: center;
             font-size: 0.9em;
+            max-width: 65%;
         }
 
         /* Formulário de Input */
