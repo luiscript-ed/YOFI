@@ -2728,7 +2728,7 @@ def criar_transacao_reservada(
             detail="Tipo deve ser 'ganho' ou 'gasto'."
         )
 
-    if transacao.data <= datetime.now(timezone.utc):
+    if transacao.data <= datetime.now():
         raise HTTPException(
             status_code=400,
             detail="A data da transação reservada deve ser futura."
