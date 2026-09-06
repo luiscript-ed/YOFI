@@ -534,6 +534,525 @@ width: 320px;
 }
 
 /* =========================================================
+CALENDÁRIO / AGENDA
+========================================================= */
+
+.calendar-section {
+    width: 100%;
+    background: #101014;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================================
+CABEÇALHO DO CALENDÁRIO
+========================================================= */
+
+.calendar-header {
+    height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    background: #121216;
+}
+
+.calendar-month-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.calendar-month-info h2 {
+    color: var(--text-primary);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.calendar-month-info span {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.calendar-nav-btn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.calendar-nav-btn:hover {
+    background: #1b1b21;
+    color: var(--text-primary);
+}
+
+.calendar-nav-btn:first-child {
+    left: 20px;
+}
+
+.calendar-nav-btn:last-child {
+    right: 20px;
+}
+
+
+/* =========================================================
+DIAS DA SEMANA
+========================================================= */
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: #0d0d10;
+    border-bottom: 1px solid var(--border);
+}
+
+.calendar-weekdays div {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    border-right: 1px solid var(--border);
+}
+
+.calendar-weekdays div:last-child {
+    border-right: none;
+}
+
+
+/* =========================================================
+GRADE DO CALENDÁRIO
+========================================================= */
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-auto-rows: minmax(125px, auto);
+}
+
+
+/* =========================================================
+CÉLULA DO DIA
+========================================================= */
+
+.calendar-day {
+    position: relative;
+    min-width: 0;
+    padding: 10px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: #111114;
+    transition: background 0.2s ease;
+}
+
+.calendar-day:hover {
+    background: #16161b;
+}
+
+.calendar-day:nth-child(7n) {
+    border-right: none;
+}
+
+.calendar-day-number {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 7px;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.calendar-day.today .calendar-day-number {
+    background: var(--purple);
+    color: #fff;
+}
+
+
+/* =========================================================
+DIAS FORA DO MÊS
+========================================================= */
+
+.calendar-day.other-month {
+    background: #0d0d10;
+}
+
+.calendar-day.other-month .calendar-day-number {
+    color: #4f4f58;
+}
+
+
+/* =========================================================
+LISTA DE TRANSAÇÕES
+========================================================= */
+
+.calendar-events {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+
+/* =========================================================
+TAG DA TRANSAÇÃO
+========================================================= */
+
+.calendar-event {
+    width: 100%;
+    min-height: 28px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    border: none;
+    border-radius: 7px;
+    color: #fff;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    overflow: hidden;
+    transition:
+        transform 0.15s ease,
+        filter 0.15s ease;
+}
+
+.calendar-event:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.12);
+}
+
+.calendar-event-icon {
+    flex-shrink: 0;
+    font-size: 12px;
+}
+
+.calendar-event-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+CORES DOS TIPOS
+========================================================= */
+
+.calendar-event.ganho {
+    background: rgba(52, 211, 153, 0.78);
+    color: #07150f;
+}
+
+.calendar-event.gasto {
+    background: rgba(248, 113, 113, 0.82);
+    color: #210909;
+}
+
+.calendar-event.custo {
+    background: rgba(251, 146, 60, 0.88);
+    color: #211006;
+}
+
+.calendar-event.reservada {
+    background: rgba(139, 92, 246, 0.82);
+    color: #fff;
+}
+
+
+/* =========================================================
+MAIS TRANSAÇÕES
+========================================================= */
+
+.calendar-more {
+    margin-top: 2px;
+    padding: 3px 5px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.calendar-more:hover {
+    color: var(--purple-light);
+}
+
+
+/* =========================================================
+POPUP DE TRANSAÇÃO
+========================================================= */
+
+.transaction-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 5000;
+}
+
+.transaction-modal-content {
+    position: relative;
+    width: min(500px, 100%);
+    background: #18181d;
+    border: 1px solid #303038;
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+    animation: transactionModalIn 0.2s ease;
+}
+
+@keyframes transactionModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.transaction-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 25px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.transaction-modal-close:hover {
+    background: #25252c;
+    color: var(--text-primary);
+}
+
+
+/* =========================================================
+CABEÇALHO DO POPUP
+========================================================= */
+
+.transaction-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-right: 35px;
+    margin-bottom: 25px;
+}
+
+.transaction-modal-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 14px;
+    background: rgba(139, 92, 246, 0.15);
+    color: var(--purple-light);
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.transaction-modal-header h3 {
+    color: var(--text-primary);
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.transaction-modal-header span {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+
+/* =========================================================
+DETALHES
+========================================================= */
+
+.transaction-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.transaction-detail {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.transaction-detail:last-child {
+    border-bottom: none;
+}
+
+.transaction-detail span {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.transaction-detail strong {
+    color: var(--text-primary);
+    font-size: 14px;
+    text-align: right;
+}
+
+
+/* =========================================================
+RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .calendar-days {
+        grid-auto-rows: minmax(105px, auto);
+    }
+
+    .calendar-day {
+        padding: 7px;
+    }
+
+    .calendar-event {
+        padding: 4px 6px;
+        font-size: 10px;
+    }
+
+    .calendar-event-icon {
+        font-size: 11px;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .calendar-section {
+        border-radius: 14px;
+    }
+
+    .calendar-header {
+        height: 65px;
+    }
+
+    .calendar-month-info h2 {
+        font-size: 18px;
+    }
+
+    .calendar-weekdays div {
+        font-size: 9px;
+    }
+
+    .calendar-days {
+        grid-auto-rows: minmax(85px, auto);
+    }
+
+    .calendar-day {
+        padding: 5px;
+    }
+
+    .calendar-day-number {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+    }
+
+    .calendar-event {
+        min-height: 24px;
+        justify-content: center;
+        padding: 3px;
+    }
+
+    .calendar-event-text {
+        display: none;
+    }
+
+    .calendar-event-icon {
+        font-size: 13px;
+    }
+
+    .transaction-modal-content {
+        padding: 22px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .calendar-header {
+        height: 58px;
+    }
+
+    .calendar-month-info h2 {
+        font-size: 16px;
+    }
+
+    .calendar-month-info span {
+        font-size: 12px;
+    }
+
+    .calendar-nav-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 25px;
+    }
+
+    .calendar-nav-btn:first-child {
+        left: 8px;
+    }
+
+    .calendar-nav-btn:last-child {
+        right: 8px;
+    }
+
+    .calendar-days {
+        grid-auto-rows: minmax(72px, auto);
+    }
+
+    .calendar-day {
+        padding: 4px;
+    }
+
+    .calendar-day-number {
+        width: 22px;
+        height: 22px;
+        font-size: 10px;
+    }
+}
+
+/* =========================================================
 RESPONSIVIDADE - MOBILE
 ========================================================= */
 

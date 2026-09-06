@@ -535,6 +535,132 @@
     <!-- AQUI É ONDE FICARÁ O CALENDÁRIO -->
     <!-- ===================================================== -->
 
+    <section class="calendar-section">
+
+    <!-- CABEÇALHO DO CALENDÁRIO -->
+    <div class="calendar-header">
+
+        <button id="calMesAnterior" class="calendar-nav-btn">
+            ‹
+        </button>
+
+        <div class="calendar-month-info">
+            <h2 id="calMesAtual">Agosto</h2>
+            <span id="calAnoAtual">2026</span>
+        </div>
+
+        <button id="calProximoMes" class="calendar-nav-btn">
+            ›
+        </button>
+
+    </div>
+
+
+    <!-- AGENDA -->
+    <div class="calendar">
+
+        <!-- DIAS DA SEMANA -->
+        <div class="calendar-weekdays">
+
+            <div>DOM</div>
+            <div>SEG</div>
+            <div>TER</div>
+            <div>QUA</div>
+            <div>QUI</div>
+            <div>SEX</div>
+            <div>SÁB</div>
+
+        </div>
+
+
+        <!-- DIAS DO MÊS -->
+        <div id="calendarDays" class="calendar-days">
+            <!-- O JS vai criar os dias aqui -->
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- POPUP DE DETALHES -->
+<div id="transactionModal" class="transaction-modal hidden">
+
+    <div class="transaction-modal-content">
+
+        <button
+            id="closeTransactionModal"
+            class="transaction-modal-close"
+            aria-label="Fechar"
+        >
+            ×
+        </button>
+
+        <div class="transaction-modal-header">
+
+            <div
+                id="transactionModalIcon"
+                class="transaction-modal-icon"
+            >
+                $
+            </div>
+
+            <div>
+                <h3 id="transactionModalTitle">
+                    Transação
+                </h3>
+
+                <span id="transactionModalDate">
+                    00/00/0000
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="transaction-modal-body">
+
+            <div class="transaction-detail">
+                <span>Tipo</span>
+                <strong id="transactionModalType">
+                    -
+                </strong>
+            </div>
+
+            <div class="transaction-detail">
+                <span>Categoria</span>
+                <strong id="transactionModalCategory">
+                    -
+                </strong>
+            </div>
+
+            <div class="transaction-detail">
+                <span>Valor</span>
+                <strong id="transactionModalValue">
+                    R$ 0,00
+                </strong>
+            </div>
+
+            <div class="transaction-detail">
+                <span>Descrição</span>
+                <strong id="transactionModalDescription">
+                    -
+                </strong>
+            </div>
+
+            <div class="transaction-detail">
+                <span>Conta / Cartão</span>
+                <strong id="transactionModalSource">
+                    -
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
     </main>
 
 </div>
