@@ -103,7 +103,7 @@
         }
 
         .user-message {
-            background-color: linear-gradient(135deg, #ce97ff, #a84ee0);
+            background: linear-gradient(135deg, #a84ee0c5, #881cec);
             align-self: flex-end;
             text-align: right;
             max-width: 65%;
@@ -185,7 +185,7 @@
     align-items: center;
     justify-content: center;
 
-    background-color: #a84ee0;
+    background-color: var(--purple);
     color: white;
 
     border: none;
@@ -210,8 +210,8 @@
 }
 
 .buttonMya:hover {
-    background-color: #8e44ad;
-    transform: scale(1.05);
+    background-color: var(--purple-light);
+    transform: scale(1.1);
 }
 
 .image-preview {
@@ -1124,6 +1124,24 @@ color: var(--success);
 
 .form-message.error {
 color: #f87171;
+}
+
+#userInput {
+    animation: cursorRoxo 2s infinite ease-in-out;
+}
+
+@keyframes cursorRoxo {
+    0% {
+        caret-color: #ce97ff;
+    }
+
+    50% {
+        caret-color: #a84ee0;
+    }
+
+    100% {
+        caret-color: #240046;
+    }
 }
 
 /* =========================================================

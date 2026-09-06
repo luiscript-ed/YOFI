@@ -360,63 +360,6 @@ white-space: nowrap;
 }
 
 /* =========================================================
-SELETOR DE MÊS
-========================================================= */
-
-.month-selector {
-position: absolute;
-left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 14px;
-margin: 0;
-}
-
-.month-info {
-min-width: 130px;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 1px;
-}
-
-.month-info span {
-color: var(--text-primary);
-font-size: 17px;
-font-weight: 700;
-}
-
-.month-info small {
-color: var(--text-muted);
-font-size: 11px;
-}
-
-/* Botões do mês */
-
-.month-btn {
-width: 34px;
-height: 34px;
-border: none;
-border-radius: 50%;
-background: transparent;
-color: var(--text-secondary);
-font-size: 26px;
-line-height: 1;
-cursor: pointer;
-transition:
-background 0.2s ease,
-color 0.2s ease;
-}
-
-.month-btn\:hover {
-background: #19191f;
-color: var(--text-primary);
-}
-
-/* =========================================================
 NOTIFICAÇÕES
 ========================================================= */
 
@@ -641,7 +584,7 @@ GRADE DO CALENDÁRIO
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    grid-auto-rows: minmax(125px, auto);
+    grid-auto-rows: 125px;
 }
 
 
@@ -651,6 +594,10 @@ CÉLULA DO DIA
 
 .calendar-day {
     position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+
     min-width: 0;
     padding: 10px;
     border-right: 1px solid var(--border);
@@ -708,6 +655,21 @@ LISTA DE TRANSAÇÕES
     flex-direction: column;
     gap: 5px;
     width: 100%;
+
+    flex: 1;
+    min-height: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.calendar-events::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 
@@ -939,7 +901,7 @@ RESPONSIVIDADE
 @media (max-width: 900px) {
 
     .calendar-days {
-        grid-auto-rows: minmax(105px, auto);
+        grid-auto-rows: 105px;
     }
 
     .calendar-day {
@@ -976,7 +938,7 @@ RESPONSIVIDADE
     }
 
     .calendar-days {
-        grid-auto-rows: minmax(85px, auto);
+        grid-auto-rows: 85px;
     }
 
     .calendar-day {
@@ -1038,7 +1000,7 @@ RESPONSIVIDADE
     }
 
     .calendar-days {
-        grid-auto-rows: minmax(72px, auto);
+        grid-auto-rows: 72px;
     }
 
     .calendar-day {

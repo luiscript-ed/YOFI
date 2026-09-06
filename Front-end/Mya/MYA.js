@@ -1199,10 +1199,7 @@ function criarLoading() {
         return null;
     }
 
-
-    const loading =
-        document.createElement("div");
-
+    const loading = document.createElement("div");
 
     loading.classList.add(
         "message-bubble",
@@ -1210,22 +1207,44 @@ function criarLoading() {
         "mya-loading"
     );
 
+    const mensagens = [
+        "MYA está pensando...",
+        "MYA está analisando seus dados...",
+        "MYA está preparando uma resposta...",
+        "MYA está verificando as informações...",
+        "MYA está organizando tudo...",
+        "MYA está quase pronta..."
+    ];
 
-    loading.textContent =
-        "MYA está analisando...";
+    let indice = 0;
 
+    loading.textContent = mensagens[indice];
 
-    chatContainer.appendChild(
-        loading
-    );
-
+    chatContainer.appendChild(loading);
 
     chatContainer.scrollTop =
         chatContainer.scrollHeight;
 
+    const intervalo = setInterval(() => {
+
+        indice = (indice + 1) % mensagens.length;
+
+        loading.textContent =
+            mensagens[indice];
+
+        chatContainer.scrollTop =
+            chatContainer.scrollHeight;
+
+    }, 1800);
+
+    // Guardamos o intervalo dentro do próprio elemento
+    loading.dataset.loadingInterval = "ativo";
+
+    loading.pararAnimacao = () => {
+        clearInterval(intervalo);
+    };
 
     return loading;
-
 }
 
 
@@ -1457,12 +1476,16 @@ async function enviarMensagem(mensagem) {
 
     } finally {
 
-        if (loading) {
-            loading.remove();
+    if (loading) {
+
+        if (typeof loading.pararAnimacao === "function") {
+            loading.pararAnimacao();
         }
 
-        controllerAtual =
-            null;
+        loading.remove();
+    }
+
+    controllerAtual = null;
 
         enviandoMensagem =
             false;
