@@ -113,27 +113,23 @@ verificarLogin();
 
 function login_painel() {
 
-loginBtn.classList.add("active");
-registerBtn.classList.remove("active");
+    loginBtn.classList.add("active");
+    registerBtn.classList.remove("active");
 
-loginForm.classList.remove("hidden");
-registerForm.classList.add("hidden");
+    loginForm.classList.remove("hidden");
+    registerForm.classList.add("hidden");
 
 }
 
 function cadastro_painel() {
 
-registerBtn.classList.add("active");
-loginBtn.classList.remove("active");
+    registerBtn.classList.add("active");
+    loginBtn.classList.remove("active");
 
-registerForm.classList.remove("hidden");
-loginForm.classList.add("hidden");
+    registerForm.classList.remove("hidden");
+    loginForm.classList.add("hidden");
 
 }
-
-// ============================================================
-// ANIMAÇÃO DO BOTÃO DE LOGIN
-// ============================================================
 
 // LOGIN COMEÇOU
 
@@ -344,90 +340,90 @@ loginForm.dispatchEvent(eventoFim);
 
 function loginComGoogle(response) {
 
-console.log(
-    "Token recebido do Google."
-);
-
-
-fetch(
-    "https://yofi-api.onrender.com/login/google",
-    {
-
-        method: "POST",
-
-        headers: {
-            "Content-Type": "application/json"
-        },
-
-        credentials: "include",
-
-        body: JSON.stringify({
-
-            credential: response.credential
-
-        })
-
-    }
-)
-
-.then(async (resposta) => {
-
-    const resultado =
-        await resposta.json();
-
-
     console.log(
-        "Status Google:",
-        resposta.status
-    );
-
-    console.log(
-        "Resposta Google:",
-        resultado
+        "Token recebido do Google."
     );
 
 
-    if (!resposta.ok) {
+    fetch(
+        "https://yofi-api.onrender.com/login/google",
+        {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            credentials: "include",
+
+            body: JSON.stringify({
+
+                credential: response.credential
+
+            })
+
+        }
+    )
+
+    .then(async (resposta) => {
+
+        const resultado =
+            await resposta.json();
+
+
+        console.log(
+            "Status Google:",
+            resposta.status
+        );
+
+        console.log(
+            "Resposta Google:",
+            resultado
+        );
+
+
+        if (!resposta.ok) {
+
+            mensagem.innerText =
+                resultado.detail ||
+                "Não foi possível entrar com o Google.";
+
+            return;
+
+        }
+
+
+        // Login realizado
 
         mensagem.innerText =
-            resultado.detail ||
-            "Não foi possível entrar com o Google.";
-
-        return;
-
-    }
+            resultado.mensagem;
 
 
-    // Login realizado
-
-    mensagem.innerText =
-        resultado.mensagem;
-
-
-    localStorage.setItem(
-        "nome",
-        resultado.nome
-    );
+        localStorage.setItem(
+            "nome",
+            resultado.nome
+        );
 
 
-    window.location.href =
-        "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page";
+        window.location.href =
+            "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page";
 
-})
-
-
-.catch((error) => {
-
-    console.error(
-        "Erro no login com Google:",
-        error
-    );
+    })
 
 
-    mensagem.innerText =
-        "Erro ao conectar com o servidor.";
+    .catch((error) => {
 
-});
+        console.error(
+            "Erro no login com Google:",
+            error
+        );
+
+
+        mensagem.innerText =
+            "Erro ao conectar com o servidor.";
+
+    });
 
 }
 
@@ -453,8 +449,11 @@ function inicializarGoogle() {
     google.accounts.id.initialize({
 
         client_id: GOOGLE_CLIENT_ID,
+        callback: loginComGoogle,
+        context: "signin",
 
-        callback: loginComGoogle
+        auto_select: false,
+        cancel_on_tap_outside: false
 
     });
 
@@ -468,6 +467,43 @@ google.accounts.id.renderButton(
     }
 );
 
+google.accounts.id.prompt((notification) => {
+
+        console.log(
+            "Google One Tap:",
+            notification
+        );
+
+        if (
+            notification.isNotDisplayed &&
+            notification.isNotDisplayed()
+        ) {
+
+            console.log(
+                "One Tap não foi exibido."
+            );
+
+            console.log(
+                "Motivo:",
+                notification.getNotDisplayedReason()
+            );
+        }
+
+        if (
+            notification.isSkippedMoment &&
+            notification.isSkippedMoment()
+        ) {
+
+            console.log(
+                "One Tap foi ignorado/cancelado."
+            );
+
+            console.log(
+                "Motivo:",
+                notification.getSkippedReason()
+            );
+        }
+    });
 
 }
 
@@ -477,5 +513,6 @@ google.accounts.id.renderButton(
 window.addEventListener("load", () => {
 
     inicializarGoogle();
+    oneTapGoogle();
 
 });

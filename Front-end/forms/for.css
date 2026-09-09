@@ -157,11 +157,77 @@ body {
 }
 
 .usuario-imagem {
-    width: 45px;
-    height: 45px;
+    width: 110%;
+    height: 110%;
     border-radius: 50%;
     object-fit: cover;
 }
+
+ /* Container que segura o efeito */
+            .userWarper {
+                position: relative;
+                padding: 3px; /* Define a espessura da borda animada */
+                border-radius: 50%; /* Garante cantos arredondados */
+                overflow: hidden; /* Esconde o excesso da div que vai girar */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 20%;
+                height: 20;
+                max-width: 70px;
+            }
+
+            /* Pseudo-elemento com a animação roxa */
+            .userWarper::before {
+                content: '';
+                position: absolute;
+                top: -150%;
+                left: -150%;
+                width: 400%;
+                height: 400%;
+                background: conic-gradient(
+                    from 0deg,
+                    transparent 0%,
+                    #9333EA 20%, /* Roxo principal */
+                    #5f23f8 50%, /* Roxo claro brilhante */
+                    #5f23f8 70%, /* Roxo escuro */
+                    transparent 100%
+                );
+                animation: girarBorda 5s linear infinite;
+                z-index: 1;
+            }
+
+            /* Fundo interno para o conteúdo não ser coberto pela animação */
+            .userWarper > * {
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                background: #15151d; /* Cor de fundo do seu card */
+                border: none;
+                border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
+            }
+
+            /* Animação de rotação */
+            @keyframes girarBorda {
+                0% {
+                    transform: rotate(10deg);
+                }
+                20% {
+                    transform: rotate(70deg);
+                } 
+                40% {
+                    transform: rotate(120deg);
+                }
+                60% {
+                    transform: rotate(170deg);
+                }
+                80% {
+                    transform: rotate(220deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
 
 .user-info {
     min-width: 0;

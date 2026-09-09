@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,10 @@
 
     <link href="mya.css" rel="stylesheet"> 
 </head>
+
 <body>
 
-    <aside id="sidebar" class="sidebar">
+<aside id="sidebar" class="sidebar">
 
     <!-- LOGO -->
 
@@ -35,13 +37,14 @@
     <!-- USUÁRIO -->
 
     <div class="sidebar-user">
+        <div class="userWarper"> 
         <img
             id="usuarioImagem"
             src="usuarioGenerico.png"
             alt="Usuário"
             class="usuario-imagem"
-        >
-               
+        > </div>   
+          
         <div class="user-info">
 
             <strong id="usuarioNome">
@@ -592,6 +595,17 @@
                     accept="image/png,image/jpeg,image/webp,image/gif"
                     hidden
                 >
+
+                <button
+                    type="button"
+                    class="buttonAudio"
+                    aria-label="Enviar imagem"
+                    >
+                    <img
+                        src="../Imagens-Audios/homepage/microfone.png"
+                        alt="Microfone"
+                        >
+                </button>
 
                 <button
                     type="submit"
