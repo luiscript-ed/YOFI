@@ -46,6 +46,9 @@ const notificationList =
 const chatContainer =
     document.getElementById("chatContainer");
 
+const myaPage =
+    document.getElementById("myaPage");
+
 const chatForm =
     document.getElementById("chatForm");
 
@@ -1199,13 +1202,26 @@ function criarLoading() {
         return null;
     }
 
-    const loading = document.createElement("div");
-
-    loading.classList.add(
+   const loading = document.createElement("div");
+    
+   loading.classList.add(
         "message-bubble",
         "bot-message",
         "mya-loading"
     );
+
+    loading.innerHTML = `
+        <img 
+            src="../Imagens-Audios/MYA.png" 
+            alt="MYA"
+            class="mya-loading-logo"
+        >
+        <span class="mya-loading-text">
+            MYA está pensando...
+        </span>
+    `;
+
+
 
     const mensagens = [
         "MYA está pensando...",
@@ -1218,7 +1234,8 @@ function criarLoading() {
 
     let indice = 0;
 
-    loading.textContent = mensagens[indice];
+  loading.querySelector(".mya-loading-text").textContent =
+    mensagens[indice];
 
     chatContainer.appendChild(loading);
 
@@ -1264,6 +1281,10 @@ async function enviarMensagem(mensagem) {
     }
 
     enviandoMensagem = true;
+
+    if (myaPage) {
+        myaPage.classList.add("mya-started");
+    }
 
     if (userInput) {
         userInput.disabled = true;
@@ -1775,19 +1796,6 @@ promptList.scrollLeft+=originalWidth;
 
 if(promptList.scrollLeft>=originalWidth*2)
 promptList.scrollLeft-=originalWidth;
-
-});
-
-}
-
-if(chatForm){
-
-chatForm.addEventListener("submit",()=>{
-
-if(!userInput)return;
-
-if(userInput.value.trim()!=="")
-myaPage.classList.add("mya-started");
 
 });
 

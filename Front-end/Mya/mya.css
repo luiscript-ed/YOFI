@@ -183,7 +183,7 @@
         }
 
         .error-message {
-            background-color: #ff8686;
+            background-color: #ff8686a6;
             color: #e30000;
             align-self: center;
             text-align: center;
@@ -270,6 +270,23 @@
 .buttonAudio img {
     width: 60%;
     height: 60%;
+}
+
+.mya-loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mya-loading-logo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.mya-loading-text {
+    display: inline-block;
 }
 
 .buttonAudio {
@@ -1342,255 +1359,7 @@ font-size: 12px;
 font-size: 23px;
 }
 
-/* =========================================================
-GRID DE ORÇAMENTOS
-========================================================= */
 
-.budgets-grid {
-display: grid;
-
-
-grid-template-columns: repeat(2, minmax(0, 1fr));
-
-gap: 16px;
-
-
-}
-
-.budget-card {
-background: #111119;
-
-
-border: 1px solid var(--border);
-
-border-radius: 15px;
-
-padding: 19px;
-
-transition:
-    transform 0.2s ease,
-    border-color 0.2s ease;
-
-
-}
-
-.budget-card:hover {
-transform: translateY(-2px);
-
-
-border-color: #3a3a46;
-
-
-}
-
-.budget-card-header {
-display: flex;
-
-align-items: flex-start;
-justify-content: space-between;
-
-gap: 15px;
-
-margin-bottom: 18px;
-
-}
-
-.budget-card-title {
-min-width: 0;
-}
-
-.budget-card-title h3 {
-margin-bottom: 4px;
-
-font-size: 16px;
-
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-
-}
-
-.budget-card-title span {
-color: var(--text-muted);
-
-
-font-size: 11px;
-
-
-}
-
-.budget-status {
-padding: 5px 9px;
-
-
-border-radius: 999px;
-
-background: rgba(139, 92, 246, 0.12);
-
-color: var(--purple-light);
-
-font-size: 10px;
-
-font-weight: 700;
-
-white-space: nowrap;
-
-
-}
-
-.budget-values {
-display: flex;
-
-
-justify-content: space-between;
-
-gap: 15px;
-
-margin-bottom: 10px;
-
-
-}
-
-.budget-value span {
-display: block;
-
-
-margin-bottom: 4px;
-
-color: var(--text-muted);
-
-font-size: 10px;
-
-
-}
-
-.budget-value strong {
-font-size: 14px;
-}
-
-.progress-bar {
-width: 100%;
-
-
-height: 8px;
-
-overflow: hidden;
-
-border-radius: 20px;
-
-background: #24242c;
-
-margin: 13px 0 9px;
-
-
-}
-
-.progress-fill {
-height: 100%;
-
-
-width: 0%;
-
-border-radius: inherit;
-
-background: var(--purple);
-
-transition: width 0.4s ease;
-
-
-}
-
-.progress-fill.warning {
-background: #f59e0b;
-}
-
-.progress-fill.danger {
-background: #ef4444;
-}
-
-.budget-progress-text {
-display: flex;
-
-justify-content: space-between;
-
-color: var(--text-muted);
-
-font-size: 10px;
-
-
-}
-
-.budget-actions {
-display: flex;
-
-
-justify-content: flex-end;
-
-gap: 8px;
-
-margin-top: 17px;
-
-
-}
-
-.budget-action {
-border: 1px solid var(--border);
-
-
-background: #191921;
-
-color: var(--text-secondary);
-
-padding: 7px 11px;
-
-border-radius: 9px;
-
-font-family: inherit;
-
-font-size: 11px;
-
-cursor: pointer;
-
-transition: 0.2s;
-
-
-}
-
-.budget-action:hover {
-color: var(--text-primary);
-
-
-background: #21212a;
-
-
-}
-
-.budget-action.delete:hover {
-color: #f87171;
-
-
-border-color: rgba(248, 113, 113, 0.3);
-
-
-}
-
-.empty-state {
-grid-column: 1 / -1;
-
-
-padding: 50px 20px;
-
-text-align: center;
-
-color: var(--text-muted);
-
-border: 1px dashed var(--border);
-
-border-radius: 14px;
-
-font-size: 13px;
-
-}
 
 /* =========================================================
 RESPONSIVIDADE
