@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,10 @@
 
     <link href="mya.css" rel="stylesheet"> 
 </head>
+
 <body>
 
-    <aside id="sidebar" class="sidebar">
+<aside id="sidebar" class="sidebar">
 
     <!-- LOGO -->
 
@@ -35,13 +37,14 @@
     <!-- USUÁRIO -->
 
     <div class="sidebar-user">
+        <div class="userWarper"> 
         <img
             id="usuarioImagem"
             src="usuarioGenerico.png"
             alt="Usuário"
             class="usuario-imagem"
-        >
-               
+        > </div>   
+          
         <div class="user-info">
 
             <strong id="usuarioNome">
@@ -410,10 +413,10 @@
             </a>
 
         </nav>
+</aside>
 
-    </aside>
 
-<div class="app" id="app">
+    <div class="app" id="app">
      <header class="topbar">
 
 
@@ -432,7 +435,7 @@
         <!-- LOGO -->
 
         <div class="topbar-logo">
-            YOFI
+            MYA
         </div>
 
 
@@ -494,6 +497,7 @@
         
         <form class="chat-form" id="chatForm">
 
+
                 <button
                     type="button"
                     class="buttonUpload"
@@ -503,7 +507,6 @@
                     src="../Imagens-Audios/homepage/uploadFile.png"
                     alt="Upload"
                     >
-
                 </button>
 
                 <input
@@ -521,8 +524,19 @@
                     hidden
                 >
 
-                <button type="submit" class="buttonMya"><p>⮝</p></button>
+                <button
+                    type="button"
+                    class="buttonAudio"
+                    aria-label="Enviar imagem"
+                    >
+                    <img
+                        src="../Imagens-Audios/homepage/microfone.png"
+                        alt="Microfone"
+                        >
+                </button>
 
+                <button type="submit" class="buttonMya"><p>⮝</p></button>
+       
         </form>
     </div>
 </div>
