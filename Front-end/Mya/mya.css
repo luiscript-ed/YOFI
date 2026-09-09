@@ -495,14 +495,13 @@ padding: 8px 10px;
 }
 
 .logo-img {
-width: 38px;
-height: 38px;
+    width: 38px;
+    height: 38px;
 
-object-fit: contain;
+    object-fit: contain;
 
-flex-shrink: 0;
-border-radius: 40%;
-
+    flex-shrink: 0;
+    border-radius: 40%;
 }
 
 .logo-text {
@@ -1635,6 +1634,40 @@ RESPONSIVIDADE
     grid-template-columns: 1fr;
 }
 
+    .containerMya {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .finance-cards {
+        gap: 9px;
+    }
+
+    .finance-card {
+        padding: 14px;
+    }
+
+    .finance-card-icon {
+        width: 34px;
+        height: 34px;
+
+        margin-bottom: 10px;
+
+        font-size: 16px;
+    }
+
+    .finance-card h3 {
+        font-size: 13px;
+    }
+
+    .finance-card p {
+        font-size: 10px;
+    }
+
+    .finance-card-prompt {
+        font-size: 10px;
+    }
+
 }
 
 @media (max-width: 600px) {
@@ -1687,13 +1720,356 @@ RESPONSIVIDADE
     right: -5px;
 }
 
+    .containerMya {
+        padding: 25px 10px 35px;
+    }
+
+    .containerMya .title {
+        font-size: 32px;
+    }
+
+    .mya-subtitle {
+        font-size: 12px;
+
+        max-width: 90%;
+    }
+
+    .finance-cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    .finance-card {
+        padding: 11px;
+        border-radius: 14px;
+    }
+
+    .finance-card-icon {
+        width: 30px;
+        height: 30px;
+
+        border-radius: 9px;
+
+        font-size: 14px;
+    }
+
+    .finance-card h3 {
+        font-size: 11px;
+    }
+
+    .finance-card p {
+        font-size: 9px;
+        line-height: 1.4;
+    }
+
+    .finance-card-prompt {
+        font-size: 9px;
+    }
+
 }
 
-@media (max-width: 400px) {
+@media (max-width: 410px) {
 
 .budget-summary {
     grid-template-columns: 1fr;
 }
+    .containerMya {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
 
+    .finance-card {
+        padding: 8px;
+    }
+
+    .finance-card h3 {
+        font-size: 10px;
+    }
+
+    .finance-card p {
+        font-size: 8px;
+    }
+
+    .finance-card-prompt {
+        font-size: 8px;
+    }
 }
 
+/* =========================================================
+   MYA - NOVA INTERFACE
+   ========================================================= */
+
+/* Subtítulo */
+
+.mya-subtitle {
+    margin-bottom: 24px;
+
+    text-align: center;
+
+    color: var(--text-secondary);
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    max-width: 650px;
+}
+
+
+/* =========================================================
+   PROMPTS PRONTOS
+   ========================================================= */
+
+.mya-suggestions {
+    width: 100%;
+    margin-bottom: 18px;
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+  .mya-suggestions::-webkit-scrollbar {
+    display: none;
+  }
+
+.prompt-list {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 8px;
+
+    flex-wrap: nowrap;
+
+    overflow-x: auto;
+
+    padding: 4px 2px 8px;
+
+    scrollbar-width: none;
+
+    /* IMPORTANTE */
+    scroll-behavior: auto;
+}
+
+.prompt-list::-webkit-scrollbar {
+    display: none;
+}
+
+.prompt-card {
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    min-height: 36px;
+
+    padding: 7px 13px;
+
+    border: 1px solid var(--border);
+    border-radius: 999px;
+
+    background: #17171f;
+
+    color: var(--text-secondary);
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.prompt-card span:first-child {
+    font-size: 13px;
+}
+
+.prompt-card:hover {
+    background: rgba(139, 92, 246, 0.13);
+    border-color: var(--purple);
+
+    color: var(--text-primary);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   CHAT
+   ========================================================= */
+
+.chat-container {
+    width: 100%;
+    max-width: 850px;
+
+    min-height: 0;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    justify-content: flex-start;
+
+    border-radius: 30px;
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.wrapper-gemini {
+    width: 100%;
+    max-width: 850px;
+
+    margin: 0 auto;
+
+    padding: 3px;
+
+    border-radius: 999px;
+}
+
+.wrapper-gemini > * {
+    width: 100%;
+}
+
+
+/* =========================================================
+   CARDS FINANCEIROS
+   ========================================================= */
+
+.finance-cards {
+    width: 100%;
+    max-width: 1000px;
+
+    margin-top: 22px;
+
+    display: grid;
+
+    /*
+       Sempre 3 colunas.
+       Mesmo em telas menores elas continuam lado a lado.
+    */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+.finance-card {
+    min-width: 0;
+
+    padding: 19px;
+
+    background: var(--bg-card);
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.finance-card:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(139, 92, 246, 0.55);
+
+    background: var(--bg-card-hover);
+}
+
+
+/* Ícone */
+
+.finance-card-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 13px;
+
+    border-radius: 12px;
+
+    background: rgba(139, 92, 246, 0.13);
+
+    font-size: 19px;
+}
+
+
+/* Título */
+
+.finance-card h3 {
+    margin-bottom: 8px;
+
+    color: var(--text-primary);
+
+    font-size: 15px;
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+
+/* Descrição */
+
+.finance-card p {
+    margin-bottom: 16px;
+
+    color: var(--text-secondary);
+
+    font-size: 11px;
+
+    line-height: 1.55;
+}
+
+
+/* Botão */
+
+.finance-card-prompt {
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--purple-light);
+
+    font-family: inherit;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.finance-card-prompt:hover {
+    color: var(--text-primary);
+
+    transform: translateX(2px);
+}
+
+
+/* =========================================================
+   ESCONDER TELA INICIAL DEPOIS DA PRIMEIRA MENSAGEM
+   ========================================================= */
+
+.containerMya.mya-started .mya-suggestions,
+.containerMya.mya-started .finance-cards {
+    display: none;
+}

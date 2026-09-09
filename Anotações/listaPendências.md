@@ -9,8 +9,7 @@
 * Inclusão de filtro por período (data).
 
 ### 3. Calendário == Luiz
-* Visualização em formato de calendário para exibição de eventos financeiros.
-* Ao selecionar um dia específico, o sistema lista todas as transações daquela data (funcionamento estilo agenda).
+FEITO
 
 ### 4. Conquistas == Passos
 * Sistema de conquistas baseado no uso e na organização financeira do usuário.

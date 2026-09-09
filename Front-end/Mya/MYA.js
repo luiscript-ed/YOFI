@@ -1710,6 +1710,90 @@ window.addEventListener(
     }
 );
 
+document.addEventListener("DOMContentLoaded",()=>{
+
+const userInput=document.getElementById("userInput");
+const chatForm=document.getElementById("chatForm");
+const myaPage=document.getElementById("myaPage");
+const promptList=document.querySelector(".prompt-list");
+
+if(promptList){
+
+const originalPrompts=Array.from(promptList.children);
+
+originalPrompts.forEach(prompt=>promptList.appendChild(prompt.cloneNode(true)));
+originalPrompts.forEach(prompt=>promptList.appendChild(prompt.cloneNode(true)));
+
+let originalWidth=0;
+
+const calculateWidth=()=>{
+originalWidth=0;
+const items=promptList.children;
+for(let i=0;i<originalPrompts.length;i++)originalWidth+=items[i].offsetWidth;
+originalWidth+=8*(originalPrompts.length-1);
+};
+
+calculateWidth();
+window.addEventListener("resize",calculateWidth);
+promptList.scrollLeft=originalWidth;
+
+promptList.addEventListener("click",event=>{
+
+const button=event.target.closest(".prompt-card,.finance-card-prompt");
+if(!button)return;
+
+const prompt=button.dataset.prompt;
+if(!prompt||!userInput)return;
+
+userInput.value=prompt;
+userInput.focus();
+userInput.setSelectionRange(userInput.value.length,userInput.value.length);
+
+});
+
+const scrollSpeed=0.5;
+
+const animatePrompts=()=>{
+
+promptList.scrollLeft+=scrollSpeed;
+
+if(promptList.scrollLeft>=originalWidth*2)
+promptList.scrollLeft-=originalWidth;
+
+requestAnimationFrame(animatePrompts);
+
+};
+
+requestAnimationFrame(animatePrompts);
+
+promptList.addEventListener("scroll",()=>{
+
+if(!originalWidth)return;
+
+if(promptList.scrollLeft<=0)
+promptList.scrollLeft+=originalWidth;
+
+if(promptList.scrollLeft>=originalWidth*2)
+promptList.scrollLeft-=originalWidth;
+
+});
+
+}
+
+if(chatForm){
+
+chatForm.addEventListener("submit",()=>{
+
+if(!userInput)return;
+
+if(userInput.value.trim()!=="")
+myaPage.classList.add("mya-started");
+
+});
+
+}
+
+});
 
 // ============================================================
 // INICIALIZAÇÃO

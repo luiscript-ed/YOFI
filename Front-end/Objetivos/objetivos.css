@@ -120,8 +120,9 @@ body {
     height: 38px;
 
     object-fit: contain;
-    border-radius: 40%;
+
     flex-shrink: 0;
+    border-radius: 40%;
 }
 
 .logo-text {

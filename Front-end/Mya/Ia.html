@@ -26,7 +26,7 @@
             >
 
             <span class="logo-text">
-                YOFI
+                MYA
             </span>
 
         </a>
@@ -442,60 +442,157 @@
         <!-- NOTIFICAÇÕES -->
 
         <div class="notification-container">
+        <header class="topbar">
+
+
+            <!-- BOTÃO MENU -->
 
             <button
-                id="notificationBtn"
-                class="notification-btn"
-                aria-label="Notificações"
+                id="menuBtn"
+                class="menu-btn"
+                aria-label="Abrir menu"
+                aria-expanded="true"
             >
-
-                🔔
-
-                <span id="notificationCount">
-                    0
-                </span>
-
+                ☰
             </button>
 
 
-            <div
-                id="notificationPanel"
-                class="notification-panel hidden"
-            >
+            <!-- LOGO -->
 
-                <h3>
-                    Notificações
-                </h3>
+            <div class="topbar-logo">
+                YOFI
+            </div>
 
-                <div id="notificationList">
+
+            <!-- NOTIFICAÇÕES -->
+
+            <div class="notification-container">
+
+                <button
+                    id="notificationBtn"
+                    class="notification-btn"
+                    aria-label="Notificações"
+                >
+
+                    🔔
+
+                    <span id="notificationCount">
+                        0
+                    </span>
+
+                </button>
+
+
+                <div
+                    id="notificationPanel"
+                    class="notification-panel hidden"
+                >
+
+                    <h3>
+                        Notificações
+                    </h3>
+
+                    <div id="notificationList">
+                    </div>
+
                 </div>
 
             </div>
 
-        </div>
+        </header>
 
-    </header>
-
-    <!-- MYA -->
+        <!-- MYA -->
 
 
-    <div class="containerMya"> 
+<div class="containerMya" id="myaPage">
+
     <h1 class="title">MYA</h1>
 
-    <div class="chat-container" id="chatContainer"></div>
-        <div id="imagePreview" class="image-preview hidden">
-            <div class="image-preview-content">
-                <img id="imagePreviewImg" src="" alt="Imagem selecionada">
-                <div class="image-preview-info">
-                    <span id="imagePreviewName">Imagem selecionada</span>
-                </div>
-            <button type="button" id="removeImageBtn" class="remove-image-btn" aria-label="Remover imagem">×</button>
+    <p class="mya-subtitle">
+        Sua assistente financeira. Pergunte, planeje e entenda melhor seu dinheiro.
+    </p>
+
+    <!-- =====================================================
+         ÁREA INICIAL DA MYA
+         ===================================================== -->
+    <div class="mya-suggestions" id="myaSuggestions">
+
+        <!-- PROMPTS PRONTOS -->
+        <div class="prompt-list">
+
+            <button type="button" class="prompt-card"
+                data-prompt="Analise meus gastos e me diga onde estou gastando mais.">
+                <span>📊</span>
+                <span>Analisar meus gastos</span>
+            </button>
+
+            <button type="button" class="prompt-card"
+                data-prompt="Me ajude a criar um orçamento mensal com base nas minhas finanças.">
+                <span>💰</span>
+                <span>Criar um orçamento</span>
+            </button>
+
+            <button type="button" class="prompt-card"
+                data-prompt="Como posso organizar melhor minhas finanças este mês?">
+                <span>📅</span>
+                <span>Organizar meu mês</span>
+            </button>
+
+            <button type="button" class="prompt-card"
+                data-prompt="Me ajude a planejar uma meta financeira.">
+                <span>🎯</span>
+                <span>Planejar uma meta</span>
+            </button>
+
+            <button type="button" class="prompt-card"
+                data-prompt="Quero economizar dinheiro. Me dê algumas estratégias com base nas minhas finanças.">
+                <span>💡</span>
+                <span>Como economizar?</span>
+            </button>
+
         </div>
+
     </div>
 
-    <div class="wrapper-gemini">
-        
-        <form class="chat-form" id="chatForm">
+        <!-- =====================================================
+            CHAT
+            ===================================================== -->
+        <div class="chat-container" id="chatContainer"></div>
+
+        <!-- PREVIEW DA IMAGEM -->
+        <div id="imagePreview" class="image-preview hidden">
+            <div class="image-preview-content">
+
+                <img
+                    id="imagePreviewImg"
+                    src=""
+                    alt="Imagem selecionada"
+                >
+
+                <div class="image-preview-info">
+                    <span id="imagePreviewName">
+                        Imagem selecionada
+                    </span>
+                </div>
+
+                <button
+                    type="button"
+                    id="removeImageBtn"
+                    class="remove-image-btn"
+                    aria-label="Remover imagem"
+                >
+                    ×
+                </button>
+
+            </div> 
+        </div>
+
+        <!-- =====================================================
+            INPUT DA MYA
+            ===================================================== -->
+        <div class="wrapper-gemini">
+
+            <form class="chat-form" id="chatForm">
 
 
                 <button
@@ -503,9 +600,9 @@
                     class="buttonUpload"
                     aria-label="Enviar imagem"
                 >
-                <img
-                    src="../Imagens-Audios/homepage/uploadFile.png"
-                    alt="Upload"
+                    <img
+                        src="../Imagens-Audios/homepage/uploadFile.png"
+                        alt="Upload"
                     >
                 </button>
 
@@ -514,7 +611,8 @@
                     id="userInput"
                     class="input-text"
                     placeholder="Digite sua mensagem:"
-                    required autocomplete="on"
+                    required
+                    autocomplete="on"
                 >
 
                 <input
@@ -538,10 +636,100 @@
                 <button type="submit" class="buttonMya"><p>⮝</p></button>
        
         </form>
-    </div>
-</div>
 
-</div>
+                <button
+                    type="submit"
+                    class="buttonMya"
+                >
+                    <p>⮝</p>
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- =====================================================
+            CARDS FINANCEIROS
+            ===================================================== -->
+        <div class="finance-cards" id="financeCards">
+
+            <article class="finance-card">
+
+                <div class="finance-card-icon">
+                    📊
+                </div>
+
+                <h3>Controle financeiro</h3>
+
+                <p>
+                    Entenda seus gastos, receitas e descubra
+                    como está sua vida financeira.
+                </p>
+
+                <button
+                    type="button"
+                    class="finance-card-prompt"
+                    data-prompt="Analise minha situação financeira e me diga os principais pontos que devo observar."
+                >
+                    Perguntar à MYA →
+                </button>
+
+            </article>
+
+
+            <article class="finance-card">
+
+                <div class="finance-card-icon">
+                    💳
+                </div>
+
+                <h3>Gastos e orçamento</h3>
+
+                <p>
+                    Descubra onde seu dinheiro está indo
+                    e encontre maneiras de organizar seu orçamento.
+                </p>
+
+                <button
+                    type="button"
+                    class="finance-card-prompt"
+                    data-prompt="Analise meus gastos e sugira como posso organizar melhor meu orçamento."
+                >
+                    Perguntar à MYA →
+                </button>
+
+            </article>
+
+
+            <article class="finance-card">
+
+                <div class="finance-card-icon">
+                    🎯
+                </div>
+
+                <h3>Metas financeiras</h3>
+
+                <p>
+                    Planeje objetivos, organize suas economias
+                    e acompanhe sua evolução financeira.
+                </p>
+
+                <button
+                    type="button"
+                    class="finance-card-prompt"
+                    data-prompt="Me ajude a criar um plano para alcançar uma meta financeira."
+                >
+                    Perguntar à MYA →
+                </button>
+
+            </article>
+
+        </div>
+
+
+    </div>
+
+    </div>
        
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="MYA.js"> </script>
