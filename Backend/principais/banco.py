@@ -3,7 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from pwdlib import PasswordHash
 import jwt
+
 import json
+from typing import List, Optional
 
 import calendar
 from datetime import datetime, timezone, timedelta, date, time
@@ -144,6 +146,36 @@ CREATE TABLE IF NOT EXISTS contas (
                
     FOREIGN KEY(usuario_id)
     REFERENCES usuarios(id)
+)
+""")
+
+cursor.execute("""
+CREATE TABLE historico_importacoes (
+    id SERIAL PRIMARY KEY,
+    usuario_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+
+    nome_arquivo TEXT NOT NULL,
+    formato TEXT NOT NULL,
+    quantidade_registros INTEGER DEFAULT 0,
+    quantidade_importada INTEGER DEFAULT 0,
+    quantidade_ignorados INTEGER DEFAULT 0,
+
+    status TEXT NOT NULL DEFAULT 'concluida',
+    mensagem TEXT,
+
+    criado_em TIMESTAMPTZ DEFAULT NOW()
+)
+""")
+cursor.execute("""
+CREATE TABLE historico_exportacoes (
+    id SERIAL PRIMARY KEY,
+    usuario_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+
+    formato TEXT NOT NULL,
+    dados_exportados TEXT[] NOT NULL,
+    quantidade_registros INTEGER DEFAULT 0,
+
+    criado_em TIMESTAMPTZ DEFAULT NOW()
 )
 """)
 
@@ -479,6 +511,22 @@ class CustoRecorrenteCreate(BaseModel):
     data_inicio: date
     data_fim: date | None = None
 
+class HistoricoImportacaoCreate(BaseModel):
+    nome_arquivo: str
+    formato: str
+    quantidade_registros: int = 0
+    quantidade_importada: int = 0
+    quantidade_ignorados: int = 0
+    status: str = "concluida"
+    mensagem: Optional[str] = None
+
+
+class HistoricoExportacaoCreate(BaseModel):
+    formato: str
+    dados_exportados: List[str]
+    quantidade_registros: int = 0
+
+
 # ==========================================
 # JÁ QUE EU BÃO SEI MEXER EM CALENDAR, FUNÇÕES AUXILIARES DO CHAT
 # ==========================================
@@ -489,7 +537,7 @@ def validar_destino_financeiro(
     conta_id: int | None,
     cartao_id: int | None,
     exigir_ativo: bool = True
-):
+    ):
     if (conta_id is None) == (cartao_id is None):
         raise HTTPException(
             status_code=400,
@@ -645,7 +693,7 @@ async def conversar_mya(
     contexto_financeiro: str = Form("{}"),
     imagem: UploadFile | None = File(None),
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
     try:
         contexto = json.loads(contexto_financeiro)
 
@@ -952,7 +1000,7 @@ def logout(response: Response):
 def criar_conta(
     conta: ContaCreate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1007,7 +1055,7 @@ def criar_conta(
 @app.get("/contas")
 def listar_contas(
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1080,7 +1128,7 @@ def listar_contas(
 def obter_conta(
     conta_id: int,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1155,7 +1203,7 @@ def atualizar_conta(
     conta_id: int,
     conta: ContaUpdate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1206,7 +1254,7 @@ def atualizar_conta(
 def deletar_conta(
     conta_id: int,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1266,7 +1314,7 @@ def deletar_conta(
 def criar_orcamento(
     orcamento: OrcamentoCreate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1335,7 +1383,7 @@ def criar_orcamento(
 @app.get("/orcamentos")
 def listar_orcamentos(
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1403,7 +1451,7 @@ def atualizar_orcamento(
     orcamento_id: int,
     orcamento: OrcamentoUpdate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1452,7 +1500,7 @@ def atualizar_orcamento(
 def deletar_orcamento(
     orcamento_id: int,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -2083,7 +2131,7 @@ def fatura_cartao(
     mes: int,
     ano: int,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -2178,7 +2226,7 @@ def fatura_cartao(
 def criar_transacao(
     transacao: TransacaoCreate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     if transacao.tipo not in ["ganho", "gasto"]:
         raise HTTPException(
@@ -2290,7 +2338,7 @@ def criar_transacao(
 @app.get("/transacoes")
 def listar_transacoes(
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -2356,7 +2404,7 @@ def listar_transacoes(
 def obter_transacao(
     transacao_id: int,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -2411,7 +2459,7 @@ def atualizar_transacao(
     transacao_id: int,
     transacao: TransacaoUpdate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     if transacao.tipo not in ["ganho", "gasto"]:
         raise HTTPException(
@@ -2523,7 +2571,7 @@ def atualizar_transacao(
 def deletar_transacao(
     transacao_id: int,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -2562,7 +2610,7 @@ def deletar_transacao(
 def criar_movimentacao(
     movimentacao: MovimentacaoCreate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
     if movimentacao.origem_conta_id == movimentacao.destino_conta_id:
         raise HTTPException(
             status_code=400,
@@ -2799,7 +2847,7 @@ def criar_transacao_reservada(
 @app.get("/transacoes-reservadas")
 def listar_transacoes_reservadas(
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
     conn = conectar()
     cursor = conn.cursor()
 
@@ -2864,7 +2912,7 @@ def listar_transacoes_reservadas(
 def criar_custo_recorrente(
     custo: CustoRecorrenteCreate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
     if (custo.conta_id is None) == (custo.cartao_id is None):
         raise HTTPException(
             status_code=400,
@@ -2992,7 +3040,7 @@ def criar_custo_recorrente(
 @app.get("/custos-recorrentes")
 def listar_custos_recorrentes(
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
     conn = conectar()
     cursor = conn.cursor()
 
@@ -3421,6 +3469,205 @@ def processar_transacoes_programadas():
         conn.close()
 
 # ==========================================
+# HISTÓRICO DE IMPORTAÇÕES/EXPORTAÇÕES
+# ==========================================
+
+@app.post("/historico/importacoes")
+def criar_historico_importacao(
+    dados: HistoricoImportacaoCreate,
+    usuario_id: int = Depends(obter_usuario_autenticado)
+    ):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            """
+            INSERT INTO historico_importacoes
+            (
+                usuario_id,
+                nome_arquivo,
+                formato,
+                quantidade_registros,
+                quantidade_importada,
+                quantidade_ignorados,
+                status,
+                mensagem
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            RETURNING id, criado_em
+            """,
+            (
+                usuario_id,
+                dados.nome_arquivo,
+                dados.formato,
+                dados.quantidade_registros,
+                dados.quantidade_importada,
+                dados.quantidade_ignorados,
+                dados.status,
+                dados.mensagem
+            )
+        )
+
+        resultado = cursor.fetchone()
+        conn.commit()
+
+        return {
+            "id": resultado[0],
+            "nome_arquivo": dados.nome_arquivo,
+            "formato": dados.formato,
+            "quantidade_registros": dados.quantidade_registros,
+            "quantidade_importada": dados.quantidade_importada,
+            "quantidade_ignorados": dados.quantidade_ignorados,
+            "status": dados.status,
+            "mensagem": dados.mensagem,
+            "criado_em": resultado[1]
+        }
+
+    except Exception:
+        conn.rollback()
+        raise
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@app.get("/historico/importacoes")
+def listar_historico_importacoes(
+    usuario_id: int = Depends(obter_usuario_autenticado)
+    ):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT
+                id,
+                nome_arquivo,
+                formato,
+                quantidade_registros,
+                quantidade_importada,
+                quantidade_ignorados,
+                status,
+                mensagem,
+                criado_em
+            FROM historico_importacoes
+            WHERE usuario_id = %s
+            ORDER BY criado_em DESC
+            """,
+            (usuario_id,)
+        )
+
+        return [
+            {
+                "id": r[0],
+                "nome_arquivo": r[1],
+                "formato": r[2],
+                "quantidade_registros": r[3],
+                "quantidade_importada": r[4],
+                "quantidade_ignorados": r[5],
+                "status": r[6],
+                "mensagem": r[7],
+                "criado_em": r[8]
+            }
+            for r in cursor.fetchall()
+        ]
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@app.post("/historico/exportacoes")
+def criar_historico_exportacao(
+    dados: HistoricoExportacaoCreate,
+    usuario_id: int = Depends(obter_usuario_autenticado)
+    ):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            """
+            INSERT INTO historico_exportacoes
+            (
+                usuario_id,
+                formato,
+                dados_exportados,
+                quantidade_registros
+            )
+            VALUES (%s, %s, %s, %s)
+            RETURNING id, criado_em
+            """,
+            (
+                usuario_id,
+                dados.formato,
+                dados.dados_exportados,
+                dados.quantidade_registros
+            )
+        )
+
+        resultado = cursor.fetchone()
+        conn.commit()
+
+        return {
+            "id": resultado[0],
+            "formato": dados.formato,
+            "dados_exportados": dados.dados_exportados,
+            "quantidade_registros": dados.quantidade_registros,
+            "criado_em": resultado[1]
+        }
+
+    except Exception:
+        conn.rollback()
+        raise
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@app.get("/historico/exportacoes")
+def listar_historico_exportacoes(
+    usuario_id: int = Depends(obter_usuario_autenticado)
+):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT
+                id,
+                formato,
+                dados_exportados,
+                quantidade_registros,
+                criado_em
+            FROM historico_exportacoes
+            WHERE usuario_id = %s
+            ORDER BY criado_em DESC
+            """,
+            (usuario_id,)
+        )
+
+        return [
+            {
+                "id": r[0],
+                "formato": r[1],
+                "dados_exportados": r[2],
+                "quantidade_registros": r[3],
+                "criado_em": r[4]
+            }
+            for r in cursor.fetchall()
+        ]
+
+    finally:
+        cursor.close()
+        conn.close()
+
+# ==========================================
 # DASHBOARD
 # ==========================================
 
@@ -3429,7 +3676,7 @@ def dashboard(
     mes: int,
     ano: int,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -3760,7 +4007,7 @@ def dashboard(
 @app.get("/notificacoes")
 def listar_notificacoes(
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -3799,7 +4046,7 @@ def listar_notificacoes(
 @app.get("/notificacoes/contador")
 def contar_notificacoes(
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -3830,7 +4077,7 @@ def contar_notificacoes(
 def deletar_notificacao(
     notificacao_id: int,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()

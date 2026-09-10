@@ -38,6 +38,9 @@ linear-gradient(
 --sidebar-width: 275px;
 --topbar-height: 72px;
 --radius: 18px;
+--bg-input: #252235;
+--alert-bg: #2a2015;
+--radiuss: 12px;
 }
 
 /* =========================================================
@@ -689,14 +692,232 @@ width: min(290px, 88vw);
 }
 }
 
-/* =========================================================
-RESUMO DO MÊS
-========================================================= */
+.main-content {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  padding: 24px;
+  font-family: 'Inter', sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+}
 
-.month-summary {
-display: grid;
-grid-template-columns:
-repeat(3, minmax(0, 1fr));
-gap: 18px;
-margin-bottom: 28px;
+/* Header Superior */
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.page-header p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* Grid de Cards (Lado a Lado no Desktop, Coluna no Mobile) */
+.sections {
+  display: flex;
+  flex-direction: row; /* Coloca lado a lado */
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .sections {
+    flex-direction: column; /* Em telas menores, um abaixo do outro */
+  }
+}
+
+/* Card Genérico */
+.card-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  flex: 1; /* Faz ambos os cards ocuparem 50% de largura igualmente */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-header h2 {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.card-header p {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+/* Área de Upload de Arquivo */
+.file-upload-box {
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  background: var(--bg-input);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.file-upload-box:hover {
+  border-color: var(--primary-purple);
+}
+
+.file-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.format-info {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+/* Checkboxes */
+.group-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  accent-color: var(--purple-dark);
+  width: 16px;
+  height: 16px;
+}
+
+/* Select Dropdown */
+.select-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.custom-select {
+  background: var(--bg-input);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Botão Roxo (Primary) */
+.btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: auto; /* Empurra o botão pro final do card */
+  transition: background 0.2s;
+}
+
+.btn-purple {
+  background-color: var(--purple-light);
+  color: #ffffff;
+}
+
+.btn-purple:hover {
+  background-color: var(--purple-dark);
+}
+
+/* Banner de Atenção */
+.alert-box {
+  background-color: var(--alert-bg);
+  border: 1px solid var(--alert-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.alert-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  color: var(--alert-border);
+}
+
+.alert-box p {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Histórico */
+.history-section h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.history-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radiuss);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  padding: 6px 0;
+}
+
+.history-item:not(:last-child) {
+  border-bottom: 1px solid var(--border);
+}
+
+.history-item .date {
+  color: var(--text-secondary);
+}
+
+.history-item .badge.success {
+  color: var(--green);
+  font-weight: 600;
 }

@@ -1202,26 +1202,13 @@ function criarLoading() {
         return null;
     }
 
-   const loading = document.createElement("div");
-    
-   loading.classList.add(
+    const loading = document.createElement("div");
+
+    loading.classList.add(
         "message-bubble",
         "bot-message",
         "mya-loading"
     );
-
-    loading.innerHTML = `
-        <img 
-            src="../Imagens-Audios/MYA.png" 
-            alt="MYA"
-            class="mya-loading-logo"
-        >
-        <span class="mya-loading-text">
-            MYA está pensando...
-        </span>
-    `;
-
-
 
     const mensagens = [
         "MYA está pensando...",
@@ -1232,29 +1219,42 @@ function criarLoading() {
         "MYA está quase pronta..."
     ];
 
-    let indice = 0;
+    loading.innerHTML = `
+        <img
+            src="../Imagens-Audios/MYA.png"
+            alt="MYA"
+            class="mya-loading-logo"
+        >
 
-  loading.querySelector(".mya-loading-text").textContent =
-    mensagens[indice];
+        <span class="mya-loading-text">
+            ${mensagens[0]}
+        </span>
+    `;
 
     chatContainer.appendChild(loading);
 
     chatContainer.scrollTop =
         chatContainer.scrollHeight;
 
+    let indice = 0;
+
     const intervalo = setInterval(() => {
 
         indice = (indice + 1) % mensagens.length;
 
-        loading.textContent =
-            mensagens[indice];
+        const texto =
+            loading.querySelector(".mya-loading-text");
+
+        if (texto) {
+            texto.textContent =
+                mensagens[indice];
+        }
 
         chatContainer.scrollTop =
             chatContainer.scrollHeight;
 
     }, 1800);
 
-    // Guardamos o intervalo dentro do próprio elemento
     loading.dataset.loadingInterval = "ativo";
 
     loading.pararAnimacao = () => {

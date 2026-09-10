@@ -1,544 +1,638 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>YOFI | Início</title>
-
-<link rel="stylesheet" href="import.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOFI | Início</title>
+    <link rel="stylesheet" href="import.css">
 
 </head>
 
 <body>
 
-<!-- ========================================================= -->
-<!-- BARRA LATERAL -->
-<!-- ========================================================= -->
+        <!-- ========================================================= -->
+        <!-- BARRA LATERAL -->
+        <!-- ========================================================= -->
 
-<aside id="sidebar" class="sidebar">
+        <aside id="sidebar" class="sidebar">
 
-    <!-- LOGO -->
-    <div class="sidebar-logo">
+            <!-- LOGO -->
+            <div class="sidebar-logo">
 
-        <a href="#">
+                <a href="#">
 
-            <img
-                src="../Imagens-Audios/homepage/yofi-logo.png"
-                alt="YOFI"
-                class="logo-img"
-            >
+                    <img
+                        src="../Imagens-Audios/homepage/yofi-logo.png"
+                        alt="YOFI"
+                        class="logo-img"
+                    >
 
-            <span class="logo-text">
-                YOFI
-            </span>
+                    <span class="logo-text">
+                        YOFI
+                    </span>
 
-        </a>
-
-    </div>
-
-
-    <!-- USUÁRIO -->
-    <div class="sidebar-user">
-        <div class="userWarper"> 
-        <img
-            id="usuarioImagem"
-            src="usuarioGenerico.png"
-            alt="Usuário"
-            class="usuario-imagem"
-        > </div>
-        
-        <div class="user-info">
-
-            <strong id="usuarioNome">
-                Usuário
-            </strong>
-
-            <span id="usuarioEmail">
-                email@email.com
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- ===================================================== -->
-    <!-- NAVEGAÇÃO -->
-    <!-- ===================================================== -->
-
-        <nav class="sidebar-nav">
-
-            <!-- RESUMO -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/resumo.png"
-                    alt="Resumo"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Resumo
-                </span>
-
-            </a>
-
-          <div class="sidebar-section-title">
-                Cadastrar
-            </div>
-
-            <!-- CONTAS -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/contas/conta.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/contas.png"
-                    alt="Contas"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Contas
-                </span>
-
-            </a>
-
-
-            <!-- CARTÕES -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/cartoes/cartoes.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/cartoes.png"
-                    alt="Cartões"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Cartões
-                </span>
-
-            </a>
-
-
-            <!-- TRANSAÇÕES -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/forms/form.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/transac.png"
-                    alt="Transações"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Transações
-                </span>
-
-            </a>
-
-          <div class="sidebar-section-title">
-                Planejar
-            </div>
-
-            <!-- PREVISÃO -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/previsao/financeira.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/previsao.png"
-                    alt="Previsão Financeira"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Previsão Financeira
-                </span>
-
-            </a>
-
-            <!-- OBJETIVOS -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/Objetivos/objetivos.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/metas.png"
-                    alt="Objetivos"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Objetivos
-                </span>
-
-            </a>
-
-
-            <!-- ORÇAMENTOS -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/orcamentos/orcamento.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/orca.png"
-                    alt="Orçamentos"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Orçamentos
-                </span>
-
-            </a>
-
-            <!-- COFRINHO -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/cofrinhos/cofrinho.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/cofrinho.png"
-                    alt="Cofrinho"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Cofrinho
-                </span>
-
-            </a>
-
-            <div class="sidebar-section-title">
-                Analisar
-            </div>
-
-            <!-- MYA -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/Mya/Ia.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/MYA.png"
-                    alt="MYA"
-                    class="nav-icon"
-                >
-
-                <span>
-                    MYA
-                </span>
-
-            </a>
-
-            <!-- GRÁFICOS -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/graficos/grafico.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/graf.png"
-                    alt="Gráficos"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Gráficos
-                </span>
-
-            </a>
-
-
-            <!-- CATEGORIAS -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/categorias/categoria.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/categorias.png"
-                    alt="Categorias"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Categorias
-                </span>
-
-            </a>
-
-
-            <!-- CALENDÁRIO -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/calendario/agenda.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/calendario.png"
-                    alt="Calendário"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Calendário
-                </span>
-
-            </a>
-
-
-            <hr class="sidebar-divider">
-
-
-            <!-- CONQUISITAS -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/conquistas/conquista.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/conquista.png"
-                    alt="Conquistas"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Conquistas
-                </span>
-
-            </a>
-
-            <!-- IMPORTAR/EXPORTAR -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/importar/exportar.html"
-                class="sidebar-link active"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/import.png"
-                    alt="Importar/Exportar"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Importar/Exportar
-                </span>
-
-            </a>
-
-            <!-- CONFIGURAÇÕES -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/configuracoes/config.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/configura.png"
-                    alt="Configurações"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Configurações
-                </span>
-
-            </a>
-
-
-            <!-- SOBRE -->
-
-            <a
-                href="https://luiscript-ed.github.io/YOFI/Front-end/Recursos/Pagina.html"
-                class="sidebar-link"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/sobre.png"
-                    alt="Sobre"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Sobre / Recursos
-                </span>
-
-            </a>
-
-
-            <!-- VISUALIZAÇÃO -->
-
-            <a
-                class="sidebar-link"
-                id="alterarModo"
-            >
-
-                <img
-                    src="../Imagens-Audios/homepage/visualiza.png"
-                    alt="Alterar visualização"
-                    class="nav-icon"
-                >
-
-                <span>
-                    Alterar visualização
-                </span>
-
-            </a>
-
-        </nav>
-
-</aside>
-
-<!-- ========================================================= -->
-<!-- ÁREA PRINCIPAL -->
-<!-- ========================================================= -->
-
-<div class="app">
-
-
-    <!-- ===================================================== -->
-    <!-- NAVBAR SUPERIOR -->
-    <!-- ===================================================== -->
-
-    <header class="topbar">
-
-
-        <!-- BOTÃO MENU -->
-        <button
-            id="menuBtn"
-            class="menu-btn"
-            aria-label="Abrir menu"
-        >
-            ☰
-        </button>
-
-
-        <!-- LOGO / NOME -->
-        <div class="topbar-logo">
-            INTEGRAÇÕES
-        </div>
-
-
-        <!-- ================================================= -->
-        <!-- MÊS -->
-        <!-- ================================================= -->
-
-        <div class="month-selector">
-
-            <button
-                id="mesAnterior"
-                class="month-btn"
-                aria-label="Mês anterior"
-            >
-                ‹
-            </button>
-
-            <div class="month-info">
-
-                <span id="mesAtual">
-                    Agosto
-                </span>
-
-                <small id="anoAtual">
-                    2026
-                </small>
+                </a>
 
             </div>
 
-            <button
-                id="proximoMes"
-                class="month-btn"
-                aria-label="Próximo mês"
-            >
-                ›
-            </button>
 
-        </div>
+            <!-- USUÁRIO -->
+            <div class="sidebar-user">
+                <div class="userWarper"> 
+                <img
+                    id="usuarioImagem"
+                    src="usuarioGenerico.png"
+                    alt="Usuário"
+                    class="usuario-imagem"
+                > </div>
+                
+                <div class="user-info">
 
+                    <strong id="usuarioNome">
+                        Usuário
+                    </strong>
 
-        <!-- NOTIFICAÇÕES -->
-        <div class="notification-container">
+                    <span id="usuarioEmail">
+                        email@email.com
+                    </span>
 
-            <button
-                class="notification-btn"
-                aria-label="Notificações"
-            >
-
-                🔔
-
-                <span id="notificationCount">
-                    0
-                </span>
-
-            </button>
-
-
-            <div
-                id="notificationPanel"
-                class="notification-panel hidden"
-            >
-
-                <h3>
-                    Notificações
-                </h3>
-
-                <div id="notificationList">
                 </div>
 
             </div>
 
+
+            <!-- ===================================================== -->
+            <!-- NAVEGAÇÃO -->
+            <!-- ===================================================== -->
+
+                <nav class="sidebar-nav">
+
+                    <!-- RESUMO -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/resumo.png"
+                            alt="Resumo"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Resumo
+                        </span>
+
+                    </a>
+
+                <div class="sidebar-section-title">
+                        Cadastrar
+                    </div>
+
+                    <!-- CONTAS -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/contas/conta.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/contas.png"
+                            alt="Contas"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Contas
+                        </span>
+
+                    </a>
+
+
+                    <!-- CARTÕES -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/cartoes/cartoes.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/cartoes.png"
+                            alt="Cartões"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Cartões
+                        </span>
+
+                    </a>
+
+
+                    <!-- TRANSAÇÕES -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/forms/form.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/transac.png"
+                            alt="Transações"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Transações
+                        </span>
+
+                    </a>
+
+                <div class="sidebar-section-title">
+                        Planejar
+                    </div>
+
+                    <!-- PREVISÃO -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/previsao/financeira.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/previsao.png"
+                            alt="Previsão Financeira"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Previsão Financeira
+                        </span>
+
+                    </a>
+
+                    <!-- OBJETIVOS -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/Objetivos/objetivos.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/metas.png"
+                            alt="Objetivos"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Objetivos
+                        </span>
+
+                    </a>
+
+
+                    <!-- ORÇAMENTOS -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/orcamentos/orcamento.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/orca.png"
+                            alt="Orçamentos"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Orçamentos
+                        </span>
+
+                    </a>
+
+                    <!-- COFRINHO -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/cofrinhos/cofrinho.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/cofrinho.png"
+                            alt="Cofrinho"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Cofrinho
+                        </span>
+
+                    </a>
+
+                    <div class="sidebar-section-title">
+                        Analisar
+                    </div>
+
+                    <!-- MYA -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/Mya/Ia.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/MYA.png"
+                            alt="MYA"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            MYA
+                        </span>
+
+                    </a>
+
+                    <!-- GRÁFICOS -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/graficos/grafico.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/graf.png"
+                            alt="Gráficos"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Gráficos
+                        </span>
+
+                    </a>
+
+
+                    <!-- CATEGORIAS -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/categorias/categoria.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/categorias.png"
+                            alt="Categorias"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Categorias
+                        </span>
+
+                    </a>
+
+
+                    <!-- CALENDÁRIO -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/calendario/agenda.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/calendario.png"
+                            alt="Calendário"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Calendário
+                        </span>
+
+                    </a>
+
+
+                    <hr class="sidebar-divider">
+
+
+                    <!-- CONQUISITAS -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/conquistas/conquista.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/conquista.png"
+                            alt="Conquistas"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Conquistas
+                        </span>
+
+                    </a>
+
+                    <!-- IMPORTAR/EXPORTAR -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/importar/exportar.html"
+                        class="sidebar-link active"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/import.png"
+                            alt="Importar/Exportar"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Importar/Exportar
+                        </span>
+
+                    </a>
+
+                    <!-- CONFIGURAÇÕES -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/configuracoes/config.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/configura.png"
+                            alt="Configurações"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Configurações
+                        </span>
+
+                    </a>
+
+
+                    <!-- SOBRE -->
+
+                    <a
+                        href="https://luiscript-ed.github.io/YOFI/Front-end/Recursos/Pagina.html"
+                        class="sidebar-link"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/sobre.png"
+                            alt="Sobre"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Sobre / Recursos
+                        </span>
+
+                    </a>
+
+
+                    <!-- VISUALIZAÇÃO -->
+
+                    <a
+                        class="sidebar-link"
+                        id="alterarModo"
+                    >
+
+                        <img
+                            src="../Imagens-Audios/homepage/visualiza.png"
+                            alt="Alterar visualização"
+                            class="nav-icon"
+                        >
+
+                        <span>
+                            Alterar visualização
+                        </span>
+
+                    </a>
+
+                </nav>
+
+        </aside>
+
+        <!-- ========================================================= -->
+        <!-- ÁREA PRINCIPAL -->
+        <!-- ========================================================= -->
+
+        <div class="app">
+
+
+            <!-- ===================================================== -->
+            <!-- NAVBAR SUPERIOR -->
+            <!-- ===================================================== -->
+
+            <header class="topbar">
+
+
+                <!-- BOTÃO MENU -->
+                <button
+                    id="menuBtn"
+                    class="menu-btn"
+                    aria-label="Abrir menu"
+                >
+                    ☰
+                </button>
+
+
+                <!-- LOGO / NOME -->
+                <div class="topbar-logo">
+                    INTEGRAÇÕES
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- MÊS -->
+                <!-- ================================================= -->
+
+                <div class="month-selector">
+
+                    <button
+                        id="mesAnterior"
+                        class="month-btn"
+                        aria-label="Mês anterior"
+                    >
+                        ‹
+                    </button>
+
+                    <div class="month-info">
+
+                        <span id="mesAtual">
+                            Agosto
+                        </span>
+
+                        <small id="anoAtual">
+                            2026
+                        </small>
+
+                    </div>
+
+                    <button
+                        id="proximoMes"
+                        class="month-btn"
+                        aria-label="Próximo mês"
+                    >
+                        ›
+                    </button>
+
+                </div>
+
+
+                <!-- NOTIFICAÇÕES -->
+                <div class="notification-container">
+
+                    <button
+                        class="notification-btn"
+                        aria-label="Notificações"
+                    >
+
+                        🔔
+
+                        <span id="notificationCount">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <div
+                        id="notificationPanel"
+                        class="notification-panel hidden"
+                    >
+
+                        <h3>
+                            Notificações
+                        </h3>
+
+                        <div id="notificationList">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- ===================================================== -->
+            <!-- CONTEÚDO -->
+            <!-- ===================================================== -->
+
+            <main class="main-content">
+                <!-- Título principal do trecho -->
+                <header class="page-header">
+                    <h1>Importação e exportação</h1>
+                    <p>Gerencie seus dados financeiros</p>
+                </header>
+
+                <!-- Lado a Lado: Importar e Exportar -->
+                <div class="sections">
+                    
+                    <!-- CARD IMPORTAR -->
+                    <section class="card-section">
+                    <div class="card-header">
+                        <h2>IMPORTAR DADOS</h2>
+                        <p>Importe seus dados para o YOFI de forma rápida.</p>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="file-upload-box">
+                        <label for="fileInput" class="file-label">
+                            <span class="icon">📄</span>
+                            <span>Escolher arquivo</span>
+                        </label>
+                        <input type="file" id="fileInput" accept=".csv, .ofx" hidden />
+                        </div>
+
+                        <small class="format-info">Formato: CSV / OFX</small>
+
+                        <button id="importBtn" class="btn btn-purple">
+                        Importar dados
+                        </button>
+                    </div>
+                    </section>
+
+                    <!-- CARD EXPORTAR -->
+                    <section class="card-section">
+                    <div class="card-header">
+                        <h2>EXPORTAR DADOS</h2>
+                        <p>Baixe uma cópia dos seus dados financeiros.</p>
+                    </div>
+
+                    <div class="card-body">
+                        <label class="group-title">O que deseja exportar?</label>
+                        
+                        <div class="checkbox-group">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" checked /> <span>Transações</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" checked /> <span>Contas</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" checked /> <span>Cartões</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" checked /> <span>Objetivos</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" checked /> <span>Orçamentos</span>
+                        </label>
+                        </div>
+
+                        <div class="select-group">
+                        <label for="exportFormat">Formato:</label>
+                        <select id="exportFormat" class="custom-select">
+                            <option value="csv">CSV</option>
+                            <option value="json">JSON</option>
+                            <option value="ofx">OFX</option>
+                        </select>
+                        </div>
+
+                        <button id="exportBtn" class="btn btn-purple">
+                        Exportar dados
+                        </button>
+                    </div>
+                    </section>
+
+                </div>
+
+                <!-- BANNER DE ATENÇÃO -->
+                <div class="alert-box">
+                    <div class="alert-header">
+                    <span class="alert-icon">⚠️</span>
+                    <strong>Atenção</strong>
+                    </div>
+                    <p>Seus dados financeiros são importantes. Mantenha uma cópia dos arquivos exportados em local seguro.</p>
+                </div>
+
+                <!-- HISTÓRICO -->
+                <section class="history-section">
+                    <h3>Histórico de importações/exportações</h3>
+                    
+                    <div class="history-card">
+                    <div class="history-item">
+                        <span class="date">09/09/2026</span>
+                        <span class="type">Exportação CSV</span>
+                        <span class="badge success">✓ Concluída</span>
+                    </div>
+                    <div class="history-item">
+                        <span class="date">02/09/2026</span>
+                        <span class="type">Importação CSV</span>
+                        <span class="badge success">✓ Concluída</span>
+                    </div>
+                    </div>
+                </section>
+            </main>
+
         </div>
-
-    </header>
-
-
-
-    <!-- ===================================================== -->
-    <!-- CONTEÚDO -->
-    <!-- ===================================================== -->
-
-    <main class="main-content">
-
-    <!-- ===================================================== -->
-    <!-- AQUI É ONDE FICARÁ AS EXPORTAÇÕES & IMPORTAÇÕES -->
-    <!-- ===================================================== -->
-
-    </main>
-
-</div>
 
 
 <!-- ========================================================= -->
