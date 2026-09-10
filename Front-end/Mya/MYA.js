@@ -1264,6 +1264,141 @@ function criarLoading() {
     return loading;
 }
 
+// ============================================================
+// RECONHECIMENTO DE VOZ
+// ============================================================
+
+window.SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+if (!window.SpeechRecognition) {
+
+    console.warn(
+        "Seu navegador não suporta reconhecimento de voz."
+    );
+
+} else {
+
+    const recognition =
+        new window.SpeechRecognition();
+    const imageAudio =
+        document.getElementById("imageAudio")
+
+    recognition.lang = "pt-BR";
+
+    // Não envia resultados parciais
+    recognition.interimResults = false;
+
+    // Para depois de reconhecer a frase
+    recognition.continuous = false;
+
+    const btnIniciar =
+        document.getElementById("buttonAudo");
+
+    if (!btnIniciar) {
+
+        console.error(
+            'Elemento "#buttonAudo" não encontrado.'
+        );
+
+    } else {
+
+        let reconhecendo = false;
+
+        btnIniciar.addEventListener(
+            "click",
+            () => {
+
+                if (reconhecendo) {
+                    return;
+                }
+
+                try {
+                    imageAudio.src = "../Imagens-Audios/carregandoAudio.png"
+
+                    recognition.start();
+
+                    reconhecendo = true;
+
+                    btnIniciar.classList.add(
+                        "gravando"
+                    );
+
+                    console.log(
+                        "Reconhecimento de voz iniciado."
+                    );
+
+                } catch (erro) {
+
+                    console.error(
+                        "Erro ao iniciar reconhecimento de voz:",
+                        erro
+                    );
+
+                }
+
+            }
+        );
+
+        recognition.addEventListener("result", evento => {
+
+            const transcricao = Array.from(e.results)
+                .map(result => result[0])
+                .map(result => result.transcript)
+                .join("")
+                .trim();
+
+            if (!transcricao || !userInput) {
+                return;
+            }
+
+            userInput.value = transcricao;
+
+            userInput.focus();
+
+        });
+
+
+        recognition.addEventListener(
+            "error",
+            evento => {
+                imageAudio.src = "../Imagens-Audios/homepage/microfone.png"
+                
+                console.error(
+                    "Erro no reconhecimento de voz:",
+                    evento.error
+                );
+
+                reconhecendo = false;
+
+                btnIniciar.classList.remove(
+                    "gravando"
+                );
+
+            }
+        );
+
+        recognition.addEventListener(
+            "end",
+            () => {
+                imageAudio.src = "../Imagens-Audios/homepage/microfone.png"
+
+                reconhecendo = false;
+
+                btnIniciar.classList.remove(
+                    "gravando"
+                );
+
+                console.log(
+                    "Reconhecimento de voz encerrado."
+                );
+
+            }
+        );
+
+    }
+}
 
 // ============================================================
 // ENVIAR MENSAGEM PARA A MYA

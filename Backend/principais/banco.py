@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS contas (
 """)
 
 cursor.execute("""
-CREATE TABLE historico_importacoes (
+CREATE TABLE IF NOT EXISTS historico_importacoes (
     id SERIAL PRIMARY KEY,
     usuario_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
 
@@ -166,8 +166,9 @@ CREATE TABLE historico_importacoes (
     criado_em TIMESTAMPTZ DEFAULT NOW()
 )
 """)
+
 cursor.execute("""
-CREATE TABLE historico_exportacoes (
+CREATE TABLE IF NOT EXISTS historico_exportacoes (
     id SERIAL PRIMARY KEY,
     usuario_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
 
