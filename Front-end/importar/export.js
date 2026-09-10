@@ -1058,6 +1058,28 @@ function normalizarTransacao(objeto) {
             ]
         );
 
+    const conta_id =
+        encontrarCampo(
+            objeto,
+            [
+                "conta_id",
+                "contaId",
+                "account_id",
+                "accountId"
+            ]
+        );
+
+    const cartao_id =
+        encontrarCampo(
+            objeto,
+            [
+                "cartao_id",
+                "cartaoId",
+                "card_id",
+                "cardId"
+            ]
+        );
+
     const tipo =
         normalizarTipo(
             tipoOriginal,
@@ -1079,7 +1101,9 @@ function normalizarTransacao(objeto) {
             String(
                 descricao || "Transação importada"
             ).trim(),
-        data
+        data,
+        conta_id: conta_id ? Number(conta_id) : null,
+        cartao_id: cartao_id ? Number(cartao_id) : null
     };
 }
 
@@ -1772,43 +1796,129 @@ async function importarTransacoes(
     }
 }
 
-
+// ============================================================
+// REGISTRO DE HISTÓRICO
+// ============================================================
 
 async function registrarImportacao(dados) {
-    try {
-        const corpo = {
-            nome_arquivo: dados.arquivo,
-            formato: dados.formato,
-            quantidade_registros: dados.total,
-            quantidade_importada: dados.sucesso,
-            quantidade_ignorados: dados.falhas,
-            status: dados.falhas === 0 ? "sucesso" : "parcial",
-            mensagem: `${dados.sucesso} importados, ${dados.falhas} ignorados`
-        };
+    const total =
+        Number(dados?.total) || 0;
 
-        await apiRequest("/historico/importacoes", {
-            method: "POST",
-            body: JSON.stringify(corpo)
-        });
+    const sucesso =
+        Number(dados?.sucesso) || 0;
+
+    const falhas =
+        Number(dados?.falhas) || 0;
+
+    const corpo = {
+        nome_arquivo:
+            String(dados?.arquivo || "arquivo"),
+
+        formato:
+            String(dados?.formato || "desconhecido")
+                .toLowerCase(),
+
+        quantidade_registros:
+            total,
+
+        quantidade_importada:
+            sucesso,
+
+        quantidade_ignorados:
+            falhas,
+
+        status:
+            falhas === 0
+                ? "sucesso"
+                : "parcial",
+
+        mensagem:
+            `${sucesso} importados, ${falhas} ignorados`
+    };
+
+    try {
+        const { resposta, dados: retorno } =
+            await apiRequest(
+                "/historico/importacoes",
+                {
+                    method: "POST",
+                    body: JSON.stringify(corpo)
+                }
+            );
+
+        if (!resposta.ok) {
+            console.error(
+                "Falha ao registrar importação no histórico:",
+                resposta.status,
+                retorno
+            );
+
+            return null;
+        }
+
+        return retorno;
+
     } catch (erro) {
-        console.warn("Erro ao registrar importação:", erro);
+        console.error(
+            "Erro ao registrar importação:",
+            erro
+        );
+
+        return null;
     }
 }
 
-async function registrarExportacao(dados) {
-    try {
-        const corpo = {
-            formato: dados.formato,
-            dados_exportados: Array.isArray(dados.dados) ? dados.dados.join(",") : String(dados.dados),
-            quantidade_registros: dados.quantidade
-        };
 
-        await apiRequest("/historico/exportacoes", {
-            method: "POST",
-            body: JSON.stringify(corpo)
-        });
+async function registrarExportacao(dados) {
+    // O backend espera List[str] em dados_exportados.
+    // Por isso mandamos um array de strings de verdade,
+    // e não uma string com vírgulas.
+    const listaExportada =
+        Array.isArray(dados?.dados)
+            ? dados.dados.map(item => String(item))
+            : [];
+
+    const corpo = {
+        formato:
+            String(dados?.formato || "csv")
+                .toLowerCase(),
+
+        dados_exportados:
+            listaExportada,
+
+        quantidade_registros:
+            Number(dados?.quantidade) || 0
+    };
+
+    try {
+        const { resposta, dados: retorno } =
+            await apiRequest(
+                "/historico/exportacoes",
+                {
+                    method: "POST",
+                    body: JSON.stringify(corpo)
+                }
+            );
+
+        if (!resposta.ok) {
+            console.error(
+                "Falha ao registrar exportação no histórico:",
+                resposta.status,
+                retorno
+            );
+
+            return null;
+        }
+
+        return retorno;
+
     } catch (erro) {
-        console.warn("Erro ao registrar exportação:", erro);
+        console.error(
+            "Erro ao registrar exportação:",
+            erro
+        );
+
+        return null;
     }
 }
 
