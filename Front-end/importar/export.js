@@ -1773,31 +1773,42 @@ async function importarTransacoes(
 }
 
 
-async function registrarImportacao(
-    dados
-    ) {
+
+async function registrarImportacao(dados) {
     try {
-        const { resposta, dados: retorno } =
-            await apiRequest(
-                "/importacoes",
-                {
-                    method: "POST",
-                    body: JSON.stringify(dados)
-                }
-            );
+        const corpo = {
+            nome_arquivo: dados.arquivo,
+            formato: dados.formato,
+            quantidade_registros: dados.total,
+            quantidade_importada: dados.sucesso,
+            quantidade_ignorados: dados.falhas,
+            status: dados.falhas === 0 ? "sucesso" : "parcial",
+            mensagem: `${dados.sucesso} importados, ${dados.falhas} ignorados`
+        };
 
-        if (!resposta.ok) {
-            console.warn(
-                "Histórico de importação não foi registrado:",
-                retorno
-            );
-        }
-
+        await apiRequest("/historico/importacoes", {
+            method: "POST",
+            body: JSON.stringify(corpo)
+        });
     } catch (erro) {
-        console.warn(
-            "Erro ao registrar importação:",
-            erro
-        );
+        console.warn("Erro ao registrar importação:", erro);
+    }
+}
+
+async function registrarExportacao(dados) {
+    try {
+        const corpo = {
+            formato: dados.formato,
+            dados_exportados: Array.isArray(dados.dados) ? dados.dados.join(",") : String(dados.dados),
+            quantidade_registros: dados.quantidade
+        };
+
+        await apiRequest("/historico/exportacoes", {
+            method: "POST",
+            body: JSON.stringify(corpo)
+        });
+    } catch (erro) {
+        console.warn("Erro ao registrar exportação:", erro);
     }
 }
 
@@ -2322,35 +2333,6 @@ async function exportarDados() {
 }
 
 
-async function registrarExportacao(
-    dados
-    ) {
-    try {
-        const { resposta, dados: retorno } =
-            await apiRequest(
-                "/exportacoes",
-                {
-                    method: "POST",
-                    body: JSON.stringify(dados)
-                }
-            );
-
-        if (!resposta.ok) {
-            console.warn(
-                "Histórico de exportação não foi registrado:",
-                retorno
-            );
-        }
-
-    } catch (erro) {
-        console.warn(
-            "Erro ao registrar exportação:",
-            erro
-        );
-    }
-}
-
-
 // ============================================================
 // HISTÓRICO
 // ============================================================
@@ -2468,91 +2450,31 @@ function renderizarHistorico(
 
 async function carregarHistorico() {
     try {
-        const [importacoes, exportacoes] =
-            await Promise.all([
-                apiRequest(
-                    "/importacoes"
-                ),
-                apiRequest(
-                    "/exportacoes"
-                )
-            ]);
+        const [importacoes, exportacoes] = await Promise.all([
+            apiRequest("/historico/importacoes"),
+            apiRequest("/historico/exportacoes")
+        ]);
 
-        const listaImportacoes =
-            importacoes.resposta.ok
-                ? (
-                    Array.isArray(
-                        importacoes.dados
-                    )
-                        ? importacoes.dados
-                        : (
-                            importacoes.dados
-                                ?.importacoes ||
-                            []
-                        )
-                )
-                : [];
+        const listaImportacoes = importacoes.resposta.ok && Array.isArray(importacoes.dados) 
+            ? importacoes.dados 
+            : [];
 
-        const listaExportacoes =
-            exportacoes.resposta.ok
-                ? (
-                    Array.isArray(
-                        exportacoes.dados
-                    )
-                        ? exportacoes.dados
-                        : (
-                            exportacoes.dados
-                                ?.exportacoes ||
-                            []
-                        )
-                )
-                : [];
+        const listaExportacoes = exportacoes.resposta.ok && Array.isArray(exportacoes.dados) 
+            ? exportacoes.dados 
+            : [];
 
         const historico = [
-            ...listaImportacoes.map(
-                item => ({
-                    ...item,
-                    tipo:
-                        item.tipo ||
-                        "Importação"
-                })
-            ),
-            ...listaExportacoes.map(
-                item => ({
-                    ...item,
-                    tipo:
-                        item.tipo ||
-                        "Exportação"
-                })
-            )
+            ...listaImportacoes.map(item => ({ ...item, tipo: "Importação" })),
+            ...listaExportacoes.map(item => ({ ...item, tipo: "Exportação" }))
         ]
-            .sort(
-                (a, b) =>
-                    new Date(
-                        b.data ||
-                        b.criado_em ||
-                        0
-                    ) -
-                    new Date(
-                        a.data ||
-                        a.criado_em ||
-                        0
-                    )
-            )
-            .slice(0, 20);
+        .sort((a, b) => new Date(b.criado_em || 0) - new Date(a.criado_em || 0))
+        .slice(0, 20);
 
-        renderizarHistorico(
-            historico
-        );
-
+        renderizarHistorico(historico);
     } catch (erro) {
-        console.warn(
-            "Não foi possível carregar o histórico:",
-            erro
-        );
+        console.warn("Não foi possível carregar o histórico:", erro);
     }
 }
-
 
 // ============================================================
 // EVENTOS
