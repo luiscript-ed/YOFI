@@ -3,6 +3,11 @@
 // ============================================================
 
 const API_URL = "https://yofi-api.onrender.com";
+const AUTH_PAGE =
+    "https://luiscript-ed.github.io/YOFI/Front-end/autentification/autentification";
+
+const HOME_PAGE =
+    "https://luiscript-ed.github.io/YOFI/Front-end/Inicial/page";
 
 let usuario = null;
 let usuarioId = null;
@@ -15,13 +20,50 @@ let dadosFinanceiros = {
 };
 
 // ============================================================
-// ELEMENTOS
+// ELEMENTOS FORMATADOS PARA GANHAR MAIS LINHA
 // ============================================================
 
-const fileInput = document.getElementById("fileInput");
-const importBtn = document.getElementById("importBtn");
-const exportBtn = document.getElementById("exportBtn");
-const exportFormat = document.getElementById("exportFormat");
+const fileInput = 
+    document.getElementById("fileInput");
+
+const importBtn = 
+    document.getElementById("importBtn");
+
+const exportBtn = 
+    document.getElementById("exportBtn");
+
+const exportFormat = 
+    document.getElementById("exportFormat");
+
+const notificationBtn =
+    document.getElementById("notificationBtn");
+
+const notificationPanel =
+    document.getElementById("notificationPanel");
+
+const notificationCount =
+    document.getElementById("notificationCount");
+
+const notificationList =
+    document.getElementById("notificationList");
+
+const usuarioNome =
+    document.getElementById("usuarioNome");
+
+const usuarioEmail =
+    document.getElementById("usuarioEmail");
+
+const usuarioImagem =   
+    document.getElementById("usuarioImagem");
+
+const sidebar =
+    document.getElementById("sidebar");
+
+const app =
+    document.getElementById("app");
+
+const menuBtn =
+    document.getElementById("menuBtn");
 
 // ============================================================
 // UTILIDADES
@@ -83,6 +125,109 @@ async function apiRequest(endpoint, opcoes = {}) {
 }
 
 // ============================================================
+// EVENTOS DE SIDEBAR
+// ============================================================
+
+function atualizarEstadoMenu() {
+
+    if (!sidebar || !menuBtn) {
+        return;
+    }
+
+    const aberta =
+        window.innerWidth <= 800
+            ? sidebar.classList.contains("open")
+            : !sidebar.classList.contains("closed");
+
+    menuBtn.setAttribute(
+        "aria-expanded",
+        String(aberta)
+    );
+
+}
+
+
+function alternarSidebar() {
+
+    if (!sidebar || !app) {
+        return;
+    }
+
+    if (window.innerWidth <= 800) {
+
+        sidebar.classList.toggle("open");
+
+    } else {
+
+        sidebar.classList.toggle("closed");
+
+        app.classList.toggle(
+            "sidebar-closed"
+        );
+
+    }
+
+    atualizarEstadoMenu();
+
+}
+
+
+if (menuBtn) {
+
+    menuBtn.addEventListener(
+        "click",
+        alternarSidebar
+    );
+
+}
+
+
+document
+    .querySelectorAll(".sidebar-link")
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    window.innerWidth <= 800
+                ) {
+
+                    sidebar.classList.remove(
+                        "open"
+                    );
+
+                    atualizarEstadoMenu();
+
+                }
+
+            }
+        );
+
+    });
+
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            if (
+                window.innerWidth > 800
+            ) {
+
+                sidebar.classList.remove(
+                    "open"
+                );
+
+            }
+
+            atualizarEstadoMenu();
+
+        }
+);
+
+// ============================================================
 // AUTENTICAÇÃO
 // ============================================================
 
@@ -120,6 +265,26 @@ async function verificarLogin() {
             "ID do usuário:",
             usuarioId
         );
+
+        if (usuarioNome) {
+            usuarioNome.textContent =
+                usuario.nome || "Usuário";
+        }
+
+        if (usuarioEmail) {
+            usuarioEmail.textContent =
+                usuario.email || "";
+        }
+
+        if (usuarioImagem) {
+            if (usuario.imagem) {
+                usuarioImagem.src = usuario.imagem;
+                usuarioImagem.alt = usuario.nome || "Foto do usuário";
+            } else {
+                usuarioImagem.src = "../Imagens-Audios/404/usuarioGenerico.png";
+                usuarioImagem.alt = "Usuário";
+            }
+        }
 
         return true;
 
@@ -199,6 +364,318 @@ async function carregarDadosFinanceiros() {
     }
 }
 
+// ============================================================
+// NOTIFICAÇÔES
+// ============================================================
+
+
+async function carregarContadorNotificacoes() {
+
+    if (!notificationCount) {
+        return;
+    }
+
+    try {
+
+        const resposta =
+            await fetch(
+                `${API_URL}/notificacoes/contador`,
+                {
+                    method: "GET",
+                    credentials: "include"
+                }
+            );
+
+
+        if (
+            resposta.status === 401
+        ) {
+
+            return;
+
+        }
+
+
+        if (!resposta.ok) {
+            return;
+        }
+
+
+        const dados =
+            await resposta.json();
+
+
+        notificationCount.textContent =
+            Number(
+                dados.quantidade || 0
+            );
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao carregar contador:",
+            erro
+        );
+
+    }
+
+}
+
+
+async function carregarNotificacoes() {
+
+    if (!notificationList) {
+        return;
+    }
+
+
+    notificationList.innerHTML = `
+        <div class="notification-empty">
+            Carregando...
+        </div>
+    `;
+
+
+    try {
+
+        const resposta =
+            await fetch(
+                `${API_URL}/notificacoes`,
+                {
+                    method: "GET",
+                    credentials: "include"
+                }
+            );
+
+
+        if (
+            resposta.status === 401
+        ) {
+
+            window.location.href =
+                AUTH_PAGE;
+
+            return;
+
+        }
+
+
+        if (!resposta.ok) {
+
+            throw new Error(
+                "Não foi possível carregar as notificações."
+            );
+
+        }
+
+
+        const notificacoes =
+            await resposta.json();
+
+
+        if (
+            !Array.isArray(notificacoes) ||
+            notificacoes.length === 0
+        ) {
+
+            notificationList.innerHTML = `
+                <div class="notification-empty">
+                    Nenhuma notificação.
+                </div>
+            `;
+
+            notificationCount.textContent =
+                "0";
+
+            return;
+
+        }
+
+
+        notificationList.innerHTML =
+            notificacoes.map(
+                notificacao => `
+
+                    <div class="notification-item">
+
+                        <strong>
+                            ${escaparHTML(
+                                notificacao.titulo
+                            )}
+                        </strong>
+
+                        <p>
+                            ${escaparHTML(
+                                notificacao.mensagem
+                            )}
+                        </p>
+
+                        <button
+                            type="button"
+                            data-notificacao-id="${notificacao.id}"
+                            class="notification-read-btn"
+                        >
+                            Marcar como lida
+                        </button>
+
+                    </div>
+
+                `
+            ).join("");
+
+
+        notificationCount.textContent =
+            notificacoes.length;
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao carregar notificações:",
+            erro
+        );
+
+        notificationList.innerHTML = `
+            <div class="notification-empty">
+                Erro ao carregar notificações.
+            </div>
+        `;
+
+    }
+
+}
+
+
+async function deletarNotificacao(id) {
+
+    try {
+
+        const resposta =
+            await fetch(
+                `${API_URL}/notificacoes/${id}`,
+                {
+                    method: "DELETE",
+                    credentials: "include"
+                }
+            );
+
+
+        if (
+            resposta.status === 401
+        ) {
+
+            window.location.href =
+                AUTH_PAGE;
+
+            return;
+
+        }
+
+
+        if (!resposta.ok) {
+
+            throw new Error(
+                "Não foi possível remover a notificação."
+            );
+
+        }
+
+
+        await carregarNotificacoes();
+
+        await carregarContadorNotificacoes();
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao excluir notificação:",
+            erro
+        );
+
+    }
+
+}
+
+
+if (notificationBtn) {
+
+    notificationBtn.addEventListener(
+        "click",
+        async evento => {
+
+            evento.stopPropagation();
+
+            notificationPanel.classList.toggle(
+                "hidden"
+            );
+
+
+            if (
+                !notificationPanel.classList.contains(
+                    "hidden"
+                )
+            ) {
+
+                await carregarNotificacoes();
+
+            }
+
+        }
+    );
+
+}
+
+
+if (notificationList) {
+
+    notificationList.addEventListener(
+        "click",
+        async evento => {
+
+            const botao =
+                evento.target.closest(
+                    ".notification-read-btn"
+                );
+
+            if (!botao) {
+                return;
+            }
+
+
+            const id =
+                botao.dataset.notificacaoId;
+
+
+            await deletarNotificacao(id);
+
+        }
+    );
+
+}
+
+
+document.addEventListener(
+    "click",
+    evento => {
+
+        if (
+            notificationPanel &&
+            notificationBtn &&
+            !notificationPanel.contains(
+                evento.target
+            ) &&
+            !notificationBtn.contains(
+                evento.target
+            )
+        ) {
+
+            notificationPanel.classList.add(
+                "hidden"
+            );
+
+        }
+
+    }
+);
 
 // ============================================================
 // PARTE DA IMPORTAÇÃO

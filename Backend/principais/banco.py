@@ -3633,7 +3633,7 @@ def criar_historico_exportacao(
 @app.get("/historico/exportacoes")
 def listar_historico_exportacoes(
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
     conn = conectar()
     cursor = conn.cursor()
 

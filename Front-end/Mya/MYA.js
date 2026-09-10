@@ -73,7 +73,8 @@ const imagePreviewName =
 const removeImageBtn =
     document.getElementById("removeImageBtn");
 
-const usuarioImagem = document.getElementById("usuarioImagem");
+const usuarioImagem = 
+    document.getElementById("usuarioImagem");
 
 let imagemSelecionada = null;
 
@@ -170,23 +171,23 @@ document
     });
 
 
-window.addEventListener(
-    "resize",
-    () => {
+    window.addEventListener(
+        "resize",
+        () => {
 
-        if (
-            window.innerWidth > 800
-        ) {
+            if (
+                window.innerWidth > 800
+            ) {
 
-            sidebar.classList.remove(
-                "open"
-            );
+                sidebar.classList.remove(
+                    "open"
+                );
+
+            }
+
+            atualizarEstadoMenu();
 
         }
-
-        atualizarEstadoMenu();
-
-    }
 );
 
 // ============================================================ 
@@ -218,29 +219,29 @@ async function apiGet(endpoint) {
         }
     );
 
-let dados = null;
+    let dados = null;
 
-try {
-    dados = await resposta.json();
+    try {
+        dados = await resposta.json();
 
-    console.log(
-        "Resposta completa da API MYA:",
-        dados
-    );
+        console.log(
+            "Resposta completa da API MYA:",
+            dados
+        );
 
-} catch {
-    throw new Error(
-        "O servidor retornou uma resposta inválida."
-    );
-}
+    } catch {
+        throw new Error(
+            "O servidor retornou uma resposta inválida."
+        );
+    }
 
 
 
-    return {
-        resposta,
-        dados
-    };
-}
+        return {
+            resposta,
+            dados
+        };
+    }
 
 // ============================================================
 // USUÁRIO
@@ -1272,132 +1273,132 @@ window.SpeechRecognition =
     window.SpeechRecognition ||
     window.webkitSpeechRecognition;
 
-if (!window.SpeechRecognition) {
+    if (!window.SpeechRecognition) {
 
-    console.warn(
-        "Seu navegador não suporta reconhecimento de voz."
-    );
-
-} else {
-
-    const recognition =
-        new window.SpeechRecognition();
-    const imageAudio =
-        document.getElementById("imageAudio")
-
-    recognition.lang = "pt-BR";
-
-    // Não envia resultados parciais
-    recognition.interimResults = false;
-
-    // Para depois de reconhecer a frase
-    recognition.continuous = false;
-
-    const btnIniciar =
-        document.getElementById("buttonAudo");
-
-    if (!btnIniciar) {
-
-        console.error(
-            'Elemento "#buttonAudo" não encontrado.'
+        console.warn(
+            "Seu navegador não suporta reconhecimento de voz."
         );
 
     } else {
 
-        let reconhecendo = false;
+        const recognition =
+            new window.SpeechRecognition();
+        const imageAudio =
+            document.getElementById("imageAudio")
 
-        btnIniciar.addEventListener(
-            "click",
-            () => {
+        recognition.lang = "pt-BR";
 
-                if (reconhecendo) {
+        // Não envia resultados parciais
+        recognition.interimResults = false;
+
+        // Para depois de reconhecer a frase
+        recognition.continuous = false;
+
+        const btnIniciar =
+            document.getElementById("buttonAudo");
+
+        if (!btnIniciar) {
+
+            console.error(
+                'Elemento "#buttonAudo" não encontrado.'
+            );
+
+        } else {
+
+            let reconhecendo = false;
+
+            btnIniciar.addEventListener(
+                "click",
+                () => {
+
+                    if (reconhecendo) {
+                        return;
+                    }
+
+                    try {
+                        imageAudio.src = "../Imagens-Audios/carregandoAudio.png"
+
+                        recognition.start();
+
+                        reconhecendo = true;
+
+                        btnIniciar.classList.add(
+                            "gravando"
+                        );
+
+                        console.log(
+                            "Reconhecimento de voz iniciado."
+                        );
+
+                    } catch (erro) {
+
+                        console.error(
+                            "Erro ao iniciar reconhecimento de voz:",
+                            erro
+                        );
+
+                    }
+
+                }
+            );
+
+            recognition.addEventListener("result", evento => {
+
+                const transcricao = Array.from(evento.results)
+                    .map(result => result[0])
+                    .map(result => result.transcript)
+                    .join("")
+                    .trim();
+
+                if (!transcricao || !userInput) {
                     return;
                 }
 
-                try {
-                    imageAudio.src = "../Imagens-Audios/carregandoAudio.png"
+                userInput.value = transcricao;
 
-                    recognition.start();
+                userInput.focus();
 
-                    reconhecendo = true;
+            });
 
-                    btnIniciar.classList.add(
+
+            recognition.addEventListener(
+                "error",
+                evento => {
+                    imageAudio.src = "../Imagens-Audios/homepage/microfone.png"
+                    
+                    console.error(
+                        "Erro no reconhecimento de voz:",
+                        evento.error
+                    );
+
+                    reconhecendo = false;
+
+                    btnIniciar.classList.remove(
+                        "gravando"
+                    );
+
+                }
+            );
+
+            recognition.addEventListener(
+                "end",
+                () => {
+                    imageAudio.src = "../Imagens-Audios/homepage/microfone.png"
+
+                    reconhecendo = false;
+
+                    btnIniciar.classList.remove(
                         "gravando"
                     );
 
                     console.log(
-                        "Reconhecimento de voz iniciado."
-                    );
-
-                } catch (erro) {
-
-                    console.error(
-                        "Erro ao iniciar reconhecimento de voz:",
-                        erro
+                        "Reconhecimento de voz encerrado."
                     );
 
                 }
+            );
 
-            }
-        );
-
-        recognition.addEventListener("result", evento => {
-
-            const transcricao = Array.from(e.results)
-                .map(result => result[0])
-                .map(result => result.transcript)
-                .join("")
-                .trim();
-
-            if (!transcricao || !userInput) {
-                return;
-            }
-
-            userInput.value = transcricao;
-
-            userInput.focus();
-
-        });
-
-
-        recognition.addEventListener(
-            "error",
-            evento => {
-                imageAudio.src = "../Imagens-Audios/homepage/microfone.png"
-                
-                console.error(
-                    "Erro no reconhecimento de voz:",
-                    evento.error
-                );
-
-                reconhecendo = false;
-
-                btnIniciar.classList.remove(
-                    "gravando"
-                );
-
-            }
-        );
-
-        recognition.addEventListener(
-            "end",
-            () => {
-                imageAudio.src = "../Imagens-Audios/homepage/microfone.png"
-
-                reconhecendo = false;
-
-                btnIniciar.classList.remove(
-                    "gravando"
-                );
-
-                console.log(
-                    "Reconhecimento de voz encerrado."
-                );
-
-            }
-        );
-
-    }
+        }
 }
 
 // ============================================================
@@ -1868,73 +1869,72 @@ window.addEventListener(
 
 document.addEventListener("DOMContentLoaded",()=>{
 
-const userInput=document.getElementById("userInput");
-const chatForm=document.getElementById("chatForm");
-const myaPage=document.getElementById("myaPage");
-const promptList=document.querySelector(".prompt-list");
+    const userInput=document.getElementById("userInput");
+    const chatForm=document.getElementById("chatForm");
+    const myaPage=document.getElementById("myaPage");
+    const promptList=document.querySelector(".prompt-list");
 
-if(promptList){
+    if(promptList){
 
-const originalPrompts=Array.from(promptList.children);
+        const originalPrompts=Array.from(promptList.children);
 
-originalPrompts.forEach(prompt=>promptList.appendChild(prompt.cloneNode(true)));
-originalPrompts.forEach(prompt=>promptList.appendChild(prompt.cloneNode(true)));
+        originalPrompts.forEach(prompt=>promptList.appendChild(prompt.cloneNode(true)));
+        originalPrompts.forEach(prompt=>promptList.appendChild(prompt.cloneNode(true)));
 
-let originalWidth=0;
+        let originalWidth=0;
 
-const calculateWidth=()=>{
-originalWidth=0;
-const items=promptList.children;
-for(let i=0;i<originalPrompts.length;i++)originalWidth+=items[i].offsetWidth;
-originalWidth+=8*(originalPrompts.length-1);
-};
+        const calculateWidth=()=>{
+            originalWidth=0;
+            const items=promptList.children;
+            for(let i=0;i<originalPrompts.length;i++)originalWidth+=items[i].offsetWidth;
+            originalWidth+=8*(originalPrompts.length-1);
+        };
 
-calculateWidth();
-window.addEventListener("resize",calculateWidth);
-promptList.scrollLeft=originalWidth;
+        calculateWidth();
+        window.addEventListener("resize",calculateWidth);
+        promptList.scrollLeft=originalWidth;
 
-promptList.addEventListener("click",event=>{
+        promptList.addEventListener("click",event=>{
 
-const button=event.target.closest(".prompt-card,.finance-card-prompt");
-if(!button)return;
+            const button=event.target.closest(".prompt-card,.finance-card-prompt");
+            if(!button)return;
 
-const prompt=button.dataset.prompt;
-if(!prompt||!userInput)return;
+                const prompt=button.dataset.prompt;
+                if(!prompt||!userInput)return;
 
-userInput.value=prompt;
-userInput.focus();
-userInput.setSelectionRange(userInput.value.length,userInput.value.length);
+                userInput.value=prompt;
+                userInput.focus();
+                userInput.setSelectionRange(userInput.value.length,userInput.value.length);
 
-});
+        });
 
-const scrollSpeed=0.5;
+        const scrollSpeed=0.5;
+        const animatePrompts=()=>{
 
-const animatePrompts=()=>{
+            promptList.scrollLeft+=scrollSpeed;
 
-promptList.scrollLeft+=scrollSpeed;
+            if(promptList.scrollLeft>=originalWidth*2)
+            promptList.scrollLeft-=originalWidth;
 
-if(promptList.scrollLeft>=originalWidth*2)
-promptList.scrollLeft-=originalWidth;
+            requestAnimationFrame(animatePrompts);
 
-requestAnimationFrame(animatePrompts);
+        };
 
-};
+        requestAnimationFrame(animatePrompts);
 
-requestAnimationFrame(animatePrompts);
+        promptList.addEventListener("scroll",()=>{
 
-promptList.addEventListener("scroll",()=>{
+            if(!originalWidth)return;
 
-if(!originalWidth)return;
+            if(promptList.scrollLeft<=0)
+            promptList.scrollLeft+=originalWidth;
 
-if(promptList.scrollLeft<=0)
-promptList.scrollLeft+=originalWidth;
+            if(promptList.scrollLeft>=originalWidth*2)
+            promptList.scrollLeft-=originalWidth;
 
-if(promptList.scrollLeft>=originalWidth*2)
-promptList.scrollLeft-=originalWidth;
+        });
 
-});
-
-}
+    }
 
 });
 

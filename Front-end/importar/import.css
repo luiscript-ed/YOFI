@@ -164,71 +164,71 @@ margin-bottom: 8px;
     object-fit: cover;
 }
 
- /* Container que segura o efeito */
-            .userWarper {
-                position: relative;
-                padding: 3px; /* Define a espessura da borda animada */
-                border-radius: 50%; /* Garante cantos arredondados */
-                overflow: hidden; /* Esconde o excesso da div que vai girar */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 20%;
-                height: 20;
-                max-width: 70px;
-            }
+/* Container que segura o efeito */
+.userWarper {
+    position: relative;
+    padding: 3px; /* Define a espessura da borda animada */
+    border-radius: 50%; /* Garante cantos arredondados */
+    overflow: hidden; /* Esconde o excesso da div que vai girar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 20;
+    max-width: 70px;
+}
 
-            /* Pseudo-elemento com a animação roxa */
-            .userWarper::before {
-                content: '';
-                position: absolute;
-                top: -150%;
-                left: -150%;
-                width: 400%;
-                height: 400%;
-                background: conic-gradient(
-                    from 0deg,
-                    transparent 0%,
-                    #9333EA 20%, /* Roxo principal */
-                    #5f23f8 50%, /* Roxo claro brilhante */
-                    #5f23f8 70%, /* Roxo escuro */
-                    transparent 100%
-                );
-                animation: girarBorda 5s linear infinite;
-                z-index: 1;
-            }
+/* Pseudo-elemento com a animação roxa */
+.userWarper::before {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -150%;
+    width: 400%;
+    height: 400%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        #9333EA 20%, /* Roxo principal */
+        #5f23f8 50%, /* Roxo claro brilhante */
+        #5f23f8 70%, /* Roxo escuro */
+        transparent 100%
+    );
+    animation: girarBorda 5s linear infinite;
+    z-index: 1;
+}
 
-            /* Fundo interno para o conteúdo não ser coberto pela animação */
-            .userWarper > * {
-                position: relative;
-                z-index: 2;
-                width: 100%;
-                background: #15151d; /* Cor de fundo do seu card */
-                border: none;
-                border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
-            }
+/* Fundo interno para o conteúdo não ser coberto pela animação */
+.userWarper > * {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    background: #15151d; /* Cor de fundo do seu card */
+    border: none;
+    border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
+}
 
-            /* Animação de rotação */
-            @keyframes girarBorda {
-                0% {
-                    transform: rotate(10deg);
-                }
-                20% {
-                    transform: rotate(70deg);
-                } 
-                40% {
-                    transform: rotate(120deg);
-                }
-                60% {
-                    transform: rotate(170deg);
-                }
-                80% {
-                    transform: rotate(220deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
+/* Animação de rotação */
+@keyframes girarBorda {
+    0% {
+        transform: rotate(10deg);
+    }
+    20% {
+        transform: rotate(70deg);
+    } 
+    40% {
+        transform: rotate(120deg);
+    }
+    60% {
+        transform: rotate(170deg);
+    }
+    80% {
+        transform: rotate(220deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 .user-info {
 min-width: 0;
@@ -432,63 +432,6 @@ white-space: nowrap;
 }
 
 /* =========================================================
-SELETOR DE MÊS
-========================================================= */
-
-.month-selector {
-position: absolute;
-left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 14px;
-margin: 0;
-}
-
-.month-info {
-min-width: 130px;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 1px;
-}
-
-.month-info span {
-color: var(--text-primary);
-font-size: 17px;
-font-weight: 700;
-}
-
-.month-info small {
-color: var(--text-muted);
-font-size: 11px;
-}
-
-/* Botões do mês */
-
-.month-btn {
-width: 34px;
-height: 34px;
-border: none;
-border-radius: 50%;
-background: transparent;
-color: var(--text-secondary);
-font-size: 26px;
-line-height: 1;
-cursor: pointer;
-transition:
-background 0.2s ease,
-color 0.2s ease;
-}
-
-.month-btn\:hover {
-background: #19191f;
-color: var(--text-primary);
-}
-
-/* =========================================================
 NOTIFICAÇÕES
 ========================================================= */
 
@@ -562,16 +505,6 @@ font-size: 16px;
 
 .hidden {
 display: none !important;
-}
-
-/* =========================================================
-CONTEÚDO PRINCIPAL
-========================================================= */
-
-.main-content {
-width: min(1400px, calc(100% - 48px));
-margin: 0 auto;
-padding: 34px 0 50px;
 }
 
 /* =========================================================
@@ -696,9 +629,14 @@ width: min(290px, 88vw);
   background-color: var(--bg-main);
   color: var(--text-primary);
   padding: 24px;
+  margin-top: 3%;
   font-family: 'Inter', sans-serif;
   max-width: 900px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+  border-radius: var(--radius);
+
 }
 
 /* Header Superior */
