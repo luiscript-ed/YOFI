@@ -859,3 +859,232 @@ width: min(290px, 88vw);
   color: var(--green);
   font-weight: 600;
 }
+
+/* =========================================================
+PRÉ-VISUALIZAÇÃO DE IMPORTAÇÃO
+========================================================= */
+
+.import-preview {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radiuss);
+  animation: previewFadeIn 0.25s ease;
+}
+
+@keyframes previewFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.import-preview-header {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.import-preview-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.import-preview-header p {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* =========================================================
+ERROS DE IMPORTAÇÃO
+========================================================= */
+
+.import-errors {
+  background: var(--alert-bg);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-left: 3px solid var(--red);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.import-errors strong {
+  display: block;
+  color: var(--red);
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.import-errors p {
+  margin: 2px 0;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+TABELA DE PRÉ-VISUALIZAÇÃO
+========================================================= */
+
+.import-preview-table {
+  max-height: 340px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #1a1826;
+  margin-bottom: 16px;
+}
+
+.import-preview-table::-webkit-scrollbar { width: 6px; }
+.import-preview-table::-webkit-scrollbar-track { background: transparent; }
+.import-preview-table::-webkit-scrollbar-thumb {
+  background: #3a3a44;
+  border-radius: 20px;
+}
+
+.import-preview-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 120px 80px 90px;
+  gap: 12px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+
+.import-preview-row:last-child { border-bottom: none; }
+
+.import-preview-row span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.import-preview-row span:last-child {
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--green);
+}
+
+.import-preview-head {
+  position: sticky;
+  top: 0;
+  background: #221e33;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  z-index: 1;
+}
+
+.import-preview-head span:last-child {
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.import-preview-table small {
+  display: block;
+  padding: 10px 14px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* =========================================================
+BOTÕES DA PRÉ-VISUALIZAÇÃO
+========================================================= */
+
+.import-preview-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.import-preview-actions .btn {
+  width: auto;
+  min-width: 120px;
+  padding: 10px 18px;
+  margin-top: 0;
+  background: #2a2738;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.import-preview-actions .btn:hover {
+  background: #322f42;
+  color: var(--text-primary);
+}
+
+.import-preview-actions .btn-purple {
+  background: var(--purple);
+  color: #fff;
+  border-color: transparent;
+}
+
+.import-preview-actions .btn-purple:hover {
+  background: var(--purple-dark);
+}
+
+.import-preview-actions .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+SELETOR DE DESTINO
+========================================================= */
+
+.import-destination {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--purple);
+  border-radius: 10px;
+  animation: previewFadeIn 0.25s ease;
+}
+
+.import-destination label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.import-destination .custom-select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+/* =========================================================
+RESPONSIVO
+========================================================= */
+
+@media (max-width: 640px) {
+  .import-preview-row {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto;
+    gap: 6px 12px;
+    font-size: 12px;
+  }
+
+  .import-preview-head { display: none; }
+
+  .import-preview-row span:nth-child(1)::before { content: "📅 "; }
+  .import-preview-row span:nth-child(4)::before { content: "• "; }
+
+  .import-preview-actions {
+    flex-direction: column-reverse;
+  }
+
+  .import-preview-actions .btn {
+    width: 100%;
+  }
+}

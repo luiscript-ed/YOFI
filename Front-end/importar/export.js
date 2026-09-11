@@ -1621,6 +1621,18 @@ async function prepararImportacao() {
             );
 
         if (!resultado.validas.length) {
+                const resultado = validarTransacoes(transacoes);
+
+                console.log("Transações lidas:", transacoes);
+                console.log("Válidas:", resultado.validas.length);
+                console.log("Erros por linha:", resultado.erros);
+
+                if (!resultado.validas.length) {
+                    throw new Error(
+                        "Nenhuma transação válida foi encontrada. " +
+                        (resultado.erros[0] || "")
+                    );
+                }
             throw new Error(
                 "Nenhuma transação válida foi encontrada."
             );
