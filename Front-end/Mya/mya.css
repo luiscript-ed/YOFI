@@ -1,27 +1,27 @@
-        /* Título */
-        .title {
-            text-align: center;
-            color: #9333EA;
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 20px;
-            margin-top: 60px;
-        }
+/* Título */
+.title {
+    text-align: center;
+    color: #9333EA;
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 60px;
+}
 
-        /* Container do Chat */
-        .chat-container {
-            width: 100%;
-            max-width: 700px;
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-            margin-top: 20vw;
-            align-items: center;
-            justify-content: center;
-            align-self: center;
-            align-content: center;
-            border-radius: 100px;
-        }
+/* Container do Chat */
+.chat-container {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    margin-top: 20vw;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+    border-radius: 100px;
+}
 
 .containerMya {
     width: 100%;
@@ -33,166 +33,120 @@
     margin: auto; /* Centraliza horizontal e verticalmente quando o pai usa flex */
 }
 
-            /* Container que segura o efeito */
-            .userWarper {
-                position: relative;
-                padding: 3px; /* Define a espessura da borda animada */
-                border-radius: 50%; /* Garante cantos arredondados */
-                overflow: hidden; /* Esconde o excesso da div que vai girar */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 20%;
-                height: 20;
-                max-width: 70px;
-            }
+/* Animação de rotação */
+@keyframes girarBorda {
+    0% {
+        transform: rotate(10deg);
+    }
+    20% {
+        transform: rotate(70deg);
+    } 
+    40% {
+        transform: rotate(120deg);
+    }
+    60% {
+        transform: rotate(170deg);
+    }
+    80% {
+        transform: rotate(220deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
-            /* Pseudo-elemento com a animação roxa */
-            .userWarper::before {
-                content: '';
-                position: absolute;
-                top: -150%;
-                left: -150%;
-                width: 400%;
-                height: 400%;
-                background: conic-gradient(
-                    from 0deg,
-                    transparent 0%,
-                    #9333EA 20%, /* Roxo principal */
-                    #5f23f8 50%, /* Roxo claro brilhante */
-                    #5f23f8 70%, /* Roxo escuro */
-                    transparent 100%
-                );
-                animation: girarBorda 5s linear infinite;
-                z-index: 1;
-            }
+/* Container que segura o efeito */
+.wrapper-gemini {
+    position: relative;
+    padding: 3px; /* Define a espessura da borda animada */
+    border-radius: 35px; /* Garante cantos arredondados */
+    overflow: hidden; /* Esconde o excesso da div que vai girar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+}
 
-            /* Fundo interno para o conteúdo não ser coberto pela animação */
-            .userWarper > * {
-                position: relative;
-                z-index: 2;
-                width: 100%;
-                background: #15151d; /* Cor de fundo do seu card */
-                border: none;
-                border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
-            }
+/* Pseudo-elemento com a animação roxa */
+.wrapper-gemini::before {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -150%;
+    width: 400%;
+    height: 400%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        #7333ea 25%, /* Roxo principal */
+        #8e63f8 50%, /* Roxo claro brilhante */
+        #390979 75%, /* Roxo escuro */
+        transparent 100%
+    );
+    animation: girarBorda 5s linear infinite;
+    z-index: 1;
+}
 
-            /* Animação de rotação */
-            @keyframes girarBorda {
-                0% {
-                    transform: rotate(10deg);
-                }
-                20% {
-                    transform: rotate(70deg);
-                } 
-                40% {
-                    transform: rotate(120deg);
-                }
-                60% {
-                    transform: rotate(170deg);
-                }
-                80% {
-                    transform: rotate(220deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
+/* Fundo interno para o conteúdo não ser coberto pela animação */
+.wrapper-gemini > * {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    background: #15151d; /* Cor de fundo do seu card */
+    border: none;
+    border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
+}
 
-            /* Container que segura o efeito */
-            .wrapper-gemini {
-                position: relative;
-                padding: 3px; /* Define a espessura da borda animada */
-                border-radius: 35px; /* Garante cantos arredondados */
-                overflow: hidden; /* Esconde o excesso da div que vai girar */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                max-width: 700px;
-            }
+/* Animação de rotação */
+@keyframes girarBorda {
+    0% {
+        transform: rotate(0deg);
+    }
+    40% {
+        transform: rotate(100deg);
+    }
+    80% {
+        transform: rotate(200deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
-            /* Pseudo-elemento com a animação roxa */
-            .wrapper-gemini::before {
-                content: '';
-                position: absolute;
-                top: -150%;
-                left: -150%;
-                width: 400%;
-                height: 400%;
-                background: conic-gradient(
-                    from 0deg,
-                    transparent 0%,
-                    #9333EA 25%, /* Roxo principal */
-                    #9c7af1 50%, /* Roxo claro brilhante */
-                    #200435 75%, /* Roxo escuro */
-                    transparent 100%
-                );
-                animation: girarBorda 5s linear infinite;
-                z-index: 1;
-            }
+/* Bolhas de mensagem */
+.message-bubble {
+    color: rgb(246, 223, 255);
+    padding: 10px 15px;
+    border-radius: 12px;
+    margin: 5px 0;
+    max-width: 70%;
+    word-wrap: break-word;
+}
 
-            /* Fundo interno para o conteúdo não ser coberto pela animação */
-            .wrapper-gemini > * {
-                position: relative;
-                z-index: 2;
-                width: 100%;
-                background: #15151d; /* Cor de fundo do seu card */
-                border: none;
-                border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
-            }
+.user-message {
+    background: linear-gradient(135deg, #a84ee0c5, #881cec);
+    align-self: flex-end;
+    text-align: right;
+    max-width: 65%;
+}
 
-            /* Animação de rotação */
-            @keyframes girarBorda {
-                0% {
-                    transform: rotate(0deg);
-                }
-                40% {
-                    transform: rotate(100deg);
-                }
-                80% {
-                    transform: rotate(200deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
+.bot-message {
+    background-color: #f9f0ff00;
+    align-self: flex-start;
+    text-align: left;
+    max-width: 100%;
+}
 
-        /* Bolhas de mensagem */
-        .message-bubble {
-            color: rgb(246, 223, 255);
-            padding: 10px 15px;
-            border-radius: 12px;
-            margin: 5px 0;
-            max-width: 70%;
-            word-wrap: break-word;
-        }
+.error-message {
+    background-color: #ff8686a6;
+    color: #e30000;
+    align-self: center;
+    text-align: center;
+    font-size: 0.9em;
+    max-width: 65%;
+}
 
-        .user-message {
-            background: linear-gradient(135deg, #a84ee0c5, #881cec);
-            align-self: flex-end;
-            text-align: right;
-            max-width: 65%;
-        }
-
-        .bot-message {
-            background-color: #f9f0ff00;
-            align-self: flex-start;
-            text-align: left;
-            max-width: 100%;
-        }
-
-        .error-message {
-            background-color: #ff8686a6;
-            color: #e30000;
-            align-self: center;
-            text-align: center;
-            font-size: 0.9em;
-            max-width: 65%;
-        }
-
-
-        /* Formulário de Input */
 /* Formulário de Input */
 .chat-form {
     width: 100%;
@@ -423,6 +377,73 @@
 
 }
 
+
+/* =========================================================
+   MODO CLARO
+   ========================================================= */
+
+body.modo-claro {
+
+    --bg-main: #f7f5fb;
+    --bg-sidebar: #ffffff;
+
+    --bg-card: #ffffff;
+    --bg-card-hover: #f8f5ff;
+
+    --border: #e5e0eb;
+
+    --text-primary: #27232d;
+    --text-secondary: #6f6878;
+    --text-muted: #958d9e;
+
+    --purple: #8b5cf6;
+    --purple-light: #8b5cf6;
+    --purple-dark: #6d28d9;
+
+    --bg-input: #f1edf6;
+    --alert-bg: #fff8e8;
+}
+
+
+/* =========================================================
+   ELEMENTOS QUE USAM CORES FIXAS
+   ========================================================= */
+
+body.modo-claro .app {
+    background: var(--bg-main);
+}
+
+body.modo-claro .topbar {
+    background: rgba(255, 255, 255, 0.94);
+}
+
+body.modo-claro .sidebar-link:hover {
+    background: #f3eff8;
+}
+
+body.modo-claro .menu-btn:hover,
+body.modo-claro .notification-btn:hover {
+    background: #f3eff8;
+}
+
+body.modo-claro .notification-panel {
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(40, 30, 60, 0.12);
+}
+
+body.modo-claro .userWarper > * {
+    background: #ffffff;
+}
+
+body.modo-claro .sidebar::-webkit-scrollbar-thumb {
+    background: #d8d2df;
+}
+
+body.modo-claro .sidebar::-webkit-scrollbar-thumb:hover {
+    background: #c4bccd;
+}
+
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -554,71 +575,71 @@ margin-bottom: 8px;
     object-fit: cover;
 }
 
- /* Container que segura o efeito */
-            .userWarper {
-                position: relative;
-                padding: 3px; /* Define a espessura da borda animada */
-                border-radius: 50%; /* Garante cantos arredondados */
-                overflow: hidden; /* Esconde o excesso da div que vai girar */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 20%;
-                height: 20;
-                max-width: 70px;
-            }
+/* Container que segura o efeito */
+    .userWarper {
+        position: relative;
+        padding: 3px; /* Define a espessura da borda animada */
+        border-radius: 50%; /* Garante cantos arredondados */
+        overflow: hidden; /* Esconde o excesso da div que vai girar */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20%;
+        height: 20;
+        max-width: 70px;
+    }
 
-            /* Pseudo-elemento com a animação roxa */
-            .userWarper::before {
-                content: '';
-                position: absolute;
-                top: -150%;
-                left: -150%;
-                width: 400%;
-                height: 400%;
-                background: conic-gradient(
-                    from 0deg,
-                    transparent 0%,
-                    #9333EA 20%, /* Roxo principal */
-                    #5f23f8 50%, /* Roxo claro brilhante */
-                    #5f23f8 70%, /* Roxo escuro */
-                    transparent 100%
-                );
-                animation: girarBorda 5s linear infinite;
-                z-index: 1;
-            }
+    /* Pseudo-elemento com a animação roxa */
+    .userWarper::before {
+        content: '';
+        position: absolute;
+        top: -150%;
+        left: -150%;
+        width: 400%;
+        height: 400%;
+        background: conic-gradient(
+            from 0deg,
+            transparent 0%,
+            #9333EA 20%, /* Roxo principal */
+            #5f23f8 50%, /* Roxo claro brilhante */
+            #5f23f8 70%, /* Roxo escuro */
+            transparent 100%
+        );
+        animation: girarBorda 5s linear infinite;
+        z-index: 1;
+    }
 
-            /* Fundo interno para o conteúdo não ser coberto pela animação */
-            .userWarper > * {
-                position: relative;
-                z-index: 2;
-                width: 100%;
-                background: #15151d; /* Cor de fundo do seu card */
-                border: none;
-                border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
-            }
+    /* Fundo interno para o conteúdo não ser coberto pela animação */
+    .userWarper > * {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        background: #15151d; /* Cor de fundo do seu card */
+        border: none;
+        border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
+    }
 
-            /* Animação de rotação */
-            @keyframes girarBorda {
-                0% {
-                    transform: rotate(10deg);
-                }
-                20% {
-                    transform: rotate(70deg);
-                } 
-                40% {
-                    transform: rotate(120deg);
-                }
-                60% {
-                    transform: rotate(170deg);
-                }
-                80% {
-                    transform: rotate(220deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
+    /* Animação de rotação */
+    @keyframes girarBorda {
+        0% {
+            transform: rotate(10deg);
+        }
+        20% {
+            transform: rotate(70deg);
+        } 
+        40% {
+            transform: rotate(120deg);
+        }
+        60% {
+            transform: rotate(170deg);
+        }
+        80% {
+            transform: rotate(220deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 
 .user-info {
 min-width: 0;
@@ -1638,7 +1659,7 @@ RESPONSIVIDADE
     border: 1px solid var(--border);
     border-radius: 999px;
 
-    background: #17171f;
+    background: var(--bg-card);
 
     color: var(--text-secondary);
 

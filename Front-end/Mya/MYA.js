@@ -1316,7 +1316,7 @@ window.SpeechRecognition =
                     }
 
                     try {
-                        imageAudio.src = "../Imagens-Audios/carregandoAudio.png"
+                        imageAudio.src = "../Imagens-Audios/carregandoAudio.gif"
 
                         recognition.start();
 
@@ -1666,6 +1666,39 @@ async function enviarMensagem(mensagem) {
     }
 
 }
+
+// ============================================================
+// ALTERAR VISUALIZAÇÃO
+// ============================================================
+
+const alterarModo = document.getElementById("alterarModo");
+
+function aplicarModoSalvo() {
+
+    const modo = localStorage.getItem("modoYofi");
+
+    if (modo === "claro") {
+        document.body.classList.add("modo-claro");
+    }
+
+}
+
+aplicarModoSalvo();
+
+
+alterarModo?.addEventListener("click", () => {
+
+    document.body.classList.toggle("modo-claro");
+
+    const modoClaro =
+        document.body.classList.contains("modo-claro");
+
+    localStorage.setItem(
+        "modoYofi",
+        modoClaro ? "claro" : "escuro"
+    );
+
+});
 
 
 // ============================================================

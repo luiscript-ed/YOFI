@@ -1310,7 +1310,7 @@ function renderizarDashboard(dados) {
 
   if (MYAGIF) {
     MYAGIF.classList.add("active");
-}
+    }
 
 
     renderizarResumo(dados);
@@ -1323,10 +1323,7 @@ function renderizarDashboard(dados) {
 
     if (MYAGIF) {
     MYAGIF.classList.remove("active");
-}
-
-}
-
+}}
 
 // ============================================================
 // ÁUDIO DA MYA
@@ -1466,7 +1463,7 @@ async function solicitarPermissaoNotificacao() {
 
 function mostrarNotificacaoNavegador(
     notificacao
-) {
+    ) {
 
     if (
         !("Notification" in window)
@@ -1693,7 +1690,7 @@ async function carregarNotificacoes() {
 
 async function deletarNotificacao(
     notificacaoId
-) {
+    ) {
 
     if (!notificacaoId) {
         return;
@@ -1736,7 +1733,7 @@ async function deletarNotificacao(
 if (
     notificationBtn &&
     notificationPanel
-) {
+    ) {
 
     notificationBtn.addEventListener(
         "click",
@@ -1945,7 +1942,7 @@ const btnGastos =
 if (
     btnGastos &&
     resultadoMYA
-) {
+    ) {
 
     btnGastos.addEventListener(
         "click",
@@ -2057,7 +2054,7 @@ const btnEconomia =
 if (
     btnEconomia &&
     resultadoMYA
-) {
+    ) {
 
     btnEconomia.addEventListener(
         "click",
@@ -2140,7 +2137,7 @@ const painelIA =
 if (
     abrirIABtn &&
     painelIA
-) {
+    ) {
 
     abrirIABtn.addEventListener(
         "click",
@@ -2156,7 +2153,7 @@ if (
 if (
     fecharIABtn &&
     painelIA
-) {
+    ) {
 
     fecharIABtn.addEventListener(
         "click",
@@ -2168,6 +2165,38 @@ if (
     );
 }
 
+// ============================================================
+// ALTERAR VISUALIZAÇÃO
+// ============================================================
+
+const alterarModo = document.getElementById("alterarModo");
+
+function aplicarModoSalvo() {
+
+    const modo = localStorage.getItem("modoYofi");
+
+    if (modo === "claro") {
+        document.body.classList.add("modo-claro");
+    }
+
+}
+
+aplicarModoSalvo();
+
+
+alterarModo?.addEventListener("click", () => {
+
+    document.body.classList.toggle("modo-claro");
+
+    const modoClaro =
+        document.body.classList.contains("modo-claro");
+
+    localStorage.setItem(
+        "modoYofi",
+        modoClaro ? "claro" : "escuro"
+    );
+
+});
 
 // ============================================================
 // URL

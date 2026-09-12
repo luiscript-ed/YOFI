@@ -22,6 +22,71 @@
     --radius: 16px;
 }
 
+/* =========================================================
+   MODO CLARO
+   ========================================================= */
+
+body.modo-claro {
+
+    --bg-main: #f7f5fb;
+    --bg-sidebar: #ffffff;
+
+    --bg-card: #ffffff;
+    --bg-card-hover: #f8f5ff;
+
+    --border: #e5e0eb;
+
+    --text-primary: #27232d;
+    --text-secondary: #6f6878;
+    --text-muted: #958d9e;
+
+    --purple: #8b5cf6;
+    --purple-light: #8554f8;
+    --purple-dark: #6d28d9;
+
+    --bg-input: #f1edf6;
+    --alert-bg: #fff8e8;
+}
+
+
+/* =========================================================
+   ELEMENTOS QUE USAM CORES FIXAS
+   ========================================================= */
+
+body.modo-claro .app {
+    background: var(--bg-main);
+}
+
+body.modo-claro .topbar {
+    background: rgba(255, 255, 255, 0.94);
+}
+
+body.modo-claro .sidebar-link:hover {
+    background: #f3eff8;
+}
+
+body.modo-claro .menu-btn:hover,
+body.modo-claro .notification-btn:hover {
+    background: #f3eff8;
+}
+
+body.modo-claro .notification-panel {
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(40, 30, 60, 0.12);
+}
+
+body.modo-claro .userWarper > * {
+    background: #ffffff;
+}
+
+body.modo-claro .sidebar::-webkit-scrollbar-thumb {
+    background: #d8d2df;
+}
+
+body.modo-claro .sidebar::-webkit-scrollbar-thumb:hover {
+    background: #c4bccd;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -710,7 +775,7 @@ body {
 
     border-radius: 11px;
 
-    background: #101017;
+    background: var(--bg-input);
 
     color: var(--text-primary);
 

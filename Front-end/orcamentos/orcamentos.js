@@ -143,6 +143,39 @@ link.addEventListener("click", () => {
 });
 
 // ============================================================
+// ALTERAR VISUALIZAÇÃO
+// ============================================================
+
+const alterarModo = document.getElementById("alterarModo");
+
+function aplicarModoSalvo() {
+
+    const modo = localStorage.getItem("modoYofi");
+
+    if (modo === "claro") {
+        document.body.classList.add("modo-claro");
+    }
+
+}
+
+aplicarModoSalvo();
+
+
+alterarModo?.addEventListener("click", () => {
+
+    document.body.classList.toggle("modo-claro");
+
+    const modoClaro =
+        document.body.classList.contains("modo-claro");
+
+    localStorage.setItem(
+        "modoYofi",
+        modoClaro ? "claro" : "escuro"
+    );
+
+});
+
+// ============================================================
 // USUÁRIO
 // ============================================================
 
@@ -1014,27 +1047,27 @@ anoInput.value =
 // ============================================================
 
 function mostrarMensagem(
-texto,
-tipo
-) {
+    texto,
+    tipo
+    ) {
 
 
-mensagem.textContent =
-    texto;
+    mensagem.textContent =
+        texto;
 
-mensagem.className =
-    `form-message ${tipo}`;
-
-
-}
-
-function limparMensagem() {
+    mensagem.className =
+        `form-message ${tipo}`;
 
 
-mensagem.textContent = "";
+    }
 
-mensagem.className =
-    "form-message";
+    function limparMensagem() {
+
+
+    mensagem.textContent = "";
+
+    mensagem.className =
+        "form-message";
 
 
 }

@@ -12,6 +12,7 @@ font-family: Arial, Helvetica, sans-serif;
 :root {
 --bg-main: #08080b;
 --bg-sidebar: #0b0b0e;
+--otherMonth: #4f4f58;
 --bg-card:
 linear-gradient(
 145deg,
@@ -27,6 +28,7 @@ linear-gradient(
 --border: #29292f;
 --text-primary: #f5f5f7;
 --text-secondary: #a1a1aa;
+--caledario: #111114;
 --text-muted: #71717a;
 --purple: #8b5cf6;
 --purple-light: #a78bfa;
@@ -38,6 +40,72 @@ linear-gradient(
 --sidebar-width: 275px;
 --topbar-height: 72px;
 --radius: 18px;
+}
+
+/* =========================================================
+   MODO CLARO
+   ========================================================= */
+
+body.modo-claro {
+
+    --bg-main: #f7f5fb;
+    --bg-sidebar: #ffffff;
+
+    --bg-card: linear-gradient(145deg, #ffffff, #f8f5ff);
+    --bg-card-hover: linear-gradient(145deg, #f8f5ff, #f1edf6);
+
+    --border: #e5e0eb;
+
+    --text-primary: #27232d;
+    --text-secondary: #6f6878;
+    --text-muted: #958d9e;
+    --caledario: rgb(227, 200, 252);
+    
+    --purple: #8b5cf6;
+    --purple-light: #8b5cf6;
+    --purple-dark: #6d28d9;
+
+    --bg-input: #f1edf6;
+    --alert-bg: #fff8e8;
+}
+
+
+/* =========================================================
+   ELEMENTOS QUE USAM CORES FIXAS
+   ========================================================= */
+
+body.modo-claro .app {
+    background: var(--bg-main);
+}
+
+body.modo-claro .topbar {
+    background: rgba(255, 255, 255, 0.94);
+}
+
+body.modo-claro .sidebar-link:hover {
+    background: #f3eff8;
+}
+
+body.modo-claro .menu-btn:hover,
+body.modo-claro .notification-btn:hover {
+    background: #f3eff8;
+}
+
+body.modo-claro .notification-panel {
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(40, 30, 60, 0.12);
+}
+
+body.modo-claro .userWarper > * {
+    background: #ffffff;
+}
+
+body.modo-claro .sidebar::-webkit-scrollbar-thumb {
+    background: #d8d2df;
+}
+
+body.modo-claro .sidebar::-webkit-scrollbar-thumb:hover {
+    background: #c4bccd;
 }
 
 /* =========================================================
@@ -161,71 +229,71 @@ margin-bottom: 8px;
     object-fit: cover;
 }
 
- /* Container que segura o efeito */
-            .userWarper {
-                position: relative;
-                padding: 3px; /* Define a espessura da borda animada */
-                border-radius: 50%; /* Garante cantos arredondados */
-                overflow: hidden; /* Esconde o excesso da div que vai girar */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 20%;
-                height: 20;
-                max-width: 70px;
-            }
+/* Container que segura o efeito */
+.userWarper {
+    position: relative;
+    padding: 3px; /* Define a espessura da borda animada */
+    border-radius: 50%; /* Garante cantos arredondados */
+    overflow: hidden; /* Esconde o excesso da div que vai girar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 20;
+    max-width: 70px;
+}
 
-            /* Pseudo-elemento com a animação roxa */
-            .userWarper::before {
-                content: '';
-                position: absolute;
-                top: -150%;
-                left: -150%;
-                width: 400%;
-                height: 400%;
-                background: conic-gradient(
-                    from 0deg,
-                    transparent 0%,
-                    #9333EA 20%, /* Roxo principal */
-                    #5f23f8 50%, /* Roxo claro brilhante */
-                    #5f23f8 70%, /* Roxo escuro */
-                    transparent 100%
-                );
-                animation: girarBorda 5s linear infinite;
-                z-index: 1;
-            }
+/* Pseudo-elemento com a animação roxa */
+.userWarper::before {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -150%;
+    width: 400%;
+    height: 400%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        #9333EA 20%, /* Roxo principal */
+        #5f23f8 50%, /* Roxo claro brilhante */
+        #5f23f8 70%, /* Roxo escuro */
+        transparent 100%
+    );
+    animation: girarBorda 5s linear infinite;
+    z-index: 1;
+}
 
-            /* Fundo interno para o conteúdo não ser coberto pela animação */
-            .userWarper > * {
-                position: relative;
-                z-index: 2;
-                width: 100%;
-                background: #15151d; /* Cor de fundo do seu card */
-                border: none;
-                border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
-            }
+/* Fundo interno para o conteúdo não ser coberto pela animação */
+.userWarper > * {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    background: #15151d; /* Cor de fundo do seu card */
+    border: none;
+    border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
+}
 
-            /* Animação de rotação */
-            @keyframes girarBorda {
-                0% {
-                    transform: rotate(10deg);
-                }
-                20% {
-                    transform: rotate(70deg);
-                } 
-                40% {
-                    transform: rotate(120deg);
-                }
-                60% {
-                    transform: rotate(170deg);
-                }
-                80% {
-                    transform: rotate(220deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
+/* Animação de rotação */
+@keyframes girarBorda {
+    0% {
+        transform: rotate(10deg);
+    }
+    20% {
+        transform: rotate(70deg);
+    } 
+    40% {
+        transform: rotate(120deg);
+    }
+    60% {
+        transform: rotate(170deg);
+    }
+    80% {
+        transform: rotate(220deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
             
 .user-info {
 min-width: 0;
@@ -671,7 +739,7 @@ CÉLULA DO DIA
     padding: 10px;
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    background: #111114;
+    background: var(--caledario);
     transition: background 0.2s ease;
 
 
@@ -684,7 +752,7 @@ CÉLULA DO DIA
 }
 
 .calendar-day:hover {
-    background: #16161b;
+    background: var(--bg-card-hover);
 }
 
 .calendar-day:nth-child(7n) {
@@ -715,11 +783,11 @@ DIAS FORA DO MÊS
 ========================================================= */
 
 .calendar-day.other-month {
-    background: #0d0d10;
+    background: var(--otherMonth);
 }
 
 .calendar-day.other-month .calendar-day-number {
-    color: #4f4f58;
+    color: var(--text-muted);
 }
 
 
@@ -848,7 +916,7 @@ POPUP DE TRANSAÇÃO
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.65);
+    background: var(--bg-main);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     z-index: 5000;
@@ -858,7 +926,7 @@ POPUP DE TRANSAÇÃO
     position: relative;
     width: min(500px, 100%);
     background: #18181d;
-    border: 1px solid #303038;
+    border: 1px solid var(--border);
     border-radius: 20px;
     padding: 26px;
     box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);

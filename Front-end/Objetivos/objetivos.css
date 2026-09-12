@@ -22,6 +22,71 @@
     --radius: 16px;
 }
 
+/* =========================================================
+   MODO CLARO
+   ========================================================= */
+
+body.modo-claro {
+
+    --bg-main: #f7f5fb;
+    --bg-sidebar: #ffffff;
+
+    --bg-card: #ffffff;
+    --bg-card-hover: #f8f5ff;
+
+    --border: #e5e0eb;
+
+    --text-primary: #27232d;
+    --text-secondary: #6f6878;
+    --text-muted: #958d9e;
+
+    --purple: #8b5cf6;
+    --purple-light: #8b5cf6;
+    --purple-dark: #6d28d9;
+
+    --bg-input: #f1edf6;
+    --alert-bg: #fff8e8;
+}
+
+
+/* =========================================================
+   ELEMENTOS QUE USAM CORES FIXAS
+   ========================================================= */
+
+body.modo-claro .app {
+    background: var(--bg-main);
+}
+
+body.modo-claro .topbar {
+    background: rgba(255, 255, 255, 0.94);
+}
+
+body.modo-claro .sidebar-link:hover {
+    background: #f3eff8;
+}
+
+body.modo-claro .menu-btn:hover,
+body.modo-claro .notification-btn:hover {
+    background: #f3eff8;
+}
+
+body.modo-claro .notification-panel {
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(40, 30, 60, 0.12);
+}
+
+body.modo-claro .userWarper > * {
+    background: #ffffff;
+}
+
+body.modo-claro .sidebar::-webkit-scrollbar-thumb {
+    background: #d8d2df;
+}
+
+body.modo-claro .sidebar::-webkit-scrollbar-thumb:hover {
+    background: #c4bccd;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -159,71 +224,71 @@ body {
     object-fit: cover;
 }
 
- /* Container que segura o efeito */
-            .userWarper {
-                position: relative;
-                padding: 3px; /* Define a espessura da borda animada */
-                border-radius: 50%; /* Garante cantos arredondados */
-                overflow: hidden; /* Esconde o excesso da div que vai girar */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 20%;
-                height: 20;
-                max-width: 70px;
-            }
+/* Container que segura o efeito */
+.userWarper {
+    position: relative;
+    padding: 3px; /* Define a espessura da borda animada */
+    border-radius: 50%; /* Garante cantos arredondados */
+    overflow: hidden; /* Esconde o excesso da div que vai girar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 20;
+    max-width: 70px;
+}
 
-            /* Pseudo-elemento com a animação roxa */
-            .userWarper::before {
-                content: '';
-                position: absolute;
-                top: -150%;
-                left: -150%;
-                width: 400%;
-                height: 400%;
-                background: conic-gradient(
-                    from 0deg,
-                    transparent 0%,
-                    #9333EA 20%, /* Roxo principal */
-                    #5f23f8 50%, /* Roxo claro brilhante */
-                    #5f23f8 70%, /* Roxo escuro */
-                    transparent 100%
-                );
-                animation: girarBorda 5s linear infinite;
-                z-index: 1;
-            }
+/* Pseudo-elemento com a animação roxa */
+.userWarper::before {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -150%;
+    width: 400%;
+    height: 400%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        #9333EA 20%, /* Roxo principal */
+        #5f23f8 50%, /* Roxo claro brilhante */
+        #5f23f8 70%, /* Roxo escuro */
+        transparent 100%
+    );
+    animation: girarBorda 5s linear infinite;
+    z-index: 1;
+}
 
-            /* Fundo interno para o conteúdo não ser coberto pela animação */
-            .userWarper > * {
-                position: relative;
-                z-index: 2;
-                width: 100%;
-                background: #15151d; /* Cor de fundo do seu card */
-                border: none;
-                border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
-            }
+/* Fundo interno para o conteúdo não ser coberto pela animação */
+.userWarper > * {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    background: #15151d; /* Cor de fundo do seu card */
+    border: none;
+    border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
+}
 
-            /* Animação de rotação */
-            @keyframes girarBorda {
-                0% {
-                    transform: rotate(10deg);
-                }
-                20% {
-                    transform: rotate(70deg);
-                } 
-                40% {
-                    transform: rotate(120deg);
-                }
-                60% {
-                    transform: rotate(170deg);
-                }
-                80% {
-                    transform: rotate(220deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
+/* Animação de rotação */
+@keyframes girarBorda {
+    0% {
+        transform: rotate(10deg);
+    }
+    20% {
+        transform: rotate(70deg);
+    } 
+    40% {
+        transform: rotate(120deg);
+    }
+    60% {
+        transform: rotate(170deg);
+    }
+    80% {
+        transform: rotate(220deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 .user-info {
     min-width: 0;
@@ -747,7 +812,7 @@ body {
 
     border-radius: 11px;
 
-    background: #101017;
+    background: var(--bg-input);
 
     color: var(--text-primary);
 
@@ -767,7 +832,7 @@ body {
     border-color: var(--purple);
 
     box-shadow:
-        0 0 0 3px rgba(139, 92, 246, 0.12);
+        0 0 0 3px var(--purple-light);
 }
 
 .form-group input[type="date"] {
@@ -836,7 +901,7 @@ body {
 .secondary-btn {
     border: 1px solid var(--border);
 
-    background: #23232b;
+    background: var(--bg-input);
 
     color: var(--text-primary);
 }
@@ -941,9 +1006,9 @@ body {
     background:
         linear-gradient(
             135deg,
-            #181523 0%,
-            #111119 60%,
-            #0f0f15 100%
+            var(--bg-card) 0%,
+            var(--bg-card-hover) 60%,
+            var(--bg-card) 100%
         );
 
     border: 1px solid var(--border);
@@ -962,7 +1027,7 @@ body {
 .goal-card:hover {
     transform: translateY(-3px);
 
-    border-color: #40384f;
+    border-color: var(--border);
 }
 
 .goal-card.inactive {
@@ -982,7 +1047,7 @@ body {
 
     border-radius: 50%;
 
-    background: rgba(139, 92, 246, 0.10);
+    background: rgba(var(--purple-rgb), 0.10);
 
     pointer-events: none;
 }
@@ -1042,7 +1107,7 @@ body {
 }
 
 .goal-card.inactive .goal-status {
-    background: rgba(239, 68, 68, 0.1);
+    background: var(--text-primary);
 
     color: #f87171;
 }

@@ -1852,9 +1852,40 @@ frequenciaCusto.value;
         }
     }
 );
+}
+
+// ============================================================
+// ALTERAR VISUALIZAÇÃO
+// ============================================================
+
+const alterarModo = document.getElementById("alterarModo");
+
+function aplicarModoSalvo() {
+
+    const modo = localStorage.getItem("modoYofi");
+
+    if (modo === "claro") {
+        document.body.classList.add("modo-claro");
+    }
 
 }
 
+aplicarModoSalvo();
+
+
+alterarModo?.addEventListener("click", () => {
+
+    document.body.classList.toggle("modo-claro");
+
+    const modoClaro =
+        document.body.classList.contains("modo-claro");
+
+    localStorage.setItem(
+        "modoYofi",
+        modoClaro ? "claro" : "escuro"
+    );
+
+});
 // ============================================================
 // INICIALIZAÇÃO
 // ============================================================

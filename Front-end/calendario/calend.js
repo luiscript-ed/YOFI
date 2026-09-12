@@ -177,7 +177,7 @@ if (
     menuBtn &&
     sidebar &&
     app
-) {
+    ) {
 
     menuBtn.addEventListener(
         "click",
@@ -668,7 +668,7 @@ async function carregarCustosRecorrentes() {
 function ultimoDiaDoMes(
     ano,
     mes
-) {
+    ) {
 
     return new Date(
         ano,
@@ -680,7 +680,7 @@ function ultimoDiaDoMes(
 
 function gerarDatasCusto(
     custo
-) {
+    ) {
 
     const eventos = [];
 
@@ -916,7 +916,7 @@ function gerarDatasCusto(
 function adicionarEvento(
     mapa,
     evento
-) {
+    ) {
 
     const chave =
         obterChaveDia(
@@ -945,7 +945,7 @@ function prepararEventos(
     transacoes,
     reservadas,
     custos
-) {
+    ) {
 
     const mapa = {};
 
@@ -1623,6 +1623,38 @@ document.addEventListener(
     }
 );
 
+// ============================================================
+// ALTERAR VISUALIZAÇÃO
+// ============================================================
+
+const alterarModo = document.getElementById("alterarModo");
+
+function aplicarModoSalvo() {
+
+    const modo = localStorage.getItem("modoYofi");
+
+    if (modo === "claro") {
+        document.body.classList.add("modo-claro");
+    }
+
+}
+
+aplicarModoSalvo();
+
+
+alterarModo?.addEventListener("click", () => {
+
+    document.body.classList.toggle("modo-claro");
+
+    const modoClaro =
+        document.body.classList.contains("modo-claro");
+
+    localStorage.setItem(
+        "modoYofi",
+        modoClaro ? "claro" : "escuro"
+    );
+
+});
 
 // ============================================================
 // CARREGAR CALENDÁRIO
@@ -1920,7 +1952,7 @@ window.deletarNotificacao =
 if (
     notificationBtn &&
     notificationPanel
-) {
+    ) {
 
     notificationBtn.addEventListener(
         "click",
