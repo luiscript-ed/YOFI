@@ -59,7 +59,7 @@ body.modo-claro {
     --text-primary: #27232d;
     --text-secondary: #6f6878;
     --text-muted: #958d9e;
-    --caledario: rgb(227, 200, 252);
+    --caledario: rgb(245, 233, 255);
     
     --purple: #8b5cf6;
     --purple-light: #8b5cf6;
@@ -638,7 +638,7 @@ CABEÇALHO DO CALENDÁRIO
     justify-content: center;
     position: relative;
     border-bottom: 1px solid var(--border);
-    background: #121216;
+    background: var(--bg-input);
 }
 
 .calendar-month-info {
@@ -693,7 +693,7 @@ DIAS DA SEMANA
 .calendar-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    background: #0d0d10;
+    background: var(--bg-card);
     border-bottom: 1px solid var(--border);
 }
 
@@ -706,7 +706,7 @@ DIAS DA SEMANA
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.7px;
-    border-right: 1px solid var(--border);
+    border-right: 1px solid var(--bg-card);
 }
 
 .calendar-weekdays div:last-child {
@@ -737,9 +737,9 @@ CÉLULA DO DIA
 
     min-width: 0;
     padding: 10px;
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background: var(--caledario);
+    border-right: 1px solid var(--bg-card);
+    border-bottom: 1px solid var(--bg-card);
+    background: var(--bg-card-hover);
     transition: background 0.2s ease;
 
 
@@ -752,7 +752,7 @@ CÉLULA DO DIA
 }
 
 .calendar-day:hover {
-    background: var(--bg-card-hover);
+    background: var(--caledario);
 }
 
 .calendar-day:nth-child(7n) {
