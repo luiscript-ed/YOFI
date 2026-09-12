@@ -1316,7 +1316,7 @@ window.SpeechRecognition =
                     }
 
                     try {
-                        imageAudio.src = "../Imagens-Audios/carregandoAudio.gif"
+                        imageAudio.src = "../Imagens-Audios/homepage/carregandoAudio.gif"
 
                         recognition.start();
 
