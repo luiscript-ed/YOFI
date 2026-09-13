@@ -960,7 +960,7 @@ body {
 .account-card {
     position: relative;
 
-    background: #111119;
+    background: var(--bg-input);
 
     border: 1px solid var(--border);
 
@@ -1082,7 +1082,7 @@ body {
 
     border-radius: 9px;
 
-    background: #191921;
+    background: var(--bg-card);
 
     color: var(--text-secondary);
 
@@ -1098,7 +1098,7 @@ body {
 }
 
 .account-action:hover {
-    background: #21212a;
+    background: var(--bg-card-hover);
 
     color: var(--text-primary);
 }

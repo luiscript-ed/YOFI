@@ -576,70 +576,70 @@ margin-bottom: 8px;
 }
 
 /* Container que segura o efeito */
-    .userWarper {
-        position: relative;
-        padding: 3px; /* Define a espessura da borda animada */
-        border-radius: 50%; /* Garante cantos arredondados */
-        overflow: hidden; /* Esconde o excesso da div que vai girar */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 20%;
-        height: 20;
-        max-width: 70px;
-    }
+.userWarper {
+    position: relative;
+    padding: 3px; /* Define a espessura da borda animada */
+    border-radius: 50%; /* Garante cantos arredondados */
+    overflow: hidden; /* Esconde o excesso da div que vai girar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 20;
+    max-width: 70px;
+}
 
-    /* Pseudo-elemento com a animação roxa */
-    .userWarper::before {
-        content: '';
-        position: absolute;
-        top: -150%;
-        left: -150%;
-        width: 400%;
-        height: 400%;
-        background: conic-gradient(
-            from 0deg,
-            transparent 0%,
-            #9333EA 20%, /* Roxo principal */
-            #5f23f8 50%, /* Roxo claro brilhante */
-            #5f23f8 70%, /* Roxo escuro */
-            transparent 100%
-        );
-        animation: girarBorda 5s linear infinite;
-        z-index: 1;
-    }
+/* Pseudo-elemento com a animação roxa */
+.userWarper::before {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -150%;
+    width: 400%;
+    height: 400%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        #9333EA 20%, /* Roxo principal */
+        #5f23f8 50%, /* Roxo claro brilhante */
+        #5f23f8 70%, /* Roxo escuro */
+        transparent 100%
+    );
+    animation: girarBorda 5s linear infinite;
+    z-index: 1;
+}
 
-    /* Fundo interno para o conteúdo não ser coberto pela animação */
-    .userWarper > * {
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        background: #15151d; /* Cor de fundo do seu card */
-        border: none;
-        border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
-    }
+/* Fundo interno para o conteúdo não ser coberto pela animação */
+.userWarper > * {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    background: #15151d; /* Cor de fundo do seu card */
+    border: none;
+    border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
+}
 
-    /* Animação de rotação */
-    @keyframes girarBorda {
-        0% {
-            transform: rotate(10deg);
-        }
-        20% {
-            transform: rotate(70deg);
-        } 
-        40% {
-            transform: rotate(120deg);
-        }
-        60% {
-            transform: rotate(170deg);
-        }
-        80% {
-            transform: rotate(220deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
+/* Animação de rotação */
+@keyframes girarBorda {
+    0% {
+        transform: rotate(10deg);
     }
+    20% {
+        transform: rotate(70deg);
+    } 
+    40% {
+        transform: rotate(120deg);
+    }
+    60% {
+        transform: rotate(170deg);
+    }
+    80% {
+        transform: rotate(220deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 .user-info {
 min-width: 0;
@@ -689,22 +689,16 @@ gap: 4px;
 
 .sidebar-link {
 position: relative;
-
 display: flex;
 align-items: center;
-
 gap: 14px;
-
 min-height: 46px;
 
 padding: 10px 13px;
-
 border-radius: 12px;
-
 color: var(--text-secondary);
 
 text-decoration: none;
-
 font-size: 15px;
 font-weight: 500;
 
@@ -734,7 +728,6 @@ position: absolute;
 left: 0;
 top: 8px;
 bottom: 8px;
-
 width: 3px;
 
 background: var(--purple);
@@ -1171,15 +1164,11 @@ width: 100%;
 height: 46px;
 
 border: 1px solid var(--border);
-
 border-radius: 11px;
-
 background: #101017;
 
 color: var(--text-primary);
-
 padding: 0 13px;
-
 font-family: inherit;
 
 outline: none;
@@ -1195,10 +1184,7 @@ transition:
 .form-group select:focus {
 border-color: var(--purple);
 
-
 box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
-
-
 }
 
 .money-input {
@@ -1257,8 +1243,6 @@ cursor: pointer;
 transition:
     transform 0.2s ease,
     opacity 0.2s ease;
-
-
 }
 
 .primary-btn {
@@ -1615,6 +1599,7 @@ RESPONSIVIDADE
     overflow: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    border: 30%;
 }
   .mya-suggestions::-webkit-scrollbar {
     display: none;

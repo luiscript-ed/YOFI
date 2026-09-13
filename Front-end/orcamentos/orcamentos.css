@@ -1136,19 +1136,13 @@ font-size: 14px;
 
 .progress-bar {
 width: 100%;
-
-
 height: 8px;
 
 overflow: hidden;
 
 border-radius: 20px;
-
 background: var(--bg-card);
-
 margin: 13px 0 9px;
-
-
 }
 
 .progress-fill {
@@ -1160,10 +1154,7 @@ width: 0%;
 border-radius: inherit;
 
 background: var(--purple);
-
 transition: width 0.4s ease;
-
-
 }
 
 .progress-fill.warning {
@@ -1180,55 +1171,37 @@ display: flex;
 justify-content: space-between;
 
 color: var(--text-muted);
-
 font-size: 10px;
-
-
 }
 
 .budget-actions {
 display: flex;
-
-
 justify-content: flex-end;
 
 gap: 8px;
 
 margin-top: 17px;
-
-
 }
 
 .budget-action {
 border: 1px solid var(--border);
-
-
-background: #191921;
+background: var(--alert-bg);
 
 color: var(--text-secondary);
 
 padding: 7px 11px;
-
 border-radius: 9px;
 
 font-family: inherit;
-
 font-size: 11px;
 
 cursor: pointer;
-
 transition: 0.2s;
-
-
 }
 
 .budget-action:hover {
 color: var(--text-primary);
-
-
 background: #21212a;
-
-
 }
 
 .budget-action.delete:hover {

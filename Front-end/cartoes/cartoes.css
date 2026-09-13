@@ -997,14 +997,12 @@ body {
     display: block;
 }
 
-/* Camada das Informações (Frente) */
 .card-layer-front {
     position: relative;
     z-index: 2;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Estado Invertido (Quando clica para trocar) */
 .card-stack.flipped .card-layer-back {
     top: 0;
     left: 0;
@@ -1051,9 +1049,9 @@ body {
     background:
         linear-gradient(
             135deg,
-            #1a1726 0%,
-            #12121a 50%,
-            #0e0e14 100%
+            var(--alert-bg) 0%,
+            var(--bg-input) 50%,
+            var(--bg-input) 100%
         );
 
     border: 1px solid #34313f;
@@ -1331,7 +1329,7 @@ body {
 }
 
 .card-action:hover {
-    background: #21212a;
+    background: var(--bg-card-hover);
 
     color: var(--text-primary);
 }
