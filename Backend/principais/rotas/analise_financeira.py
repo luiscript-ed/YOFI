@@ -1,13 +1,13 @@
 import psycopg2
 import os
-from principais.mya import perguntar_mya
+from Backend.principais.rotas.mya import perguntar_mya
 
 def analisar_usuario(usuario_id):
 
     conn = psycopg2.connect(
     os.environ["DATABASE_URL"],
     sslmode="require"
-)
+    )
     
     cursor = conn.cursor()
 
@@ -56,38 +56,39 @@ def analisar_usuario(usuario_id):
             total_ganhos += valor
 
     prompt = f"""
-Analise os dados financeiros abaixo.
+    Analise os dados financeiros abaixo.
 
-Transações:
+    Transações:
 
-{resumo}
+    {resumo}
 
-Total de ganhos:
-R${total_ganhos}
+    Total de ganhos:
+    R${total_ganhos}
 
-Total de gastos:
-R${total_gastos}
+    Total de gastos:
+    R${total_gastos}
 
-Forneça Uma mensagem curta para notificação com as seguintes informações:
-1. Resumo financeiro
-2. Possível problema
-3. Sugestão prática
-tente ser o mais breve possivel, não use negrito, pense que voce está enviando somente o corpo de uma notificação, ao fim da notificação, não adicione uma pergunta, como "Voce quer que faça tal coisa?", seja breve.
-"""
+    Forneça Uma mensagem curta para notificação com as seguintes informações:
+    1. Resumo financeiro
+    2. Possível problema
+    3. Sugestão prática
+    tente ser o mais breve possivel, não use negrito, pense que voce está enviando somente o corpo de uma notificação, ao fim da notificação, não adicione uma pergunta, como "Voce quer que faça tal coisa?", seja breve.
+    """
 
     return perguntar_mya(
-    pergunta=prompt,
-    contexto_financeiro={},
-    imagem = {},
-    usuario_id=usuario_id,
-)
+        pergunta=prompt,
+        contexto_financeiro={},
+        imagem = {},
+        usuario_id=usuario_id,
+    )
 
 def categorias_principais(usuario_id):
 
     conn = psycopg2.connect(
     os.environ["DATABASE_URL"],
     sslmode="require"
-)
+    )
+
     cursor = conn.cursor()
 
     cursor.execute(
@@ -120,7 +121,7 @@ def gerar_dicas_economia(usuario_id):
     conn = psycopg2.connect(
     os.environ["DATABASE_URL"],
     sslmode="require"
-)
+    )
     cursor = conn.cursor()
 
     cursor.execute(
@@ -158,20 +159,20 @@ def gerar_dicas_economia(usuario_id):
         total += gasto[1]
 
     prompt = f"""
-Analise os gastos abaixo.
+    Analise os gastos abaixo.
 
-{texto}
+    {texto}
 
-Total gasto:
-R${total}
+    Total gasto:
+    R${total}
 
-Dê 3 dicas práticas para economizar.
-Responda em português.
-"""
+    Dê 3 dicas práticas para economizar.
+    Responda em português.
+    """
 
     return perguntar_mya(
-    pergunta=prompt,
-    contexto_financeiro={},
-    imagem = {},
-    usuario_id=usuario_id,
+        pergunta=prompt,
+        contexto_financeiro={},
+        imagem = {},
+        usuario_id=usuario_id,
 )

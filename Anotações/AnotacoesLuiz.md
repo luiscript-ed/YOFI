@@ -1,8 +1,8 @@
 # ideias YOFI CORPORATE
 
-- [ ] Adicionar sistema de receitas recorrentes, 
-- [ ] ciclo de capital, 
-- [ ] melhor assistência para salário 
+- [ ] Adicionar sistema de receitas recorrentes,
+- [ ] ciclo de capital,
+- [ ] melhor assistência para salário
 - [ ] melhor assistência para custos recorrentes
 - [ ] Adicionar diversos "Tipos" de negócio
 - [ ] Painel ADM para dono da empresa
@@ -18,7 +18,7 @@
 - [ ] Adicionar autentificação com Microsoft
 - [ ] Adicionar autentificação com Aplle
 - [ ] Adicionar sistema de leitura de notificações no android
-
+- [ ] Adicionar Models no Schemas e as rotas na Rotas além de noti
 
 # 🔐 Melhorias de Segurança — YOFI
 
@@ -44,29 +44,29 @@
 Backend/
 │
 ├── principais/
-│   ├── main.py
-│   ├── banco.py          
-│   │
-│   ├── auth/
-│   │   ├── login.py
-│   │   ├── cadastro.py
-│   │   └── google.py
-│   │
-│   ├── rotas/
-│   │   ├── contas.py
-│   │   ├── cartoes.py
-│   │   ├── transacoes.py
-│   │   ├── dashboard.py
-│   │   ├── objetivos.py
-│   │   ├── orcamentos.py
-│   │   ├── notificacoes.py
-│   │   ├── categorias.py
-│   │   └── mya.py
-│   │
-│   │
-│   └── utils/
-│       ├── autenticacao.py
-│       ├── seguranca.py
-│       └── validacoes.py
+│ ├── main.py
+│ ├── banco.py  
+│ │
+│ ├── auth/
+│ │ ├── login.py
+│ │ ├── cadastro.py
+│ │ └── google.py
+│ │
+│ ├── rotas/
+│ │ ├── contas.py
+│ │ ├── cartoes.py
+│ │ ├── transacoes.py
+│ │ ├── dashboard.py
+│ │ ├── objetivos.py
+│ │ ├── orcamentos.py
+│ │ ├── notificacoes.py
+│ │ ├── categorias.py
+│ │ └── mya.py
+│ │
+│ │
+│ └── utils/
+│ ├── autenticacao.py
+│ ├── seguranca.py
+│ └── validacoes.py
 │
 └── requirements.txt

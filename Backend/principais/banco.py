@@ -6,17 +6,19 @@ import jwt
 
 import json
 from typing import List, Optional
+import psycopg2
+import os
 
 import calendar
 from datetime import datetime, timezone, timedelta, date, time
 
-from principais.mya import perguntar_mya
-from principais.analise_financeira import analisar_usuario 
+from Backend.principais.rotas.mya import perguntar_mya
+from Backend.principais.rotas.analise_financeira import analisar_usuario 
 
-from principais.analise_financeira import categorias_principais
+from Backend.principais.rotas.analise_financeira import categorias_principais
 from secundarios.notify import criar_notificacao
 from secundarios.scheduler import scheduler
-from principais.analise_financeira import gerar_dicas_economia
+from Backend.principais.rotas.analise_financeira import gerar_dicas_economia
 
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
@@ -48,8 +50,7 @@ password_hash = PasswordHash.recommended()
 # BANCO DE DADOS
 # ==========================================
 
-import psycopg2
-import os
+
 
 JWT_SECRET = os.getenv("JWT_SECRET")
 
@@ -1542,7 +1543,7 @@ def deletar_orcamento(
 def criar_objetivo(
     objetivo: ObjetivoCreate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     if objetivo.valor_atual > objetivo.valor_meta:
         raise HTTPException(
@@ -1597,7 +1598,7 @@ def criar_objetivo(
 @app.get("/objetivos")
 def listar_objetivos(
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1648,7 +1649,7 @@ def listar_objetivos(
 def obter_objetivo(
     objetivo_id: int,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1700,7 +1701,7 @@ def atualizar_objetivo(
     objetivo_id: int,
     objetivo: ObjetivoUpdate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     if objetivo.valor_atual > objetivo.valor_meta:
         raise HTTPException(
@@ -1759,7 +1760,7 @@ def atualizar_objetivo(
 def deletar_objetivo(
     objetivo_id: int,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1800,7 +1801,7 @@ def deletar_objetivo(
 def criar_cartao(
     cartao: CartaoCreate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1858,7 +1859,7 @@ def criar_cartao(
 @app.get("/cartoes")
 def listar_cartoes(
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -1937,7 +1938,7 @@ def listar_cartoes(
 def obter_cartao(
     cartao_id: int,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -2018,7 +2019,7 @@ def atualizar_cartao(
     cartao_id: int,
     cartao: CartaoUpdate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -2073,7 +2074,7 @@ def atualizar_cartao(
 def deletar_cartao(
     cartao_id: int,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
@@ -2770,7 +2771,7 @@ def criar_movimentacao(
 def criar_transacao_reservada(
     transacao: TransacaoReservadaCreate,
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
     if transacao.tipo not in ["ganho", "gasto"]:
         raise HTTPException(
             status_code=400,
@@ -4117,7 +4118,7 @@ def deletar_notificacao(
 @app.delete("/notificacoes")
 def deletar_todas_notificacoes(
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()
