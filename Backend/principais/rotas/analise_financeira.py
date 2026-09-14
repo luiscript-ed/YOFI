@@ -1,6 +1,20 @@
 import psycopg2
 import os
 from Backend.principais.rotas.mya import perguntar_mya
+from fastapi import HTTPException, Request, APIRouter
+from datetime import datetime, timezone, date
+import calendar
+
+from principais.banco import conectar
+from principais.schemas.custos import CustoRecorrenteCreate
+from principais.utils.autenticacao import obter_usuario_autenticado
+from principais.utils.notificacao import criar_notificacoes
+from secundarios.notify import criar_notificacao
+
+router = APIRouter(
+    prefix="/",
+    tags=["variados"]
+)
 
 def analisar_usuario(usuario_id):
 
@@ -176,3 +190,49 @@ def gerar_dicas_economia(usuario_id):
         imagem = {},
         usuario_id=usuario_id,
 )
+
+
+@router.get("categorias")
+def top_categorias(
+    request: Request
+    ):
+
+    usuario_id = obter_usuario_autenticado(request)
+
+    categorias = categorias_principais(usuario_id)
+
+    return {
+        "categorias": [
+            {
+                "categoria": c[0],
+                "valor": c[1]
+            }
+            for c in categorias
+        ]
+    }
+
+@router.get("economia")
+def economia(
+    request: Request
+    ):
+
+    usuario_id = obter_usuario_autenticado(request)
+
+    return {
+        "dicas": gerar_dicas_economia(
+            usuario_id
+        )
+    }
+
+@router.get("analise")
+def analise(
+    request: Request
+    ):
+
+    usuario_id = obter_usuario_autenticado(request)
+
+    resultado = analisar_usuario(usuario_id)
+
+    return {
+        "analise": resultado
+    }

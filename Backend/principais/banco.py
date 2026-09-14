@@ -16,7 +16,7 @@ from Backend.principais.rotas.mya import perguntar_mya
 from Backend.principais.rotas.analise_financeira import analisar_usuario 
 
 from Backend.principais.rotas.analise_financeira import categorias_principais
-from secundarios.notify import criar_notificacao
+from secundarios.notify import icacao
 from secundarios.scheduler import scheduler
 from Backend.principais.rotas.analise_financeira import gerar_dicas_economia
 
@@ -4149,7 +4149,7 @@ def deletar_todas_notificacoes(
 @app.get("/me")
 def usuario_atual(
     usuario_id: int = Depends(obter_usuario_autenticado)
-):
+    ):
 
     conn = conectar()
     cursor = conn.cursor()

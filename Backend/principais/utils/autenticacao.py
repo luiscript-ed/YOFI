@@ -1,7 +1,9 @@
 import os
-from fastapi import FastAPI, HTTPException, Request, Response, Depends, UploadFile, File, Form
-from pwdlib import PasswordHash
 import jwt
+
+from datetime import datetime, timezone, timedelta
+from fastapi import HTTPException, Request
+
 
 JWT_SECRET = os.getenv("JWT_SECRET")
 
@@ -49,4 +51,18 @@ def obter_usuario_autenticado(request: Request):
             status_code=401,
             detail="Token inválido."
         )
-  
+
+def criar_token(usuario_id: int):
+
+    payload = {
+        "usuario_id": usuario_id,
+        "exp": datetime.now(timezone.utc) + timedelta(minutes=30)
+    }
+
+    token = jwt.encode(
+        payload,
+        JWT_SECRET,
+        algorithm="HS256"
+    )
+
+    return token

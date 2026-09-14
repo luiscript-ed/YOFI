@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from datetime import datetime, date
+from datetime import date
 
 class ObjetivoCreate(BaseModel):
     nome: str

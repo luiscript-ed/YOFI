@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 
 # Rotas
+
 from principais.rotas.cadastro import router as cadastro_router
 from principais.rotas.login import router as login_router
 from principais.rotas.logout import router as logout_router
 from principais.rotas.contas import router as contas_router
 from principais.rotas.cartoes import router as cartoes_router
-from principais.rotas.transacoes import router as transacoes_router
+from principais.rotas.transacao import router as transacoes_router
 from principais.rotas.objetivos import router as objetivos_router
 from principais.rotas.orcamentos import router as orcamentos_router
 from principais.rotas.dashboard import router as dashboard_router

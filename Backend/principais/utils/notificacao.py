@@ -1,7 +1,6 @@
 from fastapi import HTTPException, Request, APIRouter
 
 from principais.banco import conectar
-from principais.schemas.conta import ContaCriar, ContaUpdate
 from principais.utils.autenticacao import obter_usuario_autenticado
 
 router = APIRouter(
@@ -11,9 +10,10 @@ router = APIRouter(
 
 @router.get("/")
 def listar_notificacoes(
-    usuario_id: int = Depends(obter_usuario_autenticado)
+    request: Request
     ):
 
+    usuario_id = obter_usuario_autenticado(request)
     conn = conectar()
     cursor = conn.cursor()
 
@@ -48,11 +48,12 @@ def listar_notificacoes(
         conn.close()
 
 
-@app.get("/notificacoes/contador")
+@router.get("/contador")
 def contar_notificacoes(
-    usuario_id: int = Depends(obter_usuario_autenticado)
+    request: Request
     ):
 
+    usuario_id = obter_usuario_autenticado(request)
     conn = conectar()
     cursor = conn.cursor()
 
@@ -78,12 +79,13 @@ def contar_notificacoes(
         conn.close()
 
 
-@app.delete("/notificacoes/{notificacao_id}")
+@router.delete("/{notificacao_id}")
 def deletar_notificacao(
     notificacao_id: int,
-    usuario_id: int = Depends(obter_usuario_autenticado)
+    request: Request
     ):
 
+    usuario_id = obter_usuario_autenticado(request)
     conn = conectar()
     cursor = conn.cursor()
 
@@ -118,11 +120,12 @@ def deletar_notificacao(
         conn.close()
 
 
-@app.delete("/notificacoes")
+@router.delete("/")
 def deletar_todas_notificacoes(
-    usuario_id: int = Depends(obter_usuario_autenticado)
+    request: Request
     ):
 
+    usuario_id = obter_usuario_autenticado(request)
     conn = conectar()
     cursor = conn.cursor()
 
