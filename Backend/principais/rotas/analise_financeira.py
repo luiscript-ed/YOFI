@@ -124,7 +124,7 @@ def categorias_principais(usuario_id):
 
     return resultado
 
-def gerar_dicas_economia(usuario_id):
+async def gerar_dicas_economia(usuario_id):
 
     conn = psycopg2.connect(
     os.environ["DATABASE_URL"],
@@ -178,7 +178,7 @@ def gerar_dicas_economia(usuario_id):
     Responda em português.
     """
 
-    return perguntar_mya(
+    return await perguntar_mya(
         pergunta=prompt,
         contexto_financeiro={},
         imagem = {},
@@ -219,7 +219,7 @@ def economia(
     }
 
 @router.get("/analise")
-def analise(
+async def analise(
     request: Request
     ):
 
@@ -232,13 +232,13 @@ def analise(
     }
 
 @router.post("/mya")
-def conversar_mya(
+async def conversar_mya(
     dados: PerguntaMYA,
     request: Request
     ):
 
     usuario_id = obter_usuario_autenticado(request)
-    resposta = perguntar_mya(dados.pergunta)
+    resposta = await perguntar_mya(dados.pergunta)
 
     return {
         "resposta": resposta
