@@ -11,7 +11,7 @@ router = APIRouter(
     tags=["Transacoes"]
 )
 
-@router.post("/")
+@router.post("")
 def criar_transacao(
     transacao: TransacaoCreate,
     request: Request
@@ -126,7 +126,7 @@ def criar_transacao(
         conn.close()
 
 
-@router.get("/")
+@router.get("")
 def listar_transacoes(
     request: Request
     ):

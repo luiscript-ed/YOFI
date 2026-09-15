@@ -6,12 +6,11 @@ from principais.utils.seguranca import gerar_hash_senha
 import psycopg2
 
 router = APIRouter(
-    prefix="/cadastro",
     tags=["Cadastro"]
 )
 
 
-@router.post("/")
+@router.post("/cadastro")
 def cadastrar_usuario(dados: UsuarioCadastro):
 
     conexao = conectar()

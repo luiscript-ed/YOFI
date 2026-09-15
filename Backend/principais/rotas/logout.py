@@ -1,11 +1,10 @@
 from fastapi import APIRouter, Response
 
 router = APIRouter(
-    prefix="/logout",
     tags=["Logout"]
 )
 
-@router.post("/")
+@router.post("/logout")
 def logout(response: Response):
 
     response.delete_cookie(

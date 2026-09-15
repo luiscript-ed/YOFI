@@ -11,7 +11,7 @@ router = APIRouter(
     tags=["Objetivos"]
 )
 
-@router.post("/")
+@router.post("")
 def criar_objetivo(
     objetivo: ObjetivoCreate,
     request: Request
@@ -74,7 +74,7 @@ def criar_objetivo(
         conn.close()
 
 
-@router.get("/")
+@router.get("")
 def listar_objetivos(
     request: Request
     ):

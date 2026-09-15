@@ -22,7 +22,7 @@ if not GOOGLE_CLIENT_ID:
     raise RuntimeError("GOOGLE_CLIENT_ID não configurado.")
 
 
-@router.post("/")
+@router.post("")
 def login(usuario: UsuarioLogin, response: Response):
 
     conn = conectar()

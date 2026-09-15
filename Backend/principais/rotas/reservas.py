@@ -67,7 +67,7 @@ def validar_destino_financeiro(
             )
 
 
-@router.post("/")
+@router.post("")
 def criar_transacao_reservada(
     transacao: TransacaoReservadaCreate,
     request: Request
@@ -148,7 +148,7 @@ def criar_transacao_reservada(
         cursor.close()
         conn.close()
 
-@router.get("/")
+@router.get("")
 def listar_transacoes_reservadas(
     request: Request
     ):

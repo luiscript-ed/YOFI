@@ -8,7 +8,7 @@ router = APIRouter(
     tags=["Dashboard"]
 )
 
-@router.get("/")
+@router.get("")
 def dashboard(
     mes: int,
     ano: int,

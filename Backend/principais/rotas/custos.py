@@ -131,7 +131,7 @@ def validar_destino_financeiro(
             )
 
 
-@router.post("/")
+@router.post("")
 def criar_custo_recorrente(
     custo: CustoRecorrenteCreate,
     request: Request
@@ -262,7 +262,7 @@ def criar_custo_recorrente(
         cursor.close()
         conn.close()
 
-@router.get("/")
+@router.get("")
 def listar_custos_recorrentes(
     request: Request
     ):

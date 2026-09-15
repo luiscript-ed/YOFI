@@ -11,7 +11,7 @@ router = APIRouter(
     tags=["Cartoes"]
 )
 
-@router.post("/")
+@router.post("")
 def criar_cartao(
     cartao: CartaoCreate,
     request: Request
@@ -71,7 +71,7 @@ def criar_cartao(
         conn.close()
 
 
-@router.get("/")
+@router.get("")
 def listar_cartoes(
     request: Request
     ):

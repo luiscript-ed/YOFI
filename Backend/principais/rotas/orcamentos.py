@@ -11,7 +11,7 @@ router = APIRouter(
     tags=["Orcamentos"]
 )
 
-@router.post("/")
+@router.post("")
 def criar_orcamento(
     orcamento: OrcamentoCreate,
     request: Request
@@ -89,7 +89,7 @@ def criar_orcamento(
         conn.close()
 
 
-@router.get("/")
+@router.get("")
 def listar_orcamentos(
     request: Request
     ):

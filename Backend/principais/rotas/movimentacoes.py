@@ -6,11 +6,10 @@ from principais.utils.autenticacao import obter_usuario_autenticado
 from secundarios.notify import criar_notificacao
 
 router = APIRouter(
-    prefix="/movimentacoes",
     tags=["Movimentacoes"]
 )
 
-@router.post("/")
+@router.post("/movimentacoes")
 def criar_movimentacao(
     movimentacao: MovimentacaoCreate,
     request: Request

@@ -11,7 +11,7 @@ router = APIRouter(
     tags=["Contas"]
 )
 
-@router.post("/")
+@router.post("")
 def criar_conta(
     dados: ContaCriar,
     request: Request
@@ -68,7 +68,7 @@ def criar_conta(
         conn.close()
 
 
-@router.get("/")
+@router.get("")
 def listar_contas(
     request: Request
     ):

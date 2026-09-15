@@ -6,7 +6,6 @@ from fastapi import Request, APIRouter
 from principais.utils.autenticacao import obter_usuario_autenticado
 
 router = APIRouter(
-    prefix="/",
     tags=["variados"]
 )
 
@@ -186,7 +185,7 @@ def gerar_dicas_economia(usuario_id):
 )
 
 
-@router.get("categorias")
+@router.get("/categorias")
 def top_categorias(
     request: Request
     ):
@@ -205,7 +204,7 @@ def top_categorias(
         ]
     }
 
-@router.get("economia")
+@router.get("/economia")
 def economia(
     request: Request
     ):
@@ -218,7 +217,7 @@ def economia(
         )
     }
 
-@router.get("analise")
+@router.get("/analise")
 def analise(
     request: Request
     ):

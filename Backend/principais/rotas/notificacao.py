@@ -8,7 +8,7 @@ router = APIRouter(
     tags=["Notificacoes"]
 )
 
-@router.get("/")
+@router.get("")
 def listar_notificacoes(
     request: Request
     ):
@@ -120,7 +120,7 @@ def deletar_notificacao(
         conn.close()
 
 
-@router.delete("/")
+@router.delete("")
 def deletar_todas_notificacoes(
     request: Request
     ):
