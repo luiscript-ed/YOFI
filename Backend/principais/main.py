@@ -16,7 +16,6 @@ from principais.rotas.objetivos import router as objetivos_router
 from principais.rotas.orcamentos import router as orcamentos_router
 
 from principais.rotas.dashboard import router as dashboard_router
-from principais.rotas.mya import router as mya_router
 from principais.rotas.reservas import router as reservas_router
 
 from principais.rotas.custos import router as custos_router

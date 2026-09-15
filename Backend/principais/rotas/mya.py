@@ -286,7 +286,7 @@ async def perguntar_mya(
     usuario_id=None,
     contexto_financeiro=None,
     imagem=None
-):
+    ):
 
     
     if contexto_financeiro is None:
@@ -308,30 +308,30 @@ async def perguntar_mya(
         )
 
         mensagem_usuario = f"""
-Pergunta do usuário:
+    Pergunta do usuário:
 
-{pergunta}
-
-
-Dados financeiros reais do usuário:
-
-{contexto}
+    {pergunta}
 
 
-IMPORTANTE:
+    Dados financeiros reais do usuário:
 
-Os dados financeiros acima pertencem ao usuário autenticado.
+    {contexto}
 
-Use esses dados para responder à pergunta quando forem relevantes.
 
-Não invente valores.
+    IMPORTANTE:
 
-Se um dado não estiver presente nos dados fornecidos, diga que não possui essa informação.
+    Os dados financeiros acima pertencem ao usuário autenticado.
 
-Não trate exemplos como dados reais.
+    Use esses dados para responder à pergunta quando forem relevantes.
 
-Quando mencionar valores financeiros, utilize os valores presentes nos dados fornecidos.
-"""
+    Não invente valores.
+
+    Se um dado não estiver presente nos dados fornecidos, diga que não possui essa informação.
+
+    Não trate exemplos como dados reais.
+
+    Quando mencionar valores financeiros, utilize os valores presentes nos dados fornecidos.
+    """
 
         conteudo_usuario = [
             {

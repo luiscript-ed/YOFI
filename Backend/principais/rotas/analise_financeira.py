@@ -1,6 +1,7 @@
 import psycopg2
 import os
 from principais.rotas.mya import perguntar_mya
+from principais.schemas.mya import PerguntaMYA
 from fastapi import Request, APIRouter
 
 from principais.utils.autenticacao import obter_usuario_autenticado
@@ -228,4 +229,17 @@ def analise(
 
     return {
         "analise": resultado
+    }
+
+@router.post("/mya")
+def conversar_mya(
+    dados: PerguntaMYA,
+    request: Request
+    ):
+
+    usuario_id = obter_usuario_autenticado(request)
+    resposta = perguntar_mya(dados.pergunta)
+
+    return {
+        "resposta": resposta
     }
