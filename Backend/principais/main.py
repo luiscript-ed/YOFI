@@ -23,6 +23,8 @@ from principais.rotas.historico import router as historico_router
 from principais.rotas.movimentacoes import router as movimentacoes_router
 
 from principais.rotas.notificacao import router as notificacao_router
+from principais.rotas.me import router as me_router
+
 app = FastAPI(
     title="YOFI API",
     description="API do sistema financeiro YOFI",
@@ -60,7 +62,7 @@ app.include_router(orcamentos_router)
 app.include_router(analise_financeira_router)
 
 app.include_router(dashboard_router)
-app.include_router(mya_router)
+app.include_router(me_router)
 app.include_router(reservas_router)
 
 app.include_router(custos_router)
