@@ -28,7 +28,7 @@
 
 body.modo-claro {
 
-    --bg-main: #f7f5fb;
+    --bg-main: #efe9fc;
     --bg-sidebar: #ffffff;
 
     --bg-card: #ffffff;
@@ -1046,13 +1046,7 @@ body {
 
     overflow: hidden;
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--alert-bg) 0%,
-            var(--bg-input) 50%,
-            var(--bg-input) 100%
-        );
+    background: var(--bg-main);
 
     border: 1px solid #34313f;
 
@@ -1227,7 +1221,7 @@ body {
 
     border-radius: 20px;
 
-    background: #292733;
+    background: var(--bg-input);
 }
 
 .card-progress-fill {
@@ -1313,7 +1307,7 @@ body {
 
     border-radius: 9px;
 
-    background: rgba(19, 19, 27, 0.75);
+    background: var(--bg-card);
 
     color: var(--text-secondary);
 

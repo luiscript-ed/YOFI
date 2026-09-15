@@ -1024,7 +1024,7 @@ gap: 16px;
 }
 
 .budget-card {
-background: var(--bg-card);
+background: var(--bg-input);
 
 
 border: 1px solid var(--border);
@@ -1185,7 +1185,7 @@ margin-top: 17px;
 
 .budget-action {
 border: 1px solid var(--border);
-background: var(--alert-bg);
+background: var(--bg-card);
 
 color: var(--text-secondary);
 
@@ -1201,7 +1201,7 @@ transition: 0.2s;
 
 .budget-action:hover {
 color: var(--text-primary);
-background: #21212a;
+background: var(--bg-card-hover);
 }
 
 .budget-action.delete:hover {

@@ -1236,7 +1236,7 @@ body {
 
     border-radius: 9px;
 
-    background: var(--bg-card-hover);
+    background: var(--bg-card);
 
     color: var(--text-secondary);
 
@@ -1252,7 +1252,7 @@ body {
 }
 
 .goal-action:hover {
-    background: #21212a;
+    background: var(--bg-card-hover);
 
     color: var(--text-primary);
 }
