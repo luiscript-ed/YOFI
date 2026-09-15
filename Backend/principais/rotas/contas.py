@@ -2,7 +2,7 @@ from fastapi import HTTPException, Request, APIRouter
 from secundarios.notify import criar_notificacao
 
 from principais.banco import conectar
-from principais.schemas.conta import ContaCriar, ContaUpdate
+from principais.schemas.conta import ContaCreate, ContaUpdate
 from principais.utils.autenticacao import obter_usuario_autenticado
 
 
@@ -13,7 +13,7 @@ router = APIRouter(
 
 @router.post("")
 def criar_conta(
-    dados: ContaCriar,
+    dados: ContaCreate,
     request: Request
     ):
 
