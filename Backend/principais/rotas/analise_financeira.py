@@ -1,6 +1,6 @@
 import psycopg2
 import os
-from Backend.principais.rotas.mya import perguntar_mya
+from principais.rotas.mya import perguntar_mya
 from fastapi import Request, APIRouter
 
 from principais.utils.autenticacao import obter_usuario_autenticado
