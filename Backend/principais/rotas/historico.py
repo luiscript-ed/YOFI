@@ -1,4 +1,4 @@
-from fastapi import HTTPException, Request, APIRouter
+from fastapi import Request, APIRouter
 
 from principais.banco import conectar
 from principais.schemas.historico import HistoricoExportacaoCreate, HistoricoImportacaoCreate

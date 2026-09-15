@@ -1,4 +1,5 @@
 from fastapi import HTTPException, Request, APIRouter
+from secundarios.notify import criar_notificacao
 
 from principais.banco import conectar
 from principais.schemas.conta import ContaCriar, ContaUpdate
@@ -43,7 +44,7 @@ def criar_conta(
         criar_notificacao(
             usuario_id,
             "Conta criada",
-            f"A conta '{conta.nome}' foi criada com sucesso."
+            f"A conta '{dados.nome}' do tipo '{dados.tipo}' foi criada com sucesso."
         )
 
         return {

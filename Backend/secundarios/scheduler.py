@@ -1,5 +1,5 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from principais.analise_financeira import analisar_usuario
+from principais.rotas.analise_financeira import analisar_usuario
 from secundarios.notify import criar_notificacao
 import psycopg2
 import os

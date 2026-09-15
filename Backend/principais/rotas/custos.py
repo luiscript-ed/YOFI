@@ -5,7 +5,6 @@ import calendar
 from principais.banco import conectar
 from principais.schemas.custos import CustoRecorrenteCreate
 from principais.utils.autenticacao import obter_usuario_autenticado
-from principais.utils.notificacao import criar_notificacoes
 from secundarios.notify import criar_notificacao
 
 router = APIRouter(

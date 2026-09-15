@@ -1,9 +1,9 @@
 from fastapi import APIRouter, HTTPException
 
 from principais.banco import conectar
-from principais.schemas.usuario import CadastroUsuario
+from principais.schemas.usuario import UsuarioCadastro
 from principais.utils.seguranca import gerar_hash_senha
-
+import psycopg2
 
 router = APIRouter(
     prefix="/cadastro",
@@ -12,7 +12,7 @@ router = APIRouter(
 
 
 @router.post("/")
-def cadastrar_usuario(dados: CadastroUsuario):
+def cadastrar_usuario(dados: UsuarioCadastro):
 
     conexao = conectar()
     cursor = conexao.cursor()

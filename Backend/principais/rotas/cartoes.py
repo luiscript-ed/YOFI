@@ -232,7 +232,7 @@ def obter_cartao(
         conn.close()
 
 
-@router.put("/cartoes/{cartao_id}")
+@router.put("/{cartao_id}")
 def atualizar_cartao(
     cartao_id: int,
     cartao: CartaoUpdate,
@@ -290,7 +290,7 @@ def atualizar_cartao(
         conn.close()
 
 
-@router.delete("/cartoes/{cartao_id}")
+@router.delete("/{cartao_id}")
 def deletar_cartao(
     cartao_id: int,
     request: Request
@@ -349,7 +349,7 @@ def deletar_cartao(
         conn.close()
 
 
-@router.get("/cartoes/{cartao_id}/fatura")
+@router.get("/{cartao_id}/fatura")
 def fatura_cartao(
     cartao_id: int,
     mes: int,

@@ -16,7 +16,7 @@ def gerar_hash_senha(senha: str) -> str:
 def verificar_senha(
     senha: str,
     senha_hash: str
-) -> bool:
+    ) -> bool:
     """
     Verifica se a senha informada corresponde ao hash armazenado.
     """

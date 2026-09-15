@@ -4,7 +4,6 @@ from datetime import datetime
 from principais.banco import conectar
 from principais.schemas.reservas import TransacaoReservadaCreate
 from principais.utils.autenticacao import obter_usuario_autenticado
-from principais.utils.notificacao import criar_notificacao
 from secundarios.notify import criar_notificacao
 
 router = APIRouter(

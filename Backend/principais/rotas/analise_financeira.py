@@ -1,15 +1,9 @@
 import psycopg2
 import os
 from Backend.principais.rotas.mya import perguntar_mya
-from fastapi import HTTPException, Request, APIRouter
-from datetime import datetime, timezone, date
-import calendar
+from fastapi import Request, APIRouter
 
-from principais.banco import conectar
-from principais.schemas.custos import CustoRecorrenteCreate
 from principais.utils.autenticacao import obter_usuario_autenticado
-from principais.utils.notificacao import criar_notificacoes
-from secundarios.notify import criar_notificacao
 
 router = APIRouter(
     prefix="/",

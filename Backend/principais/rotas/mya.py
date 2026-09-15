@@ -279,10 +279,7 @@ PROMPT_SISTEMA = """
 
     Quando houver conflito entre potencial de lucro e segurança financeira, priorize a segurança e a sustentabilidade financeira.
 """
-
-
 import json
-
 
 async def perguntar_mya(
     pergunta,

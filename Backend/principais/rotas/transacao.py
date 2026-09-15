@@ -2,8 +2,8 @@ from fastapi import HTTPException, Request, APIRouter
 
 from principais.banco import conectar
 from principais.schemas.transacao import TransacaoCreate, TransacaoUpdate
+
 from principais.utils.autenticacao import obter_usuario_autenticado
-from principais.utils.notificacao import criar_notificacao
 from secundarios.notify import criar_notificacao
 
 router = APIRouter(

@@ -1,5 +1,4 @@
-from principais.utils.autenticacao import obter_usuario_autenticado, criar_token
-from pydantic import BaseModel, Field
+from principais.utils.autenticacao import criar_token
 from pwdlib import PasswordHash
 
 import os
@@ -7,7 +6,7 @@ import psycopg2
 
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
-from fastapi import HTTPException, Request, APIRouter, Response
+from fastapi import HTTPException, APIRouter, Response
 
 from principais.banco import conectar
 from principais.schemas.usuario import UsuarioLogin, GoogleLogin
