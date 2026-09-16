@@ -18,17 +18,17 @@
 - [ ] Adicionar autentificação com Microsoft
 - [ ] Adicionar autentificação com Aplle
 - [ ] Adicionar sistema de leitura de notificações no android
-- [ ] Adicionar Models no Schemas e as rotas na Rotas além de noti
+- [✔️] Adicionar Models no Schemas e as rotas na Rotas além de notify
 
 # 🔐 Melhorias de Segurança — YOFI
 
-- [ ] Implementar proteção contra CSRF, principalmente por usar cookies com `SameSite=None`.
+- [✔️] Implementar proteção contra CSRF, principalmente por usar cookies com `SameSite=None`.
 - [ ] Adicionar Rate Limiting nos endpoints de login, cadastro e principalmente `/mya`.
-- [ ] Validar rigorosamente todos os dados recebidos pelo frontend usando Pydantic.
-- [ ] Adicionar expiração/rotação adequada para tokens e sessões.
-- [ ] Implementar logout com invalidação adequada da sessão quando necessário.
-- [ ] Adicionar headers de segurança HTTP, como CSP, HSTS e `X-Content-Type-Options`.
-- [ ] Adicionar logs de segurança para tentativas suspeitas de login e acesso.
+- [✔️] Validar rigorosamente todos os dados recebidos pelo frontend usando Pydantic.
+- [✔️] Adicionar expiração/rotação adequada para tokens e sessões.
+- [] Implementar logout com invalidação adequada da sessão quando necessário.
+- [✔️] Adicionar headers de segurança HTTP, como CSP, HSTS e `X-Content-Type-Options`.
+- [✔️] Adicionar logs de segurança para tentativas suspeitas de login e acesso.
 
 # 🔐 Melhorias de Segurança Bem Futuras
 
@@ -39,7 +39,7 @@
 
 # 🗂️ Possível Separação do banco.py
 
-## 1. Estrutura principal
+## 1. ✔️ Estrutura principal
 
 Backend/
 │

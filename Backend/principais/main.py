@@ -1,8 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 
 # Rotas
-
 from principais.rotas.cadastro import router as cadastro_router
 from principais.rotas.login import router as login_router
 from principais.rotas.logout import router as logout_router
@@ -32,8 +32,30 @@ app = FastAPI(
 )
 
 # ==========================================
-# CORS
+# MIDDLEWARE DE SEGURANÇA GLOBAL
 # ==========================================
+
+@app.middleware("http")
+async def add_security_headers_and_force_https(request: Request, call_next):
+
+    host = request.headers.get("host", "")
+    if "localhost" not in host and "127.0.0.1" not in host:
+        if request.url.scheme == "http" or request.headers.get("x-forwarded-proto") == "http":
+            url = request.url.replace(scheme="https")
+            return RedirectResponse(url, status_code=307)
+
+    response = await call_next(request)
+    response.headers["X-Frame-Options"] = "DENY"
+    
+    if "localhost" not in host and "127.0.0.1" not in host:
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    
+    response.headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    
+    return response
+
+# CORS (Processado logo após as validações de segurança)
 
 app.add_middleware(
     CORSMiddleware,
@@ -41,14 +63,13 @@ app.add_middleware(
         "https://luiscript-ed.github.io"
     ],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
 )
 
 # =========================
 # ROTAS
 # =========================
-
 app.include_router(cadastro_router)
 app.include_router(login_router)
 app.include_router(logout_router)
