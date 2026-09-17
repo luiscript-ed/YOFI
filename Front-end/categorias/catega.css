@@ -143,43 +143,111 @@ letter-spacing: 0.5px;
 }
 
 .main-content {
-width: 100%;
-margin: 0 auto;
-padding: 34px 0 50px;
-display: flex;
+    width: 100%;
+    margin: 0 auto;
+    padding: 34px 0 50px;
+    display: flex;
 }
 
 .categorias {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-total {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.aba-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #1f1438;
+  border-radius: 8px;
 }
 
 .category {
-    width: 100%;
-    min-height: 70px;
+  width: 100%;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 24px;
+  background: #140c25;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.bolinha-cor {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: #2a1b4e;
+}
 
-    padding: 18px 24px;
-
-    background: #140c25;
-    border: 1px solid rgba(255, 255, 255, 0.541);
+.bolinha-cor img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 .nome-categoria {
-    color: white;
-    font-size: 16px;
+  color: #ffffff;
+  font-size: 16px;
+  flex-grow: 1;
+}
+
+.wrapper-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bolinha-transacoes {
+  background: #2a1b4e;
+  color: #a5a5a5;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
 }
 
 .valor-categoria {
-    color: white;
-    font-size: 16px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
 }
+
+/* IA */
+#alimentacao .bolinha-cor { background-color: #ff5252; }
+#transporte .bolinha-cor { background-color: #ff793f; }
+#moradia .bolinha-cor { background-color: #ffb142; }
+#lazer .bolinha-cor { background-color: #ffda79; }
+#saude .bolinha-cor { background-color: #ff5252; }
+#educacao .bolinha-cor { background-color: #34ace0; }
+#compras .bolinha-cor { background-color: #706fd3; }
+#assinaturas .bolinha-cor { background-color: #33d9b2; }
+#outros-despesas .bolinha-cor { background-color: #84817a; }
+
+/* IA, tá achando que eu sou patricia pra fazer um pôr um */
+#salario .bolinha-cor { background-color: #2ed573; }
+#freelance .bolinha-cor { background-color: #1e90ff; }
+#investimentos .bolinha-cor { background-color: #a55eea; }
+#presente .bolinha-cor { background-color: #ff6b81; }
+#reembolso .bolinha-cor { background-color: #eccc68; }
+#beneficios .bolinha-cor { background-color: #ffa502; }
+#vendas .bolinha-cor { background-color: #26de81; }
+#servicos .bolinha-cor { background-color: #4bcffa; }
+#outros-receitas .bolinha-cor { background-color: #a4b0be; }
 
 /* =========================================================
 INFORMAÇÕES DO USUÁRIO
@@ -200,71 +268,71 @@ margin-bottom: 8px;
     object-fit: cover;
 }
 
- /* Container que segura o efeito */
-            .userWarper {
-                position: relative;
-                padding: 3px; /* Define a espessura da borda animada */
-                border-radius: 50%; /* Garante cantos arredondados */
-                overflow: hidden; /* Esconde o excesso da div que vai girar */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 20%;
-                height: 20;
-                max-width: 70px;
-            }
+/* Container que segura o efeito */
+.userWarper {
+    position: relative;
+    padding: 3px; /* Define a espessura da borda animada */
+    border-radius: 50%; /* Garante cantos arredondados */
+    overflow: hidden; /* Esconde o excesso da div que vai girar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 20;
+    max-width: 70px;
+}
 
-            /* Pseudo-elemento com a animação roxa */
-            .userWarper::before {
-                content: '';
-                position: absolute;
-                top: -150%;
-                left: -150%;
-                width: 400%;
-                height: 400%;
-                background: conic-gradient(
-                    from 0deg,
-                    transparent 0%,
-                    #9333EA 20%, /* Roxo principal */
-                    #5f23f8 50%, /* Roxo claro brilhante */
-                    #5f23f8 70%, /* Roxo escuro */
-                    transparent 100%
-                );
-                animation: girarBorda 5s linear infinite;
-                z-index: 1;
-            }
+/* Pseudo-elemento com a animação roxa */
+.userWarper::before {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -150%;
+    width: 400%;
+    height: 400%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        #9333EA 20%, /* Roxo principal */
+        #5f23f8 50%, /* Roxo claro brilhante */
+        #5f23f8 70%, /* Roxo escuro */
+        transparent 100%
+    );
+    animation: girarBorda 5s linear infinite;
+    z-index: 1;
+}
 
-            /* Fundo interno para o conteúdo não ser coberto pela animação */
-            .userWarper > * {
-                position: relative;
-                z-index: 2;
-                width: 100%;
-                background: #15151d; /* Cor de fundo do seu card */
-                border: none;
-                border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
-            }
+/* Fundo interno para o conteúdo não ser coberto pela animação */
+.userWarper > * {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    background: #15151d; /* Cor de fundo do seu card */
+    border: none;
+    border-radius: 999px; /* Um pouco menor que o pai para encaixar perfeitamente */
+}
 
-            /* Animação de rotação */
-            @keyframes girarBorda {
-                0% {
-                    transform: rotate(10deg);
-                }
-                20% {
-                    transform: rotate(70deg);
-                } 
-                40% {
-                    transform: rotate(120deg);
-                }
-                60% {
-                    transform: rotate(170deg);
-                }
-                80% {
-                    transform: rotate(220deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
+/* Animação de rotação */
+@keyframes girarBorda {
+    0% {
+        transform: rotate(10deg);
+    }
+    20% {
+        transform: rotate(70deg);
+    } 
+    40% {
+        transform: rotate(120deg);
+    }
+    60% {
+        transform: rotate(170deg);
+    }
+    80% {
+        transform: rotate(220deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
             
 .user-info {
 min-width: 0;
