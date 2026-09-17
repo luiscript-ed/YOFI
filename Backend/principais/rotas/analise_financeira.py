@@ -124,6 +124,71 @@ def categorias_principais(usuario_id):
 
     return resultado
 
+# ROTAS PARA ABA DE CATEGORIAS
+
+def categorias_receitas(usuario_id):
+
+    conn = psycopg2.connect(
+    os.environ["DATABASE_URL"],
+    sslmode="require"
+    )
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT categoria,
+               SUM(valor)
+
+        FROM transacoes
+
+        WHERE usuario_id = %s
+        AND tipo = 'ganho'
+
+        GROUP BY categoria
+
+        """,
+        (usuario_id,)
+    )
+
+    resultado = cursor.fetchall()
+
+    conn.close()
+
+    return resultado
+
+def categorias_despesas(usuario_id):
+
+    conn = psycopg2.connect(
+    os.environ["DATABASE_URL"],
+    sslmode="require"
+    )
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT categoria,
+               SUM(valor)
+
+        FROM transacoes
+
+        WHERE usuario_id = %s
+        AND tipo = 'gasto'
+
+        GROUP BY categoria
+
+        """,
+        (usuario_id,)
+    )
+
+    resultado = cursor.fetchall()
+
+    conn.close()
+
+    return resultado
+
+
 async def gerar_dicas_economia(usuario_id):
 
     conn = psycopg2.connect(
@@ -185,6 +250,44 @@ async def gerar_dicas_economia(usuario_id):
         usuario_id=usuario_id,
 )
 
+
+@router.get("/categorias/receitas")
+def receitas_categorias(
+    request: Request
+    ):
+
+    usuario_id = obter_usuario_autenticado(request)
+
+    categoriasReceitas = categorias_receitas(usuario_id)
+
+    return {
+        "categorias": [
+            {
+                "categoria": c[0],
+                "valor": c[1]
+            }
+            for c in categoriasReceitas
+        ]
+    }
+
+@router.get("/categorias/despesas")
+def despesas_categorias(
+    request: Request
+    ):
+
+    usuario_id = obter_usuario_autenticado(request)
+
+    categoriasDespesas = categorias_despesas(usuario_id)
+
+    return {
+        "categorias": [
+            {
+                "categoria": c[0],
+                "valor": c[1]
+            }
+            for c in categoriasDespesas
+        ]
+    }
 
 @router.get("/categorias")
 def top_categorias(
