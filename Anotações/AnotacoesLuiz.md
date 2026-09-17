@@ -10,7 +10,7 @@
 # Anotações básicas
 
 - [ ] Quando for compactar para capacitor, atualize o CORS
-- [ ] Adicionar Captcha
+- [✔️] Adicionar Captcha
 - [ ] Verificação por email pra criar a conta
 - [ ] Definir funcionalidades novas da mya no YOFI corporate
 - [ ] Definir definitivamente novas funcionalidades do YOFI corporate
@@ -36,37 +36,3 @@
 - [ ] Pin com android studio
 - [ ] Facial com android studio
 - [ ] Vai ter versão apple? faceID
-
-# 🗂️ Possível Separação do banco.py
-
-## 1. ✔️ Estrutura principal
-
-Backend/
-│
-├── principais/
-│ ├── main.py
-│ ├── banco.py  
-│ │
-│ ├── auth/
-│ │ ├── login.py
-│ │ ├── cadastro.py
-│ │ └── google.py
-│ │
-│ ├── rotas/
-│ │ ├── contas.py
-│ │ ├── cartoes.py
-│ │ ├── transacoes.py
-│ │ ├── dashboard.py
-│ │ ├── objetivos.py
-│ │ ├── orcamentos.py
-│ │ ├── notificacoes.py
-│ │ ├── categorias.py
-│ │ └── mya.py
-│ │
-│ │
-│ └── utils/
-│ ├── autenticacao.py
-│ ├── seguranca.py
-│ └── validacoes.py
-│
-└── requirements.txt

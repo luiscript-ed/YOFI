@@ -48,8 +48,8 @@ FEITO
 - [ ] **#6** Alertas quando o gasto estiver próximo do limite de um orçamento.
 - [ ] **#7** Alertas quando um orçamento for ultrapassado.
 - [ ] **#8** Logout completo e encerramento da sessão.
-- [ ] **#9** reCAPTCHA.
-- [ ] **#10** Autenticação em duas etapas.
+- [✔️] **#9** reCAPTCHA.
+- [✔️] **#10** Autenticação em duas etapas.
 - [ ] **#11** PIN para acesso rápido.
 - [ ] **#12** Recuperação de senha.
 - [ ] **#13** Loading durante operações demoradas.
